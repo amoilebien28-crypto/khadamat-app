@@ -109,6 +109,13 @@
             justify-content: space-between;
             align-items: center;
         }
+        .auth-box {
+            background: var(--bg-main);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -119,14 +126,33 @@
         <!-- 1. الشاشة الرئيسية -->
         <div id="welcomeView" class="view active">
             <p style="text-align: center; margin-bottom: 25px; color: var(--text-gray);">اختر كيف تريد استخدام المنصة</p>
-            <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي (أريد تقديم خدماتي)</button>
+            <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي (تسجيل الدخول / تقديم خدماتي)</button>
             <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي (أحتاج خدمة صيانة)</button>
         </div>
 
-        <!-- 2. واجهة تسجيل الحرفي -->
-        <div id="artisanView" class="view">
-            <span class="back-link" id="backToHome1">← رجوع للرئيسية</span>
-            <h2 style="color: var(--accent-blue); margin-bottom: 20px; font-size: 20px;">تسجيل حساب حرفي جديد</h2>
+        <!-- 2. واجهة الدخول برقم الهاتف وكلمة السر للحرفي -->
+        <div id="artisanAuthView" class="view">
+            <span class="back-link" id="backToHome0">← رجوع للرئيسية</span>
+            <h2 style="color: var(--accent-blue); margin-bottom: 15px; font-size: 20px;">بوابة دخول الحرفيين</h2>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك وكلمة السر الخاصة بك للمتابعة.</p>
+            
+            <div class="auth-box">
+                <div class="form-group">
+                    <label>رقم الهاتف</label>
+                    <input type="text" id="authPhone" placeholder="+216 ...">
+                </div>
+                <div class="form-group">
+                    <label>كلمة السر</label>
+                    <input type="password" id="authPassword" placeholder="كلمة السر الخاصة بك">
+                </div>
+                <button type="button" class="btn" id="btnLoginArtisan" style="background: var(--accent-blue); color: var(--bg-main); margin-top: 10px;">دخول أو تسجيل جديد</button>
+            </div>
+        </div>
+
+        <!-- 3. واجهة تسجيل بيانات الحرفي الكاملة -->
+        <div id="artisanRegisterView" class="view">
+            <span class="back-link" id="backToAuth">← رجوع</span>
+            <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
                     <label>الاسم الكامل</label>
@@ -144,10 +170,6 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>رقم الهاتف (للاتصال والواتساب)</label>
-                    <input type="text" id="artisanPhone" required placeholder="+216 ...">
-                </div>
-                <div class="form-group">
                     <label>نبذة تعريفية أو رسالة للزبائن</label>
                     <textarea id="artisanBio" placeholder="مثال: خبرة 10 سنوات في صيانة وتركيب الكهرباء..."></textarea>
                 </div>
@@ -158,11 +180,11 @@
                     <input type="hidden" id="lat">
                     <input type="hidden" id="lng">
                 </div>
-                <button type="submit" class="btn" style="background: var(--accent-gold); color: var(--bg-main);">حفظ التسجيل (Enregistrer)</button>
+                <button type="submit" class="btn" style="background: var(--accent-gold); color: var(--bg-main);">حفظ وتحديث الملف (Enregistrer)</button>
             </form>
         </div>
 
-        <!-- 3. واجهة الزبون (البحث وقائمة الحرفيين) -->
+        <!-- 4. واجهة الزبون (البحث وقائمة الحرفيين) -->
         <div id="customerView" class="view">
             <span class="back-link" id="backToHome2">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">قائمة الحرفيين المتاحين</h2>
@@ -187,11 +209,12 @@
 
     </div>
 
-    <!-- جافاسكريبت التطبيق المرتبط مباشرة بالأزرار والذاكرة المحلية -->
     <script>
-        // ربط أزرار التنقل الرئيسية برمجياً لضمان الاستجابة الفورية
+        let currentArtisanPhone = "";
+
+        // التنقل بين الواجهات
         document.getElementById('btnArtisan').addEventListener('click', function() {
-            switchView('artisanView');
+            switchView('artisanAuthView');
         });
 
         document.getElementById('btnCustomer').addEventListener('click', function() {
@@ -199,18 +222,51 @@
             loadArtisans();
         });
 
-        document.getElementById('backToHome1').addEventListener('click', function() {
-            switchView('welcomeView');
-        });
-
-        document.getElementById('backToHome2').addEventListener('click', function() {
-            switchView('welcomeView');
-        });
+        document.getElementById('backToHome0').addEventListener('click', function() { switchView('welcomeView'); });
+        document.getElementById('backToAuth').addEventListener('click', function() { switchView('artisanAuthView'); });
+        document.getElementById('backToHome2').addEventListener('click', function() { switchView('welcomeView'); });
 
         function switchView(viewId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
         }
+
+        // التحقق من رقم الهاتف وكلمة السر لدخول الحرفي
+        document.getElementById('btnLoginArtisan').addEventListener('click', function() {
+            const phone = document.getElementById('authPhone').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+
+            if(!phone || !password) {
+                alert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!');
+                return;
+            }
+
+            currentArtisanPhone = phone;
+            let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
+            let existing = artisans.find(a => a.phone === phone);
+
+            if(existing) {
+                if(existing.password !== password) {
+                    alert('كلمة السر غير صحيحة لهذا الرقم!');
+                    return;
+                }
+                // تعبئة البيانات القديمة للتعديل
+                document.getElementById('artisanName').value = existing.name;
+                document.getElementById('artisanCategory').value = existing.category;
+                document.getElementById('artisanBio').value = existing.bio;
+                document.getElementById('lat').value = existing.lat;
+                document.getElementById('lng').value = existing.lng;
+                document.getElementById('locationStatus').value = "✅ موقعك مسجل مسبقاً";
+                alert('مرحباً بعودتك! تم التعرف على حسابك.');
+            } else {
+                // حساب جديد
+                document.getElementById('artisanForm').reset();
+                document.getElementById('locationStatus').value = "";
+                alert('هذا الرقم جديد، يرجى إكمال بيانات تسجيل حسابك.');
+            }
+
+            switchView('artisanRegisterView');
+        });
 
         // جلب الموقع الجغرافي GPS
         document.getElementById('btnGetLocation').addEventListener('click', function() {
@@ -230,12 +286,12 @@
             }, { enableHighAccuracy: true });
         });
 
-        // تسجيل الحرفي وحفظ بياناته
+        // حفظ أو تحديث بيانات الحرفي
         document.getElementById('artisanForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('artisanName').value;
             const category = document.getElementById('artisanCategory').value;
-            const phone = document.getElementById('artisanPhone').value;
+            const password = document.getElementById('authPassword').value;
             const bio = document.getElementById('artisanBio').value || "حرفي محترف جاهز لخدمتكم.";
             const lat = document.getElementById('lat').value;
             const lng = document.getElementById('lng').value;
@@ -246,12 +302,27 @@
             }
 
             let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
-            artisans.push({ name, category, phone, bio, lat, lng });
+            let index = artisans.findIndex(a => a.phone === currentArtisanPhone);
+
+            const artisanData = {
+                name,
+                category,
+                phone: currentArtisanPhone,
+                password,
+                bio,
+                lat,
+                lng
+            };
+
+            if(index >= 0) {
+                artisans[index] = artisanData; // تحديث
+            } else {
+                artisans.push(artisanData); // إضافة جديد
+            }
+
             localStorage.setItem('localArtisans', JSON.stringify(artisans));
 
-            alert('مبارك! تم تسجيلك بنجاح في المنصة.');
-            this.reset();
-            document.getElementById('locationStatus').value = "";
+            alert('مبارك! تم حفظ ملفك بنجاح في المنصة.');
             switchView('welcomeView');
         });
 
