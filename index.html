@@ -235,16 +235,16 @@
         <div id="welcomeView" class="card welcome-screen">
             <h2>مرحباً بك في المنصة</h2>
             <p>اختر كيف تريد استخدام التطبيق لنبدأ فوراً</p>
-            <button class="btn-choice btn-artisan" onclick="showView('artisanRegisterView')">🛠️ أنا حرفي (أريد تقديم خدماتي)</button>
-            <button class="btn-choice btn-customer" onclick="showView('customerView')">🔍 أبحث عن حرفي (صيانة منزلية)</button>
+            <button class="btn-choice btn-artisan" onclick="window.showView('artisanRegisterView')">🛠️ أنا حرفي (أريد تقديم خدماتي)</button>
+            <button class="btn-choice btn-customer" onclick="window.showView('customerView')">🔍 أبحث عن حرفي (صيانة منزلية)</button>
             <div style="margin-top: 25px;">
-                <button onclick="showView('adminView')" style="background:none; border:none; color:var(--gray); cursor:pointer; text-decoration:underline; font-size:13px;">⚙️ لوحة تحكم المشرف (إضافة اختصاصات)</button>
+                <button onclick="window.showView('adminView')" style="background:none; border:none; color:var(--gray); cursor:pointer; text-decoration:underline; font-size:13px;">⚙️ لوحة تحكم المشرف (إضافة اختصاصات)</button>
             </div>
         </div>
 
         <!-- 2. واجهة تسجيل الحرفي -->
         <div id="artisanRegisterView" class="card hidden">
-            <a class="back-link" onclick="showView('welcomeView')">← رجوع للخلف</a>
+            <a class="back-link" onclick="window.showView('welcomeView')">← رجوع للخلف</a>
             <h2 style="margin-bottom: 15px; font-size: 20px;">تسجيل حساب حرفي جديد</h2>
             <form id="artisanForm">
                 <div class="form-group">
@@ -278,7 +278,7 @@
 
         <!-- 3. واجهة الزبون (البحث حسب الاختصاص) -->
         <div id="customerView" class="card hidden">
-            <a class="back-link" onclick="showView('welcomeView')">← رجوع للخلف</a>
+            <a class="back-link" onclick="window.showView('welcomeView')">← رجوع للخلف</a>
             <h2 style="margin-bottom: 15px; font-size: 20px;">ابحث عن حرفي حسب الاختصاص</h2>
             <div class="form-group">
                 <label>اختر نوع الخدمة المطلوبة</label>
@@ -294,7 +294,7 @@
 
         <!-- 4. لوحة تحكم المشرف (Admin) -->
         <div id="adminView" class="card hidden">
-            <a class="back-link" onclick="showView('welcomeView')">← رجوع للخلف</a>
+            <a class="back-link" onclick="window.showView('welcomeView')">← رجوع للخلف</a>
             <h2 style="margin-bottom: 15px; font-size: 20px;">إدارة الأقسام والاختصاصات</h2>
             <div class="admin-box">
                 <p style="font-size:13px; color:#b45309; margin-bottom:10px;">أضف أي اختصاص جديد ليظهر مباشرة في القوائم.</p>
