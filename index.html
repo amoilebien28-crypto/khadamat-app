@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دليل الحرفيين والخدمات المنزلية</title>
+    <title>منصة الحرفيين - أقرب حرفي لمنزلك</title>
     <style>
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #10b981;
-            --bg-color: #f8fafc;
-            --text-color: #1e293b;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --gray: #64748b;
         }
         * {
             box-sizing: border-box;
@@ -19,25 +20,25 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: var(--bg);
+            color: var(--text);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 25px 20px;
+            padding: 24px 20px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
         header h1 {
-            font-size: 26px;
-            margin-bottom: 8px;
+            font-size: 24px;
+            margin-bottom: 6px;
         }
         header p {
-            font-size: 15px;
+            font-size: 14px;
             opacity: 0.9;
         }
         .container {
@@ -49,66 +50,65 @@
         }
         .card {
             background: white;
-            padding: 25px;
+            padding: 24px;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
             margin-bottom: 20px;
-            transition: transform 0.3s ease;
         }
         .welcome-screen {
             text-align: center;
-            padding: 30px 10px;
+            padding: 40px 10px;
         }
         .welcome-screen h2 {
             font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--text-color);
+            margin-bottom: 12px;
+            color: var(--text);
         }
         .welcome-screen p {
-            color: #64748b;
+            color: var(--gray);
             margin-bottom: 30px;
             font-size: 15px;
         }
         .btn-choice {
             display: block;
             width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
+            padding: 16px;
+            margin-bottom: 16px;
             border: none;
             border-radius: 12px;
             font-size: 17px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
         .btn-artisan {
             background-color: #eff6ff;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
         .btn-artisan:hover {
-            background-color: var(--primary-color);
+            background-color: var(--primary);
             color: white;
         }
         .btn-customer {
-            background-color: var(--accent-color);
+            background-color: var(--success);
             color: white;
         }
         .btn-customer:hover {
             background-color: #059669;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-size: 14px;
             font-weight: 600;
             color: #475569;
         }
-        .form-group input, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid #cbd5e1;
@@ -116,8 +116,12 @@
             font-size: 15px;
             background-color: #f8fafc;
         }
+        .form-group textarea {
+            resize: vertical;
+            height: 80px;
+        }
         .btn-submit {
-            background-color: var(--primary-color);
+            background-color: var(--primary);
             color: white;
             border: none;
             padding: 14px;
@@ -129,18 +133,20 @@
             transition: background 0.2s;
         }
         .btn-submit:hover {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-dark);
         }
         .btn-gps {
             background-color: #f1f5f9;
             color: #334155;
-            border: 1px dashed var(--primary-color);
-            padding: 10px;
-            border-radius: 8px;
+            border: 1px dashed var(--primary);
+            padding: 12px;
+            border-radius: 10px;
             width: 100%;
             cursor: pointer;
             font-size: 14px;
+            font-weight: 600;
             margin-top: 5px;
+            text-align: center;
         }
         .btn-gps:hover {
             background-color: #e2e8f0;
@@ -149,46 +155,58 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            margin-top: 15px;
         }
         .artisan-card {
             background: white;
             padding: 18px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-right: 5px solid var(--primary-color);
+            border-right: 5px solid var(--primary);
         }
         .artisan-info h4 {
             font-size: 17px;
-            color: var(--text-color);
+            color: var(--text);
             margin-bottom: 4px;
         }
         .artisan-info p {
             font-size: 13px;
-            color: #64748b;
+            color: var(--gray);
             margin-bottom: 3px;
+        }
+        .artisan-bio {
+            font-size: 13px;
+            color: #334155;
+            margin-top: 6px;
+            font-style: italic;
+            background: #f1f5f9;
+            padding: 6px 10px;
+            border-radius: 6px;
         }
         .actions-btns {
             display: flex;
+            flex-direction: column;
             gap: 8px;
         }
         .btn-action {
-            padding: 8px 12px;
+            padding: 8px 14px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 13px;
             text-decoration: none;
             font-weight: bold;
             color: white;
+            text-align: center;
         }
-        .btn-call { background-color: var(--primary-color); }
+        .btn-call { background-color: var(--primary); }
         .btn-whatsapp { background-color: #25d366; }
         .back-link {
             display: inline-block;
             margin-bottom: 15px;
-            color: var(--primary-color);
+            color: var(--primary);
             text-decoration: none;
             font-weight: bold;
             font-size: 14px;
@@ -200,27 +218,27 @@
             border: 1px solid #fde68a;
             padding: 15px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🛠️ دليل الحرفيين الذكي</h1>
-        <p>أقرب حرفي لمنزلك بضغطة زر</p>
+        <h1>🛠️ منصة الحرفيين الذكية</h1>
+        <p>أقرب صانع وحرفي لمنزلك بضغطة زر</p>
     </header>
 
     <div class="container">
         
-        <!-- 1. واجهة الترحيب الأولى -->
+        <!-- 1. الشاشة الرئيسية -->
         <div id="welcomeView" class="card welcome-screen">
-            <h2>مرحباً بك! كيف تريد استخدام التطبيق؟</h2>
-            <p>اختر الطريقة المناسبة لك لنبدأ فوراً</p>
+            <h2>مرحباً بك في المنصة</h2>
+            <p>اختر كيف تريد استخدام التطبيق لنبدأ فوراً</p>
             <button class="btn-choice btn-artisan" onclick="showView('artisanRegisterView')">🛠️ أنا حرفي (أريد تقديم خدماتي)</button>
             <button class="btn-choice btn-customer" onclick="showView('customerView')">🔍 أبحث عن حرفي (صيانة منزلية)</button>
-            <div style="margin-top: 20px;">
-                <button onclick="showView('adminView')" style="background:none; border:none; color:#64748b; cursor:pointer; text-decoration:underline; font-size:13px;">⚙️ لوحة تحكم المشرف (إضافة اختصاصات)</button>
+            <div style="margin-top: 25px;">
+                <button onclick="showView('adminView')" style="background:none; border:none; color:var(--gray); cursor:pointer; text-decoration:underline; font-size:13px;">⚙️ لوحة تحكم المشرف (إضافة اختصاصات)</button>
             </div>
         </div>
 
@@ -236,7 +254,7 @@
                 <div class="form-group">
                     <label>اختصاص المهنة</label>
                     <select id="categorySelect" required>
-                        <!-- سيتم تعبئتها ديناميكياً -->
+                        <!-- تعبئة ديناميكية -->
                     </select>
                 </div>
                 <div class="form-group">
@@ -244,38 +262,42 @@
                     <input type="text" id="phone" required placeholder="+216 ...">
                 </div>
                 <div class="form-group">
-                    <label>الموقع الجغرافي (GPS)</label>
-                    <button type="button" class="btn-gps" onclick="getLocation()">📍 تحديد موقعي الحالي أوتوماتيكياً</button>
-                    <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#e2e8f0; color:#475569;" placeholder="لم يتم تحديد الموقع بعد">
+                    <label>نبذة تعريفية أو رسالة للزبائن</label>
+                    <textarea id="bio" placeholder="مثال: خبرة 10 سنوات في صيانة وتركيب الكهرباء المنزلية..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>الموقع الجغرافي الحالي (GPS)</label>
+                    <button type="button" class="btn-gps" onclick="getLocation()">📍 اضغط هنا لتحديد موقعك أوتوماتيكياً</button>
+                    <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#e2e8f0; color:#475569; font-size:13px;" placeholder="لم يتم تحديد الموقع بعد">
                     <input type="hidden" id="lat">
                     <input type="hidden" id="lng">
                 </div>
-                <button type="submit" class="btn-submit">حفظ وتسجيل الحساب</button>
+                <button type="submit" class="btn-submit">تسجيل الحساب (Enregistrer)</button>
             </form>
         </div>
 
-        <!-- 3. واجهة الزبون (البحث عن الحرفيين) -->
+        <!-- 3. واجهة الزبون (البحث حسب الاختصاص) -->
         <div id="customerView" class="card hidden">
             <a class="back-link" onclick="showView('welcomeView')">← رجوع للخلف</a>
-            <h2 style="margin-bottom: 15px; font-size: 20px;">ابحث عن أقرب حرفي</h2>
+            <h2 style="margin-bottom: 15px; font-size: 20px;">ابحث عن حرفي حسب الاختصاص</h2>
             <div class="form-group">
-                <label>اختر الاختصاص المطلُوب</label>
+                <label>اختر نوع الخدمة المطلوبة</label>
                 <select id="filterCategory" onchange="filterArtisans()">
-                    <option value="all">🌐 كل الاختصاصات المتاحة</option>
+                    <!-- تعبئة ديناميكية -->
                 </select>
             </div>
             
             <div class="artisans-list" id="artisansContainer">
-                <p style="text-align:center; color:#888;">جاري تحميل الحرفيين القريبين...</p>
+                <p style="text-align:center; color:var(--gray);">جاري تحميل الحرفيين...</p>
             </div>
         </div>
 
         <!-- 4. لوحة تحكم المشرف (Admin) -->
         <div id="adminView" class="card hidden">
             <a class="back-link" onclick="showView('welcomeView')">← رجوع للخلف</a>
-            <h2 style="margin-bottom: 15px; font-size: 20px;">إدارة الاختصاصات والأقسام</h2>
+            <h2 style="margin-bottom: 15px; font-size: 20px;">إدارة الأقسام والاختصاصات</h2>
             <div class="admin-box">
-                <p style="font-size:13px; color:#92400e; margin-bottom:10px;">يمكنك إضافة أي اختصاص جديد ليظهر مباشرة في قائمة الحرفيين والبحث.</p>
+                <p style="font-size:13px; color:#b45309; margin-bottom:10px;">أضف أي اختصاص جديد ليظهر مباشرة في القوائم.</p>
                 <div class="form-group">
                     <label>اسم الاختصاص الجديد</label>
                     <input type="text" id="newCategoryName" placeholder="مثال: تركيب كاميرات مراقبة">
@@ -286,7 +308,7 @@
 
     </div>
 
-    <!-- برمجة تطبيق الويب والربط بـ Firebase -->
+    <!-- برمجة التطبيق والربط بـ Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase.app.js";
         import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase.firestore.js";
@@ -304,10 +326,10 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // قائمة الاختصاصات الافتراضية الشاملة
+        // قائمة الاختصاصات الشاملة
         let categories = [
-            "سباك (إصلاح صحي)",
             "كهربائي (منزلي وصناعي)",
+            "سباك (إصلاح صحي)",
             "نجار (عام)",
             "مختص في نجارة الألمنيوم",
             "حداد وهياكل معدنية",
@@ -328,13 +350,12 @@
             }
         }
 
-        // تعبئة قوائم الاختصاصات
         function populateCategories() {
             const selectReg = document.getElementById('categorySelect');
             const selectFilter = document.getElementById('filterCategory');
             
             selectReg.innerHTML = '';
-            selectFilter.innerHTML = '<option value="all">🌐 كل الاختصاصات المتاحة</option>';
+            selectFilter.innerHTML = '<option value="all">🌐 عرض كل الاختصاصات المتاحة</option>';
             
             categories.forEach(cat => {
                 selectReg.innerHTML += `<option value="${cat}">${cat}</option>`;
@@ -343,7 +364,6 @@
         }
         populateCategories();
 
-        // إضافة اختصاص جديد عبر الأدمين
         window.addNewCategory = function() {
             const name = document.getElementById('newCategoryName').value.trim();
             if(name && !categories.includes(name)) {
@@ -356,38 +376,45 @@
             }
         }
 
-        // سحب الموقع الجغرافي أوتوماتيكياً عبر GPS
+        // سحب الموقع الجغرافي بضغطة زر
         window.getLocation = function() {
             const status = document.getElementById('locationStatus');
             if(!navigator.geolocation) {
                 alert('متصفحك لا يدعم تحديد الموقع الجغرافي');
                 return;
             }
-            status.value = "جاري تحديد موقعك بدقة...";
+            status.value = "جاري طلب إذن الموقع وتحديده...";
             navigator.geolocation.getCurrentPosition((position) => {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
                 document.getElementById('lat').value = lat;
                 document.getElementById('lng').value = lng;
-                status.value = `تم تحديد الموقع بنجاح (خط العرض: ${lat.toFixed(2)}, خط الطول: ${lng.toFixed(2)})`;
-            }, () => {
-                status.value = "فشل تحديد الموقع. الرجاء السماح للمتصفح بالوصول للموقع.";
-            });
+                status.value = `✅ تم تحديد موقعك بنجاح (الإحداثيات مسجلة)`;
+            }, (error) => {
+                status.value = "❌ فشل تحديد الموقع. يجيب السماح للمتصفح بالوصول للموقع.";
+                alert('الرجاء السماح للتطبيق بالوصول إلى موقعك الجغرافي.');
+            }, { enableHighAccuracy: true });
         }
 
-        // تسجيل الحرفي في قاعدة البيانات
+        // تسجيل الحرفي
         const form = document.getElementById('artisanForm');
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('name').value;
             const category = document.getElementById('categorySelect').value;
             const phone = document.getElementById('phone').value;
-            const lat = document.getElementById('lat').value || 0;
-            const lng = document.getElementById('lng').value || 0;
+            const bio = document.getElementById('bio').value || "حرفي محترف جاهز للخدمة.";
+            const lat = document.getElementById('lat').value || "";
+            const lng = document.getElementById('lng').value || "";
+
+            if(!lat || !lng) {
+                alert('الرجاء الضغط على زر تحديد الموقع الجغرافي (GPS) أولاً!');
+                return;
+            }
 
             try {
                 await addDoc(collection(db, "artisans"), {
-                    name, category, phone, lat, lng,
+                    name, category, phone, bio, lat, lng,
                     createdAt: new Date()
                 });
                 alert('مبارك! تم تسجيك بنجاح في المنصة.');
@@ -396,7 +423,7 @@
                 showView('welcomeView');
             } catch (error) {
                 console.error(error);
-                alert('حدث خطأ أثناء التسجيل.');
+                alert('حدث خطأ أثناء التسجيل. تأكد من اتصال الإنترنت.');
             }
         });
 
@@ -404,7 +431,7 @@
         let allArtisansData = [];
         async function loadArtisansFromDB() {
             const container = document.getElementById('artisansContainer');
-            container.innerHTML = '<p style="text-align:center; color:#888;">جاري البحث عن أقرب الحرفيين...</p>';
+            container.innerHTML = '<p style="text-align:center; color:var(--gray);">جاري جلب الحرفيين المتاحين...</p>';
             try {
                 const querySnapshot = await getDocs(collection(db, "artisans"));
                 allArtisansData = [];
@@ -422,22 +449,24 @@
             container.innerHTML = '';
             
             if(list.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#888;">لا يوجد حرفيون مسجلون حالياً.</p>';
+                container.innerHTML = '<p style="text-align:center; color:var(--gray); padding:20px;">لا يوجد حرفيون مسجلون في هذا الاختصاص حالياً.</p>';
                 return;
             }
 
             list.forEach(artisan => {
+                const cleanPhone = artisan.phone.replace(/[^0-9]/g, '');
                 const card = document.createElement('div');
                 card.className = 'artisan-card';
                 card.innerHTML = `
-                    <div class="artisan-info">
+                    <div class="artisan-info" style="flex: 1;">
                         <h4>${artisan.name}</h4>
-                        <p><b>المهنة:</b> ${artisan.category}</p>
-                        <p style="color:#059669; font-size:12px;">📍 متاح في منطقتك</p>
+                        <p style="color:var(--primary); font-weight:600;">🛠️ ${artisan.category}</p>
+                        <div class="artisan-bio">"${artisan.bio}"</div>
+                        <p style="color:var(--success); font-size:12px; margin-top:6px;">📍 متاح في منطقتك</p>
                     </div>
                     <div class="actions-btns">
                         <a href="tel:${artisan.phone}" class="btn-action btn-call">📞 اتصال</a>
-                        <a href="https://wa.me/${artisan.phone.replace(/[^0-9]/g, '')}" target="_blank" class="btn-action btn-whatsapp">💬 واتساب</a>
+                        <a href="https://wa.me/${cleanPhone}" target="_blank" class="btn-action btn-whatsapp">💬 واتساب</a>
                     </div>
                 `;
                 container.appendChild(card);
