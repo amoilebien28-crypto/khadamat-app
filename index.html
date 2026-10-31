@@ -42,34 +42,42 @@
             border-right: 4px solid #007bff;
             padding-right: 10px;
         }
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-        .category-card {
+        .card {
             background: white;
-            padding: 15px;
-            text-align: center;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            cursor: pointer;
-            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
         }
-        .category-card:hover {
-            transform: translateY(-3px);
-            background: #eef2ff;
-            border: 1px solid #007bff;
+        .form-group {
+            margin-bottom: 15px;
         }
-        .category-card span {
-            font-size: 28px;
+        .form-group label {
             display: block;
             margin-bottom: 5px;
-        }
-        .category-card h3 {
             font-size: 14px;
-            color: #333;
+            color: #555;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .btn-submit {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+        .btn-submit:hover {
+            background-color: #0056b3;
         }
         .artisans-list {
             display: flex;
@@ -95,10 +103,6 @@
             color: #666;
             margin-bottom: 5px;
         }
-        .rating {
-            color: #f39c12;
-            font-size: 13px;
-        }
         .btn-call {
             background-color: #28a745;
             color: white;
@@ -107,7 +111,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 13px;
-            transition: background 0.2s;
+            text-decoration: none;
         }
         .btn-call:hover {
             background-color: #218838;
@@ -118,72 +122,121 @@
 
     <header>
         <h1>🛠️ منصة الحرفيين والخدمات</h1>
-        <p>اختر الخدمة المطلوبة واعرف أقرب صانع متوفر</p>
+        <p>اطلب حرفياً أو سجل كحرفي لتقديم خدماتك</p>
     </header>
 
     <div class="container">
-        <h2 class="section-title">الأقسام الرئيسية</h2>
         
-        <div class="categories-grid">
-            <div class="category-card" onclick="filterArtisans('سباك')">
-                <span>🔧</span>
-                <h3>سباكة</h3>
-            </div>
-            <div class="category-card" onclick="filterArtisans('كهربائي')">
-                <span>⚡</span>
-                <h3>كهرباء</h3>
-            </div>
-            <div class="category-card" onclick="filterArtisans('نجار')">
-                <span>🪚</span>
-                <h3>نجارة</h3>
-            </div>
+        <!-- قسم تسجيل حرفي جديد -->
+        <div class="card">
+            <h2 class="section-title">هل أنت حرفي؟ انضم إلينا</h2>
+            <form id="artisanForm">
+                <div class="form-group">
+                    <label>الاسم الكامل</label>
+                    <input type="text" id="name" required placeholder="مثال: محمد الصادق">
+                </div>
+                <div class="form-group">
+                    <label>اختصاص المهنة</label>
+                    <select id="category">
+                        <option value="سباك">سباك</option>
+                        <option value="كهربائي">كهربائي</option>
+                        <option value="نجار">نجار</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف</label>
+                    <input type="text" id="phone" required placeholder="+216 ...">
+                </div>
+                <button type="submit" class="btn-submit">تسجيل الحرفي</button>
+            </form>
         </div>
 
-        <h2 class="section-title">الحرفيون المتاحون الآن</h2>
+        <!-- قسم عرض الحرفيين من Firebase -->
+        <h2 class="section-title">الحرفيون المسجلون</h2>
         <div class="artisans-list" id="artisansContainer">
-            <!-- سيتم تعبئة الحرفيين هنا بواسطة الجافاسكريبت -->
+            <p style="text-align:center; color:#888;">جاري تحميل الحرفيين...</p>
         </div>
     </div>
 
-    <script>
-        // قاعدة بيانات وهمية تجريبية للحرفيين
-        const artisans = [
-            { id: 1, name: 'محمد الصادق', category: 'سباك', rating: '⭐ 4.8 (12 تقييم)', phone: '+216 20 000 000' },
-            { id: 2, name: 'علي بن صالح', category: 'كهربائي', rating: '⭐ 4.9 (24 تقييم)', phone: '+216 50 000 000' },
-            { id: 3, name: 'سليم العروسي', category: 'نجار', rating: '⭐ 4.7 (9 تقييمات)', phone: '+216 98 000 000' }
-        ];
+    <!-- ربط فايربيس عبر CDN -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase.app.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase.firestore.js";
 
-        function displayArtisans(list) {
-            const container = document.getElementById('artisansContainer');
-            container.innerHTML = '';
-            
-            if(list.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#888;">لا يوجد حرفيون متاحون في هذا القسم حالياً.</p>';
-                return;
+        // إعدادات Firebase الخاصة بك
+        const firebaseConfig = {
+            apiKey: "AIzaSyDGCsBbBxpQb-NSe0j4NYs7xLLQB3PKxAQ",
+            authDomain: "khadamat-app-17da5.firebaseapp.com",
+            projectId: "khadamat-app-17da5",
+            storageBucket: "khadamat-app-17da5.firebasestorage.app",
+            messagingSenderId: "629609591825",
+            appId: "1:629609591825:web:531395ee84debd0c2d2db0",
+            measurementId: "G-2BKYRRGSV3"
+        };
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const form = document.getElementById('artisanForm');
+        const container = document.getElementById('artisansContainer');
+
+        // حفظ الحرفي في قاعدة البيانات عند الضغط على زر التسجيل
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const category = document.getElementById('category').value;
+            const phone = document.getElementById('phone').value;
+
+            try {
+                await addDoc(collection(db, "artisans"), {
+                    name: name,
+                    category: category,
+                    phone: phone,
+                    createdAt: new Date()
+                });
+                alert('تم تسجيل الحرفي بنجاح!');
+                form.reset();
+                loadArtisans();
+            } catch (error) {
+                console.error("خطأ في الإضافة: ", error);
+                alert('حدث خطأ أثناء التسجيل.');
             }
+        });
 
-            list.forEach(artisan => {
-                const card = document.createElement('div');
-                card.className = 'artisan-card';
-                card.innerHTML = `
-                    <div class="artisan-info">
-                        <h4>${artisan.name} (${artisan.category})</h4>
-                        <p class="rating">${artisan.rating}</p>
-                    </div>
-                    <button class="btn-call" onclick="alert('اتصال بـ ${artisan.name} على الرقم: ${artisan.phone}')">اتصل الآن</button>
-                `;
-                container.appendChild(card);
-            });
+        // جلب وعرض الحرفيين من قاعدة البيانات
+        async function loadArtisans() {
+            container.innerHTML = '<p style="text-align:center; color:#888;">جاري التحديث...</p>';
+            try {
+                const querySnapshot = await getDocs(collection(db, "artisans"));
+                container.innerHTML = '';
+                
+                if (querySnapshot.empty) {
+                    container.innerHTML = '<p style="text-align:center; color:#888;">لا يوجد حرفيون مسجلون حالياً.</p>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const artisan = doc.data();
+                    const card = document.createElement('div');
+                    card.className = 'artisan-card';
+                    card.innerHTML = `
+                        <div class="artisan-info">
+                            <h4>${artisan.name} (${artisan.category})</h4>
+                            <p class="rating">⭐ جديد</p>
+                        </div>
+                        <a href="tel:${artisan.phone}" class="btn-call">اتصل (${artisan.phone})</a>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error("خطأ في الجلب: ", error);
+                container.innerHTML = '<p style="text-align:center; color:red;">تعذر تحميل بيانات الحرفيين.</p>';
+            }
         }
 
-        function filterArtisans(category) {
-            const filtered = artisans.filter(a => a.category === category);
-            displayArtisans(filtered);
-        }
-
-        // عرض الكل عند فتح الصفحة لأول مرة
-        displayArtisans(artisans);
+        // تشغيل الدالة عند فتح الصفحة
+        loadArtisans();
     </script>
-
 </body>
 </html>
