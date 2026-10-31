@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق الخدمات المنزلية - دليل الحرفيين</title>
+    <title>دليل الحرفيين والخدمات المنزلية</title>
     <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #10b981;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+        }
         * {
             box-sizing: border-box;
             margin: 0;
@@ -12,72 +19,131 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #f4f7f6;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         header {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 20px;
+            padding: 25px 20px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
+            font-size: 26px;
+            margin-bottom: 8px;
         }
         header p {
-            font-size: 14px;
+            font-size: 15px;
             opacity: 0.9;
         }
         .container {
             max-width: 600px;
             margin: 20px auto;
             padding: 15px;
-        }
-        .section-title {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #444;
-            border-right: 4px solid #007bff;
-            padding-right: 10px;
+            width: 100%;
+            flex: 1;
         }
         .card {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .welcome-screen {
+            text-align: center;
+            padding: 30px 10px;
+        }
+        .welcome-screen h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        .welcome-screen p {
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+        .btn-choice {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn-artisan {
+            background-color: #eff6ff;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        .btn-artisan:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-customer {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        .btn-customer:hover {
+            background-color: #059669;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-size: 14px;
-            color: #555;
+            font-weight: 600;
+            color: #475569;
         }
         .form-group input, .form-group select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 15px;
+            background-color: #f8fafc;
         }
         .btn-submit {
-            background-color: #007bff;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 14px;
+            border-radius: 10px;
             cursor: pointer;
             width: 100%;
             font-size: 16px;
+            font-weight: bold;
             transition: background 0.2s;
         }
         .btn-submit:hover {
-            background-color: #0056b3;
+            background-color: var(--secondary-color);
+        }
+        .btn-gps {
+            background-color: #f1f5f9;
+            color: #334155;
+            border: 1px dashed var(--primary-color);
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .btn-gps:hover {
+            background-color: #e2e8f0;
         }
         .artisans-list {
             display: flex;
@@ -86,50 +152,82 @@
         }
         .artisan-card {
             background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-right: 5px solid var(--primary-color);
         }
         .artisan-info h4 {
-            font-size: 16px;
-            color: #222;
-            margin-bottom: 3px;
+            font-size: 17px;
+            color: var(--text-color);
+            margin-bottom: 4px;
         }
         .artisan-info p {
             font-size: 13px;
-            color: #666;
-            margin-bottom: 5px;
+            color: #64748b;
+            margin-bottom: 3px;
         }
-        .btn-call {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+        .actions-btns {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-action {
+            padding: 8px 12px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 13px;
             text-decoration: none;
+            font-weight: bold;
+            color: white;
         }
-        .btn-call:hover {
-            background-color: #218838;
+        .btn-call { background-color: var(--primary-color); }
+        .btn-whatsapp { background-color: #25d366; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .hidden { display: none; }
+        .admin-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🛠️ منصة الحرفيين والخدمات</h1>
-        <p>اطلب حرفياً أو سجل كحرفي لتقديم خدماتك</p>
+        <h1>🛠️ دليل الحرفيين الذكي</h1>
+        <p>أقرب حرفي لمنزلك بضغطة زر</p>
     </header>
 
     <div class="container">
         
-        <!-- قسم تسجيل حرفي جديد -->
-        <div class="card">
-            <h2 class="section-title">هل أنت حرفي؟ انضم إلينا</h2>
+        <!-- 1. واجهة الترحيب الأولى -->
+        <div id="welcomeView" class="card welcome-screen">
+            <h2>مرحباً بك! كيف تريد استخدام التطبيق؟</h2>
+            <p>اختر الطريقة المناسبة لك لنبدأ فوراً</p>
+            <button class="btn-choice btn-artisan" onclick="showView('artisanRegisterView')">🛠️ أنا حرفي (أريد تقديم خدماتي)</button>
+            <button class="btn-choice btn-customer" onclick="showView('customerView')">🔍 أبحث عن حرفي (صيانة منزلية)</button>
+            <div style="margin-top: 20px;">
+                <button onclick="showView('adminView')" style="background:none; border:none; color:#64748b; cursor:pointer; text-decoration:underline; font-size:13px;">⚙️ لوحة تحكم المشرف (إضافة اختصاصات)</button>
+            </div>
+        </div>
+
+        <!-- 2. واجهة تسجيل الحرفي -->
+        <div id="artisanRegisterView" class="card hidden">
+            <a class="back-link" onclick="showView('welcomeView')">← رجوع للخلف</a>
+            <h2 style="margin-bottom: 15px; font-size: 20px;">تسجيل حساب حرفي جديد</h2>
             <form id="artisanForm">
                 <div class="form-group">
                     <label>الاسم الكامل</label>
@@ -137,33 +235,62 @@
                 </div>
                 <div class="form-group">
                     <label>اختصاص المهنة</label>
-                    <select id="category">
-                        <option value="سباك">سباك</option>
-                        <option value="كهربائي">كهربائي</option>
-                        <option value="نجار">نجار</option>
+                    <select id="categorySelect" required>
+                        <!-- سيتم تعبئتها ديناميكياً -->
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>رقم الهاتف</label>
+                    <label>رقم الهاتف (للاتصال والواتساب)</label>
                     <input type="text" id="phone" required placeholder="+216 ...">
                 </div>
-                <button type="submit" class="btn-submit">تسجيل الحرفي</button>
+                <div class="form-group">
+                    <label>الموقع الجغرافي (GPS)</label>
+                    <button type="button" class="btn-gps" onclick="getLocation()">📍 تحديد موقعي الحالي أوتوماتيكياً</button>
+                    <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#e2e8f0; color:#475569;" placeholder="لم يتم تحديد الموقع بعد">
+                    <input type="hidden" id="lat">
+                    <input type="hidden" id="lng">
+                </div>
+                <button type="submit" class="btn-submit">حفظ وتسجيل الحساب</button>
             </form>
         </div>
 
-        <!-- قسم عرض الحرفيين من Firebase -->
-        <h2 class="section-title">الحرفيون المسجلون</h2>
-        <div class="artisans-list" id="artisansContainer">
-            <p style="text-align:center; color:#888;">جاري تحميل الحرفيين...</p>
+        <!-- 3. واجهة الزبون (البحث عن الحرفيين) -->
+        <div id="customerView" class="card hidden">
+            <a class="back-link" onclick="showView('welcomeView')">← رجوع للخلف</a>
+            <h2 style="margin-bottom: 15px; font-size: 20px;">ابحث عن أقرب حرفي</h2>
+            <div class="form-group">
+                <label>اختر الاختصاص المطلُوب</label>
+                <select id="filterCategory" onchange="filterArtisans()">
+                    <option value="all">🌐 كل الاختصاصات المتاحة</option>
+                </select>
+            </div>
+            
+            <div class="artisans-list" id="artisansContainer">
+                <p style="text-align:center; color:#888;">جاري تحميل الحرفيين القريبين...</p>
+            </div>
         </div>
+
+        <!-- 4. لوحة تحكم المشرف (Admin) -->
+        <div id="adminView" class="card hidden">
+            <a class="back-link" onclick="showView('welcomeView')">← رجوع للخلف</a>
+            <h2 style="margin-bottom: 15px; font-size: 20px;">إدارة الاختصاصات والأقسام</h2>
+            <div class="admin-box">
+                <p style="font-size:13px; color:#92400e; margin-bottom:10px;">يمكنك إضافة أي اختصاص جديد ليظهر مباشرة في قائمة الحرفيين والبحث.</p>
+                <div class="form-group">
+                    <label>اسم الاختصاص الجديد</label>
+                    <input type="text" id="newCategoryName" placeholder="مثال: تركيب كاميرات مراقبة">
+                </div>
+                <button type="button" class="btn-submit" onclick="addNewCategory()">إضافة الاختصاص للقائمة</button>
+            </div>
+        </div>
+
     </div>
 
-    <!-- ربط فايربيس عبر CDN -->
+    <!-- برمجة تطبيق الويب والربط بـ Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase.app.js";
         import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase.firestore.js";
 
-        // إعدادات Firebase الخاصة بك
         const firebaseConfig = {
             apiKey: "AIzaSyDGCsBbBxpQb-NSe0j4NYs7xLLQB3PKxAQ",
             authDomain: "khadamat-app-17da5.firebaseapp.com",
@@ -174,69 +301,158 @@
             measurementId: "G-2BKYRRGSV3"
         };
 
-        // تهيئة Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        const form = document.getElementById('artisanForm');
-        const container = document.getElementById('artisansContainer');
+        // قائمة الاختصاصات الافتراضية الشاملة
+        let categories = [
+            "سباك (إصلاح صحي)",
+            "كهربائي (منزلي وصناعي)",
+            "نجار (عام)",
+            "مختص في نجارة الألمنيوم",
+            "حداد وهياكل معدنية",
+            "إصلاح الآلات والأجهزة الكهربائية",
+            "مكيفات وهواء معالج",
+            "دهان وبناء وترميم"
+        ];
 
-        // حفظ الحرفي في قاعدة البيانات عند الضغط على زر التسجيل
+        window.showView = function(viewId) {
+            document.getElementById('welcomeView').classList.add('hidden');
+            document.getElementById('artisanRegisterView').classList.add('hidden');
+            document.getElementById('customerView').classList.add('hidden');
+            document.getElementById('adminView').classList.add('hidden');
+            
+            document.getElementById(viewId).classList.remove('hidden');
+            if(viewId === 'customerView') {
+                loadArtisansFromDB();
+            }
+        }
+
+        // تعبئة قوائم الاختصاصات
+        function populateCategories() {
+            const selectReg = document.getElementById('categorySelect');
+            const selectFilter = document.getElementById('filterCategory');
+            
+            selectReg.innerHTML = '';
+            selectFilter.innerHTML = '<option value="all">🌐 كل الاختصاصات المتاحة</option>';
+            
+            categories.forEach(cat => {
+                selectReg.innerHTML += `<option value="${cat}">${cat}</option>`;
+                selectFilter.innerHTML += `<option value="${cat}">${cat}</option>`;
+            });
+        }
+        populateCategories();
+
+        // إضافة اختصاص جديد عبر الأدمين
+        window.addNewCategory = function() {
+            const name = document.getElementById('newCategoryName').value.trim();
+            if(name && !categories.includes(name)) {
+                categories.push(name);
+                populateCategories();
+                document.getElementById('newCategoryName').value = '';
+                alert('تمت إضافة الاختصاص بنجاح!');
+            } else {
+                alert('الرجاء إدخال اسم صحيح أو الاختصاص موجود مسبقاً.');
+            }
+        }
+
+        // سحب الموقع الجغرافي أوتوماتيكياً عبر GPS
+        window.getLocation = function() {
+            const status = document.getElementById('locationStatus');
+            if(!navigator.geolocation) {
+                alert('متصفحك لا يدعم تحديد الموقع الجغرافي');
+                return;
+            }
+            status.value = "جاري تحديد موقعك بدقة...";
+            navigator.geolocation.getCurrentPosition((position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                document.getElementById('lat').value = lat;
+                document.getElementById('lng').value = lng;
+                status.value = `تم تحديد الموقع بنجاح (خط العرض: ${lat.toFixed(2)}, خط الطول: ${lng.toFixed(2)})`;
+            }, () => {
+                status.value = "فشل تحديد الموقع. الرجاء السماح للمتصفح بالوصول للموقع.";
+            });
+        }
+
+        // تسجيل الحرفي في قاعدة البيانات
+        const form = document.getElementById('artisanForm');
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('name').value;
-            const category = document.getElementById('category').value;
+            const category = document.getElementById('categorySelect').value;
             const phone = document.getElementById('phone').value;
+            const lat = document.getElementById('lat').value || 0;
+            const lng = document.getElementById('lng').value || 0;
 
             try {
                 await addDoc(collection(db, "artisans"), {
-                    name: name,
-                    category: category,
-                    phone: phone,
+                    name, category, phone, lat, lng,
                     createdAt: new Date()
                 });
-                alert('تم تسجيل الحرفي بنجاح!');
+                alert('مبارك! تم تسجيك بنجاح في المنصة.');
                 form.reset();
-                loadArtisans();
+                document.getElementById('locationStatus').value = "";
+                showView('welcomeView');
             } catch (error) {
-                console.error("خطأ في الإضافة: ", error);
+                console.error(error);
                 alert('حدث خطأ أثناء التسجيل.');
             }
         });
 
-        // جلب وعرض الحرفيين من قاعدة البيانات
-        async function loadArtisans() {
-            container.innerHTML = '<p style="text-align:center; color:#888;">جاري التحديث...</p>';
+        // جلب الحرفيين وعرضهم للزبون
+        let allArtisansData = [];
+        async function loadArtisansFromDB() {
+            const container = document.getElementById('artisansContainer');
+            container.innerHTML = '<p style="text-align:center; color:#888;">جاري البحث عن أقرب الحرفيين...</p>';
             try {
                 const querySnapshot = await getDocs(collection(db, "artisans"));
-                container.innerHTML = '';
-                
-                if (querySnapshot.empty) {
-                    container.innerHTML = '<p style="text-align:center; color:#888;">لا يوجد حرفيون مسجلون حالياً.</p>';
-                    return;
-                }
-
+                allArtisansData = [];
                 querySnapshot.forEach((doc) => {
-                    const artisan = doc.data();
-                    const card = document.createElement('div');
-                    card.className = 'artisan-card';
-                    card.innerHTML = `
-                        <div class="artisan-info">
-                            <h4>${artisan.name} (${artisan.category})</h4>
-                            <p class="rating">⭐ جديد</p>
-                        </div>
-                        <a href="tel:${artisan.phone}" class="btn-call">اتصل (${artisan.phone})</a>
-                    `;
-                    container.appendChild(card);
+                    allArtisansData.push(doc.data());
                 });
+                displayArtisansList(allArtisansData);
             } catch (error) {
-                console.error("خطأ في الجلب: ", error);
-                container.innerHTML = '<p style="text-align:center; color:red;">تعذر تحميل بيانات الحرفيين.</p>';
+                container.innerHTML = '<p style="text-align:center; color:red;">تعذر الاتصال بقاعدة البيانات.</p>';
             }
         }
 
-        // تشغيل الدالة عند فتح الصفحة
-        loadArtisans();
+        function displayArtisansList(list) {
+            const container = document.getElementById('artisansContainer');
+            container.innerHTML = '';
+            
+            if(list.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#888;">لا يوجد حرفيون مسجلون حالياً.</p>';
+                return;
+            }
+
+            list.forEach(artisan => {
+                const card = document.createElement('div');
+                card.className = 'artisan-card';
+                card.innerHTML = `
+                    <div class="artisan-info">
+                        <h4>${artisan.name}</h4>
+                        <p><b>المهنة:</b> ${artisan.category}</p>
+                        <p style="color:#059669; font-size:12px;">📍 متاح في منطقتك</p>
+                    </div>
+                    <div class="actions-btns">
+                        <a href="tel:${artisan.phone}" class="btn-action btn-call">📞 اتصال</a>
+                        <a href="https://wa.me/${artisan.phone.replace(/[^0-9]/g, '')}" target="_blank" class="btn-action btn-whatsapp">💬 واتساب</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        window.filterArtisans = function() {
+            const selectedCat = document.getElementById('filterCategory').value;
+            if(selectedCat === 'all') {
+                displayArtisansList(allArtisansData);
+            } else {
+                const filtered = allArtisansData.filter(a => a.category === selectedCat);
+                displayArtisansList(filtered);
+            }
+        }
     </script>
 </body>
 </html>
