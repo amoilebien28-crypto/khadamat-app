@@ -267,7 +267,7 @@
                 </div>
                 <div class="form-group">
                     <label>الموقع الجغرافي الحالي (GPS)</label>
-                    <button type="button" class="btn-gps" onclick="getLocation()">📍 اضغط هنا لتحديد موقعك أوتوماتيكياً</button>
+                    <button type="button" class="btn-gps" onclick="window.getLocation()">📍 اضغط هنا لتحديد موقعك أوتوماتيكياً</button>
                     <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#e2e8f0; color:#475569; font-size:13px;" placeholder="لم يتم تحديد الموقع بعد">
                     <input type="hidden" id="lat">
                     <input type="hidden" id="lng">
@@ -282,7 +282,7 @@
             <h2 style="margin-bottom: 15px; font-size: 20px;">ابحث عن حرفي حسب الاختصاص</h2>
             <div class="form-group">
                 <label>اختر نوع الخدمة المطلوبة</label>
-                <select id="filterCategory" onchange="filterArtisans()">
+                <select id="filterCategory" onchange="window.filterArtisans()">
                     <!-- تعبئة ديناميكية -->
                 </select>
             </div>
@@ -302,7 +302,7 @@
                     <label>اسم الاختصاص الجديد</label>
                     <input type="text" id="newCategoryName" placeholder="مثال: تركيب كاميرات مراقبة">
                 </div>
-                <button type="button" class="btn-submit" onclick="addNewCategory()">إضافة الاختصاص للقائمة</button>
+                <button type="button" class="btn-submit" onclick="window.addNewCategory()">إضافة الاختصاص للقائمة</button>
             </div>
         </div>
 
@@ -326,7 +326,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // قائمة الاختصاصات الشاملة
         let categories = [
             "كهربائي (منزلي وصناعي)",
             "سباك (إصلاح صحي)",
@@ -338,6 +337,7 @@
             "دهان وبناء وترميم"
         ];
 
+        // ربط الدوال بالنافذة العامة لضمان عمل الأزرار
         window.showView = function(viewId) {
             document.getElementById('welcomeView').classList.add('hidden');
             document.getElementById('artisanRegisterView').classList.add('hidden');
@@ -376,7 +376,6 @@
             }
         }
 
-        // سحب الموقع الجغرافي بضغطة زر
         window.getLocation = function() {
             const status = document.getElementById('locationStatus');
             if(!navigator.geolocation) {
@@ -391,12 +390,11 @@
                 document.getElementById('lng').value = lng;
                 status.value = `✅ تم تحديد موقعك بنجاح (الإحداثيات مسجلة)`;
             }, (error) => {
-                status.value = "❌ فشل تحديد الموقع. يجيب السماح للمتصفح بالوصول للموقع.";
+                status.value = "❌ فشل تحديد الموقع. يجب السماح للمتصفح بالوصول للموقع.";
                 alert('الرجاء السماح للتطبيق بالوصول إلى موقعك الجغرافي.');
             }, { enableHighAccuracy: true });
         }
 
-        // تسجيل الحرفي
         const form = document.getElementById('artisanForm');
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -420,14 +418,13 @@
                 alert('مبارك! تم تسجيك بنجاح في المنصة.');
                 form.reset();
                 document.getElementById('locationStatus').value = "";
-                showView('welcomeView');
+                window.showView('welcomeView');
             } catch (error) {
                 console.error(error);
                 alert('حدث خطأ أثناء التسجيل. تأكد من اتصال الإنترنت.');
             }
         });
 
-        // جلب الحرفيين وعرضهم للزبون
         let allArtisansData = [];
         async function loadArtisansFromDB() {
             const container = document.getElementById('artisansContainer');
