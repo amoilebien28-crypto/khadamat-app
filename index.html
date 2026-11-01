@@ -123,7 +123,7 @@
         
         .phone-input-group {
             display: flex;
-            direction: ltr; /* لترتيب المفتاح التونسي على اليمين والكتبة على اليسار أو العكس حسب الرغبة */
+            direction: ltr;
         }
         .phone-prefix {
             background: #e2e8f0;
@@ -308,7 +308,7 @@
 
         <!-- 2. بوابة دخول الحرفي أو الأدمن -->
         <div id="artisanAuthView" class="view">
-            <span class="back-link" id="backToHome0">← رجوع للرئيسية</span>
+            <span class="back-link" onclick="switchView('welcomeView')">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-blue); margin-bottom: 12px; font-size: 20px;">بوابة دخول الحرفيين</h2>
             <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك (8 أرقام) وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
             
@@ -330,7 +330,7 @@
 
         <!-- 3. لوحة تحكم الأدمن -->
         <div id="adminView" class="view">
-            <span class="back-link" id="backToHomeAdmin">← تسجيل الخروج للرئيسية</span>
+            <span class="back-link" onclick="switchView('welcomeView')">← تسجيل الخروج للرئيسية</span>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
             
             <div class="add-category-box">
@@ -355,7 +355,7 @@
 
         <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي -->
         <div id="artisanRegisterView" class="view">
-            <span class="back-link" id="backToAuth">← رجوع للبوابة</span>
+            <span class="back-link" onclick="switchView('artisanAuthView')">← رجوع للبوابة</span>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;" id="formTitle">تعديل أو استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
@@ -393,7 +393,7 @@
 
         <!-- 5. واجهة الزبون -->
         <div id="customerView" class="view">
-            <span class="back-link" id="backToHome2">← رجوع للرئيسية</span>
+            <span class="back-link" onclick="switchView('welcomeView')">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">اختر التخصص المطلوب للبحث</h2>
             
             <div class="categories-grid" id="customerCategoriesGrid">
@@ -496,14 +496,10 @@
             await loadArtisans('all');
         });
 
-        document.getElementById('backToHome0').addEventListener('click', function() { switchView('welcomeView'); window.initFirebaseData(); });
-        document.getElementById('backToAuth').addEventListener('click', function() { switchView('artisanAuthView'); });
-        document.getElementById('backToHome2').addEventListener('click', function() { switchView('welcomeView'); window.initFirebaseData(); });
-        document.getElementById('backToHomeAdmin').addEventListener('click', function() { switchView('welcomeView'); window.initFirebaseData(); });
-
         function switchView(viewId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
+            window.initFirebaseData();
         }
 
         function isValidPhoneNumber(phone) {
@@ -531,7 +527,6 @@
                 return;
             }
 
-            // دمج الرمز الدولي التونسي أوتوماتيكي ليصبح الرقم كاملاً وثابتاً (مثال: 21698123456)
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             if(cleanNum.startsWith('216')) {
                 currentArtisanPhone = cleanNum;
@@ -775,7 +770,6 @@
                 
                 alert('مبارك! تم حفظ وتحديث ملفك بنجاح في قاعدة بيانات Firebase.');
                 switchView('welcomeView');
-                window.initFirebaseData();
             } catch(err) {
                 alert('❌ حدث خطأ أثناء الحفظ في قاعدة البيانات.');
             }
@@ -808,7 +802,6 @@
 
                 container.innerHTML = '';
                 artisans.forEach(a => {
-                    // دمج الرقم مع مفتاح تونس 216 تلقائياً ليفتح الواتساب مباشرة دون أي عائق
                     let cleanPhone = a.phone ? a.phone.replace(/[^0-9]/g, '') : '';
                     if(!cleanPhone.startsWith('216')) {
                         cleanPhone = '216' + cleanPhone;
