@@ -157,7 +157,6 @@
         }
         .btn-gps:hover { background-color: #e2e8f0; }
         
-        /* زر رجوع ملون وواضح جداً */
         .back-btn {
             background: #e0f2fe;
             color: #0369a1;
@@ -173,9 +172,7 @@
             margin-bottom: 20px;
             transition: 0.2s;
         }
-        .back-btn:hover {
-            background: #bae6fd;
-        }
+        .back-btn:hover { background: #bae6fd; }
 
         .categories-grid {
             display: grid;
@@ -243,7 +240,6 @@
             border-radius: 14px;
             margin-bottom: 20px;
         }
-        /* جدول الإحصائيات في الأدمن */
         .stats-table {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -267,7 +263,58 @@
             font-weight: bold;
             color: var(--accent-blue);
         }
+
+        #customModal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: modalScale 0.2s ease;
+        }
+        @keyframes modalScale {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-text {
+            font-size: 16px;
+            color: var(--text-main);
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .modal-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        .modal-btn:hover { opacity: 0.9; }
     </style>
+
+    <div id="customModal">
+        <div class="modal-content">
+            <div class="modal-text" id="modalMessage">رسالة التنبيه هنا</div>
+            <button class="modal-btn" onclick="closeModal()">حسناً</button>
+        </div>
+    </div>
 
     <!-- Firebase SDKs -->
     <script type="module">
@@ -296,15 +343,12 @@
 
         window.initFirebaseData = async function() {
             try {
-                // جلب الحرفيين
                 const artisansSnapshot = await getDocs(collection(db, "artisans"));
                 let artisansCount = artisansSnapshot.size;
 
-                // جلب الزبائن/الباحثين
                 const clientsSnapshot = await getDocs(collection(db, "clients"));
                 let clientsCount = clientsSnapshot.size;
 
-                // تحديث العدادات في الشاشة الرئيسية
                 const badge = document.getElementById('statsBadge');
                 if(badge) {
                     if(artisansCount > 0) {
@@ -314,7 +358,6 @@
                     }
                 }
 
-                // تحديث جدول إحصائيات الأدمن إذا كان مفتوحاً
                 const statArtisansEl = document.getElementById('statArtisansCount');
                 const statClientsEl = document.getElementById('statClientsCount');
                 if(statArtisansEl) statArtisansEl.innerText = artisansCount;
@@ -345,14 +388,14 @@
 
             <div class="info-box">
                 <h3>💡 كيف تعمل منصة صنّاع؟</h3>
-                <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك، حدد موقعك بدقة عبر الـ GPS، وأضف اختصاصك.</p>
+                <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك، حدد موقعك بدقة عبر الـ GPS، وأضف اختصاصك ومنطقتك.</p>
                 <p><b>للباحثين عن الخدمات:</b> أدخل رقم هاتفك للمتابعة، واضغط مباشرة على التخصص لتتواصل مع الحرفي فوراً.</p>
             </div>
         </div>
 
         <!-- 1.5 نافذة تسجيل الزبون الباحث -->
         <div id="customerAuthView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView')">⬅️ العودة إلى الرئيسية</button>
+            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: var(--accent-green); margin-bottom: 12px; font-size: 20px;">دخول الباحثين عن الخدمات</h2>
             <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك (8 أرقام) للوصول المباشر لقائمة الحرفيين.</p>
             
@@ -370,7 +413,7 @@
 
         <!-- 2. بوابة دخول الحرفي أو الأدمن -->
         <div id="artisanAuthView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView')">⬅️ العودة إلى الرئيسية</button>
+            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: var(--accent-blue); margin-bottom: 12px; font-size: 20px;">بوابة دخول الحرفيين</h2>
             <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
             
@@ -390,12 +433,11 @@
             </div>
         </div>
 
-        <!-- 3. لوحة تحكم الأدمن (مع جدول الإحصائيات) -->
+        <!-- 3. لوحة تحكم الأدمن -->
         <div id="adminView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView')">⬅️ تسجيل الخروج للرئيسية</button>
+            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
             
-            <!-- جدول الإحصائيات الجديد -->
             <div class="stats-table">
                 <div class="stat-card">
                     <h4>🛠️ إجمالي الحرفيين</h4>
@@ -429,7 +471,7 @@
 
         <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي -->
         <div id="artisanRegisterView" class="view">
-            <button class="back-btn" onclick="switchView('artisanAuthView')">⬅️ العودة إلى البوابة</button>
+            <button class="back-btn" onclick="switchView('artisanAuthView', true)">⬅️ العودة إلى البوابة</button>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;" id="formTitle">تعديل أو استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
@@ -439,6 +481,10 @@
                 <div class="form-group">
                     <label>الاسم العملي أو اللقب (الذي يُعرفك به الناس)</label>
                     <input type="text" id="artisanWorkName" required placeholder="مثال: عمي صالح للكهرباء">
+                </div>
+                <div class="form-group">
+                    <label>المنطقة / المدينة (مثال: حومة السوق، ميدون...)</label>
+                    <input type="text" id="artisanCity" required placeholder="مثال: حومة السوق، دجربة">
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف المعتمد</label>
@@ -467,7 +513,7 @@
 
         <!-- 5. واجهة الزبون -->
         <div id="customerView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView')">⬅️ العودة إلى الرئيسية</button>
+            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">اختر التخصص المطلوب للبحث</h2>
             
             <div class="categories-grid" id="customerCategoriesGrid">
@@ -491,6 +537,15 @@
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
+
+        function showCustomAlert(message) {
+            document.getElementById('modalMessage').innerText = message;
+            document.getElementById('customModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('customModal').style.display = 'none';
+        }
 
         let defaultCategories = [
             "كهربائي (منزلي وصناعي)",
@@ -547,18 +602,18 @@
             let input = document.getElementById('newCatInput');
             let val = input.value.trim();
             if(!val) {
-                alert('الرجاء كتابة اسم التخصص الجديد!');
+                showCustomAlert('الرجاء كتابة اسم التخصص الجديد!');
                 return;
             }
             let cats = getCategories();
             if(cats.includes(val)) {
-                alert('هذا التخصص موجود بالفعل!');
+                showCustomAlert('هذا التخصص موجود بالفعل!');
                 return;
             }
             cats.push(val);
             saveCategories(cats);
             input.value = '';
-            alert('✅ تمت إضافة التخصص الجديد بنجاح وأصبح متاحاً فوراً!');
+            showCustomAlert('✅ تمت إضافة التخصص الجديد بنجاح وأصبح متاحاً فوراً!');
         };
 
         document.getElementById('btnArtisan').addEventListener('click', function() {
@@ -572,13 +627,13 @@
         document.getElementById('btnLoginCustomer').addEventListener('click', async function() {
             let phoneInput = document.getElementById('customerPhone').value.trim();
             if(!phoneInput) {
-                alert('الرجاء إدخال رقم هاتفك للمتابعة!');
+                showCustomAlert('الرجاء إدخال رقم هاتفك للمتابعة!');
                 return;
             }
 
             let clean = phoneInput.replace(/[^0-9]/g, '');
             if(!/^\d{8,12}$/.test(clean)) {
-                alert('⚠️ رقم الهاتف غير صالح!');
+                showCustomAlert('⚠️ رقم الهاتف غير صالح!');
                 return;
             }
 
@@ -597,11 +652,25 @@
             await loadArtisans('all');
         });
 
-        function switchView(viewId) {
+        function switchView(viewId, pushHistory = true) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
+            
+            if (pushHistory) {
+                history.pushState({ view: viewId }, "", "#" + viewId);
+            }
             window.initFirebaseData();
         }
+
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.view) {
+                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+                document.getElementById(event.state.view).classList.add('active');
+            } else {
+                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+                document.getElementById('welcomeView').classList.add('active');
+            }
+        });
 
         function isValidPhoneNumber(phone) {
             let clean = phone.replace(/[^0-9]/g, '');
@@ -613,7 +682,7 @@
             const password = document.getElementById('authPassword').value.trim();
 
             if(!phoneInput || !password) {
-                alert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!');
+                showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!');
                 return;
             }
 
@@ -624,7 +693,7 @@
             }
 
             if (!isValidPhoneNumber(phoneInput)) {
-                alert('⚠️ عذراً، يجب إدخال رقم هاتف صحيح ومكون من أرقام فقط (مثال: 98123456)!');
+                showCustomAlert('⚠️ عذراً، يجب إدخال رقم هاتف صحيح ومكون من أرقام فقط (مثال: 98123456)!');
                 return;
             }
 
@@ -647,28 +716,29 @@
 
                 if(existing) {
                     if(existing.password !== password) {
-                        alert('كلمة السر غير صحيحة لهذا الرقم!');
+                        showCustomAlert('كلمة السر غير صحيحة لهذا الرقم!');
                         return;
                     }
                     document.getElementById('artisanName').value = existing.name || '';
                     document.getElementById('artisanWorkName').value = existing.workName || '';
+                    document.getElementById('artisanCity').value = existing.city || '';
                     document.getElementById('artisanCategory').value = existing.category || getCategories()[0];
                     document.getElementById('artisanBio').value = existing.bio || '';
                     document.getElementById('lat').value = existing.lat || '';
                     document.getElementById('lng').value = existing.lng || '';
                     document.getElementById('locationStatus').value = "✅ موقعك مسجل مسبقاً (يمكنك إعادة تحديثه إن أردت)";
                     document.getElementById('formTitle').innerText = "تعديل بيانات ملفك الشخصي";
-                    alert('مرحباً بك! تم التعرف على حسابك ويمكنك تعديل بياناتك.');
+                    showCustomAlert('مرحباً بك! تم التعرف على حسابك ويمكنك تعديل بياناتك.');
                 } else {
                     document.getElementById('artisanForm').reset();
                     document.getElementById('displayPhone').value = '+' + currentArtisanPhone;
                     document.getElementById('locationStatus').value = "";
                     document.getElementById('formTitle').innerText = "إنشاء ملف حرفي جديد";
-                    alert('هذا الرقم جديد، يرجى إكمال بيانات ملفك الشخصي.');
+                    showCustomAlert('هذا الرقم جديد، يرجى إكمال بيانات ملفك الشخصي.');
                 }
                 switchView('artisanRegisterView');
             } catch(e) {
-                alert('حدث خطأ أثناء الاتصال بقاعدة البيانات.');
+                showCustomAlert('حدث خطأ أثناء الاتصال بقاعدة البيانات.');
             }
         });
 
@@ -681,7 +751,7 @@
                 });
 
                 if(artisans.length === 0) {
-                    alert('⚠️ لا توجد بيانات حرفيين لتصديرها حالياً.');
+                    showCustomAlert('⚠️ لا توجد بيانات حرفيين لتصديرها حالياً.');
                     return;
                 }
 
@@ -694,7 +764,7 @@
                 a.click();
                 URL.revokeObjectURL(url);
             } catch(e) {
-                alert('❌ فشل تحميل النسخة الاحتياطية.');
+                showCustomAlert('❌ فشل تحميل النسخة الاحتياطية.');
             }
         };
 
@@ -714,12 +784,12 @@
                         }
                         loadAdminPanel();
                         window.initFirebaseData();
-                        alert('✅ تم استعادة ومزامنة بيانات الحرفيين مع Firebase بنجاح تام!');
+                        showCustomAlert('✅ تم استعادة ومزامنة بيانات الحرفيين مع Firebase بنجاح تام!');
                     } else {
-                        alert('❌ ملف غير صالح.');
+                        showCustomAlert('❌ ملف غير صالح.');
                     }
                 } catch(err) {
-                    alert('❌ حدث خطأ أثناء قراءة الملف.');
+                    showCustomAlert('❌ حدث خطأ أثناء قراءة الملف.');
                 }
             };
             reader.readAsText(file);
@@ -728,8 +798,6 @@
         async function loadAdminPanel() {
             const container = document.getElementById('adminArtisansList');
             container.innerHTML = '<p style="text-align:center;">جاري التحميل...</p>';
-            
-            // تحديث الإحصائيات أيضاً عند فتح الأدمن
             window.initFirebaseData();
 
             try {
@@ -748,7 +816,7 @@
                         <div class="admin-card">
                             <div style="flex: 1;">
                                 <h3 style="color: var(--accent-gold); font-size: 16px;">${displayName}</h3>
-                                <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📞 +${a.phone} | 🔑 ${a.password}</p>
+                                <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📍 ${a.city || 'غير محدد'} | 📞 +${a.phone}</p>
                                 <p style="color: var(--text-gray); font-size: 12px; margin-top: 4px;">"${a.bio}"</p>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
@@ -768,7 +836,7 @@
             let newPhoneInput = prompt("أدخل رقم الهاتف الجديد (بدون مفتاح):", rawNum);
             if(!newPhoneInput) return;
             if(!isValidPhoneNumber(newPhoneInput)) {
-                alert('⚠️ رقم الهاتف غير صالح!');
+                showCustomAlert('⚠️ رقم الهاتف غير صالح!');
                 return;
             }
             let newPassword = prompt("أدخل كلمة السر الجديدة:", currentPassword);
@@ -798,12 +866,12 @@
                         await window.deleteDoc(window.doc(window.db, "artisans", oldDocId));
                     }
 
-                    alert('✅ تم تعديل بيانات الحرفي بنجاح!');
+                    showCustomAlert('✅ تم تعديل بيانات الحرفي بنجاح!');
                     loadAdminPanel();
                     window.initFirebaseData();
                 }
             } catch(e) {
-                alert('❌ فشل تعديل البيانات.');
+                showCustomAlert('❌ فشل تعديل البيانات.');
             }
         };
 
@@ -811,11 +879,11 @@
             if(confirm('هل أنت متأكد من حذف هذا الحرفي نهائياً من قاعدة البيانات؟')) {
                 try {
                     await window.deleteDoc(window.doc(window.db, "artisans", docId));
-                    alert('تم الحذف بنجاح.');
+                    showCustomAlert('تم الحذف بنجاح.');
                     loadAdminPanel();
                     window.initFirebaseData();
                 } catch(e) {
-                    alert('فشل الحذف.');
+                    showCustomAlert('فشل الحذف.');
                 }
             }
         };
@@ -823,7 +891,7 @@
         document.getElementById('btnGetLocation').addEventListener('click', function() {
             const status = document.getElementById('locationStatus');
             if(!navigator.geolocation) {
-                alert('متصفحك لا يدعم تحديد الموقع الجغرافي');
+                showCustomAlert('متصفحك لا يدعم تحديد الموقع الجغرافي');
                 return;
             }
             status.value = "جاري طلب إذن الموقع وتحديده...";
@@ -833,7 +901,7 @@
                 status.value = `✅ تم تحديث واعتماد موقعك بدقة`;
             }, () => {
                 status.value = "❌ فشل تحديد الموقع. يرجى السماح للمتصفح بالوصول للموقع.";
-                alert('يرجى السماح للتطبيق بالوصول إلى موقعك الجغرافي.');
+                showCustomAlert('يرجى السماح للتطبيق بالوصول إلى موقعك الجغرافي.');
             }, { enableHighAccuracy: true });
         });
 
@@ -841,6 +909,7 @@
             e.preventDefault();
             const name = document.getElementById('artisanName').value.trim();
             const workName = document.getElementById('artisanWorkName').value.trim();
+            const city = document.getElementById('artisanCity').value.trim();
             const category = document.getElementById('artisanCategory').value;
             const password = document.getElementById('authPassword').value;
             const bio = document.getElementById('artisanBio').value || "حرفي محترف جاهز لخدمتكم.";
@@ -848,19 +917,20 @@
             const lng = document.getElementById('lng').value;
 
             if(!lat || !lng) {
-                alert('الرجاء الضغط على زر تحديد الموقع الجغرافي (GPS) أولاً!');
+                showCustomAlert('الرجاء الضغط على زر تحديد الموقع الجغرافي (GPS) أولاً!');
                 return;
             }
 
             const cleanPhoneId = currentArtisanPhone;
             if (!cleanPhoneId) {
-                alert('رقم الهاتف غير صالح!');
+                showCustomAlert('رقم الهاتف غير صالح!');
                 return;
             }
 
             const artisanData = { 
                 name, 
                 workName,
+                city,
                 category, 
                 phone: currentArtisanPhone, 
                 password, 
@@ -873,10 +943,10 @@
             try {
                 await window.setDoc(window.doc(window.db, "artisans", cleanPhoneId), artisanData);
                 
-                alert('مبارك! تم حفظ وتحديث ملفك بنجاح في قاعدة بيانات Firebase.');
+                showCustomAlert('مبارك! تم حفظ وتحديث ملفك بنجاح في قاعدة بيانات Firebase.');
                 switchView('welcomeView');
             } catch(err) {
-                alert('❌ حدث خطأ أثناء الحفظ في قاعدة البيانات.');
+                showCustomAlert('❌ حدث خطأ أثناء الحفظ في قاعدة البيانات.');
             }
         });
 
@@ -913,13 +983,15 @@
                     }
 
                     let titleDisplay = a.workName ? `${a.workName} <span style="font-size:12px; color:var(--text-gray);">(${a.name})</span>` : a.name;
+                    let cityDisplay = a.city ? `📍 المنطقة: ${a.city}` : `📍 متاح في منطقتك`;
+
                     container.innerHTML += `
                         <div class="artisan-card">
                             <div style="flex: 1;">
                                 <h3 style="color: var(--accent-gold); margin-bottom: 4px; font-size: 17px;">${titleDisplay}</h3>
-                                <p style="color: var(--accent-blue); font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛠️ ${a.category} | 📞 +${a.phone}</p>
+                                <p style="color: var(--accent-blue); font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛠️ ${a.category}</p>
+                                <p style="color: #047857; font-size: 12px; font-weight: bold; margin-bottom: 4px;">${cityDisplay}</p>
                                 <p style="color: var(--text-gray); font-size: 13px; font-style: italic; margin-bottom: 6px;">"${a.bio}"</p>
-                                <p style="color: var(--accent-green); font-size: 12px;">📍 متاح في منطقتك</p>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 8px;">
                                 <a href="tel:+${a.phone}" style="background: #0284c7; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">📞 اتصال</a>
