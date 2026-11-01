@@ -188,6 +188,23 @@
             border: 1px solid var(--border-color);
             margin-bottom: 15px;
         }
+        .admin-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .admin-action-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            color: white;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -231,10 +248,20 @@
             </div>
         </div>
 
-        <!-- 3. لوحة تحكم الأدمن -->
+        <!-- 3. لوحة تحكم الأدمن (مع ميزة النسخ الاحتياطي والاستعادة) -->
         <div id="adminView" class="view">
             <span class="back-link" id="backToHomeAdmin">← تسجيل الخروج للرئيسية</span>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 15px;">إدارة وحماية قاعدة بيانات الحرفيين:</p>
+            
+            <div class="admin-actions">
+                <button class="admin-action-btn" style="background: var(--accent-blue);" onclick="exportDatabase()">📥 تحميل نسخة احتياطية (Backup)</button>
+                <label class="admin-action-btn" style="background: var(--accent-green); display: inline-block; cursor: pointer; line-height: normal;">
+                    📤 استعادة البيانات (Restore)
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDatabase(event)">
+                </label>
+            </div>
+
             <div id="adminArtisansList"></div>
         </div>
 
@@ -359,7 +386,6 @@
                     alert('كلمة السر غير صحيحة لهذا الرقم!');
                     return;
                 }
-                // تعبئة البيانات السابقة لتعديلها
                 document.getElementById('artisanName').value = existing.name;
                 document.getElementById('artisanCategory').value = existing.category;
                 document.getElementById('artisanBio').value = existing.bio;
@@ -367,7 +393,7 @@
                 document.getElementById('lng').value = existing.lng;
                 document.getElementById('locationStatus').value = "✅ موقعك مسجل مسبقاً (يمكنك إعادة تحديثه إن أردت)";
                 document.getElementById('formTitle').innerText = "تعديل بيانات ملفك الشخصي";
-                alert('مرحباً بك! تم العرف على حسابك ويمكنك تعديل بياناتك.');
+                alert('مرحباً بك! تم التعرف على حسابك ويمكنك تعديل بياناتك.');
             } else {
                 document.getElementById('artisanForm').reset();
                 document.getElementById('locationStatus').value = "";
@@ -377,6 +403,41 @@
 
             switchView('artisanRegisterView');
         });
+
+        // تصدير قاعدة البيانات كملف JSON (للتحميل على الفلاش ديسك)
+        function exportDatabase() {
+            let data = localStorage.getItem('localArtisans') || '[]';
+            let blob = new Blob([data], { type: 'application/json' });
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = 'sonaa_artisans_backup.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // استعادة قاعدة البيانات من ملف JSON
+        function importDatabase(event) {
+            let file = event.target.files[0];
+            if(!file) return;
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    let artisans = JSON.parse(e.target.result);
+                    if(Array.isArray(artisans)) {
+                        localStorage.setItem('localArtisans', JSON.stringify(artisans));
+                        loadAdminPanel();
+                        updateStats();
+                        alert('✅ تم استعادة بيانات الحرفيين بنجاح تام!');
+                    } else {
+                        alert('❌ ملف غير صالح.');
+                    }
+                } catch(err) {
+                    alert('❌ حدث خطأ أثناء قراءة الملف.');
+                }
+            };
+            reader.readAsText(file);
+        }
 
         function loadAdminPanel() {
             const container = document.getElementById('adminArtisansList');
@@ -408,6 +469,7 @@
                 artisans.splice(index, 1);
                 localStorage.setItem('localArtisans', JSON.stringify(artisans));
                 loadAdminPanel();
+                updateStats();
                 alert('تم الحذف بنجاح.');
             }
         };
@@ -422,7 +484,7 @@
             navigator.geolocation.getCurrentPosition((position) => {
                 document.getElementById('lat').value = position.coords.latitude;
                 document.getElementById('lng').value = position.coords.longitude;
-                status.value = `✅ تم تحديث واعتماج موقعك بدقة`;
+                status.value = `✅ تم تحديث واعتماد موقعك بدقة`;
             }, () => {
                 status.value = "❌ فشل تحديد الموقع. يرجى السماح للمتصفح بالوصول للموقع.";
                 alert('يرجى السماح للتطبيق بالوصول إلى موقعك الجغرافي.');
@@ -449,9 +511,9 @@
             const artisanData = { name, category, phone: currentArtisanPhone, password, bio, lat, lng };
 
             if(index >= 0) {
-                artisans[index] = artisanData; // تحديث بيانات الحرفي الموجود مسبقاً
+                artisans[index] = artisanData;
             } else {
-                artisans.push(artisanData); // إضافة حرفي جديد
+                artisans.push(artisanData);
             }
 
             localStorage.setItem('localArtisans', JSON.stringify(artisans));
