@@ -6,13 +6,13 @@
     <title>منصة صنّاع الحرفيين - أقرب حرفي لمنزلك</title>
     <style>
         :root {
-            --bg-overlay: rgba(15, 23, 42, 0.90);
-            --card-bg: rgba(30, 41, 59, 0.95);
-            --accent-gold: #f59e0b;
-            --accent-blue: #38bdf8;
-            --accent-green: #34d399;
-            --text-light: #f8fafc;
-            --text-gray: #94a3b8;
+            --bg-overlay: rgba(241, 245, 249, 0.85); /* خلفية فاتحة وشفافة مريحة */
+            --card-bg: #ffffff; /* بطاقة بيضاء ناصعة وواضحة */
+            --accent-gold: #d97706;
+            --accent-blue: #0284c7;
+            --accent-green: #059669;
+            --text-main: #1e293b;
+            --text-gray: #64748b;
         }
         * {
             box-sizing: border-box;
@@ -21,11 +21,11 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            /* خلفية خفيفة تدل على أعمال الصيانة والمهن الحرفية مع تغطية داكنة مريحة للعين */
+            /* خلفية فاتحة وأنيقة لأعمال الصيانة */
             background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
                         url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80') no-repeat center center fixed;
             background-size: cover;
-            color: var(--text-light);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -37,24 +37,40 @@
             background: var(--card-bg);
             padding: 30px;
             border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border: 1px solid #e2e8f0;
             width: 100%;
         }
         h1 {
             color: var(--accent-gold);
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-size: 26px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         .subtitle {
             text-align: center;
             color: var(--text-gray);
             font-size: 14px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
+        
+        /* المساحة الإضافية في المنتصف (عداد وإحصائية الحرفيين) */
+        .middle-badge {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            color: #0369a1;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
         .btn {
             display: block;
             width: 100%;
@@ -68,11 +84,11 @@
             cursor: pointer;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .btn-artisan { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+        .btn-artisan { background: linear-gradient(135deg, #0284c7, #0369a1); }
         .btn-customer { background: linear-gradient(135deg, #059669, #047857); }
-        .btn:hover { transform: translateY(-2px); opacity: 0.95; box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+        .btn:hover { transform: translateY(-2px); opacity: 0.95; }
         
         .view { display: none; }
         .view.active { display: block; }
@@ -82,19 +98,18 @@
         input, select, textarea {
             width: 100%;
             padding: 14px;
-            border: 1px solid #475569;
+            border: 1px solid #cbd5e1;
             border-radius: 12px;
-            background: #0f172a;
-            color: white;
+            background: #f8fafc;
+            color: var(--text-main);
             font-size: 15px;
             outline: none;
-            transition: border-color 0.2s;
         }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent-blue); }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent-blue); background: #fff; }
         textarea { resize: vertical; height: 90px; }
         
         .btn-gps {
-            background-color: #1e293b;
+            background-color: #f1f5f9;
             color: var(--accent-blue);
             border: 2px dashed var(--accent-blue);
             padding: 14px;
@@ -105,9 +120,8 @@
             font-weight: bold;
             margin-top: 5px;
             text-align: center;
-            transition: 0.2s;
         }
-        .btn-gps:hover { background-color: #334155; }
+        .btn-gps:hover { background-color: #e2e8f0; }
         
         .back-link {
             color: var(--accent-blue);
@@ -119,7 +133,6 @@
             font-size: 14px;
         }
 
-        /* شبكة أزرار الاختصاصات الحديثة للزبون */
         .categories-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -127,41 +140,39 @@
             margin-bottom: 20px;
         }
         .cat-btn {
-            background: #0f172a;
-            border: 1px solid #334155;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
             padding: 15px;
             border-radius: 14px;
-            color: white;
+            color: var(--text-main);
             font-weight: bold;
             font-size: 15px;
             cursor: pointer;
             text-align: center;
             transition: 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
         .cat-btn:hover, .cat-btn.active {
             background: var(--accent-blue);
-            color: #0f172a;
+            color: white;
             border-color: var(--accent-blue);
-            transform: translateY(-2px);
         }
 
         .artisan-card {
-            background: #0f172a;
+            background: #f8fafc;
             padding: 20px;
             border-radius: 16px;
             margin-bottom: 15px;
-            border: 1px solid #334155;
+            border: 1px solid #e2e8f0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         .auth-box {
-            background: #0f172a;
+            background: #f8fafc;
             padding: 22px;
             border-radius: 16px;
-            border: 1px solid #334155;
+            border: 1px solid #e2e8f0;
             margin-bottom: 15px;
         }
     </style>
@@ -174,11 +185,16 @@
 
         <!-- 1. الشاشة الرئيسية -->
         <div id="welcomeView" class="view active">
+            <!-- المساحة في المنتصف: عداد وحالة المنصة النشطة -->
+            <div class="middle-badge" id="statsBadge">
+                <span>📍</span> جاري احتساب الحرفيين المتاحين في منطقتك...
+            </div>
+
             <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي (تسجيل الدخول / تقديم خدماتي)</button>
             <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي (اختيار التخصص مباشرة)</button>
         </div>
 
-        <!-- 2. بوابة دخول الحرفي (رقم الهاتف وكلمة السر) -->
+        <!-- 2. بوابة دخول الحرفي -->
         <div id="artisanAuthView" class="view">
             <span class="back-link" id="backToHome0">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-blue); margin-bottom: 12px; font-size: 20px;">بوابة دخول الحرفيين</h2>
@@ -193,7 +209,7 @@
                     <label>كلمة السر</label>
                     <input type="password" id="authPassword" placeholder="كلمة السر الخاصة بك">
                 </div>
-                <button type="button" class="btn" id="btnLoginArtisan" style="background: var(--accent-blue); color: #0f172a; margin-top: 10px;">دخول أو تسجيل جديد</button>
+                <button type="button" class="btn" id="btnLoginArtisan" style="background: var(--accent-blue); color: white; margin-top: 10px;">دخول أو تسجيل جديد</button>
             </div>
         </div>
 
@@ -224,11 +240,11 @@
                 <div class="form-group">
                     <label>الموقع الجغرافي (GPS)</label>
                     <button type="button" class="btn-gps" id="btnGetLocation">📍 اضغط هنا لالتقاط موقعك بدقة أوتوماتيكياً</button>
-                    <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#0f172a; color:var(--accent-green); font-size:13px; text-align:center;" placeholder="لم يتم تحديد الموقع بعد">
+                    <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#e2e8f0; color:var(--accent-green); font-size:13px; text-align:center;" placeholder="لم يتم تحديد الموقع بعد">
                     <input type="hidden" id="lat">
                     <input type="hidden" id="lng">
                 </div>
-                <button type="submit" class="btn" style="background: var(--accent-gold); color: #0f172a;">حفظ وتحديث الملف (Enregistrer)</button>
+                <button type="submit" class="btn" style="background: var(--accent-gold); color: white;">حفظ وتحديث الملف (Enregistrer)</button>
             </form>
         </div>
 
@@ -237,7 +253,6 @@
             <span class="back-link" id="backToHome2">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">اختر التخصص المطلوب للبحث</h2>
             
-            <!-- أزرار الاختصاصات المباشرة -->
             <div class="categories-grid">
                 <button class="cat-btn" onclick="selectCategory('كهربائي (منزلي وصناعي)')">⚡ كهربائي</button>
                 <button class="cat-btn" onclick="selectCategory('سباك (إصلاح صحي)')">🚰 سباك صحي</button>
@@ -248,7 +263,7 @@
             </div>
 
             <div style="text-align: center; margin-bottom: 15px;">
-                <button class="cat-btn active" id="btnAllCat" onclick="selectCategory('all')" style="width: 100%;">🌐 عرض كل الحرفيين المتاحين</button>
+                <button class="cat-btn active" id="btnAllCat" onclick="selectCategory('all')" style="width: 100%; background: var(--accent-green); color: white;">🌐 عرض كل الحرفيين المتاحين</button>
             </div>
 
             <div id="artisansList" style="margin-top: 20px;">
@@ -262,7 +277,18 @@
         let currentArtisanPhone = "";
         let selectedFilter = 'all';
 
-        // التنقل البرمجي السلس للأزرار
+        // تحديث عداد الحرفيين في المنتصف عند فتح الصفحة
+        function updateStats() {
+            let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
+            const badge = document.getElementById('statsBadge');
+            if(artisans.length > 0) {
+                badge.innerHTML = `🌟 يوجد حالياً <b>${artisans.length}</b> حرفياً مسجلاً وجاهزاً لخدمتكم`;
+            } else {
+                badge.innerHTML = `📍 المنصة نشطة - كن أول حرفي يسجل في منطقتك!`;
+            }
+        }
+        updateStats();
+
         document.getElementById('btnArtisan').addEventListener('click', function() {
             switchView('artisanAuthView');
         });
@@ -272,16 +298,15 @@
             loadArtisans('all');
         });
 
-        document.getElementById('backToHome0').addEventListener('click', function() { switchView('welcomeView'); });
+        document.getElementById('backToHome0').addEventListener('click', function() { switchView('welcomeView'); updateStats(); });
         document.getElementById('backToAuth').addEventListener('click', function() { switchView('artisanAuthView'); });
-        document.getElementById('backToHome2').addEventListener('click', function() { switchView('welcomeView'); });
+        document.getElementById('backToHome2').addEventListener('click', function() { switchView('welcomeView'); updateStats(); });
 
         function switchView(viewId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
         }
 
-        // تسجيل الدخول برقم الهاتف وكلمة السر
         document.getElementById('btnLoginArtisan').addEventListener('click', function() {
             const phone = document.getElementById('authPhone').value.trim();
             const password = document.getElementById('authPassword').value.trim();
@@ -316,7 +341,6 @@
             switchView('artisanRegisterView');
         });
 
-        // التقاط الموقع بضغطة زر GPS
         document.getElementById('btnGetLocation').addEventListener('click', function() {
             const status = document.getElementById('locationStatus');
             if(!navigator.geolocation) {
@@ -334,7 +358,6 @@
             }, { enableHighAccuracy: true });
         });
 
-        // حفظ أو تحديث الحرفي
         document.getElementById('artisanForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('artisanName').value;
@@ -363,15 +386,14 @@
             localStorage.setItem('localArtisans', JSON.stringify(artisans));
             alert('مبارك! تم حفظ ملفك بنجاح في المنصة.');
             switchView('welcomeView');
+            updateStats();
         });
 
-        // اختيار تخصص مباشر من أزرار الزبون
         function selectCategory(cat) {
             selectedFilter = cat;
             loadArtisans(cat);
         }
 
-        // عرض قائمة الحرفيين حسب التخصص المختار
         function loadArtisans(filter) {
             const container = document.getElementById('artisansList');
             let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
@@ -397,8 +419,8 @@
                             <p style="color: var(--accent-green); font-size: 12px;">📍 متاح في منطقتك</p>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <a href="tel:${a.phone}" style="background: #2563eb; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">📞 اتصال</a>
-                            <a href="https://wa.me/${cleanPhone}" target="_blank" style="background: #16a34a; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">💬 واتساب</a>
+                            <a href="tel:${a.phone}" style="background: #0284c7; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">📞 اتصال</a>
+                            <a href="https://wa.me/${cleanPhone}" target="_blank" style="background: #059669; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">💬 واتساب</a>
                         </div>
                     </div>
                 `;
