@@ -297,12 +297,30 @@
             </div>
 
             <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي (تسجيل الدخول / تعديل الحساب)</button>
-            <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي (اختيار التخصص مباشرة)</button>
+            <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي (دخول سريع للبحث)</button>
 
             <div class="info-box">
                 <h3>💡 كيف تعمل منصة صنّاع؟</h3>
-                <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك، حدد موقعك بدقة عبر الـ GPS، وأضف اختصاصك. يمكنك العودة في أي وقت لتعديل معلوماتك!</p>
-                <p><b>للباحثين عن الخدمات:</b> اضغط مباشرة على التخصص الذي تحتاجه وتواصل مع الحرفي فوراً عبر الهاتف أو الواتساب.</p>
+                <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك، حدد موقعك بدقة عبر الـ GPS، وأضف اختصاصك.</p>
+                <p><b>للباحثين عن الخدمات:</b> أدخل رقم هاتفك للمتابعة، واضغط مباشرة على التخصص لتتواصل مع الحرفي فوراً.</p>
+            </div>
+        </div>
+
+        <!-- 1.5 نافذة تسجيل الزبون الباحث (برقم الهاتف فقط) -->
+        <div id="customerAuthView" class="view">
+            <span class="back-link" onclick="switchView('welcomeView')">← رجوع للرئيسية</span>
+            <h2 style="color: var(--accent-green); margin-bottom: 12px; font-size: 20px;">دخول الباحثين عن الخدمات</h2>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك (8 أرقام) للوصول المباشر لقائمة الحرفيين.</p>
+            
+            <div class="auth-box">
+                <div class="form-group">
+                    <label>رقم الهاتف</label>
+                    <div class="phone-input-group">
+                        <input type="text" id="customerPhone" class="phone-main-input" placeholder="مثال: 98123456">
+                        <span class="phone-prefix">+216 🇹🇳</span>
+                    </div>
+                </div>
+                <button type="button" class="btn" id="btnLoginCustomer" style="background: var(--accent-green); color: white; margin-top: 10px;">دخول للبحث عن حرفي</button>
             </div>
         </div>
 
@@ -310,7 +328,7 @@
         <div id="artisanAuthView" class="view">
             <span class="back-link" onclick="switchView('welcomeView')">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-blue); margin-bottom: 12px; font-size: 20px;">بوابة دخول الحرفيين</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك (8 أرقام) وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
             
             <div class="auth-box">
                 <div class="form-group">
@@ -491,7 +509,37 @@
             switchView('artisanAuthView');
         });
 
-        document.getElementById('btnCustomer').addEventListener('click', async function() {
+        // زر البحث عن حرفي يفتح نافذة تسجيل رقم هاتف الزبون أولاً
+        document.getElementById('btnCustomer').addEventListener('click', function() {
+            switchView('customerAuthView');
+        });
+
+        // عند إدخال الزبون لرقم هاتفه والدخول
+        document.getElementById('btnLoginCustomer').addEventListener('click', async function() {
+            let phoneInput = document.getElementById('customerPhone').value.trim();
+            if(!phoneInput) {
+                alert('الرجاء إدخال رقم هاتفك للمتابعة!');
+                return;
+            }
+
+            let clean = phoneInput.replace(/[^0-9]/g, '');
+            if(!/^\d{8,12}$/.test(clean)) {
+                alert('⚠️ رقم الهاتف غير صالح!');
+                return;
+            }
+
+            let clientPhone = clean.startsWith('216') ? clean : '216' + clean;
+
+            // حفظ الزبون في قاعدة بيانات Firebase بصمت تام
+            try {
+                await window.setDoc(window.doc(window.db, "clients", clientPhone), {
+                    phone: clientPhone,
+                    lastLogin: new Date().toISOString()
+                });
+            } catch(e) {
+                console.error("Client log error:", e);
+            }
+
             switchView('customerView');
             await loadArtisans('all');
         });
