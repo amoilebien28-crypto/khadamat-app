@@ -6,8 +6,8 @@
     <title>منصة صنّاع الحرفيين - أقرب حرفي لمنزلك</title>
     <style>
         :root {
-            --bg-main: #0f172a;
-            --card-bg: #1e293b;
+            --bg-overlay: rgba(15, 23, 42, 0.90);
+            --card-bg: rgba(30, 41, 59, 0.95);
             --accent-gold: #f59e0b;
             --accent-blue: #38bdf8;
             --accent-green: #34d399;
@@ -21,7 +21,10 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: var(--bg-main);
+            /* خلفية خفيفة تدل على أعمال الصيانة والمهن الحرفية مع تغطية داكنة مريحة للعين */
+            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
+                        url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80') no-repeat center center fixed;
+            background-size: cover;
             color: var(--text-light);
             min-height: 100vh;
             display: flex;
@@ -29,20 +32,28 @@
             padding: 15px;
         }
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 30px auto;
             background: var(--card-bg);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
             width: 100%;
         }
         h1 {
             color: var(--accent-gold);
             text-align: center;
+            margin-bottom: 8px;
+            font-size: 26px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 14px;
             margin-bottom: 25px;
-            font-size: 24px;
         }
         .btn {
             display: block;
@@ -53,43 +64,51 @@
             font-weight: bold;
             color: white;
             border: none;
-            border-radius: 14px;
+            border-radius: 16px;
             cursor: pointer;
             text-align: center;
-            transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .btn-artisan { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-        .btn-customer { background: linear-gradient(135deg, #10b981, #059669); }
-        .btn:hover { opacity: 0.95; transform: translateY(-1px); }
+        .btn-artisan { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+        .btn-customer { background: linear-gradient(135deg, #059669, #047857); }
+        .btn:hover { transform: translateY(-2px); opacity: 0.95; box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+        
         .view { display: none; }
         .view.active { display: block; }
-        .form-group { margin-bottom: 18px; text-align: right; }
-        label { display: block; margin-bottom: 6px; color: var(--accent-blue); font-weight: bold; font-size: 14px; }
+        
+        .form-group { margin-bottom: 20px; text-align: right; }
+        label { display: block; margin-bottom: 8px; color: var(--accent-blue); font-weight: bold; font-size: 14px; }
         input, select, textarea {
             width: 100%;
             padding: 14px;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            background: var(--bg-main);
+            border: 1px solid #475569;
+            border-radius: 12px;
+            background: #0f172a;
             color: white;
             font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
         }
-        textarea { resize: vertical; height: 80px; }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent-blue); }
+        textarea { resize: vertical; height: 90px; }
+        
         .btn-gps {
-            background-color: #334155;
+            background-color: #1e293b;
             color: var(--accent-blue);
-            border: 1px dashed var(--accent-blue);
-            padding: 12px;
-            border-radius: 10px;
+            border: 2px dashed var(--accent-blue);
+            padding: 14px;
+            border-radius: 12px;
             width: 100%;
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
             margin-top: 5px;
             text-align: center;
+            transition: 0.2s;
         }
-        .btn-gps:hover { background-color: #1e293b; }
+        .btn-gps:hover { background-color: #334155; }
+        
         .back-link {
             color: var(--accent-blue);
             cursor: pointer;
@@ -99,20 +118,49 @@
             font-weight: bold;
             font-size: 14px;
         }
-        .artisan-card {
-            background: var(--bg-main);
-            padding: 18px;
+
+        /* شبكة أزرار الاختصاصات الحديثة للزبون */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .cat-btn {
+            background: #0f172a;
+            border: 1px solid #334155;
+            padding: 15px;
             border-radius: 14px;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--accent-blue);
+            color: #0f172a;
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .artisan-card {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 16px;
             margin-bottom: 15px;
             border: 1px solid #334155;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .auth-box {
-            background: var(--bg-main);
-            padding: 20px;
-            border-radius: 12px;
+            background: #0f172a;
+            padding: 22px;
+            border-radius: 16px;
             border: 1px solid #334155;
             margin-bottom: 15px;
         }
@@ -122,19 +170,19 @@
 
     <div class="container">
         <h1>⭐ منصة صنّاع الحرفيين</h1>
+        <p class="subtitle">دليلك الموثوق لأقرب صانع وحرفي محترف لمنزلك</p>
 
         <!-- 1. الشاشة الرئيسية -->
         <div id="welcomeView" class="view active">
-            <p style="text-align: center; margin-bottom: 25px; color: var(--text-gray);">اختر كيف تريد استخدام المنصة</p>
             <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي (تسجيل الدخول / تقديم خدماتي)</button>
-            <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي (أحتاج خدمة صيانة)</button>
+            <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي (اختيار التخصص مباشرة)</button>
         </div>
 
-        <!-- 2. واجهة الدخول برقم الهاتف وكلمة السر للحرفي -->
+        <!-- 2. بوابة دخول الحرفي (رقم الهاتف وكلمة السر) -->
         <div id="artisanAuthView" class="view">
             <span class="back-link" id="backToHome0">← رجوع للرئيسية</span>
-            <h2 style="color: var(--accent-blue); margin-bottom: 15px; font-size: 20px;">بوابة دخول الحرفيين</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك وكلمة السر الخاصة بك للمتابعة.</p>
+            <h2 style="color: var(--accent-blue); margin-bottom: 12px; font-size: 20px;">بوابة دخول الحرفيين</h2>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك وكلمة السر الخاصة بك لإدارة حسابك بأمان.</p>
             
             <div class="auth-box">
                 <div class="form-group">
@@ -145,13 +193,13 @@
                     <label>كلمة السر</label>
                     <input type="password" id="authPassword" placeholder="كلمة السر الخاصة بك">
                 </div>
-                <button type="button" class="btn" id="btnLoginArtisan" style="background: var(--accent-blue); color: var(--bg-main); margin-top: 10px;">دخول أو تسجيل جديد</button>
+                <button type="button" class="btn" id="btnLoginArtisan" style="background: var(--accent-blue); color: #0f172a; margin-top: 10px;">دخول أو تسجيل جديد</button>
             </div>
         </div>
 
         <!-- 3. واجهة تسجيل بيانات الحرفي الكاملة -->
         <div id="artisanRegisterView" class="view">
-            <span class="back-link" id="backToAuth">← رجوع</span>
+            <span class="back-link" id="backToAuth">← رجوع للبوابة</span>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
@@ -171,39 +219,40 @@
                 </div>
                 <div class="form-group">
                     <label>نبذة تعريفية أو رسالة للزبائن</label>
-                    <textarea id="artisanBio" placeholder="مثال: خبرة 10 سنوات في صيانة وتركيب الكهرباء..."></textarea>
+                    <textarea id="artisanBio" placeholder="مثال: خبرة 10 سنوات في صيانة وتركيب الكهرباء والإنارة..."></textarea>
                 </div>
                 <div class="form-group">
                     <label>الموقع الجغرافي (GPS)</label>
-                    <button type="button" class="btn-gps" id="btnGetLocation">📍 اضغط هنا لتحديد موقعك أوتوماتيكياً</button>
-                    <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#1e293b; color:var(--accent-green); font-size:13px; text-align:center;" placeholder="لم يتم تحديد الموقع بعد">
+                    <button type="button" class="btn-gps" id="btnGetLocation">📍 اضغط هنا لالتقاط موقعك بدقة أوتوماتيكياً</button>
+                    <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#0f172a; color:var(--accent-green); font-size:13px; text-align:center;" placeholder="لم يتم تحديد الموقع بعد">
                     <input type="hidden" id="lat">
                     <input type="hidden" id="lng">
                 </div>
-                <button type="submit" class="btn" style="background: var(--accent-gold); color: var(--bg-main);">حفظ وتحديث الملف (Enregistrer)</button>
+                <button type="submit" class="btn" style="background: var(--accent-gold); color: #0f172a;">حفظ وتحديث الملف (Enregistrer)</button>
             </form>
         </div>
 
-        <!-- 4. واجهة الزبون (البحث وقائمة الحرفيين) -->
+        <!-- 4. واجهة الزبون (أزرار التخصصات المباشرة) -->
         <div id="customerView" class="view">
             <span class="back-link" id="backToHome2">← رجوع للرئيسية</span>
-            <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">قائمة الحرفيين المتاحين</h2>
+            <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">اختر التخصص المطلوب للبحث</h2>
             
-            <div class="form-group">
-                <label>تصفية حسب التخصص</label>
-                <select id="filterCategory" onchange="filterArtisans()">
-                    <option value="all">🌐 عرض كل الاختصاصات المتاحة</option>
-                    <option value="كهربائي (منزلي وصناعي)">كهربائي (منزلي وصناعي)</option>
-                    <option value="سباك (إصلاح صحي)">سباك (إصلاح صحي)</option>
-                    <option value="نجار (عام)">نجار (عام)</option>
-                    <option value="مختص في نجارة الألمنيوم">مختص في نجارة الألمنيوم</option>
-                    <option value="حداد وهياكل معدنية">حداد وهياكل معدنية</option>
-                    <option value="مكيفات وهواء معالج">مكيفات وهواء معالج</option>
-                </select>
+            <!-- أزرار الاختصاصات المباشرة -->
+            <div class="categories-grid">
+                <button class="cat-btn" onclick="selectCategory('كهربائي (منزلي وصناعي)')">⚡ كهربائي</button>
+                <button class="cat-btn" onclick="selectCategory('سباك (إصلاح صحي)')">🚰 سباك صحي</button>
+                <button class="cat-btn" onclick="selectCategory('نجار (عام)')">🪵 نجار عام</button>
+                <button class="cat-btn" onclick="selectCategory('مختص في نجارة الألمنيوم')">🪟 ألومنيوم</button>
+                <button class="cat-btn" onclick="selectCategory('حداد وهياكل معدنية')">⚙️ حداد</button>
+                <button class="cat-btn" onclick="selectCategory('مكيفات وهواء معالج')">❄️ مكيفات</button>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 15px;">
+                <button class="cat-btn active" id="btnAllCat" onclick="selectCategory('all')" style="width: 100%;">🌐 عرض كل الحرفيين المتاحين</button>
             </div>
 
             <div id="artisansList" style="margin-top: 20px;">
-                <p style="color: var(--text-gray); text-align: center;">جاري التحميل...</p>
+                <p style="color: var(--text-gray); text-align: center;">اختر اختصاصاً أعلاه لعرض الحرفيين...</p>
             </div>
         </div>
 
@@ -211,15 +260,16 @@
 
     <script>
         let currentArtisanPhone = "";
+        let selectedFilter = 'all';
 
-        // التنقل بين الواجهات
+        // التنقل البرمجي السلس للأزرار
         document.getElementById('btnArtisan').addEventListener('click', function() {
             switchView('artisanAuthView');
         });
 
         document.getElementById('btnCustomer').addEventListener('click', function() {
             switchView('customerView');
-            loadArtisans();
+            loadArtisans('all');
         });
 
         document.getElementById('backToHome0').addEventListener('click', function() { switchView('welcomeView'); });
@@ -231,7 +281,7 @@
             document.getElementById(viewId).classList.add('active');
         }
 
-        // التحقق من رقم الهاتف وكلمة السر لدخول الحرفي
+        // تسجيل الدخول برقم الهاتف وكلمة السر
         document.getElementById('btnLoginArtisan').addEventListener('click', function() {
             const phone = document.getElementById('authPhone').value.trim();
             const password = document.getElementById('authPassword').value.trim();
@@ -250,25 +300,23 @@
                     alert('كلمة السر غير صحيحة لهذا الرقم!');
                     return;
                 }
-                // تعبئة البيانات القديمة للتعديل
                 document.getElementById('artisanName').value = existing.name;
                 document.getElementById('artisanCategory').value = existing.category;
                 document.getElementById('artisanBio').value = existing.bio;
                 document.getElementById('lat').value = existing.lat;
                 document.getElementById('lng').value = existing.lng;
-                document.getElementById('locationStatus').value = "✅ موقعك مسجل مسبقاً";
-                alert('مرحباً بعودتك! تم التعرف على حسابك.');
+                document.getElementById('locationStatus').value = "✅ موقعك مسجل مسبقاً وجاهز";
+                alert('مرحباً بعودتك! تم التحقق من حسابك.');
             } else {
-                // حساب جديد
                 document.getElementById('artisanForm').reset();
                 document.getElementById('locationStatus').value = "";
-                alert('هذا الرقم جديد، يرجى إكمال بيانات تسجيل حسابك.');
+                alert('هذا الرقم جديد، يرجى إكمال بيانات ملفك الشخصي.');
             }
 
             switchView('artisanRegisterView');
         });
 
-        // جلب الموقع الجغرافي GPS
+        // التقاط الموقع بضغطة زر GPS
         document.getElementById('btnGetLocation').addEventListener('click', function() {
             const status = document.getElementById('locationStatus');
             if(!navigator.geolocation) {
@@ -279,14 +327,14 @@
             navigator.geolocation.getCurrentPosition((position) => {
                 document.getElementById('lat').value = position.coords.latitude;
                 document.getElementById('lng').value = position.coords.longitude;
-                status.value = `✅ تم التقاط موقعك بدقة بنجاح`;
+                status.value = `✅ تم التقاط موقعك الجغرافي بنجاح`;
             }, () => {
                 status.value = "❌ فشل تحديد الموقع. يرجى السماح للمتصفح بالوصول للموقع.";
                 alert('يرجى السماح للتطبيق بالوصول إلى موقعك الجغرافي.');
             }, { enableHighAccuracy: true });
         });
 
-        // حفظ أو تحديث بيانات الحرفي
+        // حفظ أو تحديث الحرفي
         document.getElementById('artisanForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('artisanName').value;
@@ -304,30 +352,27 @@
             let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
             let index = artisans.findIndex(a => a.phone === currentArtisanPhone);
 
-            const artisanData = {
-                name,
-                category,
-                phone: currentArtisanPhone,
-                password,
-                bio,
-                lat,
-                lng
-            };
+            const artisanData = { name, category, phone: currentArtisanPhone, password, bio, lat, lng };
 
             if(index >= 0) {
-                artisans[index] = artisanData; // تحديث
+                artisans[index] = artisanData;
             } else {
-                artisans.push(artisanData); // إضافة جديد
+                artisans.push(artisanData);
             }
 
             localStorage.setItem('localArtisans', JSON.stringify(artisans));
-
             alert('مبارك! تم حفظ ملفك بنجاح في المنصة.');
             switchView('welcomeView');
         });
 
-        // عرض قائمة الحرفيين للزبون
-        function loadArtisans(filter = 'all') {
+        // اختيار تخصص مباشر من أزرار الزبون
+        function selectCategory(cat) {
+            selectedFilter = cat;
+            loadArtisans(cat);
+        }
+
+        // عرض قائمة الحرفيين حسب التخصص المختار
+        function loadArtisans(filter) {
             const container = document.getElementById('artisansList');
             let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
             
@@ -336,7 +381,7 @@
             }
 
             if(artisans.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">لا يوجد حرفيون مسجلون في هذا الاختصاص حالياً.</p>';
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">لا يوجد حرفيون مسجلون في هذا التخصص حالياً.</p>';
                 return;
             }
 
@@ -352,17 +397,12 @@
                             <p style="color: var(--accent-green); font-size: 12px;">📍 متاح في منطقتك</p>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <a href="tel:${a.phone}" style="background: #2563eb; color: white; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">📞 اتصال</a>
-                            <a href="https://wa.me/${cleanPhone}" target="_blank" style="background: #16a34a; color: white; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">💬 واتساب</a>
+                            <a href="tel:${a.phone}" style="background: #2563eb; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">📞 اتصال</a>
+                            <a href="https://wa.me/${cleanPhone}" target="_blank" style="background: #16a34a; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">💬 واتساب</a>
                         </div>
                     </div>
                 `;
             });
-        }
-
-        function filterArtisans() {
-            const selectedCat = document.getElementById('filterCategory').value;
-            loadArtisans(selectedCat);
         }
     </script>
 </body>
