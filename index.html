@@ -6,8 +6,8 @@
     <title>منصة صنّاع الحرفيين - أقرب حرفي لمنزلك</title>
     <style>
         :root {
-            --bg-overlay: rgba(241, 245, 249, 0.85); /* خلفية فاتحة وشفافة مريحة */
-            --card-bg: #ffffff; /* بطاقة بيضاء ناصعة وواضحة */
+            --bg-overlay: rgba(241, 245, 249, 0.88);
+            --card-bg: #ffffff;
             --accent-gold: #d97706;
             --accent-blue: #0284c7;
             --accent-green: #059669;
@@ -21,7 +21,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            /* خلفية فاتحة وأنيقة لأعمال الصيانة */
             background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), 
                         url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80') no-repeat center center fixed;
             background-size: cover;
@@ -38,7 +37,7 @@
             padding: 30px;
             border-radius: 24px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            border: 1px solid #e2e8f0;
+            border: 1px solid #cbd5e1;
             width: 100%;
         }
         h1 {
@@ -53,8 +52,6 @@
             font-size: 14px;
             margin-bottom: 20px;
         }
-        
-        /* المساحة الإضافية في المنتصف (عداد وإحصائية الحرفيين) */
         .middle-badge {
             background: #f0f9ff;
             border: 1px solid #bae6fd;
@@ -70,7 +67,6 @@
             justify-content: center;
             gap: 8px;
         }
-
         .btn {
             display: block;
             width: 100%;
@@ -162,7 +158,7 @@
             padding: 20px;
             border-radius: 16px;
             margin-bottom: 15px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #cbd5e1;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -172,7 +168,7 @@
             background: #f8fafc;
             padding: 22px;
             border-radius: 16px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #cbd5e1;
             margin-bottom: 15px;
         }
     </style>
@@ -185,7 +181,6 @@
 
         <!-- 1. الشاشة الرئيسية -->
         <div id="welcomeView" class="view active">
-            <!-- المساحة في المنتصف: عداد وحالة المنصة النشطة -->
             <div class="middle-badge" id="statsBadge">
                 <span>📍</span> جاري احتساب الحرفيين المتاحين في منطقتك...
             </div>
@@ -277,7 +272,6 @@
         let currentArtisanPhone = "";
         let selectedFilter = 'all';
 
-        // تحديث عداد الحرفيين في المنتصف عند فتح الصفحة
         function updateStats() {
             let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
             const badge = document.getElementById('statsBadge');
