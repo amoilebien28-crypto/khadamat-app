@@ -289,12 +289,12 @@
         <div id="artisanAuthView" class="view">
             <span class="back-link" id="backToHome0">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-blue); margin-bottom: 12px; font-size: 20px;">بوابة دخول الحرفيين</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك الصحيح وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
             
             <div class="auth-box">
                 <div class="form-group">
-                    <label>رقم الهاتف أو كود الأدمن</label>
-                    <input type="text" id="authPhone" placeholder="أدخل رقمك أو كود المشرف...">
+                    <label>رقم الهاتف (أو كود الأدمن)</label>
+                    <input type="text" id="authPhone" placeholder="أدخل أرقام هاتفك حصرياً ...">
                 </div>
                 <div class="form-group">
                     <label>كلمة السر</label>
@@ -304,16 +304,15 @@
             </div>
         </div>
 
-        <!-- 3. لوحة تحكم الأدمن (مع قسم إضافة التخصصات وإدارة الحرفيين والنسخ الاحتياطي) -->
+        <!-- 3. لوحة تحكم الأدمن -->
         <div id="adminView" class="view">
             <span class="back-link" id="backToHomeAdmin">← تسجيل الخروج للرئيسية</span>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
             
-            <!-- قسم إضافة تخصص جديد للمنصة -->
             <div class="add-category-box">
                 <h3 style="color: var(--accent-green); font-size: 15px; margin-bottom: 8px;">➕ إضافة تخصص مهني جديد</h3>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="newCatInput" placeholder="أدخل اسم التخصص الجديد (مثال: دهان وبناء)">
+                    <input type="text" id="newCatInput" placeholder="أدخل اسم التخصص الجديد...">
                     <button onclick="addNewCategory()" style="background: var(--accent-green); color: white; border: none; padding: 10px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; white-space: nowrap;">إضافة</button>
                 </div>
             </div>
@@ -336,17 +335,21 @@
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;" id="formTitle">تعديل أو استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
-                    <label>الاسم الكامل</label>
+                    <label>الاسم الحقيقي أو اسم المؤسسة</label>
                     <input type="text" id="artisanName" required placeholder="مثال: محمد الصادق">
                 </div>
                 <div class="form-group">
-                    <label>رقم الهاتف (للتواصل والتعريف بالحساب)</label>
+                    <label>الاسم العملي أو اللقب (الذي يُعرفك به الناس)</label>
+                    <input type="text" id="artisanWorkName" required placeholder="مثال: عمي صالح للكهرباء / صانع الديكور">
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف (معتمد للتواصل)</label>
                     <input type="text" id="displayPhone" readonly style="background: #e2e8f0; font-weight: bold; color: var(--accent-blue);" placeholder="رقم هاتفك">
                 </div>
                 <div class="form-group">
                     <label>الاختصاص المهني</label>
                     <select id="artisanCategory">
-                        <!-- يتم ملؤها ديناميكياً بالقائمة الشاملة -->
+                        <!-- يتم ملؤها ديناميكياً -->
                     </select>
                 </div>
                 <div class="form-group">
@@ -370,7 +373,7 @@
             <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">اختر التخصص المطلوب للبحث</h2>
             
             <div class="categories-grid" id="customerCategoriesGrid">
-                <!-- يتم تعبئتها ديناميكياً بأزرار التخصصات -->
+                <!-- يتم تعبئتها ديناميكياً -->
             </div>
 
             <div style="text-align: center; margin-bottom: 15px;">
@@ -391,7 +394,7 @@
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
 
-        // قائمة الصنائع الأساسية والشاملة لكل احتياجات البيت والسيارات
+        // قائمة الصنائع الشاملة
         let defaultCategories = [
             "كهربائي (منزلي وصناعي)",
             "سباك (إصلاح صحي)",
@@ -409,7 +412,6 @@
             "أصاحب النقل واللواج ونقل العفش"
         ];
 
-        // استرجاع التخصصات المضافة من localStorage أو اعتماد الافتراضية
         function getCategories() {
             let saved = localStorage.getItem('siteCategories');
             if(saved) {
@@ -423,11 +425,8 @@
             populateCategoriesUI();
         }
 
-        // تعبئة القوائم والأزرار في واجهة الحرفي والزبون
         function populateCategoriesUI() {
             let cats = getCategories();
-            
-            // 1. تعبئة اختيار الحرفي
             let selectEl = document.getElementById('artisanCategory');
             if(selectEl) {
                 selectEl.innerHTML = '';
@@ -436,7 +435,6 @@
                 });
             }
 
-            // 2. تعبئة أزرار شبكة الزبون
             let gridEl = document.getElementById('customerCategoriesGrid');
             if(gridEl) {
                 gridEl.innerHTML = '';
@@ -448,7 +446,6 @@
         }
         populateCategoriesUI();
 
-        // ميزة إضافة تخصص جديد من لوحة الأدمن
         window.addNewCategory = function() {
             let input = document.getElementById('newCatInput');
             let val = input.value.trim();
@@ -464,7 +461,7 @@
             cats.push(val);
             saveCategories(cats);
             input.value = '';
-            alert('✅ تمت إضافة التخصص الجديد بنجاح وأصبح متاحاً فوراً للحرفيين والزبائن!');
+            alert('✅ تمت إضافة التخصص الجديد بنجاح وأصبح متاحاً فوراً!');
         };
 
         document.getElementById('btnArtisan').addEventListener('click', function() {
@@ -486,32 +483,45 @@
             document.getElementById(viewId).classList.add('active');
         }
 
+        // دالة للتحقق من أن المدخل هو رقم هاتف صحيح (أرقام فقط أو يبدأ بـ + وبأطوال صحيحة)
+        function isValidPhoneNumber(phone) {
+            let clean = phone.replace(/[^0-9]/g, '');
+            // التأكد من أن الإدخال يحتوي على أرقام فقط وألا يقل عن 8 أرقام (حسب النظام المحلي) ولا يزيد عن 15
+            return /^\d{8,15}$/.test(clean);
+        }
+
         document.getElementById('btnLoginArtisan').addEventListener('click', async function() {
-            const phone = document.getElementById('authPhone').value.trim();
+            let phoneInput = document.getElementById('authPhone').value.trim();
             const password = document.getElementById('authPassword').value.trim();
 
-            if(!phone || !password) {
+            if(!phoneInput || !password) {
                 alert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!');
                 return;
             }
 
-            if(phone === ADMIN_PHONE && password === ADMIN_PASS) {
+            if(phoneInput === ADMIN_PHONE && password === ADMIN_PASS) {
                 await loadAdminPanel();
                 switchView('adminView');
                 return;
             }
 
-            currentArtisanPhone = phone;
+            // التحقق الصارم من أن الإدخال رقم هاتف حقيقي وليس كتابة عشوائية
+            if (!isValidPhoneNumber(phoneInput)) {
+                alert('⚠️ عذراً، يجب إدخال رقم هاتف صحيح ومكون من أرقام فقط (بدون حروف أو كلمات عشوائية) لتجنب التخريب!');
+                return;
+            }
+
+            currentArtisanPhone = phoneInput;
             
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
                 let existing = null;
                 querySnapshot.forEach((d) => {
                     let data = d.data();
-                    if(data.phone === phone) existing = data;
+                    if(data.phone === phoneInput) existing = data;
                 });
 
-                document.getElementById('displayPhone').value = phone;
+                document.getElementById('displayPhone').value = phoneInput;
 
                 if(existing) {
                     if(existing.password !== password) {
@@ -519,6 +529,7 @@
                         return;
                     }
                     document.getElementById('artisanName').value = existing.name || '';
+                    document.getElementById('artisanWorkName').value = existing.workName || '';
                     document.getElementById('artisanCategory').value = existing.category || getCategories()[0];
                     document.getElementById('artisanBio').value = existing.bio || '';
                     document.getElementById('lat').value = existing.lat || '';
@@ -528,7 +539,7 @@
                     alert('مرحباً بك! تم التعرف على حسابك ويمكنك تعديل بياناتك.');
                 } else {
                     document.getElementById('artisanForm').reset();
-                    document.getElementById('displayPhone').value = phone;
+                    document.getElementById('displayPhone').value = phoneInput;
                     document.getElementById('locationStatus').value = "";
                     document.getElementById('formTitle').innerText = "إنشاء ملف حرفي جديد";
                     alert('هذا الرقم جديد، يرجى إكمال بيانات ملفك الشخصي.');
@@ -606,10 +617,11 @@
                 querySnapshot.forEach((d) => {
                     let a = d.data();
                     let docId = d.id;
+                    let displayName = a.workName ? `${a.name} (${a.workName})` : a.name;
                     container.innerHTML += `
                         <div class="admin-card">
                             <div style="flex: 1;">
-                                <h3 style="color: var(--accent-gold); font-size: 16px;">${a.name}</h3>
+                                <h3 style="color: var(--accent-gold); font-size: 16px;">${displayName}</h3>
                                 <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📞 ${a.phone} | 🔑 ${a.password}</p>
                                 <p style="color: var(--text-gray); font-size: 12px; margin-top: 4px;">"${a.bio}"</p>
                             </div>
@@ -628,6 +640,10 @@
         window.adminEditArtisan = async function(oldDocId, currentPhone, currentPassword) {
             let newPhone = prompt("أدخل رقم الهاتف الجديد:", currentPhone);
             if(!newPhone) return;
+            if(!isValidPhoneNumber(newPhone)) {
+                alert('⚠️ رقم الهاتف غير صالح!');
+                return;
+            }
             let newPassword = prompt("أدخل كلمة السر الجديدة:", currentPassword);
             if(!newPassword) return;
 
@@ -695,7 +711,8 @@
 
         document.getElementById('artisanForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const name = document.getElementById('artisanName').value;
+            const name = document.getElementById('artisanName').value.trim();
+            const workName = document.getElementById('artisanWorkName').value.trim();
             const category = document.getElementById('artisanCategory').value;
             const password = document.getElementById('authPassword').value;
             const bio = document.getElementById('artisanBio').value || "حرفي محترف جاهز لخدمتكم.";
@@ -715,6 +732,7 @@
 
             const artisanData = { 
                 name, 
+                workName,
                 category, 
                 phone: currentArtisanPhone, 
                 password, 
@@ -763,10 +781,11 @@
                 container.innerHTML = '';
                 artisans.forEach(a => {
                     const cleanPhone = a.phone ? a.phone.replace(/[^0-9]/g, '') : '';
+                    let titleDisplay = a.workName ? `${a.workName} <span style="font-size:12px; color:var(--text-gray);">(${a.name})</span>` : a.name;
                     container.innerHTML += `
                         <div class="artisan-card">
                             <div style="flex: 1;">
-                                <h3 style="color: var(--accent-gold); margin-bottom: 4px; font-size: 17px;">${a.name}</h3>
+                                <h3 style="color: var(--accent-gold); margin-bottom: 4px; font-size: 17px;">${titleDisplay}</h3>
                                 <p style="color: var(--accent-blue); font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛠️ ${a.category} | 📞 ${a.phone}</p>
                                 <p style="color: var(--text-gray); font-size: 13px; font-style: italic; margin-bottom: 6px;">"${a.bio}"</p>
                                 <p style="color: var(--accent-green); font-size: 12px;">📍 متاح في منطقتك</p>
