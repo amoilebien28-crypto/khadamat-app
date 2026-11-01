@@ -188,24 +188,57 @@
             border: 1px solid var(--border-color);
             margin-bottom: 15px;
         }
-        .admin-actions {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .admin-action-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-            color: white;
-            text-align: center;
-        }
     </style>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDGCsBbBxpQb-NSe0j4NYs7xLLQB3PKxAQ",
+            authDomain: "khadamat-app-17da5.firebaseapp.com",
+            projectId: "khadamat-app-17da5",
+            storageBucket: "khadamat-app-17da5.firebasestorage.app",
+            messagingSenderId: "629609591825",
+            appId: "1:629609591825:web:531395ee84debd0c2d2db0",
+            measurementId: "G-2BKYRRGSV3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.collection = collection;
+        window.getDocs = getDocs;
+        window.doc = doc;
+        window.setDoc = setDoc;
+        window.deleteDoc = deleteDoc;
+
+        // تحميل الإحصائيات فور فتح التطبيق
+        window.initFirebaseData = async function() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "artisans"));
+                let artisans = [];
+                querySnapshot.forEach((doc) => {
+                    artisans.push(doc.data());
+                });
+                window.cachedArtisans = artisans;
+                const badge = document.getElementById('statsBadge');
+                if(badge) {
+                    if(artisans.length > 0) {
+                        badge.innerHTML = `🌟 يوجد حالياً <b>${artisans.length}</b> حرفياً مسجلاً وجاهزاً لخدمتكم`;
+                    } else {
+                        badge.innerHTML = `📍 المنصة نشطة - كن أول حرفي يسجل في منطقتك!`;
+                    }
+                }
+            } catch (e) {
+                console.error("Error loading firebase data: ", e);
+            }
+        };
+
+        window.initFirebaseData();
+    </script>
 </head>
 <body>
 
@@ -216,7 +249,7 @@
         <!-- 1. الشاشة الرئيسية -->
         <div id="welcomeView" class="view active">
             <div class="middle-badge" id="statsBadge">
-                <span>📍</span> جاري احتساب الحرفيين المتاحين في منطقتك...
+                <span>📍</span> جاري الاتصال بقاعدة البيانات واحتساب الحرفيين...
             </div>
 
             <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي (تسجيل الدخول / تعديل الحساب)</button>
@@ -248,21 +281,13 @@
             </div>
         </div>
 
-        <!-- 3. لوحة تحكم الأدمن (مع ميزة النسخ الاحتياطي والاستعادة) -->
+        <!-- 3. لوحة تحكم الأدمن -->
         <div id="adminView" class="view">
             <span class="back-link" id="backToHomeAdmin">← تسجيل الخروج للرئيسية</span>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 15px;">إدارة وحماية قاعدة بيانات الحرفيين:</p>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 15px;">إدارة قاعدة بيانات الحرفيين المباشرة عبر Firebase:</p>
             
-            <div class="admin-actions">
-                <button class="admin-action-btn" style="background: var(--accent-blue);" onclick="exportDatabase()">📥 تحميل نسخة احتياطية (Backup)</button>
-                <label class="admin-action-btn" style="background: var(--accent-green); display: inline-block; cursor: pointer; line-height: normal;">
-                    📤 استعادة البيانات (Restore)
-                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDatabase(event)">
-                </label>
-            </div>
-
-            <div id="adminArtisansList"></div>
+            <div id="adminArtisansList">جاري التحميل...</div>
         </div>
 
         <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي -->
@@ -319,7 +344,7 @@
             </div>
 
             <div id="artisansList" style="margin-top: 20px;">
-                <p style="color: var(--text-gray); text-align: center;">اختر اختصاصاً أعلاه لعرض الحرفيين...</p>
+                <p style="color: var(--text-gray); text-align: center;">جاري جلب الحرفيين من قاعدة البيانات...</p>
             </div>
         </div>
 
@@ -332,37 +357,26 @@
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
 
-        function updateStats() {
-            let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
-            const badge = document.getElementById('statsBadge');
-            if(artisans.length > 0) {
-                badge.innerHTML = `🌟 يوجد حالياً <b>${artisans.length}</b> حرفياً مسجلاً وجاهزاً لخدمتكم`;
-            } else {
-                badge.innerHTML = `📍 المنصة نشطة - كن أول حرفي يسجل في منطقتك!`;
-            }
-        }
-        updateStats();
-
         document.getElementById('btnArtisan').addEventListener('click', function() {
             switchView('artisanAuthView');
         });
 
-        document.getElementById('btnCustomer').addEventListener('click', function() {
+        document.getElementById('btnCustomer').addEventListener('click', async function() {
             switchView('customerView');
-            loadArtisans('all');
+            await loadArtisans('all');
         });
 
-        document.getElementById('backToHome0').addEventListener('click', function() { switchView('welcomeView'); updateStats(); });
+        document.getElementById('backToHome0').addEventListener('click', function() { switchView('welcomeView'); window.initFirebaseData(); });
         document.getElementById('backToAuth').addEventListener('click', function() { switchView('artisanAuthView'); });
-        document.getElementById('backToHome2').addEventListener('click', function() { switchView('welcomeView'); updateStats(); });
-        document.getElementById('backToHomeAdmin').addEventListener('click', function() { switchView('welcomeView'); updateStats(); });
+        document.getElementById('backToHome2').addEventListener('click', function() { switchView('welcomeView'); window.initFirebaseData(); });
+        document.getElementById('backToHomeAdmin').addEventListener('click', function() { switchView('welcomeView'); window.initFirebaseData(); });
 
         function switchView(viewId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
         }
 
-        document.getElementById('btnLoginArtisan').addEventListener('click', function() {
+        document.getElementById('btnLoginArtisan').addEventListener('click', async function() {
             const phone = document.getElementById('authPhone').value.trim();
             const password = document.getElementById('authPassword').value.trim();
 
@@ -372,105 +386,87 @@
             }
 
             if(phone === ADMIN_PHONE && password === ADMIN_PASS) {
-                loadAdminPanel();
+                await loadAdminPanel();
                 switchView('adminView');
                 return;
             }
 
             currentArtisanPhone = phone;
-            let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
-            let existing = artisans.find(a => a.phone === phone);
+            
+            // البحث عن الحرفي في Firebase
+            try {
+                const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
+                let existing = null;
+                querySnapshot.forEach((d) => {
+                    let data = d.data();
+                    if(data.phone === phone) existing = data;
+                });
 
-            if(existing) {
-                if(existing.password !== password) {
-                    alert('كلمة السر غير صحيحة لهذا الرقم!');
-                    return;
+                if(existing) {
+                    if(existing.password !== password) {
+                        alert('كلمة السر غير صحيحة لهذا الرقم!');
+                        return;
+                    }
+                    document.getElementById('artisanName').value = existing.name;
+                    document.getElementById('artisanCategory').value = existing.category;
+                    document.getElementById('artisanBio').value = existing.bio;
+                    document.getElementById('lat').value = existing.lat;
+                    document.getElementById('lng').value = existing.lng;
+                    document.getElementById('locationStatus').value = "✅ موقعك مسجل مسبقاً (يمكنك إعادة تحديثه إن أردت)";
+                    document.getElementById('formTitle').innerText = "تعديل بيانات ملفك الشخصي";
+                    alert('مرحباً بك! تم التعرف على حسابك ويمكنك تعديل بياناتك.');
+                } else {
+                    document.getElementById('artisanForm').reset();
+                    document.getElementById('locationStatus').value = "";
+                    document.getElementById('formTitle').innerText = "إنشاء ملف حرفي جديد";
+                    alert('هذا الرقم جديد، يرجى إكمال بيانات ملفك الشخصي.');
                 }
-                document.getElementById('artisanName').value = existing.name;
-                document.getElementById('artisanCategory').value = existing.category;
-                document.getElementById('artisanBio').value = existing.bio;
-                document.getElementById('lat').value = existing.lat;
-                document.getElementById('lng').value = existing.lng;
-                document.getElementById('locationStatus').value = "✅ موقعك مسجل مسبقاً (يمكنك إعادة تحديثه إن أردت)";
-                document.getElementById('formTitle').innerText = "تعديل بيانات ملفك الشخصي";
-                alert('مرحباً بك! تم التعرف على حسابك ويمكنك تعديل بياناتك.');
-            } else {
-                document.getElementById('artisanForm').reset();
-                document.getElementById('locationStatus').value = "";
-                document.getElementById('formTitle').innerText = "إنشاء ملف حرفي جديد";
-                alert('هذا الرقم جديد، يرجى إكمال بيانات ملفك الشخصي.');
+                switchView('artisanRegisterView');
+            } catch(e) {
+                alert('حدث خطأ أثناء الاتصال بقاعدة البيانات.');
             }
-
-            switchView('artisanRegisterView');
         });
 
-        // تصدير قاعدة البيانات كملف JSON (للتحميل على الفلاش ديسك)
-        function exportDatabase() {
-            let data = localStorage.getItem('localArtisans') || '[]';
-            let blob = new Blob([data], { type: 'application/json' });
-            let url = URL.createObjectURL(blob);
-            let a = document.createElement('a');
-            a.href = url;
-            a.download = 'sonaa_artisans_backup.json';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        // استعادة قاعدة البيانات من ملف JSON
-        function importDatabase(event) {
-            let file = event.target.files[0];
-            if(!file) return;
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    let artisans = JSON.parse(e.target.result);
-                    if(Array.isArray(artisans)) {
-                        localStorage.setItem('localArtisans', JSON.stringify(artisans));
-                        loadAdminPanel();
-                        updateStats();
-                        alert('✅ تم استعادة بيانات الحرفيين بنجاح تام!');
-                    } else {
-                        alert('❌ ملف غير صالح.');
-                    }
-                } catch(err) {
-                    alert('❌ حدث خطأ أثناء قراءة الملف.');
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        function loadAdminPanel() {
+        async function loadAdminPanel() {
             const container = document.getElementById('adminArtisansList');
-            let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
+            container.innerHTML = '<p style="text-align:center;">جاري التحميل...</p>';
+            try {
+                const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
+                if(querySnapshot.empty) {
+                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">لا يوجد حرفيون مسجلون حالياً.</p>';
+                    return;
+                }
 
-            if(artisans.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">لا يوجد حرفيون مسجلون حالياً.</p>';
-                return;
-            }
-
-            container.innerHTML = '';
-            artisans.forEach((a, index) => {
-                container.innerHTML += `
-                    <div class="admin-card">
-                        <div style="flex: 1;">
-                            <h3 style="color: var(--accent-gold); font-size: 16px;">${a.name}</h3>
-                            <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📞 ${a.phone}</p>
-                            <p style="color: var(--text-gray); font-size: 12px; margin-top: 4px;">"${a.bio}"</p>
+                container.innerHTML = '';
+                querySnapshot.forEach((d) => {
+                    let a = d.data();
+                    let docId = d.id;
+                    container.innerHTML += `
+                        <div class="admin-card">
+                            <div style="flex: 1;">
+                                <h3 style="color: var(--accent-gold); font-size: 16px;">${a.name}</h3>
+                                <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📞 ${a.phone}</p>
+                                <p style="color: var(--text-gray); font-size: 12px; margin-top: 4px;">"${a.bio}"</p>
+                            </div>
+                            <button onclick="deleteArtisan('${docId}')" style="background: #dc2626; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px;">حذف</button>
                         </div>
-                        <button onclick="deleteArtisan(${index})" style="background: #dc2626; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px;">حذف</button>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            } catch(e) {
+                container.innerHTML = '<p style="color: red; text-align: center;">فشل تحميل البيانات من Firebase.</p>';
+            }
         }
 
-        window.deleteArtisan = function(index) {
-            if(confirm('هل أنت متأكد من حذف هذا الحرفي نهائياً؟')) {
-                let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
-                artisans.splice(index, 1);
-                localStorage.setItem('localArtisans', JSON.stringify(artisans));
-                loadAdminPanel();
-                updateStats();
-                alert('تم الحذف بنجاح.');
+        window.deleteArtisan = async function(docId) {
+            if(confirm('هل أنت متأكد من حذف هذا الحرفي نهائياً من قاعدة البيانات؟')) {
+                try {
+                    await window.deleteDoc(window.doc(window.db, "artisans", docId));
+                    alert('تم الحذف بنجاح.');
+                    loadAdminPanel();
+                    window.initFirebaseData();
+                } catch(e) {
+                    alert('فشل الحذف.');
+                }
             }
         };
 
@@ -491,7 +487,7 @@
             }, { enableHighAccuracy: true });
         });
 
-        document.getElementById('artisanForm').addEventListener('submit', function(e) {
+        document.getElementById('artisanForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('artisanName').value;
             const category = document.getElementById('artisanCategory').value;
@@ -505,59 +501,76 @@
                 return;
             }
 
-            let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
-            let index = artisans.findIndex(a => a.phone === currentArtisanPhone);
+            const artisanData = { 
+                name, 
+                category, 
+                phone: currentArtisanPhone, 
+                password, 
+                bio, 
+                lat, 
+                lng,
+                updatedAt: new Date().toISOString()
+            };
 
-            const artisanData = { name, category, phone: currentArtisanPhone, password, bio, lat, lng };
-
-            if(index >= 0) {
-                artisans[index] = artisanData;
-            } else {
-                artisans.push(artisanData);
+            try {
+                // حفظ البيانات في Firebase باستخدام رقم الهاتف كمستند فريد
+                const docId = currentArtisanPhone.replace(/[^0-9]/g, '') || 'artisan_' + Date.now();
+                await window.setDoc(window.doc(window.db, "artisans", docId), artisanData);
+                
+                alert('مبارك! تم حفظ وتحديث ملفك بنجاح في قاعدة بيانات Firebase.');
+                switchView('welcomeView');
+                window.initFirebaseData();
+            } catch(err) {
+                alert('❌ حدث خطأ أثناء الحفظ في قاعدة البيانات.');
             }
-
-            localStorage.setItem('localArtisans', JSON.stringify(artisans));
-            alert('مبارك! تم حفظ وتحديث ملفك بنجاح في المنصة.');
-            switchView('welcomeView');
-            updateStats();
         });
 
-        function selectCategory(cat) {
+        async function selectCategory(cat) {
             selectedFilter = cat;
-            loadArtisans(cat);
+            await loadArtisans(cat);
         }
 
-        function loadArtisans(filter) {
+        async function loadArtisans(filter) {
             const container = document.getElementById('artisansList');
-            let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
+            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">جاري التحميل...</p>';
             
-            if(filter !== 'all') {
-                artisans = artisans.filter(a => a.category === filter);
-            }
+            try {
+                const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
+                let artisans = [];
+                querySnapshot.forEach((d) => {
+                    artisans.push(d.data());
+                });
 
-            if(artisans.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">لا يوجد حرفيون مسجلون في هذا التخصص حالياً.</p>';
-                return;
-            }
+                if(filter !== 'all') {
+                    artisans = artisans.filter(a => a.category === filter);
+                }
 
-            container.innerHTML = '';
-            artisans.forEach(a => {
-                const cleanPhone = a.phone.replace(/[^0-9]/g, '');
-                container.innerHTML += `
-                    <div class="artisan-card">
-                        <div style="flex: 1;">
-                            <h3 style="color: var(--accent-gold); margin-bottom: 4px; font-size: 17px;">${a.name}</h3>
-                            <p style="color: var(--accent-blue); font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛠️ ${a.category}</p>
-                            <p style="color: var(--text-gray); font-size: 13px; font-style: italic; margin-bottom: 6px;">"${a.bio}"</p>
-                            <p style="color: var(--accent-green); font-size: 12px;">📍 متاح في منطقتك</p>
+                if(artisans.length === 0) {
+                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">لا يوجد حرفيون مسجلون في هذا التخصص حالياً.</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                artisans.forEach(a => {
+                    const cleanPhone = a.phone ? a.phone.replace(/[^0-9]/g, '') : '';
+                    container.innerHTML += `
+                        <div class="artisan-card">
+                            <div style="flex: 1;">
+                                <h3 style="color: var(--accent-gold); margin-bottom: 4px; font-size: 17px;">${a.name}</h3>
+                                <p style="color: var(--accent-blue); font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛠️ ${a.category}</p>
+                                <p style="color: var(--text-gray); font-size: 13px; font-style: italic; margin-bottom: 6px;">"${a.bio}"</p>
+                                <p style="color: var(--accent-green); font-size: 12px;">📍 متاح في منطقتك</p>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <a href="tel:${a.phone}" style="background: #0284c7; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">📞 اتصال</a>
+                                <a href="https://wa.me/${cleanPhone}" target="_blank" style="background: #059669; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">💬 واتساب</a>
+                            </div>
                         </div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <a href="tel:${a.phone}" style="background: #0284c7; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">📞 اتصال</a>
-                            <a href="https://wa.me/${cleanPhone}" target="_blank" style="background: #059669; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">💬 واتساب</a>
-                        </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            } catch(e) {
+                container.innerHTML = '<p style="color: red; text-align: center;">فشل جلب الحرفيين من Firebase.</p>';
+            }
         }
     </script>
 </body>
