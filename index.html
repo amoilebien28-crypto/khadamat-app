@@ -62,8 +62,6 @@
             font-weight: bold;
             margin-bottom: 18px;
         }
-        
-        /* صندوق الشرح الجميل في الأسفل */
         .info-box {
             background: #fffbeb;
             border: 1px solid #fde68a;
@@ -86,7 +84,6 @@
             line-height: 1.6;
             margin-bottom: 6px;
         }
-
         .btn {
             display: block;
             width: 100%;
@@ -173,7 +170,7 @@
             border-color: var(--accent-blue);
         }
 
-        .artisan-card {
+        .artisan-card, .admin-card {
             background: #f8fafc;
             padding: 20px;
             border-radius: 16px;
@@ -205,40 +202,46 @@
                 <span>📍</span> جاري احتساب الحرفيين المتاحين في منطقتك...
             </div>
 
-            <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي (تسجيل الدخول / تقديم خدماتي)</button>
+            <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي (تسجيل الدخول / تعديل الحساب)</button>
             <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي (اختيار التخصص مباشرة)</button>
 
-            <!-- نافذة الشرح الجميل في الأسفل -->
             <div class="info-box">
                 <h3>💡 كيف تعمل منصة صنّاع؟</h3>
-                <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك وكلمة سر، حدد موقعك بدقة عبر الـ GPS، وأضف اختصاصك ليصل إليك آلاف الزبائن.</p>
-                <p><b>للباحثين عن الخدمات:</b> اضغط مباشرة على التخصص الذي تحتاجه (كهرباء، سباكة، نجارة...) وتواصل مع الحرفي فوراً عبر الهاتف أو الواتساب.</p>
+                <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك وكلمة سر، حدد موقعك بدقة عبر الـ GPS، وأضف اختصاصك. يمكنك العودة في أي وقت لتعديل معلوماتك!</p>
+                <p><b>للباحثين عن الخدمات:</b> اضغط مباشرة على التخصص الذي تحتاجه وتواصل مع الحرفي فوراً عبر الهاتف أو الواتساب.</p>
             </div>
         </div>
 
-        <!-- 2. بوابة دخول الحرفي -->
+        <!-- 2. بوابة دخول الحرفي أو الأدمن -->
         <div id="artisanAuthView" class="view">
             <span class="back-link" id="backToHome0">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-blue); margin-bottom: 12px; font-size: 20px;">بوابة دخول الحرفيين</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك وكلمة السر الخاصة بك لإدارة حسابك بأمان.</p>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
             
             <div class="auth-box">
                 <div class="form-group">
-                    <label>رقم الهاتف</label>
-                    <input type="text" id="authPhone" placeholder="+216 ...">
+                    <label>رقم الهاتف أو كود الأدمن</label>
+                    <input type="text" id="authPhone" placeholder="أدخل رقمك أو كود المشرف...">
                 </div>
                 <div class="form-group">
                     <label>كلمة السر</label>
                     <input type="password" id="authPassword" placeholder="كلمة السر الخاصة بك">
                 </div>
-                <button type="button" class="btn" id="btnLoginArtisan" style="background: var(--accent-blue); color: white; margin-top: 10px;">دخول أو تسجيل جديد</button>
+                <button type="button" class="btn" id="btnLoginArtisan" style="background: var(--accent-blue); color: white; margin-top: 10px;">دخول أو تعديل الحساب</button>
             </div>
         </div>
 
-        <!-- 3. واجهة تسجيل بيانات الحرفي الكاملة -->
+        <!-- 3. لوحة تحكم الأدمن -->
+        <div id="adminView" class="view">
+            <span class="back-link" id="backToHomeAdmin">← تسجيل الخروج للرئيسية</span>
+            <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
+            <div id="adminArtisansList"></div>
+        </div>
+
+        <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي -->
         <div id="artisanRegisterView" class="view">
             <span class="back-link" id="backToAuth">← رجوع للبوابة</span>
-            <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">استكمال ملف الحرفي</h2>
+            <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;" id="formTitle">تعديل أو استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
                     <label>الاسم الكامل</label>
@@ -261,16 +264,16 @@
                 </div>
                 <div class="form-group">
                     <label>الموقع الجغرافي (GPS)</label>
-                    <button type="button" class="btn-gps" id="btnGetLocation">📍 اضغط هنا لالتقاط موقعك بدقة أوتوماتيكياً</button>
+                    <button type="button" class="btn-gps" id="btnGetLocation">📍 اضغط هنا لتحديث أو التقاط موقعك بدقة</button>
                     <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#e2e8f0; color:var(--accent-green); font-size:13px; text-align:center;" placeholder="لم يتم تحديد الموقع بعد">
                     <input type="hidden" id="lat">
                     <input type="hidden" id="lng">
                 </div>
-                <button type="submit" class="btn" style="background: var(--accent-gold); color: white;">حفظ وتحديث الملف (Enregistrer)</button>
+                <button type="submit" class="btn" style="background: var(--accent-gold); color: white;">حفظ وتحديث التعديلات (Enregistrer)</button>
             </form>
         </div>
 
-        <!-- 4. واجهة الزبون (أزرار التخصصات المباشرة) -->
+        <!-- 5. واجهة الزبون -->
         <div id="customerView" class="view">
             <span class="back-link" id="backToHome2">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">اختر التخصص المطلوب للبحث</h2>
@@ -299,6 +302,9 @@
         let currentArtisanPhone = "";
         let selectedFilter = 'all';
 
+        const ADMIN_PHONE = "admin";
+        const ADMIN_PASS = "admin123";
+
         function updateStats() {
             let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
             const badge = document.getElementById('statsBadge');
@@ -322,6 +328,7 @@
         document.getElementById('backToHome0').addEventListener('click', function() { switchView('welcomeView'); updateStats(); });
         document.getElementById('backToAuth').addEventListener('click', function() { switchView('artisanAuthView'); });
         document.getElementById('backToHome2').addEventListener('click', function() { switchView('welcomeView'); updateStats(); });
+        document.getElementById('backToHomeAdmin').addEventListener('click', function() { switchView('welcomeView'); updateStats(); });
 
         function switchView(viewId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -337,6 +344,12 @@
                 return;
             }
 
+            if(phone === ADMIN_PHONE && password === ADMIN_PASS) {
+                loadAdminPanel();
+                switchView('adminView');
+                return;
+            }
+
             currentArtisanPhone = phone;
             let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
             let existing = artisans.find(a => a.phone === phone);
@@ -346,21 +359,58 @@
                     alert('كلمة السر غير صحيحة لهذا الرقم!');
                     return;
                 }
+                // تعبئة البيانات السابقة لتعديلها
                 document.getElementById('artisanName').value = existing.name;
                 document.getElementById('artisanCategory').value = existing.category;
                 document.getElementById('artisanBio').value = existing.bio;
                 document.getElementById('lat').value = existing.lat;
                 document.getElementById('lng').value = existing.lng;
-                document.getElementById('locationStatus').value = "✅ موقعك مسجل مسبقاً وجاهز";
-                alert('مرحباً بعودتك! تم التحقق من حسابك.');
+                document.getElementById('locationStatus').value = "✅ موقعك مسجل مسبقاً (يمكنك إعادة تحديثه إن أردت)";
+                document.getElementById('formTitle').innerText = "تعديل بيانات ملفك الشخصي";
+                alert('مرحباً بك! تم العرف على حسابك ويمكنك تعديل بياناتك.');
             } else {
                 document.getElementById('artisanForm').reset();
                 document.getElementById('locationStatus').value = "";
+                document.getElementById('formTitle').innerText = "إنشاء ملف حرفي جديد";
                 alert('هذا الرقم جديد، يرجى إكمال بيانات ملفك الشخصي.');
             }
 
             switchView('artisanRegisterView');
         });
+
+        function loadAdminPanel() {
+            const container = document.getElementById('adminArtisansList');
+            let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
+
+            if(artisans.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">لا يوجد حرفيون مسجلون حالياً.</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            artisans.forEach((a, index) => {
+                container.innerHTML += `
+                    <div class="admin-card">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--accent-gold); font-size: 16px;">${a.name}</h3>
+                            <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📞 ${a.phone}</p>
+                            <p style="color: var(--text-gray); font-size: 12px; margin-top: 4px;">"${a.bio}"</p>
+                        </div>
+                        <button onclick="deleteArtisan(${index})" style="background: #dc2626; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px;">حذف</button>
+                    </div>
+                `;
+            });
+        }
+
+        window.deleteArtisan = function(index) {
+            if(confirm('هل أنت متأكد من حذف هذا الحرفي نهائياً؟')) {
+                let artisans = JSON.parse(localStorage.getItem('localArtisans') || '[]');
+                artisans.splice(index, 1);
+                localStorage.setItem('localArtisans', JSON.stringify(artisans));
+                loadAdminPanel();
+                alert('تم الحذف بنجاح.');
+            }
+        };
 
         document.getElementById('btnGetLocation').addEventListener('click', function() {
             const status = document.getElementById('locationStatus');
@@ -372,7 +422,7 @@
             navigator.geolocation.getCurrentPosition((position) => {
                 document.getElementById('lat').value = position.coords.latitude;
                 document.getElementById('lng').value = position.coords.longitude;
-                status.value = `✅ تم التقاط موقعك الجغرافي بنجاح`;
+                status.value = `✅ تم تحديث واعتماج موقعك بدقة`;
             }, () => {
                 status.value = "❌ فشل تحديد الموقع. يرجى السماح للمتصفح بالوصول للموقع.";
                 alert('يرجى السماح للتطبيق بالوصول إلى موقعك الجغرافي.');
@@ -399,13 +449,13 @@
             const artisanData = { name, category, phone: currentArtisanPhone, password, bio, lat, lng };
 
             if(index >= 0) {
-                artisans[index] = artisanData;
+                artisans[index] = artisanData; // تحديث بيانات الحرفي الموجود مسبقاً
             } else {
-                artisans.push(artisanData);
+                artisans.push(artisanData); // إضافة حرفي جديد
             }
 
             localStorage.setItem('localArtisans', JSON.stringify(artisans));
-            alert('مبارك! تم حفظ ملفك بنجاح في المنصة.');
+            alert('مبارك! تم حفظ وتحديث ملفك بنجاح في المنصة.');
             switchView('welcomeView');
             updateStats();
         });
