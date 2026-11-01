@@ -159,7 +159,7 @@
             border-radius: 14px;
             color: var(--text-main);
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
             text-align: center;
             transition: 0.2s;
@@ -204,6 +204,13 @@
             font-size: 13px;
             color: white;
             text-align: center;
+        }
+        .add-category-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 15px;
+            border-radius: 14px;
+            margin-bottom: 20px;
         }
     </style>
 
@@ -297,12 +304,20 @@
             </div>
         </div>
 
-        <!-- 3. لوحة تحكم الأدمن (مع أزرار النسخ الاحتياطي، الاستعادة، الحذف، والتعديل) -->
+        <!-- 3. لوحة تحكم الأدمن (مع قسم إضافة التخصصات وإدارة الحرفيين والنسخ الاحتياطي) -->
         <div id="adminView" class="view">
             <span class="back-link" id="backToHomeAdmin">← تسجيل الخروج للرئيسية</span>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 15px;">إدارة وحماية قاعدة البيانات عبر Firebase:</p>
             
+            <!-- قسم إضافة تخصص جديد للمنصة -->
+            <div class="add-category-box">
+                <h3 style="color: var(--accent-green); font-size: 15px; margin-bottom: 8px;">➕ إضافة تخصص مهني جديد</h3>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="newCatInput" placeholder="أدخل اسم التخصص الجديد (مثال: دهان وبناء)">
+                    <button onclick="addNewCategory()" style="background: var(--accent-green); color: white; border: none; padding: 10px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; white-space: nowrap;">إضافة</button>
+                </div>
+            </div>
+
             <div class="admin-actions">
                 <button class="admin-action-btn" style="background: var(--accent-blue);" onclick="exportDatabase()">📥 تحميل نسخة احتياطية (Backup)</button>
                 <label class="admin-action-btn" style="background: var(--accent-green); display: inline-block; cursor: pointer; line-height: normal; padding-top: 13px;">
@@ -311,6 +326,7 @@
                 </label>
             </div>
 
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 10px;">قائمة الحرفيين المسجلين:</p>
             <div id="adminArtisansList">جاري التحميل...</div>
         </div>
 
@@ -330,12 +346,7 @@
                 <div class="form-group">
                     <label>الاختصاص المهني</label>
                     <select id="artisanCategory">
-                        <option value="كهربائي (منزلي وصناعي)">كهربائي (منزلي وصناعي)</option>
-                        <option value="سباك (إصلاح صحي)">سباك (إصلاح صحي)</option>
-                        <option value="نجار (عام)">نجار (عام)</option>
-                        <option value="مختص في نجارة الألمنيوم">مختص في نجارة الألمنيوم</option>
-                        <option value="حداد وهياكل معدنية">حداد وهياكل معدنية</option>
-                        <option value="مكيفات وهواء معالج">مكيفات وهواء معالج</option>
+                        <!-- يتم ملؤها ديناميكياً بالقائمة الشاملة -->
                     </select>
                 </div>
                 <div class="form-group">
@@ -358,13 +369,8 @@
             <span class="back-link" id="backToHome2">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">اختر التخصص المطلوب للبحث</h2>
             
-            <div class="categories-grid">
-                <button class="cat-btn" onclick="selectCategory('كهربائي (منزلي وصناعي)')">⚡ كهربائي</button>
-                <button class="cat-btn" onclick="selectCategory('سباك (إصلاح صحي)')">🚰 سباك صحي</button>
-                <button class="cat-btn" onclick="selectCategory('نجار (عام)')">🪵 نجار عام</button>
-                <button class="cat-btn" onclick="selectCategory('مختص في نجارة الألمنيوم')">🪟 ألومنيوم</button>
-                <button class="cat-btn" onclick="selectCategory('حداد وهياكل معدنية')">⚙️ حداد</button>
-                <button class="cat-btn" onclick="selectCategory('مكيفات وهواء معالج')">❄️ مكيفات</button>
+            <div class="categories-grid" id="customerCategoriesGrid">
+                <!-- يتم تعبئتها ديناميكياً بأزرار التخصصات -->
             </div>
 
             <div style="text-align: center; margin-bottom: 15px;">
@@ -384,6 +390,82 @@
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
+
+        // قائمة الصنائع الأساسية والشاملة لكل احتياجات البيت والسيارات
+        let defaultCategories = [
+            "كهربائي (منزلي وصناعي)",
+            "سباك (إصلاح صحي)",
+            "نجار (عام وأبواب)",
+            "مختص في نجارة الألمنيوم والديكور",
+            "حداد وهياكل معدنية",
+            "مكيفات وهواء معالج",
+            "بناء ومقاولات صغرى",
+            "دهان وتركيب ورق حائط",
+            "ميكانيكي سيارات (مصلح سيارات)",
+            "كهرباء وفحص سيارات",
+            "تصليح أجهزة منزلية (غسالات وثلاجات)",
+            "تركيب كاميرات مراقبة وأجهزة إنذار",
+            "زجاج ومرايا",
+            "أصاحب النقل واللواج ونقل العفش"
+        ];
+
+        // استرجاع التخصصات المضافة من localStorage أو اعتماد الافتراضية
+        function getCategories() {
+            let saved = localStorage.getItem('siteCategories');
+            if(saved) {
+                try { return JSON.parse(saved); } catch(e) { return defaultCategories; }
+            }
+            return defaultCategories;
+        }
+
+        function saveCategories(cats) {
+            localStorage.setItem('siteCategories', JSON.stringify(cats));
+            populateCategoriesUI();
+        }
+
+        // تعبئة القوائم والأزرار في واجهة الحرفي والزبون
+        function populateCategoriesUI() {
+            let cats = getCategories();
+            
+            // 1. تعبئة اختيار الحرفي
+            let selectEl = document.getElementById('artisanCategory');
+            if(selectEl) {
+                selectEl.innerHTML = '';
+                cats.forEach(c => {
+                    selectEl.innerHTML += `<option value="${c}">${c}</option>`;
+                });
+            }
+
+            // 2. تعبئة أزرار شبكة الزبون
+            let gridEl = document.getElementById('customerCategoriesGrid');
+            if(gridEl) {
+                gridEl.innerHTML = '';
+                cats.forEach(c => {
+                    let shortName = c.split('(')[0].trim();
+                    gridEl.innerHTML += `<button class="cat-btn" onclick="selectCategory('${c}')">🔹 ${shortName}</button>`;
+                });
+            }
+        }
+        populateCategoriesUI();
+
+        // ميزة إضافة تخصص جديد من لوحة الأدمن
+        window.addNewCategory = function() {
+            let input = document.getElementById('newCatInput');
+            let val = input.value.trim();
+            if(!val) {
+                alert('الرجاء كتابة اسم التخصص الجديد!');
+                return;
+            }
+            let cats = getCategories();
+            if(cats.includes(val)) {
+                alert('هذا التخصص موجود بالفعل!');
+                return;
+            }
+            cats.push(val);
+            saveCategories(cats);
+            input.value = '';
+            alert('✅ تمت إضافة التخصص الجديد بنجاح وأصبح متاحاً فوراً للحرفيين والزبائن!');
+        };
 
         document.getElementById('btnArtisan').addEventListener('click', function() {
             switchView('artisanAuthView');
@@ -437,7 +519,7 @@
                         return;
                     }
                     document.getElementById('artisanName').value = existing.name || '';
-                    document.getElementById('artisanCategory').value = existing.category || 'كهربائي (منزلي وصناعي)';
+                    document.getElementById('artisanCategory').value = existing.category || getCategories()[0];
                     document.getElementById('artisanBio').value = existing.bio || '';
                     document.getElementById('lat').value = existing.lat || '';
                     document.getElementById('lng').value = existing.lng || '';
@@ -457,7 +539,6 @@
             }
         });
 
-        // ميزة تصدير البيانات كملف JSON (نسخة احتياطية للفلاش ديسك)
         window.exportDatabase = async function() {
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
@@ -484,7 +565,6 @@
             }
         };
 
-        // ميزة استعادة البيانات من ملف JSON ورفعها مباشرة لـ Firebase
         window.importDatabase = async function(event) {
             let file = event.target.files[0];
             if(!file) return;
