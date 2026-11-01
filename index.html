@@ -215,7 +215,6 @@
         window.setDoc = setDoc;
         window.deleteDoc = deleteDoc;
 
-        // تحميل الإحصائيات فور فتح التطبيق
         window.initFirebaseData = async function() {
             try {
                 const querySnapshot = await getDocs(collection(db, "artisans"));
@@ -290,7 +289,7 @@
             <div id="adminArtisansList">جاري التحميل...</div>
         </div>
 
-        <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي -->
+        <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي (مضاف إليها خانة رقم الهاتف) -->
         <div id="artisanRegisterView" class="view">
             <span class="back-link" id="backToAuth">← رجوع للبوابة</span>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;" id="formTitle">تعديل أو استكمال ملف الحرفي</h2>
@@ -298,6 +297,10 @@
                 <div class="form-group">
                     <label>الاسم الكامل</label>
                     <input type="text" id="artisanName" required placeholder="مثال: محمد الصادق">
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف (للتواصل والتعريف بالحساب)</label>
+                    <input type="text" id="displayPhone" readonly style="background: #e2e8f0; font-weight: bold; color: var(--accent-blue);" placeholder="رقم هاتفك">
                 </div>
                 <div class="form-group">
                     <label>الاختصاص المهني</label>
@@ -393,7 +396,6 @@
 
             currentArtisanPhone = phone;
             
-            // البحث عن الحرفي في Firebase
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
                 let existing = null;
@@ -402,21 +404,25 @@
                     if(data.phone === phone) existing = data;
                 });
 
+                // تعبئة رقم الهاتف في الحقل الجديد المرئي داخل الاستمارة
+                document.getElementById('displayPhone').value = phone;
+
                 if(existing) {
                     if(existing.password !== password) {
                         alert('كلمة السر غير صحيحة لهذا الرقم!');
                         return;
                     }
-                    document.getElementById('artisanName').value = existing.name;
-                    document.getElementById('artisanCategory').value = existing.category;
-                    document.getElementById('artisanBio').value = existing.bio;
-                    document.getElementById('lat').value = existing.lat;
-                    document.getElementById('lng').value = existing.lng;
+                    document.getElementById('artisanName').value = existing.name || '';
+                    document.getElementById('artisanCategory').value = existing.category || 'كهربائي (منزلي وصناعي)';
+                    document.getElementById('artisanBio').value = existing.bio || '';
+                    document.getElementById('lat').value = existing.lat || '';
+                    document.getElementById('lng').value = existing.lng || '';
                     document.getElementById('locationStatus').value = "✅ موقعك مسجل مسبقاً (يمكنك إعادة تحديثه إن أردت)";
                     document.getElementById('formTitle').innerText = "تعديل بيانات ملفك الشخصي";
                     alert('مرحباً بك! تم التعرف على حسابك ويمكنك تعديل بياناتك.');
                 } else {
                     document.getElementById('artisanForm').reset();
+                    document.getElementById('displayPhone').value = phone;
                     document.getElementById('locationStatus').value = "";
                     document.getElementById('formTitle').innerText = "إنشاء ملف حرفي جديد";
                     alert('هذا الرقم جديد، يرجى إكمال بيانات ملفك الشخصي.');
@@ -501,6 +507,13 @@
                 return;
             }
 
+            // استخدام رقم الهاتف نظيفاً كمستند فريد وثابت لعدم تكرار الحرفي أبدًا
+            const cleanPhoneId = currentArtisanPhone.replace(/[^0-9]/g, '');
+            if (!cleanPhoneId) {
+                alert('رقم الهاتف غير صالح!');
+                return;
+            }
+
             const artisanData = { 
                 name, 
                 category, 
@@ -513,9 +526,8 @@
             };
 
             try {
-                // حفظ البيانات في Firebase باستخدام رقم الهاتف كمستند فريد
-                const docId = currentArtisanPhone.replace(/[^0-9]/g, '') || 'artisan_' + Date.now();
-                await window.setDoc(window.doc(window.db, "artisans", docId), artisanData);
+                // حفظ البيانات باستخدام رقم الهاتف كمستند موحد (يتم التحديث ولا يتكرر الحرفي)
+                await window.setDoc(window.doc(window.db, "artisans", cleanPhoneId), artisanData);
                 
                 alert('مبارك! تم حفظ وتحديث ملفك بنجاح في قاعدة بيانات Firebase.');
                 switchView('welcomeView');
@@ -557,7 +569,7 @@
                         <div class="artisan-card">
                             <div style="flex: 1;">
                                 <h3 style="color: var(--accent-gold); margin-bottom: 4px; font-size: 17px;">${a.name}</h3>
-                                <p style="color: var(--accent-blue); font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛠️ ${a.category}</p>
+                                <p style="color: var(--accent-blue); font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛠️ ${a.category} | 📞 ${a.phone}</p>
                                 <p style="color: var(--text-gray); font-size: 13px; font-style: italic; margin-bottom: 6px;">"${a.bio}"</p>
                                 <p style="color: var(--accent-green); font-size: 12px;">📍 متاح في منطقتك</p>
                             </div>
