@@ -121,6 +121,27 @@
         input:focus, select:focus, textarea:focus { border-color: var(--accent-blue); background: #fff; }
         textarea { resize: vertical; height: 90px; }
         
+        .phone-input-group {
+            display: flex;
+            direction: ltr; /* لترتيب المفتاح التونسي على اليمين والكتبة على اليسار أو العكس حسب الرغبة */
+        }
+        .phone-prefix {
+            background: #e2e8f0;
+            color: var(--accent-blue);
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 0 12px 12px 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+        .phone-main-input {
+            border-radius: 12px 0 0 12px !important;
+            border-left: none !important;
+            text-align: right;
+        }
+
         .btn-gps {
             background-color: #f1f5f9;
             color: var(--accent-blue);
@@ -280,7 +301,7 @@
 
             <div class="info-box">
                 <h3>💡 كيف تعمل منصة صنّاع؟</h3>
-                <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك وكلمة سر، حدد موقعك بدقة عبر الـ GPS، وأضف اختصاصك. يمكنك العودة في أي وقت لتعديل معلوماتك!</p>
+                <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك، حدد موقعك بدقة عبر الـ GPS، وأضف اختصاصك. يمكنك العودة في أي وقت لتعديل معلوماتك!</p>
                 <p><b>للباحثين عن الخدمات:</b> اضغط مباشرة على التخصص الذي تحتاجه وتواصل مع الحرفي فوراً عبر الهاتف أو الواتساب.</p>
             </div>
         </div>
@@ -289,12 +310,15 @@
         <div id="artisanAuthView" class="view">
             <span class="back-link" id="backToHome0">← رجوع للرئيسية</span>
             <h2 style="color: var(--accent-blue); margin-bottom: 12px; font-size: 20px;">بوابة دخول الحرفيين</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك الصحيح وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك (8 أرقام) وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
             
             <div class="auth-box">
                 <div class="form-group">
                     <label>رقم الهاتف (أو كود الأدمن)</label>
-                    <input type="text" id="authPhone" placeholder="أدخل أرقام هاتفك حصرياً ...">
+                    <div class="phone-input-group">
+                        <input type="text" id="authPhone" class="phone-main-input" placeholder="مثال: 98123456">
+                        <span class="phone-prefix">+216 🇹🇳</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>كلمة السر</label>
@@ -340,10 +364,10 @@
                 </div>
                 <div class="form-group">
                     <label>الاسم العملي أو اللقب (الذي يُعرفك به الناس)</label>
-                    <input type="text" id="artisanWorkName" required placeholder="مثال: عمي صالح للكهرباء / صانع الديكور">
+                    <input type="text" id="artisanWorkName" required placeholder="مثال: عمي صالح للكهرباء">
                 </div>
                 <div class="form-group">
-                    <label>رقم الهاتف (معتمد للتواصل)</label>
+                    <label>رقم الهاتف المعتمد</label>
                     <input type="text" id="displayPhone" readonly style="background: #e2e8f0; font-weight: bold; color: var(--accent-blue);" placeholder="رقم هاتفك">
                 </div>
                 <div class="form-group">
@@ -394,7 +418,6 @@
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
 
-        // قائمة الصنائع الشاملة
         let defaultCategories = [
             "كهربائي (منزلي وصناعي)",
             "سباك (إصلاح صحي)",
@@ -483,11 +506,9 @@
             document.getElementById(viewId).classList.add('active');
         }
 
-        // دالة للتحقق من أن المدخل هو رقم هاتف صحيح (أرقام فقط أو يبدأ بـ + وبأطوال صحيحة)
         function isValidPhoneNumber(phone) {
             let clean = phone.replace(/[^0-9]/g, '');
-            // التأكد من أن الإدخال يحتوي على أرقام فقط وألا يقل عن 8 أرقام (حسب النظام المحلي) ولا يزيد عن 15
-            return /^\d{8,15}$/.test(clean);
+            return /^\d{8,12}$/.test(clean);
         }
 
         document.getElementById('btnLoginArtisan').addEventListener('click', async function() {
@@ -505,23 +526,28 @@
                 return;
             }
 
-            // التحقق الصارم من أن الإدخال رقم هاتف حقيقي وليس كتابة عشوائية
             if (!isValidPhoneNumber(phoneInput)) {
-                alert('⚠️ عذراً، يجب إدخال رقم هاتف صحيح ومكون من أرقام فقط (بدون حروف أو كلمات عشوائية) لتجنب التخريب!');
+                alert('⚠️ عذراً، يجب إدخال رقم هاتف صحيح ومكون من أرقام فقط (مثال: 98123456)!');
                 return;
             }
 
-            currentArtisanPhone = phoneInput;
+            // دمج الرمز الدولي التونسي أوتوماتيكي ليصبح الرقم كاملاً وثابتاً (مثال: 21698123456)
+            let cleanNum = phoneInput.replace(/[^0-9]/g, '');
+            if(cleanNum.startsWith('216')) {
+                currentArtisanPhone = cleanNum;
+            } else {
+                currentArtisanPhone = '216' + cleanNum;
+            }
             
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
                 let existing = null;
                 querySnapshot.forEach((d) => {
                     let data = d.data();
-                    if(data.phone === phoneInput) existing = data;
+                    if(data.phone === currentArtisanPhone) existing = data;
                 });
 
-                document.getElementById('displayPhone').value = phoneInput;
+                document.getElementById('displayPhone').value = '+' + currentArtisanPhone;
 
                 if(existing) {
                     if(existing.password !== password) {
@@ -539,7 +565,7 @@
                     alert('مرحباً بك! تم التعرف على حسابك ويمكنك تعديل بياناتك.');
                 } else {
                     document.getElementById('artisanForm').reset();
-                    document.getElementById('displayPhone').value = phoneInput;
+                    document.getElementById('displayPhone').value = '+' + currentArtisanPhone;
                     document.getElementById('locationStatus').value = "";
                     document.getElementById('formTitle').innerText = "إنشاء ملف حرفي جديد";
                     alert('هذا الرقم جديد، يرجى إكمال بيانات ملفك الشخصي.');
@@ -622,7 +648,7 @@
                         <div class="admin-card">
                             <div style="flex: 1;">
                                 <h3 style="color: var(--accent-gold); font-size: 16px;">${displayName}</h3>
-                                <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📞 ${a.phone} | 🔑 ${a.password}</p>
+                                <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📞 +${a.phone} | 🔑 ${a.password}</p>
                                 <p style="color: var(--text-gray); font-size: 12px; margin-top: 4px;">"${a.bio}"</p>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 6px;">
@@ -638,18 +664,20 @@
         }
 
         window.adminEditArtisan = async function(oldDocId, currentPhone, currentPassword) {
-            let newPhone = prompt("أدخل رقم الهاتف الجديد:", currentPhone);
-            if(!newPhone) return;
-            if(!isValidPhoneNumber(newPhone)) {
+            let rawNum = currentPhone.startsWith('216') ? currentPhone.substring(3) : currentPhone;
+            let newPhoneInput = prompt("أدخل رقم الهاتف الجديد (بدون مفتاح):", rawNum);
+            if(!newPhoneInput) return;
+            if(!isValidPhoneNumber(newPhoneInput)) {
                 alert('⚠️ رقم الهاتف غير صالح!');
                 return;
             }
             let newPassword = prompt("أدخل كلمة السر الجديدة:", currentPassword);
             if(!newPassword) return;
 
-            newPhone = newPhone.trim();
-            newPassword = newPassword.trim();
-            let newDocId = newPhone.replace(/[^0-9]/g, '');
+            let cleanNum = newPhoneInput.replace(/[^0-9]/g, '');
+            let newPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
+            let newPasswordClean = newPassword.trim();
+            let newDocId = newPhone;
 
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
@@ -662,7 +690,7 @@
 
                 if(artisanData) {
                     artisanData.phone = newPhone;
-                    artisanData.password = newPassword;
+                    artisanData.password = newPasswordClean;
 
                     await window.setDoc(window.doc(window.db, "artisans", newDocId), artisanData);
 
@@ -724,7 +752,7 @@
                 return;
             }
 
-            const cleanPhoneId = currentArtisanPhone.replace(/[^0-9]/g, '');
+            const cleanPhoneId = currentArtisanPhone;
             if (!cleanPhoneId) {
                 alert('رقم الهاتف غير صالح!');
                 return;
@@ -780,18 +808,23 @@
 
                 container.innerHTML = '';
                 artisans.forEach(a => {
-                    const cleanPhone = a.phone ? a.phone.replace(/[^0-9]/g, '') : '';
+                    // دمج الرقم مع مفتاح تونس 216 تلقائياً ليفتح الواتساب مباشرة دون أي عائق
+                    let cleanPhone = a.phone ? a.phone.replace(/[^0-9]/g, '') : '';
+                    if(!cleanPhone.startsWith('216')) {
+                        cleanPhone = '216' + cleanPhone;
+                    }
+
                     let titleDisplay = a.workName ? `${a.workName} <span style="font-size:12px; color:var(--text-gray);">(${a.name})</span>` : a.name;
                     container.innerHTML += `
                         <div class="artisan-card">
                             <div style="flex: 1;">
                                 <h3 style="color: var(--accent-gold); margin-bottom: 4px; font-size: 17px;">${titleDisplay}</h3>
-                                <p style="color: var(--accent-blue); font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛠️ ${a.category} | 📞 ${a.phone}</p>
+                                <p style="color: var(--accent-blue); font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛠️ ${a.category} | 📞 +${a.phone}</p>
                                 <p style="color: var(--text-gray); font-size: 13px; font-style: italic; margin-bottom: 6px;">"${a.bio}"</p>
                                 <p style="color: var(--accent-green); font-size: 12px;">📍 متاح في منطقتك</p>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 8px;">
-                                <a href="tel:${a.phone}" style="background: #0284c7; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">📞 اتصال</a>
+                                <a href="tel:+${a.phone}" style="background: #0284c7; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">📞 اتصال</a>
                                 <a href="https://wa.me/${cleanPhone}" target="_blank" style="background: #059669; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">💬 واتساب</a>
                             </div>
                         </div>
