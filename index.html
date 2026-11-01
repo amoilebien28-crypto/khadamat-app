@@ -188,6 +188,23 @@
             border: 1px solid var(--border-color);
             margin-bottom: 15px;
         }
+        .admin-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .admin-action-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            color: white;
+            text-align: center;
+        }
     </style>
 
     <!-- Firebase SDKs -->
@@ -280,16 +297,24 @@
             </div>
         </div>
 
-        <!-- 3. لوحة تحكم الأدمن -->
+        <!-- 3. لوحة تحكم الأدمن (مع أزرار النسخ الاحتياطي، الاستعادة، الحذف، والتعديل) -->
         <div id="adminView" class="view">
             <span class="back-link" id="backToHomeAdmin">← تسجيل الخروج للرئيسية</span>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 15px;">إدارة قاعدة بيانات الحرفيين المباشرة عبر Firebase:</p>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 15px;">إدارة وحماية قاعدة البيانات عبر Firebase:</p>
             
+            <div class="admin-actions">
+                <button class="admin-action-btn" style="background: var(--accent-blue);" onclick="exportDatabase()">📥 تحميل نسخة احتياطية (Backup)</button>
+                <label class="admin-action-btn" style="background: var(--accent-green); display: inline-block; cursor: pointer; line-height: normal; padding-top: 13px;">
+                    📤 استعادة البيانات إلى Firebase (Restore)
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDatabase(event)">
+                </label>
+            </div>
+
             <div id="adminArtisansList">جاري التحميل...</div>
         </div>
 
-        <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي (مضاف إليها خانة رقم الهاتف) -->
+        <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي -->
         <div id="artisanRegisterView" class="view">
             <span class="back-link" id="backToAuth">← رجوع للبوابة</span>
             <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;" id="formTitle">تعديل أو استكمال ملف الحرفي</h2>
@@ -404,7 +429,6 @@
                     if(data.phone === phone) existing = data;
                 });
 
-                // تعبئة رقم الهاتف في الحقل الجديد المرئي داخل الاستمارة
                 document.getElementById('displayPhone').value = phone;
 
                 if(existing) {
@@ -433,6 +457,61 @@
             }
         });
 
+        // ميزة تصدير البيانات كملف JSON (نسخة احتياطية للفلاش ديسك)
+        window.exportDatabase = async function() {
+            try {
+                const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
+                let artisans = [];
+                querySnapshot.forEach((d) => {
+                    artisans.push(d.data());
+                });
+
+                if(artisans.length === 0) {
+                    alert('⚠️ لا توجد بيانات حرفيين لتصديرها حالياً.');
+                    return;
+                }
+
+                let data = JSON.stringify(artisans, null, 2);
+                let blob = new Blob([data], { type: 'application/json' });
+                let url = URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.href = url;
+                a.download = 'sonaa_artisans_backup.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            } catch(e) {
+                alert('❌ فشل تحميل النسخة الاحتياطية.');
+            }
+        };
+
+        // ميزة استعادة البيانات من ملف JSON ورفعها مباشرة لـ Firebase
+        window.importDatabase = async function(event) {
+            let file = event.target.files[0];
+            if(!file) return;
+            let reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    let artisans = JSON.parse(e.target.result);
+                    if(Array.isArray(artisans)) {
+                        for(let a of artisans) {
+                            if(a.phone) {
+                                let cleanId = a.phone.replace(/[^0-9]/g, '');
+                                await window.setDoc(window.doc(window.db, "artisans", cleanId), a);
+                            }
+                        }
+                        loadAdminPanel();
+                        window.initFirebaseData();
+                        alert('✅ تم استعادة ومزامنة بيانات الحرفيين مع Firebase بنجاح تام!');
+                    } else {
+                        alert('❌ ملف غير صالح.');
+                    }
+                } catch(err) {
+                    alert('❌ حدث خطأ أثناء قراءة الملف.');
+                }
+            };
+            reader.readAsText(file);
+        };
+
         async function loadAdminPanel() {
             const container = document.getElementById('adminArtisansList');
             container.innerHTML = '<p style="text-align:center;">جاري التحميل...</p>';
@@ -451,10 +530,13 @@
                         <div class="admin-card">
                             <div style="flex: 1;">
                                 <h3 style="color: var(--accent-gold); font-size: 16px;">${a.name}</h3>
-                                <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📞 ${a.phone}</p>
+                                <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📞 ${a.phone} | 🔑 ${a.password}</p>
                                 <p style="color: var(--text-gray); font-size: 12px; margin-top: 4px;">"${a.bio}"</p>
                             </div>
-                            <button onclick="deleteArtisan('${docId}')" style="background: #dc2626; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px;">حذف</button>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <button onclick="adminEditArtisan('${docId}', '${a.phone}', '${a.password}')" style="background: var(--accent-blue); color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 11px;">تعديل الهاتف/الباسورد</button>
+                                <button onclick="deleteArtisan('${docId}')" style="background: #dc2626; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 11px;">حذف</button>
+                            </div>
                         </div>
                     `;
                 });
@@ -462,6 +544,44 @@
                 container.innerHTML = '<p style="color: red; text-align: center;">فشل تحميل البيانات من Firebase.</p>';
             }
         }
+
+        window.adminEditArtisan = async function(oldDocId, currentPhone, currentPassword) {
+            let newPhone = prompt("أدخل رقم الهاتف الجديد:", currentPhone);
+            if(!newPhone) return;
+            let newPassword = prompt("أدخل كلمة السر الجديدة:", currentPassword);
+            if(!newPassword) return;
+
+            newPhone = newPhone.trim();
+            newPassword = newPassword.trim();
+            let newDocId = newPhone.replace(/[^0-9]/g, '');
+
+            try {
+                const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
+                let artisanData = null;
+                querySnapshot.forEach((d) => {
+                    if(d.id === oldDocId) {
+                        artisanData = d.data();
+                    }
+                });
+
+                if(artisanData) {
+                    artisanData.phone = newPhone;
+                    artisanData.password = newPassword;
+
+                    await window.setDoc(window.doc(window.db, "artisans", newDocId), artisanData);
+
+                    if(oldDocId !== newDocId) {
+                        await window.deleteDoc(window.doc(window.db, "artisans", oldDocId));
+                    }
+
+                    alert('✅ تم تعديل بيانات الحرفي بنجاح!');
+                    loadAdminPanel();
+                    window.initFirebaseData();
+                }
+            } catch(e) {
+                alert('❌ فشل تعديل البيانات.');
+            }
+        };
 
         window.deleteArtisan = async function(docId) {
             if(confirm('هل أنت متأكد من حذف هذا الحرفي نهائياً من قاعدة البيانات؟')) {
@@ -507,7 +627,6 @@
                 return;
             }
 
-            // استخدام رقم الهاتف نظيفاً كمستند فريد وثابت لعدم تكرار الحرفي أبدًا
             const cleanPhoneId = currentArtisanPhone.replace(/[^0-9]/g, '');
             if (!cleanPhoneId) {
                 alert('رقم الهاتف غير صالح!');
@@ -526,7 +645,6 @@
             };
 
             try {
-                // حفظ البيانات باستخدام رقم الهاتف كمستند موحد (يتم التحديث ولا يتكرر الحرفي)
                 await window.setDoc(window.doc(window.db, "artisans", cleanPhoneId), artisanData);
                 
                 alert('مبارك! تم حفظ وتحديث ملفك بنجاح في قاعدة بيانات Firebase.');
