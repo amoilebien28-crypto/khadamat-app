@@ -192,7 +192,6 @@
         }
         .back-btn:hover { background: #bae6fd; }
 
-        /* تصميم واجهة الزبون (القائمة الجانبية + الحرفيين على عمودين) */
         .customer-layout {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -205,7 +204,6 @@
             }
         }
 
-        /* زر فتح قائمة التخصصات على الهواتف */
         .toggle-cat-mobile-btn {
             display: none;
             width: 100%;
@@ -487,10 +485,10 @@
         </div>
     </div>
 
-    <!-- Firebase SDKs -->
+    <!-- Firebase SDKs (محدثة لدعم المزامنة الفورية الحية Real-time) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDGCsBbBxpQb-NSe0j4NYs7xLLQB3PKxAQ",
@@ -511,6 +509,7 @@
         window.doc = doc;
         window.setDoc = setDoc;
         window.deleteDoc = deleteDoc;
+        window.onSnapshot = onSnapshot;
 
         window.initFirebaseData = async function() {
             try {
@@ -687,16 +686,14 @@
             </form>
         </div>
 
-        <!-- 5. واجهة الزبون المتطورة (مع زر إظهار/إخفاء القائمة في الموبايل) -->
+        <!-- 5. واجهة الزبون المتطورة -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">دليل أصحاب المهارات والحرفيين</h2>
             
-            <!-- زر إظهار وإخفاء قائمة التخصصات في الهواتف -->
             <button class="toggle-cat-mobile-btn" onclick="toggleMobileSidebar()">🔍 اضغط هنا لاختيار أو تغيير تخصص البحث</button>
 
             <div class="customer-layout">
-                <!-- القائمة الجانبية للتخصصات والبحث -->
                 <div class="sidebar-filters" id="sidebarFiltersBox">
                     <h3>🔍 تصفية بالاختصاص</h3>
                     <input type="text" id="catSearchInput" class="filter-search-input" placeholder="ابحث عن اختصاص..." oninput="filterCategoryList()">
@@ -705,7 +702,6 @@
                     </div>
                 </div>
 
-                <!-- وسط الصفحة: الحرفيين على صفحتين (عمودين) -->
                 <div>
                     <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
                         <span id="resultCountText" style="font-size: 13px; color: var(--text-gray); font-weight: bold;">جاري جلب الحرفيين...</span>
@@ -722,7 +718,7 @@
     <script>
         let currentArtisanPhone = "";
         let selectedFilter = 'all';
-        let allFetchedArtisans = [];
+        let realtimeUnsubscribe = null; // لتنظيم التحديث الحي
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
@@ -740,7 +736,6 @@
             document.getElementById('customModal').style.display = 'none';
         }
 
-        // دالة إظهار وإخفاء القائمة الجانبية على الهواتف
         window.toggleMobileSidebar = function() {
             let box = document.getElementById('sidebarFiltersBox');
             if(box.classList.contains('mobile-show')) {
@@ -841,7 +836,8 @@
 
         document.getElementById('btnCustomer').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
-            switchView('customerAuthView');
+            switchView('customerView');
+            listenToArtisans('all'); // تفعيل الاستماع الفوري عند دخول الزبون
         });
 
         document.getElementById('btnLoginCustomer').addEventListener('click', async function() {
@@ -870,13 +866,19 @@
 
             document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('customerView');
-            await loadArtisans('all');
+            listenToArtisans('all');
         });
 
         function switchView(viewId, pushHistory = true) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             
+            // إذا خرجنا من واجهة الزبون، نوقف الاتصال الحي لتوفير الموارد
+            if(viewId !== 'customerView' && realtimeUnsubscribe) {
+                realtimeUnsubscribe();
+                realtimeUnsubscribe = null;
+            }
+
             if (pushHistory) {
                 history.pushState({ view: viewId }, "", "#" + viewId);
             }
@@ -889,13 +891,16 @@
                 document.getElementById(event.state.view).classList.add('active');
                 if(event.state.view === 'customerView') {
                     document.getElementById('mainContainerBox').classList.add('wide-container');
+                    listenToArtisans(selectedFilter);
                 } else {
                     document.getElementById('mainContainerBox').classList.remove('wide-container');
+                    if(realtimeUnsubscribe) { realtimeUnsubscribe(); realtimeUnsubscribe = null; }
                 }
             } else {
                 document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
                 document.getElementById('welcomeView').classList.add('active');
                 document.getElementById('mainContainerBox').classList.remove('wide-container');
+                if(realtimeUnsubscribe) { realtimeUnsubscribe(); realtimeUnsubscribe = null; }
             }
         });
 
@@ -1183,28 +1188,28 @@
         async function selectCategory(cat) {
             selectedFilter = cat;
             renderSidebarCategories(getCategories(), document.getElementById('catSearchInput').value);
-            await loadArtisans(cat);
-            // إخفاء القائمة في الموبايل تلقائياً بعد الاختيار لكي تظهر نتائج الحرفيين بوضوح
+            listenToArtisans(cat); // إعادة الاستماع بالفلتر الجديد
+            
             if(window.innerWidth <= 768) {
                 document.getElementById('sidebarFiltersBox').classList.remove('mobile-show');
             }
         }
 
-        async function loadArtisans(filter) {
+        // دالة الاستماع الفوري الحية (Real-time listener) لكي تظهر التحديثات والحرفيون الجدد فوراً دون تحديث الصفحة
+        function listenToArtisans(filter) {
             const container = document.getElementById('artisansList');
             const countText = document.getElementById('resultCountText');
-            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px;">جاري التحميل...</p>';
+            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px;">جاري جلب الحرفيين مباشرة...</p>';
             
-            try {
-                if(allFetchedArtisans.length === 0) {
-                    const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
-                    allFetchedArtisans = [];
-                    querySnapshot.forEach((d) => {
-                        allFetchedArtisans.push(d.data());
-                    });
-                }
+            if(realtimeUnsubscribe) {
+                realtimeUnsubscribe(); // إيقاف الاستماع القديم عند تغيير الفلتر
+            }
 
-                let artisans = allFetchedArtisans;
+            realtimeUnsubscribe = window.onSnapshot(window.collection(window.db, "artisans"), (querySnapshot) => {
+                let artisans = [];
+                querySnapshot.forEach((d) => {
+                    artisans.push(d.data());
+                });
 
                 if(filter !== 'all') {
                     artisans = artisans.filter(a => a.category === filter);
@@ -1242,9 +1247,9 @@
                         </div>
                     `;
                 });
-            } catch(e) {
-                container.innerHTML = '<p style="color: red; text-align: center; grid-column: span 2;">فشل جلب الحرفيين من Firebase.</p>';
-            }
+            }, (error) => {
+                container.innerHTML = '<p style="color: red; text-align: center; grid-column: span 2;">فشل مزامنة البيانات من Firebase.</p>';
+            });
         }
     </script>
 </body>
