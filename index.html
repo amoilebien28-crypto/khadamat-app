@@ -302,14 +302,16 @@
             }
         }
 
+        /* بطاقة الحرفي المُنسّقة خصيصاً لملء المساحة بشكل ذكي (المعلومات يمين والأزرار الصغيرة يسار) */
         .artisan-card {
             background: #ffffff;
-            padding: 16px;
+            padding: 14px;
             border-radius: 16px;
             border: 2px solid var(--border-color);
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: space-between;
+            gap: 10px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.05);
             transition: all 0.2s ease;
         }
@@ -318,6 +320,30 @@
             border-color: var(--accent-blue);
             transform: translateY(-2px);
         }
+        .artisan-info {
+            flex: 1;
+            text-align: right;
+            min-width: 0;
+        }
+        .artisan-actions-small {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .small-action-btn {
+            padding: 7px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 800;
+            text-align: center;
+            color: white;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            transition: 0.2s;
+        }
+        .small-action-btn:hover { opacity: 0.9; transform: scale(1.03); }
 
         .admin-card {
             background: #f8fafc;
@@ -705,7 +731,7 @@
             </form>
         </div>
 
-        <!-- 5. واجهة الزبون المتطورة (مع خانة البحث بالاسم والاختصاص) -->
+        <!-- 5. واجهة الزبون المتطورة (بطاقات مدمجة أفقياً وأزرار صغيرة على اليسار) -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #047857; margin-bottom: 14px; font-size: 19px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
@@ -715,7 +741,6 @@
             <div class="customer-layout">
                 <div class="sidebar-filters" id="sidebarFiltersBox">
                     <h3>🔍 البحث والتصفية</h3>
-                    <!-- خانة البحث بالاسم أو الاختصاص -->
                     <div style="margin-bottom: 12px;">
                         <label style="font-size: 11px; margin-bottom: 4px; color: var(--text-gray);">ابحث بالاسم أو الاختصاص:</label>
                         <input type="text" id="globalSearchInput" class="filter-search-input" placeholder="اكتب اسم الحرفي أو الاختصاص..." oninput="filterArtisansBySearch()">
@@ -743,7 +768,7 @@
         let currentArtisanPhone = "";
         let selectedFilter = 'all';
         let realtimeUnsubscribe = null;
-        let cachedArtisansList = []; // لتخزين الحرفيين وتسهيل البحث الفوري بالاسم
+        let cachedArtisansList = [];
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
@@ -1224,12 +1249,10 @@
 
             let artisans = cachedArtisansList;
 
-            // فلترة بالتخصص
             if(selectedFilter !== 'all') {
                 artisans = artisans.filter(a => a.category === selectedFilter);
             }
 
-            // فلترة بالبحث الفوري (الاسم أو اللقب أو الاختصاص أو المدينة)
             if(searchVal) {
                 artisans = artisans.filter(a => {
                     let n = (a.name || '').toLowerCase();
@@ -1254,20 +1277,21 @@
                     cleanPhone = '216' + cleanPhone;
                 }
 
-                let titleDisplay = a.workName ? `${a.workName} <span style="font-size:11px; color:var(--text-gray); font-weight:700;">(${a.name})</span>` : a.name;
+                let titleDisplay = a.workName ? `${a.workName} <span style="font-size:10px; color:var(--text-gray); font-weight:700;">(${a.name})</span>` : a.name;
                 let cityDisplay = a.city ? `📍 ${a.city}` : `📍 متاح محلياً`;
 
+                // تصميم البطاقة المدمجة أفقياً (معلومات يمين وأزرار صغيرة يسار لملء المساحة الضائعة)
                 container.innerHTML += `
                     <div class="artisan-card">
-                        <div>
-                            <h3 style="color: #b45309; margin-bottom: 4px; font-size: 15px; font-weight: 800;">${titleDisplay}</h3>
-                            <p style="color: var(--accent-blue); font-size: 12px; font-weight: 800; margin-bottom: 3px;">🛠️ ${a.category}</p>
-                            <p style="color: #047857; font-size: 11px; font-weight: 800; margin-bottom: 4px;">${cityDisplay}</p>
-                            <p style="color: var(--text-gray); font-size: 11px; font-style: italic; margin-bottom: 10px; font-weight: 600;">"${a.bio || ''}"</p>
+                        <div class="artisan-info">
+                            <h3 style="color: #b45309; margin-bottom: 3px; font-size: 14px; font-weight: 800;">${titleDisplay}</h3>
+                            <p style="color: var(--accent-blue); font-size: 11px; font-weight: 800; margin-bottom: 2px;">🛠️ ${a.category}</p>
+                            <p style="color: #047857; font-size: 10px; font-weight: 800; margin-bottom: 3px;">${cityDisplay}</p>
+                            <p style="color: var(--text-gray); font-size: 10px; font-style: italic; font-weight: 600;">"${a.bio || ''}"</p>
                         </div>
-                        <div style="display: flex; gap: 6px; margin-top: 6px;">
-                            <a href="tel:+${a.phone}" style="flex:1; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; padding: 10px 6px; border-radius: 10px; text-decoration: none; font-size: 12px; font-weight: 800; text-align: center; box-shadow: 0 3px 8px rgba(2,132,199,0.3);">📞 اتصال</a>
-                            <a href="https://wa.me/${cleanPhone}" target="_blank" style="flex:1; background: linear-gradient(135deg, #059669, #047857); color: white; padding: 10px 6px; border-radius: 10px; text-decoration: none; font-size: 12px; font-weight: 800; text-align: center; box-shadow: 0 3px 8px rgba(5,150,105,0.3);">💬 واتساب</a>
+                        <div class="artisan-actions-small">
+                            <a href="tel:+${a.phone}" class="small-action-btn" style="background: linear-gradient(135deg, #0284c7, #0369a1);">📞 اتصال</a>
+                            <a href="https://wa.me/${cleanPhone}" target="_blank" class="small-action-btn" style="background: linear-gradient(135deg, #059669, #047857);">💬 واتساب</a>
                         </div>
                     </div>
                 `;
