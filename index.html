@@ -21,7 +21,6 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        /* خلفية حية وجميلة توحي بأجواء العمل والحرف اليدوية */
         body {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: var(--text-main);
@@ -35,7 +34,7 @@
         .container {
             max-width: 650px;
             margin: 30px auto;
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.97);
             padding: 30px;
             border-radius: 24px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.25);
@@ -43,7 +42,7 @@
             width: 100%;
         }
         .container.wide-container {
-            max-width: 950px !important;
+            max-width: 1000px !important;
         }
 
         .logo-header {
@@ -193,6 +192,7 @@
         }
         .back-btn:hover { background: #bae6fd; }
 
+        /* تصميم واجهة الزبون (القائمة الجانبية + الحرفيين على عمودين) */
         .customer-layout {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -202,6 +202,34 @@
         @media(max-width: 768px) {
             .customer-layout {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        /* زر فتح قائمة التخصصات على الهواتف */
+        .toggle-cat-mobile-btn {
+            display: none;
+            width: 100%;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            text-align: center;
+        }
+        @media(max-width: 768px) {
+            .toggle-cat-mobile-btn {
+                display: block;
+            }
+            .sidebar-filters {
+                display: none;
+            }
+            .sidebar-filters.mobile-show {
+                display: block;
+                margin-bottom: 20px;
             }
         }
 
@@ -260,7 +288,7 @@
         }
 
         .artisan-card {
-            background: #ffffff;
+            background: #f8fafc;
             padding: 16px;
             border-radius: 16px;
             border: 1px solid var(--border-color);
@@ -659,14 +687,17 @@
             </form>
         </div>
 
-        <!-- 5. واجهة الزبون المتطورة (قسم جانبي للتخصصات + عمودين لعرض الحرفيين) -->
+        <!-- 5. واجهة الزبون المتطورة (مع زر إظهار/إخفاء القائمة في الموبايل) -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">دليل أصحاب المهارات والحرفيين</h2>
             
+            <!-- زر إظهار وإخفاء قائمة التخصصات في الهواتف -->
+            <button class="toggle-cat-mobile-btn" onclick="toggleMobileSidebar()">🔍 اضغط هنا لاختيار أو تغيير تخصص البحث</button>
+
             <div class="customer-layout">
                 <!-- القائمة الجانبية للتخصصات والبحث -->
-                <div class="sidebar-filters">
+                <div class="sidebar-filters" id="sidebarFiltersBox">
                     <h3>🔍 تصفية بالاختصاص</h3>
                     <input type="text" id="catSearchInput" class="filter-search-input" placeholder="ابحث عن اختصاص..." oninput="filterCategoryList()">
                     <div class="filter-cat-list" id="sidebarCatList">
@@ -708,6 +739,16 @@
         function closeModal() {
             document.getElementById('customModal').style.display = 'none';
         }
+
+        // دالة إظهار وإخفاء القائمة الجانبية على الهواتف
+        window.toggleMobileSidebar = function() {
+            let box = document.getElementById('sidebarFiltersBox');
+            if(box.classList.contains('mobile-show')) {
+                box.classList.remove('mobile-show');
+            } else {
+                box.classList.add('mobile-show');
+            }
+        };
 
         let defaultCategories = [
             "كهربائي (منزلي وصناعي)",
@@ -1143,6 +1184,10 @@
             selectedFilter = cat;
             renderSidebarCategories(getCategories(), document.getElementById('catSearchInput').value);
             await loadArtisans(cat);
+            // إخفاء القائمة في الموبايل تلقائياً بعد الاختيار لكي تظهر نتائج الحرفيين بوضوح
+            if(window.innerWidth <= 768) {
+                document.getElementById('sidebarFiltersBox').classList.remove('mobile-show');
+            }
         }
 
         async function loadArtisans(filter) {
