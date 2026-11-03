@@ -39,6 +39,11 @@
             border: 1px solid var(--border-color);
             width: 100%;
         }
+        /* تكبير الحاوية خصيصاً لوحة عرض الزبون لتعطي مساحة لعمودين */
+        .container.wide-container {
+            max-width: 950px !important;
+        }
+
         .logo-header {
             display: flex;
             align-items: center;
@@ -186,31 +191,91 @@
         }
         .back-btn:hover { background: #bae6fd; }
 
-        .categories-grid {
+        /* تصميم واجهة الزبون: شبكة من عمودين (قائمة جانبية للتخصصات + بطاقات الحرفيين) */
+        .customer-layout {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+            align-items: start;
         }
-        .cat-btn {
+        @media(max-width: 768px) {
+            .customer-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sidebar-filters {
             background: #f8fafc;
             border: 1px solid var(--border-color);
             padding: 15px;
-            border-radius: 14px;
-            color: var(--text-main);
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            text-align: center;
-            transition: 0.2s;
+            border-radius: 16px;
+            max-height: 550px;
+            overflow-y: auto;
         }
-        .cat-btn:hover, .cat-btn.active {
+        .sidebar-filters h3 {
+            font-size: 15px;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .filter-search-input {
+            margin-bottom: 12px;
+            padding: 10px;
+            font-size: 13px;
+        }
+        .filter-cat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .filter-cat-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            border-radius: 10px;
+            text-align: right;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-main);
+        }
+        .filter-cat-btn:hover, .filter-cat-btn.active {
             background: var(--accent-blue);
             color: white;
             border-color: var(--accent-blue);
         }
 
-        .artisan-card, .admin-card {
+        /* منطقة عرض الحرفيين على صفحتين (عمودين) */
+        .artisans-grid-2col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        @media(max-width: 600px) {
+            .artisans-grid-2col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .artisan-card {
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            transition: 0.2s;
+        }
+        .artisan-card:hover {
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border-color: var(--accent-blue);
+        }
+
+        .admin-card {
             background: #f8fafc;
             padding: 20px;
             border-radius: 16px;
@@ -221,6 +286,7 @@
             align-items: center;
             box-shadow: 0 2px 6px rgba(0,0,0,0.04);
         }
+
         .auth-box {
             background: #f8fafc;
             padding: 22px;
@@ -450,8 +516,7 @@
 </head>
 <body>
 
-    <div class="container">
-        <!-- الشعار (اللوغو) الجديد عوضاً عن النجمة -->
+    <div class="container" id="mainContainerBox">
         <div class="logo-header">
             <svg class="logo-icon" viewBox="0 0 24 24">
                 <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.5 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
@@ -472,7 +537,7 @@
             <div class="info-box">
                 <h3>💡 كيف تعمل المنصة؟</h3>
                 <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك، حدد اختصاصك وموقعك بكل سهولة.</p>
-                <p><b>للباحثين عن الخدمات:</b> أدخل رقم هاتفك للمتابعة، واضغط مباشرة على التخصص لتتواصل مع الحرفي فوراً.</p>
+                <p><b>للباحثين عن الخدمات:</b> أدخل رقم هاتفك للمتابعة، وتصفح أصحاب المهارات بكل راحة وسرعة.</p>
             </div>
         </div>
 
@@ -594,21 +659,30 @@
             </form>
         </div>
 
-        <!-- 5. واجهة الزبون -->
+        <!-- 5. واجهة الزبون المتطورة (قسم جانبي للتخصصات + عمودين لعرض الحرفيين) -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">اختر التخصص المطلوب للبحث</h2>
+            <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">دليل أصحاب المهارات والحرفيين</h2>
             
-            <div class="categories-grid" id="customerCategoriesGrid">
-                <!-- يتم تعبئتها ديناميكياً -->
-            </div>
+            <div class="customer-layout">
+                <!-- القائمة الجانبية للتخصصات والبحث -->
+                <div class="sidebar-filters">
+                    <h3>🔍 تصفية بالاختصاص</h3>
+                    <input type="text" id="catSearchInput" class="filter-search-input" placeholder="ابحث عن اختصاص..." oninput="filterCategoryList()">
+                    <div class="filter-cat-list" id="sidebarCatList">
+                        <!-- تعبئة ديناميكية -->
+                    </div>
+                </div>
 
-            <div style="text-align: center; margin-bottom: 15px;">
-                <button class="cat-btn active" id="btnAllCat" onclick="selectCategory('all')" style="width: 100%; background: var(--accent-green); color: white;">🌐 عرض كل الحرفيين المتاحين</button>
-            </div>
-
-            <div id="artisansList" style="margin-top: 20px;">
-                <p style="color: var(--text-gray); text-align: center;">جاري جلب الحرفيين من قاعدة البيانات...</p>
+                <!-- وسط الصفحة: الحرفيين على صفحتين (عمودين) -->
+                <div>
+                    <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <span id="resultCountText" style="font-size: 13px; color: var(--text-gray); font-weight: bold;">جاري جلب الحرفيين...</span>
+                    </div>
+                    <div id="artisansList" class="artisans-grid-2col">
+                        <p style="color: var(--text-gray); text-align: center; grid-column: span 2;">جاري تحميل الحرفيين من قاعدة البيانات...</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -617,6 +691,7 @@
     <script>
         let currentArtisanPhone = "";
         let selectedFilter = 'all';
+        let allFetchedArtisans = [];
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
@@ -674,15 +749,30 @@
                 });
             }
 
-            let gridEl = document.getElementById('customerCategoriesGrid');
-            if(gridEl) {
-                gridEl.innerHTML = '';
-                cats.forEach(c => {
-                    let shortName = c.split('(')[0].trim();
-                    gridEl.innerHTML += `<button class="cat-btn" onclick="selectCategory('${c}')">🔹 ${shortName}</button>`;
-                });
-            }
+            renderSidebarCategories(cats);
         }
+
+        function renderSidebarCategories(cats, filterText = '') {
+            let sidebarList = document.getElementById('sidebarCatList');
+            if(!sidebarList) return;
+
+            sidebarList.innerHTML = `
+                <button class="filter-cat-btn ${selectedFilter === 'all' ? 'active' : ''}" onclick="selectCategory('all')">🌐 كل التخصصات</button>
+            `;
+
+            cats.forEach(c => {
+                if(filterText && !c.toLowerCase().includes(filterText.toLowerCase())) return;
+                let shortName = c.split('(')[0].trim();
+                let isActive = selectedFilter === c ? 'active' : '';
+                sidebarList.innerHTML += `<button class="filter-cat-btn ${isActive}" onclick="selectCategory('${c}')">🔹 ${shortName}</button>`;
+            });
+        }
+
+        window.filterCategoryList = function() {
+            let val = document.getElementById('catSearchInput').value;
+            renderSidebarCategories(getCategories(), val);
+        };
+
         populateCategoriesUI();
 
         window.addNewCategory = function() {
@@ -704,10 +794,12 @@
         };
 
         document.getElementById('btnArtisan').addEventListener('click', function() {
+            document.getElementById('mainContainerBox').classList.remove('wide-container');
             switchView('artisanAuthView');
         });
 
         document.getElementById('btnCustomer').addEventListener('click', function() {
+            document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('customerAuthView');
         });
 
@@ -735,6 +827,7 @@
                 console.error("Client log error:", e);
             }
 
+            document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('customerView');
             await loadArtisans('all');
         });
@@ -753,9 +846,15 @@
             if (event.state && event.state.view) {
                 document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
                 document.getElementById(event.state.view).classList.add('active');
+                if(event.state.view === 'customerView') {
+                    document.getElementById('mainContainerBox').classList.add('wide-container');
+                } else {
+                    document.getElementById('mainContainerBox').classList.remove('wide-container');
+                }
             } else {
                 document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
                 document.getElementById('welcomeView').classList.add('active');
+                document.getElementById('mainContainerBox').classList.remove('wide-container');
             }
         });
 
@@ -1034,6 +1133,7 @@
                 
                 showCustomAlert('مبارك! تم حفظ وتحديث ملفك بنجاح في قاعدة بيانات Firebase.');
                 switchView('welcomeView');
+                document.getElementById('mainContainerBox').classList.remove('wide-container');
             } catch(err) {
                 showCustomAlert('❌ حدث خطأ أثناء الحفظ في قاعدة البيانات.');
             }
@@ -1041,26 +1141,34 @@
 
         async function selectCategory(cat) {
             selectedFilter = cat;
+            renderSidebarCategories(getCategories(), document.getElementById('catSearchInput').value);
             await loadArtisans(cat);
         }
 
         async function loadArtisans(filter) {
             const container = document.getElementById('artisansList');
-            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">جاري التحميل...</p>';
+            const countText = document.getElementById('resultCountText');
+            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px;">جاري التحميل...</p>';
             
             try {
-                const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
-                let artisans = [];
-                querySnapshot.forEach((d) => {
-                    artisans.push(d.data());
-                });
+                if(allFetchedArtisans.length === 0) {
+                    const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
+                    allFetchedArtisans = [];
+                    querySnapshot.forEach((d) => {
+                        allFetchedArtisans.push(d.data());
+                    });
+                }
+
+                let artisans = allFetchedArtisans;
 
                 if(filter !== 'all') {
                     artisans = artisans.filter(a => a.category === filter);
                 }
 
+                countText.innerText = `📦 تم العثور على ${artisans.length} حرفياً`;
+
                 if(artisans.length === 0) {
-                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">لا يوجد حرفيون مسجلون في هذا التخصص حالياً.</p>';
+                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px;">لا يوجد حرفيون مسجلون في هذا التخصص حالياً.</p>';
                     return;
                 }
 
@@ -1071,26 +1179,26 @@
                         cleanPhone = '216' + cleanPhone;
                     }
 
-                    let titleDisplay = a.workName ? `${a.workName} <span style="font-size:12px; color:var(--text-gray);">(${a.name})</span>` : a.name;
-                    let cityDisplay = a.city ? `📍 المنطقة: ${a.city}` : `📍 متاح في منطقتك`;
+                    let titleDisplay = a.workName ? `${a.workName} <span style="font-size:11px; color:var(--text-gray);">(${a.name})</span>` : a.name;
+                    let cityDisplay = a.city ? `📍 ${a.city}` : `📍 متاح محلياً`;
 
                     container.innerHTML += `
                         <div class="artisan-card">
-                            <div style="flex: 1;">
-                                <h3 style="color: var(--accent-gold); margin-bottom: 4px; font-size: 17px;">${titleDisplay}</h3>
-                                <p style="color: var(--accent-blue); font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛠️ ${a.category}</p>
-                                <p style="color: #047857; font-size: 12px; font-weight: bold; margin-bottom: 4px;">${cityDisplay}</p>
-                                <p style="color: var(--text-gray); font-size: 13px; font-style: italic; margin-bottom: 6px;">"${a.bio || ''}"</p>
+                            <div>
+                                <h3 style="color: var(--accent-gold); margin-bottom: 4px; font-size: 15px;">${titleDisplay}</h3>
+                                <p style="color: var(--accent-blue); font-size: 12px; font-weight: bold; margin-bottom: 2px;">🛠️ ${a.category}</p>
+                                <p style="color: #047857; font-size: 11px; font-weight: bold; margin-bottom: 4px;">${cityDisplay}</p>
+                                <p style="color: var(--text-gray); font-size: 12px; font-style: italic; margin-bottom: 8px;">"${a.bio || ''}"</p>
                             </div>
-                            <div style="display: flex; flex-direction: column; gap: 8px;">
-                                <a href="tel:+${a.phone}" style="background: #0284c7; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">📞 اتصال</a>
-                                <a href="https://wa.me/${cleanPhone}" target="_blank" style="background: #059669; color: white; padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: bold; text-align: center;">💬 واتساب</a>
+                            <div style="display: flex; gap: 6px; margin-top: 5px;">
+                                <a href="tel:+${a.phone}" style="flex:1; background: #0284c7; color: white; padding: 8px 6px; border-radius: 8px; text-decoration: none; font-size: 11px; font-weight: bold; text-align: center;">📞 اتصال</a>
+                                <a href="https://wa.me/${cleanPhone}" target="_blank" style="flex:1; background: #059669; color: white; padding: 8px 6px; border-radius: 8px; text-decoration: none; font-size: 11px; font-weight: bold; text-align: center;">💬 واتساب</a>
                             </div>
                         </div>
                     `;
                 });
             } catch(e) {
-                container.innerHTML = '<p style="color: red; text-align: center;">فشل جلب الحرفيين من Firebase.</p>';
+                container.innerHTML = '<p style="color: red; text-align: center; grid-column: span 2;">فشل جلب الحرفيين من Firebase.</p>';
             }
         }
     </script>
