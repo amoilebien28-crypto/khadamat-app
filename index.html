@@ -6,14 +6,17 @@
     <title>منصة أصحاب المهارات والحرفيين</title>
     <style>
         :root {
-            --bg-main: #f1f5f9;
+            --bg-main: #0f172a;
             --card-bg: #ffffff;
-            --accent-gold: #d97706;
+            --accent-gold: #f59e0b;
+            --accent-gold-dark: #d97706;
             --accent-blue: #0284c7;
-            --accent-green: #059669;
-            --text-main: #1e293b;
-            --text-gray: #64748b;
-            --border-color: #cbd5e1;
+            --accent-blue-hover: #0369a1;
+            --accent-green: #10b981;
+            --accent-green-hover: #059669;
+            --text-main: #0f172a;
+            --text-gray: #475569;
+            --border-color: #e2e8f0;
         }
         * {
             box-sizing: border-box;
@@ -22,122 +25,131 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 15px;
-            background-image: radial-gradient(#334155 1px, transparent 1px);
-            background-size: 24px 24px;
+            padding: 20px;
+            background-image: radial-gradient(rgba(245, 158, 11, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
         .container {
-            max-width: 650px;
+            max-width: 700px;
             margin: 30px auto;
-            background: rgba(255, 255, 255, 0.97);
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.98);
+            padding: 35px;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
             width: 100%;
         }
         .container.wide-container {
-            max-width: 1000px !important;
+            max-width: 1100px !important;
         }
 
         .logo-header {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 6px;
+            gap: 12px;
+            margin-bottom: 8px;
         }
         .logo-icon {
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             fill: var(--accent-gold);
+            filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.3));
         }
         h1 {
-            color: var(--accent-gold);
+            color: #b45309;
             text-align: center;
-            font-size: 22px;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
         .subtitle {
             text-align: center;
             color: var(--text-gray);
-            font-size: 14px;
-            margin-bottom: 20px;
-            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 25px;
+            font-weight: 700;
         }
         .middle-badge {
-            background: #f0f9ff;
-            border: 1px solid #bae6fd;
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+            border: 1px solid #7dd3fc;
             color: #0369a1;
-            padding: 12px;
-            border-radius: 12px;
+            padding: 14px;
+            border-radius: 16px;
             text-align: center;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
-            margin-bottom: 18px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
         }
         .info-box {
-            background: #fffbeb;
-            border: 1px solid #fde68a;
-            border-radius: 16px;
-            padding: 18px;
-            margin-top: 22px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 1px solid #f59e0b;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 25px;
             text-align: right;
+            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.15);
         }
         .info-box h3 {
-            color: #b45309;
-            font-size: 16px;
-            margin-bottom: 8px;
+            color: #92400e;
+            font-size: 17px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            font-weight: 800;
         }
         .info-box p {
             color: #78350f;
-            font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 6px;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
         .btn {
             display: block;
             width: 100%;
-            padding: 18px;
-            margin: 15px 0;
-            font-size: 18px;
-            font-weight: bold;
+            padding: 20px;
+            margin: 18px 0;
+            font-size: 19px;
+            font-weight: 800;
             color: white;
             border: none;
-            border-radius: 16px;
+            border-radius: 18px;
             cursor: pointer;
             text-align: center;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
         .btn-artisan { background: linear-gradient(135deg, #0284c7, #0369a1); }
         .btn-customer { background: linear-gradient(135deg, #059669, #047857); }
-        .btn:hover { opacity: 0.92; transform: translateY(-1px); }
+        .btn:hover { opacity: 0.95; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.25); }
         
         .view { display: none; }
         .view.active { display: block; }
         
-        .form-group { margin-bottom: 20px; text-align: right; }
-        label { display: block; margin-bottom: 8px; color: var(--accent-blue); font-weight: bold; font-size: 14px; }
+        .form-group { margin-bottom: 22px; text-align: right; }
+        label { display: block; margin-bottom: 8px; color: var(--accent-blue); font-weight: 800; font-size: 15px; }
         input, select, textarea {
             width: 100%;
-            padding: 14px;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
             background: #f8fafc;
             color: var(--text-main);
-            font-size: 15px;
+            font-size: 16px;
+            font-weight: 600;
             outline: none;
+            transition: 0.2s;
         }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent-blue); background: #fff; }
-        textarea { resize: vertical; height: 90px; }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent-blue); background: #fff; box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15); }
+        textarea { resize: vertical; height: 100px; }
         
         .phone-input-group {
             display: flex;
@@ -146,56 +158,58 @@
         .phone-prefix {
             background: #e2e8f0;
             color: var(--accent-blue);
-            padding: 14px;
-            border: 1px solid var(--border-color);
-            border-radius: 0 12px 12px 0;
-            font-weight: bold;
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 0 14px 14px 0;
+            font-weight: 800;
             display: flex;
             align-items: center;
-            font-size: 16px;
+            font-size: 17px;
         }
         .phone-main-input {
-            border-radius: 12px 0 0 12px !important;
+            border-radius: 14px 0 0 14px !important;
             border-left: none !important;
             text-align: right;
         }
 
         .btn-gps {
-            background-color: #f1f5f9;
-            color: var(--accent-blue);
-            border: 2px dashed var(--accent-blue);
-            padding: 14px;
-            border-radius: 12px;
+            background-color: #f0fdf4;
+            color: #047857;
+            border: 2px dashed #10b981;
+            padding: 16px;
+            border-radius: 14px;
             width: 100%;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-            margin-top: 5px;
+            font-size: 15px;
+            font-weight: 800;
+            margin-top: 6px;
             text-align: center;
+            transition: 0.2s;
         }
-        .btn-gps:hover { background-color: #e2e8f0; }
+        .btn-gps:hover { background-color: #dcfce7; }
         
         .back-btn {
-            background: #e0f2fe;
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
             color: #0369a1;
-            border: 1px solid #bae6fd;
-            padding: 10px 16px;
-            border-radius: 10px;
+            border: 1px solid #7dd3fc;
+            padding: 12px 20px;
+            border-radius: 12px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 20px;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 15px;
+            margin-bottom: 22px;
             transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.1);
         }
-        .back-btn:hover { background: #bae6fd; }
+        .back-btn:hover { background: #bae6fd; transform: translateY(-1px); }
 
         .customer-layout {
             display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 20px;
+            grid-template-columns: 300px 1fr;
+            gap: 25px;
             align-items: start;
         }
         @media(max-width: 768px) {
@@ -207,16 +221,17 @@
         .toggle-cat-mobile-btn {
             display: none;
             width: 100%;
-            background: var(--accent-blue);
+            background: linear-gradient(135deg, var(--accent-blue), #0369a1);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 15px;
-            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 16px;
+            margin-bottom: 18px;
             cursor: pointer;
             text-align: center;
+            box-shadow: 0 6px 15px rgba(2, 132, 199, 0.25);
         }
         @media(max-width: 768px) {
             .toggle-cat-mobile-btn {
@@ -227,57 +242,62 @@
             }
             .sidebar-filters.mobile-show {
                 display: block;
-                margin-bottom: 20px;
+                margin-bottom: 22px;
             }
         }
 
         .sidebar-filters {
             background: #f8fafc;
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            border-radius: 16px;
-            max-height: 550px;
+            border: 2px solid var(--border-color);
+            padding: 18px;
+            border-radius: 20px;
+            max-height: 600px;
             overflow-y: auto;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
         .sidebar-filters h3 {
-            font-size: 15px;
+            font-size: 17px;
             color: var(--accent-blue);
-            margin-bottom: 12px;
-            padding-bottom: 6px;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 800;
         }
         .filter-search-input {
-            margin-bottom: 12px;
-            padding: 10px;
-            font-size: 13px;
+            margin-bottom: 14px;
+            padding: 12px;
+            font-size: 14px;
         }
         .filter-cat-list {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
         .filter-cat-btn {
             background: #ffffff;
-            border: 1px solid var(--border-color);
-            padding: 10px 12px;
-            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            padding: 12px 14px;
+            border-radius: 12px;
             text-align: right;
-            font-size: 13px;
-            font-weight: bold;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
             transition: 0.2s;
             color: var(--text-main);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
         .filter-cat-btn:hover, .filter-cat-btn.active {
-            background: var(--accent-blue);
+            background: linear-gradient(135deg, var(--accent-blue), #0369a1);
             color: white;
             border-color: var(--accent-blue);
+            transform: translateX(-3px);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
         }
 
         .artisans-grid-2col {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 18px;
         }
         @media(max-width: 600px) {
             .artisans-grid-2col {
@@ -286,92 +306,96 @@
         }
 
         .artisan-card {
-            background: #f8fafc;
-            padding: 16px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
+            background: #ffffff;
+            padding: 22px;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-            transition: 0.2s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            transition: all 0.25s ease;
         }
         .artisan-card:hover {
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
             border-color: var(--accent-blue);
+            transform: translateY(-3px);
         }
 
         .admin-card {
             background: #f8fafc;
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 15px;
-            border: 1px solid var(--border-color);
+            padding: 22px;
+            border-radius: 18px;
+            margin-bottom: 16px;
+            border: 2px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
 
         .auth-box {
             background: #f8fafc;
-            padding: 22px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 15px;
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            margin-bottom: 18px;
         }
         .admin-actions {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 22px;
             flex-wrap: wrap;
         }
         .admin-action-btn {
             flex: 1;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 14px;
+            border-radius: 12px;
             border: none;
-            font-weight: bold;
+            font-weight: 800;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             color: white;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .add-category-box {
             background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            padding: 15px;
-            border-radius: 14px;
-            margin-bottom: 20px;
+            border: 2px solid #bbf7d0;
+            padding: 18px;
+            border-radius: 18px;
+            margin-bottom: 22px;
         }
         .stats-table {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin-bottom: 22px;
         }
         .stat-card {
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            border-radius: 14px;
+            background: #ffffff;
+            border: 2px solid var(--border-color);
+            padding: 18px;
+            border-radius: 16px;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
         .stat-card h4 {
             color: var(--text-gray);
-            font-size: 13px;
-            margin-bottom: 5px;
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: 700;
         }
         .stat-card span {
-            font-size: 22px;
-            font-weight: bold;
+            font-size: 26px;
+            font-weight: 800;
             color: var(--accent-blue);
         }
 
         #customModal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             display: none;
             justify-content: center;
             align-items: center;
@@ -380,42 +404,43 @@
         }
         .modal-content {
             background: white;
-            padding: 25px;
-            border-radius: 20px;
-            max-width: 400px;
+            padding: 30px;
+            border-radius: 24px;
+            max-width: 420px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            animation: modalScale 0.2s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: modalScale 0.25s ease;
         }
         @keyframes modalScale {
             from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
         .modal-text {
-            font-size: 16px;
+            font-size: 18px;
             color: var(--text-main);
-            font-weight: bold;
-            margin-bottom: 20px;
-            line-height: 1.5;
+            font-weight: 800;
+            margin-bottom: 22px;
+            line-height: 1.6;
         }
         .modal-btn {
-            background: var(--accent-blue);
+            background: linear-gradient(135deg, var(--accent-blue), #0369a1);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
+            padding: 14px 30px;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 800;
             cursor: pointer;
             width: 100%;
+            box-shadow: 0 6px 15px rgba(2, 132, 199, 0.3);
         }
-        .modal-btn:hover { opacity: 0.9; }
+        .modal-btn:hover { opacity: 0.95; }
 
         #welcomeModal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.7);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -424,13 +449,13 @@
         }
         .welcome-content {
             background: linear-gradient(135deg, #ffffff, #fdf8f6);
-            padding: 30px;
-            border-radius: 24px;
-            max-width: 420px;
+            padding: 35px;
+            border-radius: 28px;
+            max-width: 440px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-            border: 2px solid #fde68a;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 3px solid #f59e0b;
             animation: welcomeScale 0.3s ease;
         }
         @keyframes welcomeScale {
@@ -438,35 +463,35 @@
             to { transform: scale(1); opacity: 1; }
         }
         .welcome-flower {
-            font-size: 45px;
-            margin-bottom: 10px;
+            font-size: 50px;
+            margin-bottom: 12px;
         }
         .welcome-title {
-            color: var(--accent-gold);
-            font-size: 20px;
-            font-weight: bold;
+            color: #d97706;
+            font-size: 22px;
+            font-weight: 800;
             margin-bottom: 12px;
         }
         .welcome-text {
-            font-size: 17px;
+            font-size: 18px;
             color: var(--text-main);
-            font-weight: bold;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.7;
+            margin-bottom: 22px;
         }
         .welcome-btn {
-            background: linear-gradient(135deg, var(--accent-gold), #b45309);
+            background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
             border: none;
-            padding: 14px 30px;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: bold;
+            padding: 16px 30px;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: 800;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
+            box-shadow: 0 8px 20px rgba(217, 119, 6, 0.4);
         }
-        .welcome-btn:hover { opacity: 0.9; }
+        .welcome-btn:hover { opacity: 0.95; }
     </style>
 
     <div id="welcomeModal">
@@ -485,7 +510,7 @@
         </div>
     </div>
 
-    <!-- Firebase SDKs (محدثة لدعم المزامنة الفورية الحية Real-time) -->
+    <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -582,7 +607,7 @@
                         <span class="phone-prefix">+216 🇹🇳</span>
                     </div>
                 </div>
-                <button type="button" class="btn" id="btnLoginCustomer" style="background: var(--accent-green); color: white; margin-top: 10px;">دخول للبحث عن حرفي</button>
+                <button type="button" class="btn" id="btnLoginCustomer" style="background: linear-gradient(135deg, var(--accent-green), #047857); color: white; margin-top: 10px;">دخول للبحث عن حرفي</button>
             </div>
         </div>
 
@@ -604,14 +629,14 @@
                     <label>كلمة السر</label>
                     <input type="password" id="authPassword" placeholder="كلمة السر الخاصة بك">
                 </div>
-                <button type="button" class="btn" id="btnLoginArtisan" style="background: var(--accent-blue); color: white; margin-top: 10px;">دخول أو تعديل الحساب</button>
+                <button type="button" class="btn" id="btnLoginArtisan" style="background: linear-gradient(135deg, var(--accent-blue), #0369a1); color: white; margin-top: 10px;">دخول أو تعديل الحساب</button>
             </div>
         </div>
 
         <!-- 3. لوحة تحكم الأدمن -->
         <div id="adminView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
-            <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
+            <h2 style="color: #d97706; margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
             
             <div class="stats-table">
                 <div class="stat-card">
@@ -625,29 +650,29 @@
             </div>
 
             <div class="add-category-box">
-                <h3 style="color: var(--accent-green); font-size: 15px; margin-bottom: 8px;">➕ إضافة تخصص مهني جديد</h3>
-                <div style="display: flex; gap: 8px;">
+                <h3 style="color: #047857; font-size: 16px; margin-bottom: 8px; font-weight: 800;">➕ إضافة تخصص مهني جديد</h3>
+                <div style="display: flex; gap: 10px;">
                     <input type="text" id="newCatInput" placeholder="أدخل اسم التخصص الجديد...">
-                    <button onclick="addNewCategory()" style="background: var(--accent-green); color: white; border: none; padding: 10px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; white-space: nowrap;">إضافة</button>
+                    <button onclick="addNewCategory()" style="background: linear-gradient(135deg, #059669, #047857); color: white; border: none; padding: 12px 20px; border-radius: 12px; cursor: pointer; font-weight: 800; white-space: nowrap; box-shadow: 0 4px 10px rgba(5,150,105,0.3);">إضافة</button>
                 </div>
             </div>
 
             <div class="admin-actions">
-                <button class="admin-action-btn" style="background: var(--accent-blue);" onclick="exportDatabase()">📥 تحميل نسخة احتياطية (Backup)</button>
-                <label class="admin-action-btn" style="background: var(--accent-green); display: inline-block; cursor: pointer; line-height: normal; padding-top: 13px;">
+                <button class="admin-action-btn" style="background: linear-gradient(135deg, #0284c7, #0369a1);" onclick="exportDatabase()">📥 تحميل نسخة احتياطية (Backup)</button>
+                <label class="admin-action-btn" style="background: linear-gradient(135deg, #059669, #047857); display: inline-block; cursor: pointer; line-height: normal; padding-top: 15px;">
                     📤 استعادة البيانات إلى Firebase (Restore)
                     <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDatabase(event)">
                 </label>
             </div>
 
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 10px;">قائمة الحرفيين المسجلين:</p>
+            <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 10px; font-weight: 700;">قائمة الحرفيين المسجلين:</p>
             <div id="adminArtisansList">جاري التحميل...</div>
         </div>
 
         <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي -->
         <div id="artisanRegisterView" class="view">
             <button class="back-btn" onclick="switchView('artisanAuthView', true)">⬅️ العودة إلى البوابة</button>
-            <h2 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 20px;" id="formTitle">تعديل أو استكمال ملف الحرفي</h2>
+            <h2 style="color: #d97706; margin-bottom: 15px; font-size: 20px; font-weight: 800;" id="formTitle">تعديل أو استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
                     <label>الاسم الحقيقي أو اسم المؤسسة</label>
@@ -678,18 +703,18 @@
                 <div class="form-group">
                     <label>الموقع الجغرافي (GPS - اختياري)</label>
                     <button type="button" class="btn-gps" id="btnGetLocation">📍 اضغط هنا لتحديد موقعك عبر الـ GPS (إن أردت)</button>
-                    <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#e2e8f0; color:var(--accent-green); font-size:13px; text-align:center;" placeholder="لم يتم تحديد الموقع (اختياري)">
+                    <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#e2e8f0; color:var(--accent-green); font-size:13px; text-align:center; font-weight:700;" placeholder="لم يتم تحديد الموقع (اختياري)">
                     <input type="hidden" id="lat" value="33.8">
                     <input type="hidden" id="lng" value="10.8">
                 </div>
-                <button type="submit" class="btn" style="background: var(--accent-gold); color: white;">حفظ وتحديث التعديلات (Enregistrer)</button>
+                <button type="submit" class="btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">حفظ وتحديث التعديلات (Enregistrer)</button>
             </form>
         </div>
 
         <!-- 5. واجهة الزبون المتطورة -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: var(--accent-green); margin-bottom: 15px; font-size: 20px;">دليل أصحاب المهارات والحرفيين</h2>
+            <h2 style="color: #047857; margin-bottom: 18px; font-size: 22px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
             
             <button class="toggle-cat-mobile-btn" onclick="toggleMobileSidebar()">🔍 اضغط هنا لاختيار أو تغيير تخصص البحث</button>
 
@@ -703,11 +728,11 @@
                 </div>
 
                 <div>
-                    <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-                        <span id="resultCountText" style="font-size: 13px; color: var(--text-gray); font-weight: bold;">جاري جلب الحرفيين...</span>
+                    <div style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <span id="resultCountText" style="font-size: 14px; color: var(--text-main); font-weight: 800;">جاري جلب الحرفيين...</span>
                     </div>
                     <div id="artisansList" class="artisans-grid-2col">
-                        <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px;">جاري تحميل الحرفيين من قاعدة البيانات...</p>
+                        <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">جاري تحميل الحرفيين من قاعدة البيانات...</p>
                     </div>
                 </div>
             </div>
@@ -718,7 +743,7 @@
     <script>
         let currentArtisanPhone = "";
         let selectedFilter = 'all';
-        let realtimeUnsubscribe = null; // لتنظيم التحديث الحي
+        let realtimeUnsubscribe = null;
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
@@ -837,7 +862,7 @@
         document.getElementById('btnCustomer').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('customerView');
-            listenToArtisans('all'); // تفعيل الاستماع الفوري عند دخول الزبون
+            listenToArtisans('all');
         });
 
         document.getElementById('btnLoginCustomer').addEventListener('click', async function() {
@@ -873,7 +898,6 @@
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
             
-            // إذا خرجنا من واجهة الزبون، نوقف الاتصال الحي لتوفير الموارد
             if(viewId !== 'customerView' && realtimeUnsubscribe) {
                 realtimeUnsubscribe();
                 realtimeUnsubscribe = null;
@@ -1037,7 +1061,7 @@
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
                 if(querySnapshot.empty) {
-                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px;">لا يوجد حرفيون مسجلون حالياً.</p>';
+                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px; font-weight: 700;">لا يوجد حرفيون مسجلون حالياً.</p>';
                     return;
                 }
 
@@ -1049,13 +1073,13 @@
                     container.innerHTML += `
                         <div class="admin-card">
                             <div style="flex: 1;">
-                                <h3 style="color: var(--accent-gold); font-size: 16px;">${displayName}</h3>
-                                <p style="color: var(--accent-blue); font-size: 13px;">🛠️ ${a.category} | 📍 ${a.city || 'غير محدد'} | 📞 +${a.phone}</p>
-                                <p style="color: var(--text-gray); font-size: 12px; margin-top: 4px;">"${a.bio || 'بلا نبذة'}"</p>
+                                <h3 style="color: #d97706; font-size: 17px; font-weight: 800;">${displayName}</h3>
+                                <p style="color: var(--accent-blue); font-size: 14px; font-weight: 700;">🛠️ ${a.category} | 📍 ${a.city || 'غير محدد'} | 📞 +${a.phone}</p>
+                                <p style="color: var(--text-gray); font-size: 13px; margin-top: 4px; font-weight: 600;">"${a.bio || 'بلا نبذة'}"</p>
                             </div>
-                            <div style="display: flex; flex-direction: column; gap: 6px;">
-                                <button onclick="adminEditArtisan('${docId}', '${a.phone}', '${a.password}')" style="background: var(--accent-blue); color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 11px;">تعديل الهاتف/الباسورد</button>
-                                <button onclick="deleteArtisan('${docId}')" style="background: #dc2626; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 11px;">حذف</button>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <button onclick="adminEditArtisan('${docId}', '${a.phone}', '${a.password}')" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 12px; box-shadow: 0 2px 6px rgba(2,132,199,0.3);">تعديل الهاتف/الباسورد</button>
+                                <button onclick="deleteArtisan('${docId}')" style="background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 12px; box-shadow: 0 2px 6px rgba(220,38,38,0.3);">حذف</button>
                             </div>
                         </div>
                     `;
@@ -1188,21 +1212,20 @@
         async function selectCategory(cat) {
             selectedFilter = cat;
             renderSidebarCategories(getCategories(), document.getElementById('catSearchInput').value);
-            listenToArtisans(cat); // إعادة الاستماع بالفلتر الجديد
+            listenToArtisans(cat);
             
             if(window.innerWidth <= 768) {
                 document.getElementById('sidebarFiltersBox').classList.remove('mobile-show');
             }
         }
 
-        // دالة الاستماع الفوري الحية (Real-time listener) لكي تظهر التحديثات والحرفيون الجدد فوراً دون تحديث الصفحة
         function listenToArtisans(filter) {
             const container = document.getElementById('artisansList');
             const countText = document.getElementById('resultCountText');
-            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px;">جاري جلب الحرفيين مباشرة...</p>';
+            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 25px; font-weight: 700;">جاري جلب الحرفيين مباشرة...</p>';
             
             if(realtimeUnsubscribe) {
-                realtimeUnsubscribe(); // إيقاف الاستماع القديم عند تغيير الفلتر
+                realtimeUnsubscribe();
             }
 
             realtimeUnsubscribe = window.onSnapshot(window.collection(window.db, "artisans"), (querySnapshot) => {
@@ -1218,7 +1241,7 @@
                 countText.innerText = `📦 تم العثور على ${artisans.length} حرفياً`;
 
                 if(artisans.length === 0) {
-                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px;">لا يوجد حرفيون مسجلون في هذا التخصص حالياً.</p>';
+                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 25px; font-weight: 700;">لا يوجد حرفيون مسجلون في هذا التخصص حالياً.</p>';
                     return;
                 }
 
@@ -1229,20 +1252,20 @@
                         cleanPhone = '216' + cleanPhone;
                     }
 
-                    let titleDisplay = a.workName ? `${a.workName} <span style="font-size:11px; color:var(--text-gray);">(${a.name})</span>` : a.name;
+                    let titleDisplay = a.workName ? `${a.workName} <span style="font-size:12px; color:var(--text-gray); font-weight:700;">(${a.name})</span>` : a.name;
                     let cityDisplay = a.city ? `📍 ${a.city}` : `📍 متاح محلياً`;
 
                     container.innerHTML += `
                         <div class="artisan-card">
                             <div>
-                                <h3 style="color: var(--accent-gold); margin-bottom: 4px; font-size: 15px;">${titleDisplay}</h3>
-                                <p style="color: var(--accent-blue); font-size: 12px; font-weight: bold; margin-bottom: 2px;">🛠️ ${a.category}</p>
-                                <p style="color: #047857; font-size: 11px; font-weight: bold; margin-bottom: 4px;">${cityDisplay}</p>
-                                <p style="color: var(--text-gray); font-size: 12px; font-style: italic; margin-bottom: 8px;">"${a.bio || ''}"</p>
+                                <h3 style="color: #b45309; margin-bottom: 6px; font-size: 17px; font-weight: 800;">${titleDisplay}</h3>
+                                <p style="color: var(--accent-blue); font-size: 13px; font-weight: 800; margin-bottom: 4px;">🛠️ ${a.category}</p>
+                                <p style="color: #047857; font-size: 12px; font-weight: 800; margin-bottom: 6px;">${cityDisplay}</p>
+                                <p style="color: var(--text-gray); font-size: 13px; font-style: italic; margin-bottom: 12px; font-weight: 600;">"${a.bio || ''}"</p>
                             </div>
-                            <div style="display: flex; gap: 6px; margin-top: 5px;">
-                                <a href="tel:+${a.phone}" style="flex:1; background: #0284c7; color: white; padding: 8px 6px; border-radius: 8px; text-decoration: none; font-size: 11px; font-weight: bold; text-align: center;">📞 اتصال</a>
-                                <a href="https://wa.me/${cleanPhone}" target="_blank" style="flex:1; background: #059669; color: white; padding: 8px 6px; border-radius: 8px; text-decoration: none; font-size: 11px; font-weight: bold; text-align: center;">💬 واتساب</a>
+                            <div style="display: flex; gap: 8px; margin-top: 8px;">
+                                <a href="tel:+${a.phone}" style="flex:1; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; padding: 12px 8px; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 800; text-align: center; box-shadow: 0 4px 10px rgba(2,132,199,0.3); transition: 0.2s;">📞 اتصال</a>
+                                <a href="https://wa.me/${cleanPhone}" target="_blank" style="flex:1; background: linear-gradient(135deg, #059669, #047857); color: white; padding: 12px 8px; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 800; text-align: center; box-shadow: 0 4px 10px rgba(5,150,105,0.3); transition: 0.2s;">💬 واتساب</a>
                             </div>
                         </div>
                     `;
