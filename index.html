@@ -6,7 +6,7 @@
     <title>منصة أصحاب المهارات والحرفيين</title>
     <style>
         :root {
-            --bg-main: #0f172a;
+            --bg-main: #1e293b;
             --card-bg: #ffffff;
             --accent-gold: #f59e0b;
             --accent-gold-dark: #d97706;
@@ -14,9 +14,9 @@
             --accent-blue-hover: #0369a1;
             --accent-green: #10b981;
             --accent-green-hover: #059669;
-            --text-main: #0f172a;
-            --text-gray: #475569;
-            --border-color: #e2e8f0;
+            --text-main: #1e293b;
+            --text-gray: #64748b;
+            --border-color: #cbd5e1;
         }
         * {
             box-sizing: border-box;
@@ -25,131 +25,130 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            background: linear-gradient(135deg, #334155 0%, #1e293b 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 20px;
-            background-image: radial-gradient(rgba(245, 158, 11, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
+            padding: 15px;
+            background-image: radial-gradient(rgba(245, 158, 11, 0.15) 1px, transparent 1px);
+            background-size: 24px 24px;
         }
         .container {
-            max-width: 700px;
-            margin: 30px auto;
+            max-width: 680px;
+            margin: 25px auto;
             background: rgba(255, 255, 255, 0.98);
-            padding: 35px;
-            border-radius: 28px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            padding: 25px;
+            border-radius: 22px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.2);
             width: 100%;
         }
         .container.wide-container {
-            max-width: 1100px !important;
+            max-width: 1050px !important;
         }
 
         .logo-header {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 8px;
+            gap: 10px;
+            margin-bottom: 4px;
         }
         .logo-icon {
-            width: 42px;
-            height: 42px;
+            width: 34px;
+            height: 34px;
             fill: var(--accent-gold);
-            filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.3));
+            filter: drop-shadow(0 2px 3px rgba(245, 158, 11, 0.3));
         }
         h1 {
             color: #b45309;
             text-align: center;
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 800;
-            letter-spacing: -0.5px;
         }
         .subtitle {
             text-align: center;
             color: var(--text-gray);
-            font-size: 15px;
-            margin-bottom: 25px;
+            font-size: 13px;
+            margin-bottom: 18px;
             font-weight: 700;
         }
         .middle-badge {
             background: linear-gradient(135deg, #e0f2fe, #bae6fd);
             border: 1px solid #7dd3fc;
             color: #0369a1;
-            padding: 14px;
-            border-radius: 16px;
+            padding: 10px;
+            border-radius: 12px;
             text-align: center;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: bold;
-            margin-bottom: 22px;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
+            margin-bottom: 18px;
+            box-shadow: 0 3px 10px rgba(2, 132, 199, 0.1);
         }
         .info-box {
             background: linear-gradient(135deg, #fef3c7, #fde68a);
             border: 1px solid #f59e0b;
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 25px;
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 20px;
             text-align: right;
-            box-shadow: 0 6px 15px rgba(245, 158, 11, 0.15);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
         }
         .info-box h3 {
             color: #92400e;
-            font-size: 17px;
-            margin-bottom: 10px;
+            font-size: 15px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             font-weight: 800;
         }
         .info-box p {
             color: #78350f;
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 8px;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 4px;
             font-weight: 600;
         }
         .btn {
             display: block;
             width: 100%;
-            padding: 20px;
-            margin: 18px 0;
-            font-size: 19px;
+            padding: 15px;
+            margin: 12px 0;
+            font-size: 16px;
             font-weight: 800;
             color: white;
             border: none;
-            border-radius: 18px;
+            border-radius: 14px;
             cursor: pointer;
             text-align: center;
-            transition: all 0.25s ease;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
         }
         .btn-artisan { background: linear-gradient(135deg, #0284c7, #0369a1); }
         .btn-customer { background: linear-gradient(135deg, #059669, #047857); }
-        .btn:hover { opacity: 0.95; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0,0,0,0.25); }
+        .btn:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
         
         .view { display: none; }
         .view.active { display: block; }
         
-        .form-group { margin-bottom: 22px; text-align: right; }
-        label { display: block; margin-bottom: 8px; color: var(--accent-blue); font-weight: 800; font-size: 15px; }
+        .form-group { margin-bottom: 18px; text-align: right; }
+        label { display: block; margin-bottom: 6px; color: var(--accent-blue); font-weight: 800; font-size: 13px; }
         input, select, textarea {
             width: 100%;
-            padding: 16px;
+            padding: 12px;
             border: 2px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 12px;
             background: #f8fafc;
             color: var(--text-main);
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             outline: none;
             transition: 0.2s;
         }
-        input:focus, select:focus, textarea:focus { border-color: var(--accent-blue); background: #fff; box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15); }
-        textarea { resize: vertical; height: 100px; }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent-blue); background: #fff; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+        textarea { resize: vertical; height: 80px; }
         
         .phone-input-group {
             display: flex;
@@ -158,16 +157,16 @@
         .phone-prefix {
             background: #e2e8f0;
             color: var(--accent-blue);
-            padding: 16px;
+            padding: 12px;
             border: 2px solid var(--border-color);
-            border-radius: 0 14px 14px 0;
+            border-radius: 0 12px 12px 0;
             font-weight: 800;
             display: flex;
             align-items: center;
-            font-size: 17px;
+            font-size: 15px;
         }
         .phone-main-input {
-            border-radius: 14px 0 0 14px !important;
+            border-radius: 12px 0 0 12px !important;
             border-left: none !important;
             text-align: right;
         }
@@ -176,13 +175,13 @@
             background-color: #f0fdf4;
             color: #047857;
             border: 2px dashed #10b981;
-            padding: 16px;
-            border-radius: 14px;
+            padding: 12px;
+            border-radius: 12px;
             width: 100%;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: 800;
-            margin-top: 6px;
+            margin-top: 5px;
             text-align: center;
             transition: 0.2s;
         }
@@ -192,24 +191,24 @@
             background: linear-gradient(135deg, #e0f2fe, #bae6fd);
             color: #0369a1;
             border: 1px solid #7dd3fc;
-            padding: 12px 20px;
-            border-radius: 12px;
+            padding: 8px 14px;
+            border-radius: 10px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             font-weight: 800;
-            font-size: 15px;
-            margin-bottom: 22px;
+            font-size: 13px;
+            margin-bottom: 18px;
             transition: 0.2s;
-            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.1);
+            box-shadow: 0 3px 8px rgba(2, 132, 199, 0.1);
         }
         .back-btn:hover { background: #bae6fd; transform: translateY(-1px); }
 
         .customer-layout {
             display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 25px;
+            grid-template-columns: 260px 1fr;
+            gap: 20px;
             align-items: start;
         }
         @media(max-width: 768px) {
@@ -224,14 +223,14 @@
             background: linear-gradient(135deg, var(--accent-blue), #0369a1);
             color: white;
             border: none;
-            padding: 15px;
-            border-radius: 14px;
+            padding: 12px;
+            border-radius: 12px;
             font-weight: 800;
-            font-size: 16px;
-            margin-bottom: 18px;
+            font-size: 14px;
+            margin-bottom: 15px;
             cursor: pointer;
             text-align: center;
-            box-shadow: 0 6px 15px rgba(2, 132, 199, 0.25);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
         }
         @media(max-width: 768px) {
             .toggle-cat-mobile-btn {
@@ -242,62 +241,60 @@
             }
             .sidebar-filters.mobile-show {
                 display: block;
-                margin-bottom: 22px;
+                margin-bottom: 18px;
             }
         }
 
         .sidebar-filters {
             background: #f8fafc;
             border: 2px solid var(--border-color);
-            padding: 18px;
-            border-radius: 20px;
-            max-height: 600px;
+            padding: 14px;
+            border-radius: 16px;
+            max-height: 500px;
             overflow-y: auto;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
         .sidebar-filters h3 {
-            font-size: 17px;
+            font-size: 14px;
             color: var(--accent-blue);
-            margin-bottom: 14px;
-            padding-bottom: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
             border-bottom: 2px solid var(--border-color);
             font-weight: 800;
         }
         .filter-search-input {
-            margin-bottom: 14px;
-            padding: 12px;
-            font-size: 14px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 12px;
         }
         .filter-cat-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
         .filter-cat-btn {
             background: #ffffff;
             border: 2px solid var(--border-color);
-            padding: 12px 14px;
-            border-radius: 12px;
+            padding: 10px;
+            border-radius: 10px;
             text-align: right;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
             cursor: pointer;
             transition: 0.2s;
             color: var(--text-main);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
         .filter-cat-btn:hover, .filter-cat-btn.active {
             background: linear-gradient(135deg, var(--accent-blue), #0369a1);
             color: white;
             border-color: var(--accent-blue);
-            transform: translateX(-3px);
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+            transform: translateX(-2px);
         }
 
         .artisans-grid-2col {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            gap: 15px;
         }
         @media(max-width: 600px) {
             .artisans-grid-2col {
@@ -307,87 +304,84 @@
 
         .artisan-card {
             background: #ffffff;
-            padding: 22px;
-            border-radius: 20px;
+            padding: 16px;
+            border-radius: 16px;
             border: 2px solid var(--border-color);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-            transition: all 0.25s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
         }
         .artisan-card:hover {
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             border-color: var(--accent-blue);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .admin-card {
             background: #f8fafc;
-            padding: 22px;
-            border-radius: 18px;
-            margin-bottom: 16px;
+            padding: 18px;
+            border-radius: 14px;
+            margin-bottom: 14px;
             border: 2px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
 
         .auth-box {
             background: #f8fafc;
-            padding: 25px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 16px;
             border: 2px solid var(--border-color);
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
         .admin-actions {
             display: flex;
-            gap: 12px;
-            margin-bottom: 22px;
+            gap: 10px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
         }
         .admin-action-btn {
             flex: 1;
-            padding: 14px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 10px;
             border: none;
             font-weight: 800;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             color: white;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
         .add-category-box {
             background: #f0fdf4;
             border: 2px solid #bbf7d0;
-            padding: 18px;
-            border-radius: 18px;
-            margin-bottom: 22px;
+            padding: 15px;
+            border-radius: 14px;
+            margin-bottom: 18px;
         }
         .stats-table {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 22px;
+            gap: 12px;
+            margin-bottom: 18px;
         }
         .stat-card {
             background: #ffffff;
             border: 2px solid var(--border-color);
-            padding: 18px;
-            border-radius: 16px;
+            padding: 14px;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
         }
         .stat-card h4 {
             color: var(--text-gray);
-            font-size: 14px;
-            margin-bottom: 6px;
+            font-size: 13px;
+            margin-bottom: 4px;
             font-weight: 700;
         }
         .stat-card span {
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 800;
             color: var(--accent-blue);
         }
@@ -404,36 +398,36 @@
         }
         .modal-content {
             background: white;
-            padding: 30px;
-            border-radius: 24px;
-            max-width: 420px;
+            padding: 24px;
+            border-radius: 20px;
+            max-width: 380px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            animation: modalScale 0.25s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            animation: modalScale 0.2s ease;
         }
         @keyframes modalScale {
             from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
         .modal-text {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-main);
             font-weight: 800;
-            margin-bottom: 22px;
-            line-height: 1.6;
+            margin-bottom: 18px;
+            line-height: 1.5;
         }
         .modal-btn {
             background: linear-gradient(135deg, var(--accent-blue), #0369a1);
             color: white;
             border: none;
-            padding: 14px 30px;
-            border-radius: 14px;
-            font-size: 17px;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 800;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 6px 15px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
         }
         .modal-btn:hover { opacity: 0.95; }
 
@@ -449,12 +443,12 @@
         }
         .welcome-content {
             background: linear-gradient(135deg, #ffffff, #fdf8f6);
-            padding: 35px;
-            border-radius: 28px;
-            max-width: 440px;
+            padding: 28px;
+            border-radius: 24px;
+            max-width: 400px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             border: 3px solid #f59e0b;
             animation: welcomeScale 0.3s ease;
         }
@@ -463,33 +457,33 @@
             to { transform: scale(1); opacity: 1; }
         }
         .welcome-flower {
-            font-size: 50px;
-            margin-bottom: 12px;
+            font-size: 42px;
+            margin-bottom: 10px;
         }
         .welcome-title {
             color: #d97706;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .welcome-text {
-            font-size: 18px;
+            font-size: 16px;
             color: var(--text-main);
             font-weight: 800;
-            line-height: 1.7;
-            margin-bottom: 22px;
+            line-height: 1.6;
+            margin-bottom: 18px;
         }
         .welcome-btn {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
             border: none;
-            padding: 16px 30px;
-            border-radius: 16px;
-            font-size: 17px;
+            padding: 14px 25px;
+            border-radius: 14px;
+            font-size: 15px;
             font-weight: 800;
             cursor: pointer;
             width: 100%;
-            box-shadow: 0 8px 20px rgba(217, 119, 6, 0.4);
+            box-shadow: 0 6px 15px rgba(217, 119, 6, 0.4);
         }
         .welcome-btn:hover { opacity: 0.95; }
     </style>
@@ -596,8 +590,8 @@
         <!-- 1.5 نافذة تسجيل الزبون الباحث -->
         <div id="customerAuthView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: var(--accent-green); margin-bottom: 12px; font-size: 20px;">دخول الباحثين عن الخدمات</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك (8 أرقام) للوصول المباشر لقائمة الحرفيين.</p>
+            <h2 style="color: var(--accent-green); margin-bottom: 10px; font-size: 18px; font-weight: 800;">دخول الباحثين عن الخدمات</h2>
+            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 15px; font-weight: 700;">أدخل رقم هاتفك (8 أرقام) للوصول المباشر لقائمة الحرفيين.</p>
             
             <div class="auth-box">
                 <div class="form-group">
@@ -607,15 +601,15 @@
                         <span class="phone-prefix">+216 🇹🇳</span>
                     </div>
                 </div>
-                <button type="button" class="btn" id="btnLoginCustomer" style="background: linear-gradient(135deg, var(--accent-green), #047857); color: white; margin-top: 10px;">دخول للبحث عن حرفي</button>
+                <button type="button" class="btn" id="btnLoginCustomer" style="background: linear-gradient(135deg, var(--accent-green), #047857); color: white; margin-top: 8px;">دخول للبحث عن حرفي</button>
             </div>
         </div>
 
         <!-- 2. بوابة دخول الحرفي أو الأدمن -->
         <div id="artisanAuthView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: var(--accent-blue); margin-bottom: 12px; font-size: 20px;">بوابة دخول الحرفيين</h2>
-            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 20px;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
+            <h2 style="color: var(--accent-blue); margin-bottom: 10px; font-size: 18px; font-weight: 800;">بوابة دخول الحرفيين</h2>
+            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 15px; font-weight: 700;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
             
             <div class="auth-box">
                 <div class="form-group">
@@ -629,14 +623,14 @@
                     <label>كلمة السر</label>
                     <input type="password" id="authPassword" placeholder="كلمة السر الخاصة بك">
                 </div>
-                <button type="button" class="btn" id="btnLoginArtisan" style="background: linear-gradient(135deg, var(--accent-blue), #0369a1); color: white; margin-top: 10px;">دخول أو تعديل الحساب</button>
+                <button type="button" class="btn" id="btnLoginArtisan" style="background: linear-gradient(135deg, var(--accent-blue), #0369a1); color: white; margin-top: 8px;">دخول أو تعديل الحساب</button>
             </div>
         </div>
 
         <!-- 3. لوحة تحكم الأدمن -->
         <div id="adminView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
-            <h2 style="color: #d97706; margin-bottom: 15px; font-size: 20px;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
+            <h2 style="color: #d97706; margin-bottom: 12px; font-size: 18px; font-weight: 800;">⚙️ لوحة تحكم المشرف (الأدمن)</h2>
             
             <div class="stats-table">
                 <div class="stat-card">
@@ -650,29 +644,29 @@
             </div>
 
             <div class="add-category-box">
-                <h3 style="color: #047857; font-size: 16px; margin-bottom: 8px; font-weight: 800;">➕ إضافة تخصص مهني جديد</h3>
-                <div style="display: flex; gap: 10px;">
+                <h3 style="color: #047857; font-size: 14px; margin-bottom: 6px; font-weight: 800;">➕ إضافة تخصص مهني جديد</h3>
+                <div style="display: flex; gap: 8px;">
                     <input type="text" id="newCatInput" placeholder="أدخل اسم التخصص الجديد...">
-                    <button onclick="addNewCategory()" style="background: linear-gradient(135deg, #059669, #047857); color: white; border: none; padding: 12px 20px; border-radius: 12px; cursor: pointer; font-weight: 800; white-space: nowrap; box-shadow: 0 4px 10px rgba(5,150,105,0.3);">إضافة</button>
+                    <button onclick="addNewCategory()" style="background: linear-gradient(135deg, #059669, #047857); color: white; border: none; padding: 10px 16px; border-radius: 10px; cursor: pointer; font-weight: 800; white-space: nowrap; box-shadow: 0 3px 8px rgba(5,150,105,0.3);">إضافة</button>
                 </div>
             </div>
 
             <div class="admin-actions">
                 <button class="admin-action-btn" style="background: linear-gradient(135deg, #0284c7, #0369a1);" onclick="exportDatabase()">📥 تحميل نسخة احتياطية (Backup)</button>
-                <label class="admin-action-btn" style="background: linear-gradient(135deg, #059669, #047857); display: inline-block; cursor: pointer; line-height: normal; padding-top: 15px;">
+                <label class="admin-action-btn" style="background: linear-gradient(135deg, #059669, #047857); display: inline-block; cursor: pointer; line-height: normal; padding-top: 13px;">
                     📤 استعادة البيانات إلى Firebase (Restore)
                     <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDatabase(event)">
                 </label>
             </div>
 
-            <p style="color: var(--text-gray); font-size: 14px; margin-bottom: 10px; font-weight: 700;">قائمة الحرفيين المسجلين:</p>
+            <p style="color: var(--text-gray); font-size: 13px; margin-bottom: 8px; font-weight: 700;">قائمة الحرفيين المسجلين:</p>
             <div id="adminArtisansList">جاري التحميل...</div>
         </div>
 
         <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي -->
         <div id="artisanRegisterView" class="view">
             <button class="back-btn" onclick="switchView('artisanAuthView', true)">⬅️ العودة إلى البوابة</button>
-            <h2 style="color: #d97706; margin-bottom: 15px; font-size: 20px; font-weight: 800;" id="formTitle">تعديل أو استكمال ملف الحرفي</h2>
+            <h2 style="color: #d97706; margin-bottom: 12px; font-size: 18px; font-weight: 800;" id="formTitle">تعديل أو استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
                     <label>الاسم الحقيقي أو اسم المؤسسة</label>
@@ -703,7 +697,7 @@
                 <div class="form-group">
                     <label>الموقع الجغرافي (GPS - اختياري)</label>
                     <button type="button" class="btn-gps" id="btnGetLocation">📍 اضغط هنا لتحديد موقعك عبر الـ GPS (إن أردت)</button>
-                    <input type="text" id="locationStatus" readonly style="margin-top: 8px; background:#e2e8f0; color:var(--accent-green); font-size:13px; text-align:center; font-weight:700;" placeholder="لم يتم تحديد الموقع (اختياري)">
+                    <input type="text" id="locationStatus" readonly style="margin-top: 6px; background:#e2e8f0; color:var(--accent-green); font-size:12px; text-align:center; font-weight:700;" placeholder="لم يتم تحديد الموقع (اختياري)">
                     <input type="hidden" id="lat" value="33.8">
                     <input type="hidden" id="lng" value="10.8">
                 </div>
@@ -711,25 +705,30 @@
             </form>
         </div>
 
-        <!-- 5. واجهة الزبون المتطورة -->
+        <!-- 5. واجهة الزبون المتطورة (مع خانة البحث بالاسم والاختصاص) -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #047857; margin-bottom: 18px; font-size: 22px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
+            <h2 style="color: #047857; margin-bottom: 14px; font-size: 19px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
             
-            <button class="toggle-cat-mobile-btn" onclick="toggleMobileSidebar()">🔍 اضغط هنا لاختيار أو تغيير تخصص البحث</button>
+            <button class="toggle-cat-mobile-btn" onclick="toggleMobileSidebar()">🔍 تصفية بالاختصاص أو البحث</button>
 
             <div class="customer-layout">
                 <div class="sidebar-filters" id="sidebarFiltersBox">
-                    <h3>🔍 تصفية بالاختصاص</h3>
-                    <input type="text" id="catSearchInput" class="filter-search-input" placeholder="ابحث عن اختصاص..." oninput="filterCategoryList()">
+                    <h3>🔍 البحث والتصفية</h3>
+                    <!-- خانة البحث بالاسم أو الاختصاص -->
+                    <div style="margin-bottom: 12px;">
+                        <label style="font-size: 11px; margin-bottom: 4px; color: var(--text-gray);">ابحث بالاسم أو الاختصاص:</label>
+                        <input type="text" id="globalSearchInput" class="filter-search-input" placeholder="اكتب اسم الحرفي أو الاختصاص..." oninput="filterArtisansBySearch()">
+                    </div>
+                    <h3 style="font-size: 13px; margin-top: 10px;">التخصصات</h3>
                     <div class="filter-cat-list" id="sidebarCatList">
                         <!-- تعبئة ديناميكية -->
                     </div>
                 </div>
 
                 <div>
-                    <div style="margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
-                        <span id="resultCountText" style="font-size: 14px; color: var(--text-main); font-weight: 800;">جاري جلب الحرفيين...</span>
+                    <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <span id="resultCountText" style="font-size: 13px; color: var(--text-main); font-weight: 800;">جاري جلب الحرفيين...</span>
                     </div>
                     <div id="artisansList" class="artisans-grid-2col">
                         <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">جاري تحميل الحرفيين من قاعدة البيانات...</p>
@@ -744,6 +743,7 @@
         let currentArtisanPhone = "";
         let selectedFilter = 'all';
         let realtimeUnsubscribe = null;
+        let cachedArtisansList = []; // لتخزين الحرفيين وتسهيل البحث الفوري بالاسم
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
@@ -813,7 +813,7 @@
             renderSidebarCategories(cats);
         }
 
-        function renderSidebarCategories(cats, filterText = '') {
+        function renderSidebarCategories(cats) {
             let sidebarList = document.getElementById('sidebarCatList');
             if(!sidebarList) return;
 
@@ -822,17 +822,11 @@
             `;
 
             cats.forEach(c => {
-                if(filterText && !c.toLowerCase().includes(filterText.toLowerCase())) return;
                 let shortName = c.split('(')[0].trim();
                 let isActive = selectedFilter === c ? 'active' : '';
                 sidebarList.innerHTML += `<button class="filter-cat-btn ${isActive}" onclick="selectCategory('${c}')">🔹 ${shortName}</button>`;
             });
         }
-
-        window.filterCategoryList = function() {
-            let val = document.getElementById('catSearchInput').value;
-            renderSidebarCategories(getCategories(), val);
-        };
 
         populateCategoriesUI();
 
@@ -1061,7 +1055,7 @@
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
                 if(querySnapshot.empty) {
-                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 20px; font-weight: 700;">لا يوجد حرفيون مسجلون حالياً.</p>';
+                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 15px; font-weight: 700;">لا يوجد حرفيون مسجلون حالياً.</p>';
                     return;
                 }
 
@@ -1073,13 +1067,13 @@
                     container.innerHTML += `
                         <div class="admin-card">
                             <div style="flex: 1;">
-                                <h3 style="color: #d97706; font-size: 17px; font-weight: 800;">${displayName}</h3>
-                                <p style="color: var(--accent-blue); font-size: 14px; font-weight: 700;">🛠️ ${a.category} | 📍 ${a.city || 'غير محدد'} | 📞 +${a.phone}</p>
-                                <p style="color: var(--text-gray); font-size: 13px; margin-top: 4px; font-weight: 600;">"${a.bio || 'بلا نبذة'}"</p>
+                                <h3 style="color: #d97706; font-size: 15px; font-weight: 800;">${displayName}</h3>
+                                <p style="color: var(--accent-blue); font-size: 12px; font-weight: 700;">🛠️ ${a.category} | 📍 ${a.city || 'غير محدد'} | 📞 +${a.phone}</p>
+                                <p style="color: var(--text-gray); font-size: 11px; margin-top: 3px; font-weight: 600;">"${a.bio || 'بلا نبذة'}"</p>
                             </div>
-                            <div style="display: flex; flex-direction: column; gap: 8px;">
-                                <button onclick="adminEditArtisan('${docId}', '${a.phone}', '${a.password}')" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 12px; box-shadow: 0 2px 6px rgba(2,132,199,0.3);">تعديل الهاتف/الباسورد</button>
-                                <button onclick="deleteArtisan('${docId}')" style="background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 12px; box-shadow: 0 2px 6px rgba(220,38,38,0.3);">حذف</button>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <button onclick="adminEditArtisan('${docId}', '${a.phone}', '${a.password}')" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 11px; box-shadow: 0 2px 5px rgba(2,132,199,0.3);">تعديل</button>
+                                <button onclick="deleteArtisan('${docId}')" style="background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 11px; box-shadow: 0 2px 5px rgba(220,38,38,0.3);">حذف</button>
                             </div>
                         </div>
                     `;
@@ -1211,65 +1205,90 @@
 
         async function selectCategory(cat) {
             selectedFilter = cat;
-            renderSidebarCategories(getCategories(), document.getElementById('catSearchInput').value);
-            listenToArtisans(cat);
+            renderSidebarCategories(getCategories());
+            renderFilteredArtisans();
             
             if(window.innerWidth <= 768) {
                 document.getElementById('sidebarFiltersBox').classList.remove('mobile-show');
             }
         }
 
-        function listenToArtisans(filter) {
+        window.filterArtisansBySearch = function() {
+            renderFilteredArtisans();
+        };
+
+        function renderFilteredArtisans() {
             const container = document.getElementById('artisansList');
             const countText = document.getElementById('resultCountText');
-            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 25px; font-weight: 700;">جاري جلب الحرفيين مباشرة...</p>';
+            const searchVal = document.getElementById('globalSearchInput').value.toLowerCase().trim();
+
+            let artisans = cachedArtisansList;
+
+            // فلترة بالتخصص
+            if(selectedFilter !== 'all') {
+                artisans = artisans.filter(a => a.category === selectedFilter);
+            }
+
+            // فلترة بالبحث الفوري (الاسم أو اللقب أو الاختصاص أو المدينة)
+            if(searchVal) {
+                artisans = artisans.filter(a => {
+                    let n = (a.name || '').toLowerCase();
+                    let wn = (a.workName || '').toLowerCase();
+                    let cat = (a.category || '').toLowerCase();
+                    let cty = (a.city || '').toLowerCase();
+                    return n.includes(searchVal) || wn.includes(searchVal) || cat.includes(searchVal) || cty.includes(searchVal);
+                });
+            }
+
+            countText.innerText = `📦 تم العثور على ${artisans.length} حرفياً`;
+
+            if(artisans.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">لا توجد نتائج مطابقة لبحثك.</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            artisans.forEach(a => {
+                let cleanPhone = a.phone ? a.phone.replace(/[^0-9]/g, '') : '';
+                if(!cleanPhone.startsWith('216')) {
+                    cleanPhone = '216' + cleanPhone;
+                }
+
+                let titleDisplay = a.workName ? `${a.workName} <span style="font-size:11px; color:var(--text-gray); font-weight:700;">(${a.name})</span>` : a.name;
+                let cityDisplay = a.city ? `📍 ${a.city}` : `📍 متاح محلياً`;
+
+                container.innerHTML += `
+                    <div class="artisan-card">
+                        <div>
+                            <h3 style="color: #b45309; margin-bottom: 4px; font-size: 15px; font-weight: 800;">${titleDisplay}</h3>
+                            <p style="color: var(--accent-blue); font-size: 12px; font-weight: 800; margin-bottom: 3px;">🛠️ ${a.category}</p>
+                            <p style="color: #047857; font-size: 11px; font-weight: 800; margin-bottom: 4px;">${cityDisplay}</p>
+                            <p style="color: var(--text-gray); font-size: 11px; font-style: italic; margin-bottom: 10px; font-weight: 600;">"${a.bio || ''}"</p>
+                        </div>
+                        <div style="display: flex; gap: 6px; margin-top: 6px;">
+                            <a href="tel:+${a.phone}" style="flex:1; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; padding: 10px 6px; border-radius: 10px; text-decoration: none; font-size: 12px; font-weight: 800; text-align: center; box-shadow: 0 3px 8px rgba(2,132,199,0.3);">📞 اتصال</a>
+                            <a href="https://wa.me/${cleanPhone}" target="_blank" style="flex:1; background: linear-gradient(135deg, #059669, #047857); color: white; padding: 10px 6px; border-radius: 10px; text-decoration: none; font-size: 12px; font-weight: 800; text-align: center; box-shadow: 0 3px 8px rgba(5,150,105,0.3);">💬 واتساب</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function listenToArtisans(filter) {
+            const container = document.getElementById('artisansList');
+            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">جاري جلب الحرفيين مباشرة...</p>';
             
             if(realtimeUnsubscribe) {
                 realtimeUnsubscribe();
             }
 
             realtimeUnsubscribe = window.onSnapshot(window.collection(window.db, "artisans"), (querySnapshot) => {
-                let artisans = [];
+                cachedArtisansList = [];
                 querySnapshot.forEach((d) => {
-                    artisans.push(d.data());
+                    cachedArtisansList.push(d.data());
                 });
 
-                if(filter !== 'all') {
-                    artisans = artisans.filter(a => a.category === filter);
-                }
-
-                countText.innerText = `📦 تم العثور على ${artisans.length} حرفياً`;
-
-                if(artisans.length === 0) {
-                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 25px; font-weight: 700;">لا يوجد حرفيون مسجلون في هذا التخصص حالياً.</p>';
-                    return;
-                }
-
-                container.innerHTML = '';
-                artisans.forEach(a => {
-                    let cleanPhone = a.phone ? a.phone.replace(/[^0-9]/g, '') : '';
-                    if(!cleanPhone.startsWith('216')) {
-                        cleanPhone = '216' + cleanPhone;
-                    }
-
-                    let titleDisplay = a.workName ? `${a.workName} <span style="font-size:12px; color:var(--text-gray); font-weight:700;">(${a.name})</span>` : a.name;
-                    let cityDisplay = a.city ? `📍 ${a.city}` : `📍 متاح محلياً`;
-
-                    container.innerHTML += `
-                        <div class="artisan-card">
-                            <div>
-                                <h3 style="color: #b45309; margin-bottom: 6px; font-size: 17px; font-weight: 800;">${titleDisplay}</h3>
-                                <p style="color: var(--accent-blue); font-size: 13px; font-weight: 800; margin-bottom: 4px;">🛠️ ${a.category}</p>
-                                <p style="color: #047857; font-size: 12px; font-weight: 800; margin-bottom: 6px;">${cityDisplay}</p>
-                                <p style="color: var(--text-gray); font-size: 13px; font-style: italic; margin-bottom: 12px; font-weight: 600;">"${a.bio || ''}"</p>
-                            </div>
-                            <div style="display: flex; gap: 8px; margin-top: 8px;">
-                                <a href="tel:+${a.phone}" style="flex:1; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; padding: 12px 8px; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 800; text-align: center; box-shadow: 0 4px 10px rgba(2,132,199,0.3); transition: 0.2s;">📞 اتصال</a>
-                                <a href="https://wa.me/${cleanPhone}" target="_blank" style="flex:1; background: linear-gradient(135deg, #059669, #047857); color: white; padding: 12px 8px; border-radius: 12px; text-decoration: none; font-size: 13px; font-weight: 800; text-align: center; box-shadow: 0 4px 10px rgba(5,150,105,0.3); transition: 0.2s;">💬 واتساب</a>
-                            </div>
-                        </div>
-                    `;
-                });
+                renderFilteredArtisans();
             }, (error) => {
                 container.innerHTML = '<p style="color: red; text-align: center; grid-column: span 2;">فشل مزامنة البيانات من Firebase.</p>';
             });
