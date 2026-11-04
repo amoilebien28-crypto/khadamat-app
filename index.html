@@ -250,7 +250,7 @@
             border: 2px solid var(--border-color);
             padding: 14px;
             border-radius: 16px;
-            max-height: 500px;
+            max-height: 550px;
             overflow-y: auto;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
@@ -302,7 +302,6 @@
             }
         }
 
-        /* بطاقة الحرفي المُنسّقة خصيصاً لملء المساحة بشكل ذكي (المعلومات يمين والأزرار الصغيرة يسار) */
         .artisan-card {
             background: #ffffff;
             padding: 14px;
@@ -703,8 +702,34 @@
                     <input type="text" id="artisanWorkName" placeholder="مثال: عمي صالح للكهرباء">
                 </div>
                 <div class="form-group">
-                    <label>المنطقة / المدينة (اختياري)</label>
-                    <input type="text" id="artisanCity" placeholder="مثال: حومة السوق، دجربة">
+                    <label>الولاية (المقر)</label>
+                    <select id="artisanCity" required>
+                        <option value="">اختر الولاية...</option>
+                        <option value="تونس">تونس</option>
+                        <option value="أريانة">أريانة</option>
+                        <option value="بن عروس">بن عروس</option>
+                        <option value="منوبة">منوبة</option>
+                        <option value="نابل">نابل</option>
+                        <option value="زغوان">زغوان</option>
+                        <option value="بنزرت">بنزرت</option>
+                        <option value="باجة">باجة</option>
+                        <option value="جندوبة">جندوبة</option>
+                        <option value="الكاف">الكاف</option>
+                        <option value="سليانة">سليانة</option>
+                        <option value="سوسة">سوسة</option>
+                        <option value="المنستير">المنستير</option>
+                        <option value="المهدية">المهدية</option>
+                        <option value="صفاقس">صفاقس</option>
+                        <option value="القيروان">القيروان</option>
+                        <option value="القصرين">القصرين</option>
+                        <option value="سيدي بوزيد">سيدي بوزيد</option>
+                        <option value="قابس">قابس</option>
+                        <option value="مدنين">مدنين</option>
+                        <option value="تطاوين">تطاوين</option>
+                        <option value="قفصة">قفصة</option>
+                        <option value="توزر">توزر</option>
+                        <option value="قبلي">قبلي</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف المعتمد</label>
@@ -731,20 +756,51 @@
             </form>
         </div>
 
-        <!-- 5. واجهة الزبون المتطورة (بطاقات مدمجة أفقياً وأزرار صغيرة على اليسار) -->
+        <!-- 5. واجهة الزبون المتطورة (مع فلتر الولاية والتخصصات) -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #047857; margin-bottom: 14px; font-size: 19px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
             
-            <button class="toggle-cat-mobile-btn" onclick="toggleMobileSidebar()">🔍 تصفية بالاختصاص أو البحث</button>
+            <button class="toggle-cat-mobile-btn" onclick="toggleMobileSidebar()">🔍 تصفية حسب الولاية أو الاختصاص</button>
 
             <div class="customer-layout">
                 <div class="sidebar-filters" id="sidebarFiltersBox">
-                    <h3>🔍 البحث والتصفية</h3>
+                    <h3>📍 تصفية حسب الولاية</h3>
                     <div style="margin-bottom: 12px;">
-                        <label style="font-size: 11px; margin-bottom: 4px; color: var(--text-gray);">ابحث بالاسم أو الاختصاص:</label>
-                        <input type="text" id="globalSearchInput" class="filter-search-input" placeholder="اكتب اسم الحرفي أو الاختصاص..." oninput="filterArtisansBySearch()">
+                        <select id="filterGovernorateSelect" class="filter-search-input" onchange="filterArtisansBySearch()" style="padding: 10px; font-size: 12px; font-weight: 700;">
+                            <option value="all">🌐 كل الولايات (جمهورية تونس)</option>
+                            <option value="تونس">تونس</option>
+                            <option value="أريانة">أريانة</option>
+                            <option value="بن عروس">بن عروس</option>
+                            <option value="منوبة">منوبة</option>
+                            <option value="نابل">نابل</option>
+                            <option value="زغوان">زغوان</option>
+                            <option value="بنزرت">بنزرت</option>
+                            <option value="باجة">باجة</option>
+                            <option value="جندوبة">جندوبة</option>
+                            <option value="الكاف">الكاف</option>
+                            <option value="سليانة">سليانة</option>
+                            <option value="سوسة">سوسة</option>
+                            <option value="المنستير">المنستير</option>
+                            <option value="المهدية">المهدية</option>
+                            <option value="صفاقس">صفاقس</option>
+                            <option value="القيروان">القيروان</option>
+                            <option value="القصرين">القصرين</option>
+                            <option value="سيدي بوزيد">سيدي بوزيد</option>
+                            <option value="قابس">قابس</option>
+                            <option value="مدنين">مدنين</option>
+                            <option value="تطاوين">تطاوين</option>
+                            <option value="قفصة">قفصة</option>
+                            <option value="توزر">توزر</option>
+                            <option value="قبلي">قبلي</option>
+                        </select>
                     </div>
+
+                    <h3>🔍 البحث الحر</h3>
+                    <div style="margin-bottom: 12px;">
+                        <input type="text" id="globalSearchInput" class="filter-search-input" placeholder="ابحث بالاسم أو الاختصاص..." oninput="filterArtisansBySearch()">
+                    </div>
+
                     <h3 style="font-size: 13px; margin-top: 10px;">التخصصات</h3>
                     <div class="filter-cat-list" id="sidebarCatList">
                         <!-- تعبئة ديناميكية -->
@@ -1185,7 +1241,7 @@
             e.preventDefault();
             const name = document.getElementById('artisanName').value.trim();
             const workName = document.getElementById('artisanWorkName').value.trim();
-            const city = document.getElementById('artisanCity').value.trim();
+            const city = document.getElementById('artisanCity').value;
             const category = document.getElementById('artisanCategory').value;
             const password = document.getElementById('authPassword').value;
             const bio = document.getElementById('artisanBio').value.trim() || "حرفي محترف جاهز لخدمتكم.";
@@ -1195,6 +1251,10 @@
 
             if(!name) {
                 showCustomAlert('الرجاء إدخال اسم الحرفي أو المؤسسة!');
+                return;
+            }
+            if(!city) {
+                showCustomAlert('الرجاء اختيار الولاية!');
                 return;
             }
 
@@ -1246,13 +1306,21 @@
             const container = document.getElementById('artisansList');
             const countText = document.getElementById('resultCountText');
             const searchVal = document.getElementById('globalSearchInput').value.toLowerCase().trim();
+            const selectedGov = document.getElementById('filterGovernorateSelect').value;
 
             let artisans = cachedArtisansList;
 
+            // الفلترة حسب الولاية المختارة
+            if(selectedGov !== 'all') {
+                artisans = artisans.filter(a => a.city === selectedGov);
+            }
+
+            // الفلترة حسب الاختصاص
             if(selectedFilter !== 'all') {
                 artisans = artisans.filter(a => a.category === selectedFilter);
             }
 
+            // الفلترة حسب البحث النصي
             if(searchVal) {
                 artisans = artisans.filter(a => {
                     let n = (a.name || '').toLowerCase();
@@ -1266,7 +1334,7 @@
             countText.innerText = `📦 تم العثور على ${artisans.length} حرفياً`;
 
             if(artisans.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">لا توجد نتائج مطابقة لبحثك.</p>';
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">لا توجد نتائج مطابقة لبحثك في هذه المنطقة.</p>';
                 return;
             }
 
@@ -1278,9 +1346,8 @@
                 }
 
                 let titleDisplay = a.workName ? `${a.workName} <span style="font-size:10px; color:var(--text-gray); font-weight:700;">(${a.name})</span>` : a.name;
-                let cityDisplay = a.city ? `📍 ${a.city}` : `📍 متاح محلياً`;
+                let cityDisplay = a.city ? `📍 ولاية ${a.city}` : `📍 متاح محلياً`;
 
-                // تصميم البطاقة المدمجة أفقياً (معلومات يمين وأزرار صغيرة يسار لملء المساحة الضائعة)
                 container.innerHTML += `
                     <div class="artisan-card">
                         <div class="artisan-info">
