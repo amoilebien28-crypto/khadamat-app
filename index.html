@@ -33,7 +33,7 @@
         .container {
             max-width: 620px;
             margin: 20px auto;
-            background: rgba(30, 41, 59, 0.88); /* لون أفتح قليلاً وأكثر راحة */
+            background: rgba(30, 41, 59, 0.88);
             padding: 22px;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
@@ -81,6 +81,20 @@
             font-weight: bold;
             margin-bottom: 14px;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .flash-ticker {
+            background: linear-gradient(135deg, #7c2d12, #9a3412);
+            border: 1px solid #f97316;
+            color: #ffedd5;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .info-box {
             background: linear-gradient(135deg, #1e293b, #111827);
@@ -399,6 +413,13 @@
             color: #38bdf8;
         }
 
+        .rating-stars {
+            color: #fbbf24;
+            font-size: 11px;
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
         #customModal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -587,16 +608,20 @@
             <div class="middle-badge" id="statsBadge">
                 <span>📍</span> جاري الاتصال بقاعدة البيانات واحتساب النشاط...
             </div>
+            
+            <div class="flash-ticker" id="flashTickerBox">
+                ⚡ أهلاً بك في منصة الحرفيين والتجار - تصفح أحدث عروض التجهيزات والمهارات الآن!
+            </div>
 
             <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي (دخول مباشر للبحث)</button>
-            <button class="btn btn-merchants-offers" id="btnMerchantsOffers">🔥 تخفيضات الأسبوع لحاجيات وحرفيي التجهيزات المتنوعة</button>
+            <button class="btn btn-merchants-offers" id="btnMerchantsOffers">🔥 تخفيضات الأسبوع ومتاجر التجهيزات المتنوعة</button>
             <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي (تسجيل أو تعديل حساب حرفي)</button>
             <button class="btn btn-merchant" id="btnMerchant">🛒 أنا تاجر / مورد (إدارة المتجر وعرض السلع)</button>
 
             <div class="info-box">
                 <h3>💡 كيف تعمل المنصة؟</h3>
                 <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك وحدد اختصاصك وولاك ليعثر عليك الزبائن.</p>
-                <p><b>للتجار والموردين:</b> سجل معلومات محلك، ثم افتح فضاءك الخاص لنشر منتجاتك وأسعار التخفيض.</p>
+                <p><b>للتجار والموردين:</b> سجل معلومات محلك وصورة شعارك، لتظهر أيقونة متجرك لجميع الزوار والحرفيين.</p>
             </div>
         </div>
 
@@ -653,7 +678,7 @@
             </div>
         </div>
 
-        <!-- 5. شاشة تسجيل تاجر جديد -->
+        <!-- 5. شاشة تسجيل تاجر جديد (مع خانة صورة أو شعار المحل) -->
         <div id="merchantRegisterView" class="view">
             <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
             <h2 style="color: #34d399; margin-bottom: 10px; font-size: 16px; font-weight: 800;">تسجيل تاجر جديد</h2>
@@ -691,6 +716,10 @@
                         <option value="توزر">توزر</option>
                         <option value="قبلي">قبلي</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label>صورة المحل أو الشعار (Logo)</label>
+                    <input type="file" id="regMerchantLogoFile" accept="image/*" style="padding: 7px;">
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف</label>
@@ -746,7 +775,7 @@
             <div id="merchantProductsList">جاري جلب منتجاتك...</div>
         </div>
 
-        <!-- 7. لوحة تحكم الأدمن (بأزرار إدارة مستقلة) -->
+        <!-- 7. لوحة تحكم الأدمن -->
         <div id="adminView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
             <h2 style="color: #fbbf24; margin-bottom: 12px; font-size: 16px; font-weight: 800;">⚙️ لوحة تحكم المشرف</h2>
@@ -766,14 +795,12 @@
                 </div>
             </div>
 
-            <!-- أزرار الإدارة المنظمة -->
             <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
                 <button class="btn btn-artisan" onclick="openAdminSection('artisans')">🛠️ إدارة الحرفيين (عرض أو حذف)</button>
                 <button class="btn btn-merchant" onclick="openAdminSection('merchants')">🛒 إدارة التجار والموردين (عرض أو حذف)</button>
                 <button class="btn btn-merchants-offers" onclick="openAdminSection('products')">📦 إدارة سلع وعروض التجار (عرض أو حذف)</button>
             </div>
 
-            <!-- حاوية عرض القوائم المنبثقة للأدمن -->
             <div id="adminSectionContainer" style="background: #111827; padding: 15px; border-radius: 14px; border: 2px solid var(--border-color); display: none; margin-bottom: 15px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <h3 id="adminSectionTitle" style="color: #fbbf24; font-size: 14px; font-weight: 800;">العنوان هنا</h3>
@@ -867,7 +894,7 @@
             </form>
         </div>
 
-        <!-- 9. واجهة الزبون: دليل الحرفيين (مع كشف انقطاع الإنترنت) -->
+        <!-- 9. واجهة الزبون: دليل الحرفيين (مع التقييم والمشاركة) -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #34d399; margin-bottom: 12px; font-size: 16px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
@@ -929,18 +956,29 @@
             </div>
         </div>
 
-        <!-- 10. فضاء التجار وتخفيضات التجهيزات المتنوعة (مع كشف انقطاع الإنترنت) -->
+        <!-- 10. فضاء تخفيضات الأسبوع وعرض المتاجر (الأيقونات) -->
         <div id="merchantsView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #fbbf24; margin-bottom: 12px; font-size: 16px; font-weight: 800;">🔥 تخفيضات الأسبوع لحاجيات وحرفيي التجهيزات المتنوعة</h2>
-            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">استعرض أهم المنتجات والسلع المعروضة من طرف الموردين والتجار.</p>
+            <h2 style="color: #fbbf24; margin-bottom: 12px; font-size: 16px; font-weight: 800;">🔥 متاجر وعروض التجهيزات المتنوعة</h2>
+            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">اختر متجراً لاستعراض سلعهم وتخفيضاتهم الخاصة:</p>
 
-            <div style="margin-bottom: 12px;">
-                <input type="text" id="merchantSearchInput" class="filter-search-input" placeholder="ابحث عن اسم المنتج، التاجر، أو السلعة..." oninput="renderFilteredMerchants()" style="padding: 10px; font-weight: 700;">
+            <div style="margin-bottom: 15px;">
+                <input type="text" id="storeSearchInput" class="filter-search-input" placeholder="ابحث عن اسم المحل أو الولاية..." oninput="renderStoresList()" style="padding: 10px; font-weight: 700;">
             </div>
 
-            <div id="merchantsList" class="artisans-grid-2col">
-                <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">جاري جلب عروض السلع...</p>
+            <!-- قائمة أيقونات المتاجر -->
+            <div id="storesGridList" class="artisans-grid-2col">
+                <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">جاري جلب المتاجر...</p>
+            </div>
+        </div>
+
+        <!-- 11. واجهة منتجات تاجر محدد (عند النقر على الأيقونة) -->
+        <div id="storeProductsView" class="view">
+            <button class="back-btn" onclick="switchView('merchantsView', true)">⬅️ رجوع إلى قائمة المتاجر</button>
+            <h2 style="color: #fbbf24; margin-bottom: 12px; font-size: 16px; font-weight: 800;" id="storeProductsTitle">سلع وعروض المتجر</h2>
+            
+            <div id="storeProductsList" class="artisans-grid-2col">
+                <!-- تعبئة ديناميكية لسلع التاجر -->
             </div>
         </div>
 
@@ -953,6 +991,7 @@
         let realtimeUnsubscribe = null;
         let productsUnsubscribe = null;
         let cachedArtisansList = [];
+        let cachedMerchantsList = [];
         let cachedProductsList = [];
 
         const ADMIN_PHONE = "admin";
@@ -1073,10 +1112,9 @@
         document.getElementById('btnMerchantsOffers').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('merchantsView');
-            listenToProducts();
+            listenToStoresAndProducts();
         });
 
-        // نظام إدارة التنقل وحفظ الحالة عند عمل Actualiser
         function switchView(viewId, pushHistory = true) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             let targetView = document.getElementById(viewId);
@@ -1085,10 +1123,6 @@
             if(viewId !== 'customerView' && realtimeUnsubscribe) {
                 realtimeUnsubscribe();
                 realtimeUnsubscribe = null;
-            }
-            if(viewId !== 'merchantsView' && productsUnsubscribe) {
-                productsUnsubscribe();
-                productsUnsubscribe = null;
             }
 
             if (pushHistory) {
@@ -1115,7 +1149,7 @@
                 listenToArtisans(selectedFilter);
             } else if(viewId === 'merchantsView') {
                 document.getElementById('mainContainerBox').classList.add('wide-container');
-                listenToProducts();
+                listenToStoresAndProducts();
             } else {
                 document.getElementById('mainContainerBox').classList.remove('wide-container');
             }
@@ -1125,10 +1159,10 @@
         window.addEventListener('DOMContentLoaded', () => {
             let hash = window.location.hash.replace('#', '');
             if(hash && document.getElementById(hash)) {
-                if(hash === 'customerView' || hash === 'merchantsView') {
+                if(hash === 'customerView' || hash === 'merchantsView' || hash === 'storeProductsView') {
                     document.getElementById('mainContainerBox').classList.add('wide-container');
                     if(hash === 'customerView') listenToArtisans('all');
-                    if(hash === 'merchantsView') listenToProducts();
+                    if(hash === 'merchantsView') listenToStoresAndProducts();
                 }
                 restoreView(hash);
             }
@@ -1165,7 +1199,7 @@
             }
 
             if (!navigator.onLine) {
-                showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت. يرجى التحقق من الشبكة.');
+                showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.');
                 return;
             }
 
@@ -1266,13 +1300,14 @@
             }
         });
 
-        // حفظ تسجيل تاجر جديد
+        // حفظ تسجيل تاجر جديد مع شعار المحل
         document.getElementById('merchantRegForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let name = document.getElementById('regMerchantName').value.trim();
             let city = document.getElementById('regMerchantCity').value;
             let phoneInput = document.getElementById('regMerchantPhone').value.trim();
             let password = document.getElementById('regMerchantPassword').value.trim();
+            let fileInput = document.getElementById('regMerchantLogoFile');
 
             if(!name || !city || !phoneInput || !password) {
                 showCustomAlert('الرجاء ملء كل الحقول المطلوبة!');
@@ -1292,27 +1327,40 @@
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
 
-            currentMerchantData = {
-                name,
-                city,
-                phone: currentPhone,
-                password,
-                updatedAt: new Date().toISOString()
+            let saveMerchantToDb = async (logoUrl = "") => {
+                currentMerchantData = {
+                    name,
+                    city,
+                    phone: currentPhone,
+                    password,
+                    logo: logoUrl,
+                    updatedAt: new Date().toISOString()
+                };
+
+                try {
+                    await window.setDoc(window.doc(window.db, "merchants", currentPhone), currentMerchantData);
+                    showCustomAlert('✅ تم تسجيل حسابك بنجاح! مرحباً بك في فضاء السلع.');
+                    document.getElementById('merchantRegForm').reset();
+                    document.getElementById('mainContainerBox').classList.add('wide-container');
+                    switchView('merchantDashboardView');
+                    listenToMerchantProducts(currentPhone);
+                } catch(err) {
+                    showCustomAlert('❌ حدث خطأ أثناء الحفظ.');
+                }
             };
 
-            try {
-                await window.setDoc(window.doc(window.db, "merchants", currentPhone), currentMerchantData);
-                showCustomAlert('✅ تم تسجيل حسابك بنجاح! مرحباً بك في فضاء السلع.');
-                document.getElementById('merchantRegForm').reset();
-                document.getElementById('mainContainerBox').classList.add('wide-container');
-                switchView('merchantDashboardView');
-                listenToMerchantProducts(currentPhone);
-            } catch(err) {
-                showCustomAlert('❌ حدث خطأ أثناء الحفظ.');
+            if(fileInput.files && fileInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = async function(e) {
+                    await saveMerchantToDb(e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                await saveMerchantToDb("");
             }
         });
 
-        // إضافة منتج جديد من طرف التاجر
+        // إضافة منتج جديد للتاجر
         document.getElementById('addProductForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let prodName = document.getElementById('prodName').value.trim();
@@ -1410,7 +1458,7 @@
             }
         };
 
-        // دوال التحكم بأقسام الأدمن (أزرار مستقلة)
+        // دوال التحكم بأقسام الأدمن المستقلة
         window.openAdminSection = async function(sectionType) {
             let container = document.getElementById('adminSectionContainer');
             let titleEl = document.getElementById('adminSectionTitle');
@@ -1632,6 +1680,18 @@
             reader.readAsText(file);
         };
 
+        // نظام التقييم بالنجوم المخزن محلياً
+        window.rateItem = function(id, stars) {
+            localStorage.setItem('rating_' + id, stars);
+            showCustomAlert(`⭐ شكراً لك! تم تسجيل تقييمك (${stars} نجوم) بنجاح.`);
+            renderFilteredArtisans();
+        };
+
+        function getStoredRating(id) {
+            let r = localStorage.getItem('rating_' + id);
+            return r ? parseInt(r) : 5; // الافتراضي 5 نجوم
+        }
+
         async function selectCategory(cat) {
             selectedFilter = cat;
             renderSidebarCategories(getCategories());
@@ -1651,7 +1711,6 @@
             const searchVal = document.getElementById('globalSearchInput').value.toLowerCase().trim();
             const selectedGov = document.getElementById('filterGovernorateSelect').value;
 
-            // التحقق من انقطاع الإنترنت
             if (!navigator.onLine) {
                 countText.innerText = "⚠️ انقطع الاتصال بالإنترنت";
                 container.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">🌐 لا يوجد اتصال بالإنترنت. يرجى التحقق من شبكتك وإعادة المحاولة.</p>';
@@ -1683,17 +1742,30 @@
                 if(!cleanPhone.startsWith('216')) cleanPhone = '216' + cleanPhone;
 
                 let titleDisplay = a.workName ? `${a.workName} <span style="font-size:10px; color:var(--text-gray);">(${a.name})</span>` : a.name;
+                let artisanId = a.phone || a.name;
+                let currentStars = getStoredRating(artisanId);
+                let starsHTML = '★'.repeat(currentStars) + '☆'.repeat(5 - currentStars);
+
+                // رابط خرائط جوجل إذا توفرت الإحداثيات
+                let mapsLink = (a.lat && a.lng) ? `<a href="https://maps.google.com/?q=${a.lat},${a.lng}" target="_blank" style="color:#38bdf8; font-size:10px; font-weight:700; text-decoration:underline; display:block; margin-top:2px;">📍 الموقع على الخريطة</a>` : '';
+
+                // رسالة المشاركة عبر واتساب
+                let shareText = encodeURIComponent(`مرحباً، أنصحك بالتواصل مع الحرفي ${a.name} (${a.category}) في ولاية ${a.city}. هاتف: +${a.phone}`);
+
                 container.innerHTML += `
                     <div class="artisan-card">
                         <div class="artisan-info">
                             <h3 style="color: #fbbf24; margin-bottom: 2px; font-size: 13px; font-weight: 800;">${titleDisplay}</h3>
                             <p style="color: #38bdf8; font-size: 10px; font-weight: 800; margin-bottom: 2px;">🛠️ ${a.category}</p>
                             <p style="color: #34d399; font-size: 10px; font-weight: 800; margin-bottom: 2px;">📍 ولاية ${a.city}</p>
-                            <p style="color: var(--text-gray); font-size: 10px; font-style: italic;">"${a.bio || ''}"</p>
+                            <div class="rating-stars" onclick="let s=prompt('قيم الحرفي من 1 إلى 5 نجوم:'); if(s>=1 && s<=5) rateItem('${artisanId}', s)">${starsHTML}</div>
+                            ${mapsLink}
+                            <p style="color: var(--text-gray); font-size: 10px; font-style: italic; margin-top:2px;">"${a.bio || ''}"</p>
                         </div>
                         <div class="artisan-actions-small">
                             <a href="tel:+${a.phone}" class="small-action-btn" style="background: #0369a1;">📞 اتصال</a>
                             <a href="https://wa.me/${cleanPhone}" target="_blank" class="small-action-btn" style="background: #059669;">💬 واتساب</a>
+                            <a href="https://wa.me/?text=${shareText}" target="_blank" class="small-action-btn" style="background: #7c3aed;" title="مشاركة عبر واتساب">📤 مشاركة</a>
                         </div>
                     </div>
                 `;
@@ -1718,53 +1790,51 @@
             });
         }
 
-        function renderFilteredMerchants() {
-            const container = document.getElementById('merchantsList');
-            const searchVal = document.getElementById('merchantSearchInput') ? document.getElementById('merchantSearchInput').value.toLowerCase().trim() : '';
+        // عرض نظام الأيقونات والمتاجر في قسم تخفيضات الأسبوع
+        function renderStoresList() {
+            const container = document.getElementById('storesGridList');
+            const searchVal = document.getElementById('storeSearchInput') ? document.getElementById('storeSearchInput').value.toLowerCase().trim() : '';
             
             if (!navigator.onLine) {
                 container.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">🌐 لا يوجد اتصال بالإنترنت.</p>';
                 return;
             }
 
-            let products = cachedProductsList;
-
+            let merchants = cachedMerchantsList;
             if(searchVal) {
-                products = products.filter(p => {
-                    let n = (p.name || '').toLowerCase();
-                    let mn = (p.merchantName || '').toLowerCase();
-                    let cty = (p.merchantCity || '').toLowerCase();
-                    return n.includes(searchVal) || mn.includes(searchVal) || cty.includes(searchVal);
+                merchants = merchants.filter(m => {
+                    let n = (m.name || '').toLowerCase();
+                    let cty = (m.city || '').toLowerCase();
+                    return n.includes(searchVal) || cty.includes(searchVal);
                 });
             }
 
-            if(products.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">لا توجد سلع أو عروض ترويجية مسجلة حالياً.</p>';
+            if(merchants.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">لا توجد متاجر مسجلة حالياً.</p>';
                 return;
             }
 
             container.innerHTML = '';
-            products.forEach(p => {
-                let cleanPhone = p.merchantPhone ? p.merchantPhone.replace(/[^0-9]/g, '') : '';
+            merchants.forEach(m => {
+                let logoImg = m.logo ? `<img src="${m.logo}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 10px; margin-left: 10px;" />` : `<div style="width: 55px; height: 55px; background: #334155; border-radius: 10px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-left:10px;">🛒</div>`;
+                let cleanPhone = m.phone ? m.phone.replace(/[^0-9]/g, '') : '';
                 if(!cleanPhone.startsWith('216')) cleanPhone = '216' + cleanPhone;
 
-                let priceDisplay = p.price ? `<span style="text-decoration: line-through; color: #94a3b8; margin-left: 6px;">${p.price}</span>` : '';
-                let discountDisplay = p.discountPrice ? `<span style="color: #ef4444; font-weight: 800;">السعر المخفض: ${p.discountPrice}</span>` : '';
-                let imgTag = p.image ? `<img src="${p.image}" style="width: 45px; height: 45px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
+                // عدد السلع الخاصة بهذا التاجر
+                let merchantProductsCount = cachedProductsList.filter(p => p.merchantPhone === m.phone).length;
 
                 container.innerHTML += `
-                    <div class="artisan-card">
+                    <div class="artisan-card" style="cursor: pointer;" onclick="openStoreProducts('${m.phone}', '${m.name}')">
                         <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
-                            ${imgTag}
+                            ${logoImg}
                             <div class="artisan-info">
-                                <h3 style="color: #fbbf24; margin-bottom: 2px; font-size: 13px; font-weight: 800;">📦 ${p.name}</h3>
-                                <p style="color: var(--text-main); font-size: 10px; font-weight: 700; margin-bottom: 2px;">${priceDisplay} ${discountDisplay}</p>
-                                <p style="color: #34d399; font-size: 10px; font-weight: 800; margin-bottom: 2px;">🛒 المتجر: ${p.merchantName} | 📍 ${p.merchantCity}</p>
-                                <p style="color: var(--text-gray); font-size: 10px; font-style: italic;">"${p.desc || ''}"</p>
+                                <h3 style="color: #fbbf24; margin-bottom: 2px; font-size: 14px; font-weight: 800;">${m.name}</h3>
+                                <p style="color: #34d399; font-size: 11px; font-weight: 800; margin-bottom: 2px;">📍 ولاية ${m.city}</p>
+                                <p style="color: #38bdf8; font-size: 10px; font-weight: 700;">📦 ${merchantProductsCount} سلع متوفرة في المتجر</p>
                             </div>
                         </div>
-                        <div class="artisan-actions-small">
-                            <a href="tel:+${p.merchantPhone}" class="small-action-btn" style="background: #0369a1;">📞 اتصال</a>
+                        <div class="artisan-actions-small" onclick="event.stopPropagation()">
+                            <a href="tel:+${m.phone}" class="small-action-btn" style="background: #0369a1;">📞 اتصال</a>
                             <a href="https://wa.me/${cleanPhone}" target="_blank" class="small-action-btn" style="background: #059669;">💬 واتساب</a>
                         </div>
                     </div>
@@ -1772,21 +1842,78 @@
             });
         }
 
-        function listenToProducts() {
-            const container = document.getElementById('merchantsList');
+        // فتح سلع تاجر معين حصرياً
+        window.openStoreProducts = function(merchantPhone, merchantName) {
+            document.getElementById('mainContainerBox').classList.add('wide-container');
+            document.getElementById('storeProductsTitle').innerText = `📦 سلع وعروض متجر: ${merchantName}`;
+            switchView('storeProductsView', true);
+
+            const container = document.getElementById('storeProductsList');
+            let storeProducts = cachedProductsList.filter(p => p.merchantPhone === merchantPhone);
+
+            if(storeProducts.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">هذا المتجر لم يضف أي سلع أو تخفيضات بعد.</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            storeProducts.forEach(p => {
+                let cleanPhone = p.merchantPhone ? p.merchantPhone.replace(/[^0-9]/g, '') : '';
+                if(!cleanPhone.startsWith('216')) cleanPhone = '216' + cleanPhone;
+
+                let priceDisplay = p.price ? `<span style="text-decoration: line-through; color: #94a3b8; margin-left: 6px;">${p.price}</span>` : '';
+                let discountDisplay = p.discountPrice ? `<span style="color: #ef4444; font-weight: 800;">السعر المخفض: ${p.discountPrice}</span>` : '';
+                let imgTag = p.image ? `<img src="${p.image}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px; margin-left: 10px;" />` : '';
+                let shareText = encodeURIComponent(`شاهد هذا العرض الحصري من ${p.merchantName}: ${p.name} - السعر: ${p.discountPrice || p.price}`);
+
+                container.innerHTML += `
+                    <div class="artisan-card">
+                        <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+                            ${imgTag}
+                            <div class="artisan-info">
+                                <h3 style="color: #fbbf24; margin-bottom: 2px; font-size: 13px; font-weight: 800;">📦 ${p.name}</h3>
+                                <p style="color: var(--text-main); font-size: 11px; font-weight: 700; margin-bottom: 2px;">${priceDisplay} ${discountDisplay}</p>
+                                <p style="color: #34d399; font-size: 10px; font-weight: 800; margin-bottom: 2px;">📍 ${p.merchantCity}</p>
+                                <p style="color: var(--text-gray); font-size: 10px; font-style: italic;">"${p.desc || ''}"</p>
+                            </div>
+                        </div>
+                        <div class="artisan-actions-small">
+                            <a href="tel:+${p.merchantPhone}" class="small-action-btn" style="background: #0369a1;">📞 اتصال</a>
+                            <a href="https://wa.me/${cleanPhone}" target="_blank" class="small-action-btn" style="background: #059669;">💬 واتساب</a>
+                            <a href="https://wa.me/?text=${shareText}" target="_blank" class="small-action-btn" style="background: #7c3aed;">📤 مشاركة</a>
+                        </div>
+                    </div>
+                `;
+            });
+        };
+
+        function listenToStoresAndProducts() {
+            const container = document.getElementById('storesGridList');
             if (!navigator.onLine) {
                 container.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">🌐 انقطع الاتصال بالإنترنت.</p>';
                 return;
             }
-            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px;">جاري جلب العروض والسلع...</p>';
-            if(productsUnsubscribe) productsUnsubscribe();
+            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px;">جاري جلب المتاجر والعروض...</p>';
+            
+            // جلب المتاجر والسلع معاً بطريقة متزامنة
+            window.onSnapshot(window.collection(window.db, "merchants"), (merchantsSnap) => {
+                cachedMerchantsList = [];
+                merchantsSnap.forEach((d) => cachedMerchantsList.push(d.data()));
 
-            productsUnsubscribe = window.onSnapshot(window.collection(window.db, "products"), (querySnapshot) => {
-                cachedProductsList = [];
-                querySnapshot.forEach((d) => cachedProductsList.push(d.data()));
-                renderFilteredMerchants();
-            }, (error) => {
-                container.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">⚠️ تعذر جلب العروض، تحقق من اتصال الإنترنت.</p>';
+                window.onSnapshot(window.collection(window.db, "products"), (productsSnap) => {
+                    cachedProductsList = [];
+                    productsSnap.forEach((d) => cachedProductsList.push(d.data()));
+                    renderStoresList();
+
+                    // تحديث شريط العروض الحية (Flash Ticker) بأحدث المنتجات
+                    if(cachedProductsList.length > 0) {
+                        let latest = cachedProductsList[cachedProductsList.length - 1];
+                        let ticker = document.getElementById('flashTickerBox');
+                        if(ticker) {
+                            ticker.innerHTML = `⚡ عروض جديدة: <b>${latest.name}</b> لدى متجر <b>${latest.merchantName}</b> (${latest.merchantCity})`;
+                        }
+                    }
+                });
             });
         }
     </script>
