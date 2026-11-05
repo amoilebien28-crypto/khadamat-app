@@ -15,6 +15,7 @@
             --accent-green: #10b981;
             --accent-green-hover: #059669;
             --accent-purple: #8b5cf6;
+            --accent-red: #ef4444;
             --text-main: #1e293b;
             --text-gray: #64748b;
             --border-color: #cbd5e1;
@@ -129,7 +130,15 @@
         }
         .btn-artisan { background: linear-gradient(135deg, #0284c7, #0369a1); }
         .btn-customer { background: linear-gradient(135deg, #059669, #047857); }
-        .btn-merchants { background: linear-gradient(135deg, #d97706, #b45309); }
+        .btn-merchants { 
+            background: linear-gradient(135deg, #dc2626, #b91c1c); 
+            animation: pulseBtn 2s infinite;
+        }
+        @keyframes pulseBtn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(220, 38, 38, 0.5); }
+            100% { transform: scale(1); }
+        }
         .btn:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
         
         .view { display: none; }
@@ -574,7 +583,7 @@
                 const badge = document.getElementById('statsBadge');
                 if(badge) {
                     if(artisansCount > 0) {
-                        badge.innerHTML = `🌟 يوجد حالياً <b>${artisansCount}</b> حرفياً و <b>${merchantsCount}</b> تاجر مسجلاً`;
+                        badge.innerHTML = `🌟 يوجد حالياً <b>${artisansCount}</b> حرفياً و <b>${merchantsCount}</b> مورداً مسجلاً`;
                     } else {
                         badge.innerHTML = `📍 المنصة نشطة - كن أول من يسجل في منطقتك!`;
                     }
@@ -612,13 +621,13 @@
             </div>
 
             <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي (دخول مباشر للبحث)</button>
-            <button class="btn btn-merchants" id="btnMerchants">🛒 فضاء التجار ومستلزمات الحرف (الكانقوري والسلع)</button>
+            <button class="btn btn-merchants" id="btnMerchants">🔥 تخفيضات الأسبوع الكبرى لحاجيات وحرفيي التجهيزات المتنوعة</button>
             <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي / تاجر (تسجيل أو تعديل الحساب)</button>
 
             <div class="info-box">
                 <h3>💡 كيف تعمل المنصة؟</h3>
-                <p><b>للصناع والحرفيين والتجار:</b> سجل برقم هاتفك، حدد ولايتك وعرض بضائعك أو مهارتك بكل سهولة.</p>
-                <p><b>للباحثين والمهتمين:</b> تصفح أصحاب المهارات وعروض السلع بكل راحة وسرعة ودون قيود.</p>
+                <p><b>للصناع والحرفيين والتجار:</b> سجل برقم هاتفك، حدد ولايتك واعرض بضائعك أو مهارتك بكل سهولة.</p>
+                <p><b>للباحثين والمهتمين:</b> تصفح أصحاب المهارات وعروض السلع وتخفيضات التجهيزات بكل راحة وسرعة.</p>
             </div>
         </div>
 
@@ -655,7 +664,7 @@
                     <span id="statArtisansCount">...</span>
                 </div>
                 <div class="stat-card">
-                    <h4>🛒 التجار والسلع</h4>
+                    <h4>🛒 التجار وموردو التجهيزات</h4>
                     <span id="statMerchantsCount">...</span>
                 </div>
                 <div class="stat-card" style="grid-column: span 2;">
@@ -693,12 +702,12 @@
                     <label>نوع الحساب</label>
                     <select id="accountType" required onchange="toggleAccountFields()">
                         <option value="artisan">حرفي / صاحب مهارة</option>
-                        <option value="merchant">تاجر / مورد سلع ومعدات (الكانقوري والحديد...)</option>
+                        <option value="merchant">تاجر / مورد حاجيات وحرفيي التجهيزات المتنوعة</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>الاسم الحقيقي أو اسم المحل / المؤسسة</label>
-                    <input type="text" id="artisanName" required placeholder="مثال: مؤسسة الحديد والعتاد">
+                    <input type="text" id="artisanName" required placeholder="مثال: مؤسسة بيع التجهيزات واللوازم">
                 </div>
                 <div class="form-group" id="workNameGroup">
                     <label>الاسم العملي أو اللقب (اختياري)</label>
@@ -745,12 +754,12 @@
                     </select>
                 </div>
                 <div class="form-group" id="goodsGroup" style="display:none;">
-                    <label>نوع السلع والبضائع المعروضة (مثل: حديد، كانقوري، لوازم سباكة...)</label>
-                    <input type="text" id="merchantGoods" placeholder="مثال: بيع الحديد، الكانقوري، ومستلزمات البناء">
+                    <label>أهم تخفيضات السلع وحاجيات الحرفيين لهذا الأسبوع</label>
+                    <input type="text" id="merchantGoods" placeholder="مثال: تخفيضات كبرى على لوازم التجهيزات والعتاد هذا الأسبوع">
                 </div>
                 <div class="form-group">
-                    <label>نبذة تعريفية أو تفاصيل العرض والأسعار (اختياري)</label>
-                    <textarea id="artisanBio" placeholder="اكتب تفاصيل إضافية للخدمة أو السلع..."></textarea>
+                    <label>نبذة تعريفية أو تفاصيل إضافية (اختياري)</label>
+                    <textarea id="artisanBio" placeholder="اكتب تفاصيل إضافية للخدمة أو العروض..."></textarea>
                 </div>
                 <div class="form-group">
                     <label>الموقع الجغرافي (GPS - اختياري)</label>
@@ -825,18 +834,18 @@
             </div>
         </div>
 
-        <!-- 6. واجهة التجار ومستلزمات الحرف (الكانقوري والسلع) -->
+        <!-- 6. فضاء التجار وتخفيضات التجهيزات المتنوعة -->
         <div id="merchantsView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #b45309; margin-bottom: 14px; font-size: 19px; font-weight: 800;">🛒 فضاء التجار وموردو السلع (الكانقوري والعتاد)</h2>
-            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 15px; font-weight: 700;">استعرض محلات بيع المواد الأولية والحديد والكانقوري التي يستحقها الحرفيون.</p>
+            <h2 style="color: #b45309; margin-bottom: 14px; font-size: 19px; font-weight: 800;">🔥 تخفيضات الأسبوع لحاجيات وحرفيي التجهيزات المتنوعة</h2>
+            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 15px; font-weight: 700;">استعرض أهم التخفيضات والعروض الأسبوعية للموردين ومحلات التجهيزات المتنوعة.</p>
 
             <div style="margin-bottom: 15px;">
-                <input type="text" id="merchantSearchInput" class="filter-search-input" placeholder="ابحث عن اسم التاجر أو السلعة..." oninput="renderFilteredMerchants()" style="padding: 12px; font-weight: 700;">
+                <input type="text" id="merchantSearchInput" class="filter-search-input" placeholder="ابحث عن اسم المورد أو السلعة..." oninput="renderFilteredMerchants()" style="padding: 12px; font-weight: 700;">
             </div>
 
             <div id="merchantsList" class="artisans-grid-2col">
-                <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">جاري تحميل عروض التجار...</p>
+                <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">جاري تحميل تخفيضات التجار...</p>
             </div>
         </div>
 
@@ -857,7 +866,7 @@
             let modal = document.getElementById('welcomeModal');
             if (modal) {
                 modal.style.display = 'none';
-                modal.remove(); // إزالة العنصر نهائياً من الـ DOM لضمان عدم تغطيته للشاشة
+                modal.remove();
             }
         }
 
@@ -985,7 +994,6 @@
             switchView('customerView');
             listenToArtisans('all');
 
-            // تسجيل زيارة زبون للإحصائيات بطريقة ذكية صامتة
             try {
                 let visitId = 'visit_' + new Date().toISOString().slice(0, 10) + '_' + Math.random().toString(36).substring(2, 7);
                 await window.setDoc(window.doc(window.db, "clients", visitId), {
@@ -997,7 +1005,7 @@
             }
         });
 
-        // زر فضاء التجار
+        // زر فضاء التجار والتخفيضات
         document.getElementById('btnMerchants').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('merchantsView');
@@ -1261,7 +1269,7 @@
                 name,
                 workName: type === 'merchant' ? '' : workName,
                 city,
-                category: type === 'merchant' ? 'مورد مواد ومعدات' : document.getElementById('artisanCategory').value,
+                category: type === 'merchant' ? 'مورد ومجهز' : document.getElementById('artisanCategory').value,
                 goods: type === 'merchant' ? document.getElementById('merchantGoods').value.trim() : '',
                 phone: currentArtisanPhone,
                 password,
@@ -1369,7 +1377,7 @@
             }
 
             if(merchants.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">لا توجد عروض تجارية حالياً في هذا القسم.</p>';
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">لا توجد تخفيضات أو عروض تجارية مسجلة حالياً.</p>';
                 return;
             }
 
@@ -1382,7 +1390,7 @@
                     <div class="artisan-card">
                         <div class="artisan-info">
                             <h3 style="color: #b45309; margin-bottom: 3px; font-size: 14px; font-weight: 800;">🛒 ${m.name}</h3>
-                            <p style="color: var(--accent-purple); font-size: 11px; font-weight: 800; margin-bottom: 2px;">📦 ${m.goods || 'مواد وعتاد الحرف'}</p>
+                            <p style="color: var(--accent-red); font-size: 11px; font-weight: 800; margin-bottom: 2px;">🔥 التخفيضات: ${m.goods || 'عروض متنوعة لهذا الأسبوع'}</p>
                             <p style="color: #047857; font-size: 10px; font-weight: 800; margin-bottom: 3px;">📍 ولاية ${m.city}</p>
                             <p style="color: var(--text-gray); font-size: 10px; font-style: italic;">"${m.bio || ''}"</p>
                         </div>
@@ -1397,7 +1405,7 @@
 
         function listenToMerchants() {
             const container = document.getElementById('merchantsList');
-            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px;">جاري جلب عروض التجار...</p>';
+            container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px;">جاري جلب التخفيضات...</p>';
             if(merchantsUnsubscribe) merchantsUnsubscribe();
 
             merchantsUnsubscribe = window.onSnapshot(window.collection(window.db, "merchants"), (querySnapshot) => {
