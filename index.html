@@ -615,7 +615,7 @@
         </div>
         <p class="subtitle">صلة الوصل بين مهارة الحرفي واحتياجات الناس</p>
 
-        <!-- 1. الشاشة الرئيسية مع الأزرار المفصولة -->
+        <!-- 1. الشاشة الرئيسية -->
         <div id="welcomeView" class="view active">
             <div class="middle-badge" id="statsBadge">
                 <span>📍</span> جاري الاتصال بقاعدة البيانات واحتساب النشاط...
@@ -629,7 +629,7 @@
             <div class="info-box">
                 <h3>💡 كيف تعمل المنصة؟</h3>
                 <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك وحدد اختصاصك وولاك ليعثر عليك الزبائن.</p>
-                <p><b>للتجار والموردين:</b> سجل مرة واحدة، ثم افتح فضاءك الخاص لنشر صور منتجاتك وأسعار التخفيض.</p>
+                <p><b>للتجار والموردين:</b> سجل معلومات محلك، ثم افتح فضاءك الخاص لنشر منتجاتك وأسعار التخفيض.</p>
             </div>
         </div>
 
@@ -655,11 +655,20 @@
             </div>
         </div>
 
-        <!-- 3. بوابة دخول التجار والموردين -->
-        <div id="merchantAuthView" class="view">
+        <!-- 3. بوابة اختيار التاجر (جديد أم مسجل مسبقاً) -->
+        <div id="merchantAuthChoiceView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: var(--accent-purple); margin-bottom: 10px; font-size: 18px; font-weight: 800;">بوابة دخول التجار والموردين</h2>
-            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 15px; font-weight: 700;">أدخل رقم هاتفك وكلمة السر للوصول إلى فضاء إدارة سلعك وعروضك.</p>
+            <h2 style="color: var(--accent-purple); margin-bottom: 15px; font-size: 18px; font-weight: 800;">بوابة التجار والموردين</h2>
+            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 20px; font-weight: 700;">اختر نوع الدخول المناسب لحسابك:</p>
+            
+            <button class="btn" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);" onclick="openMerchantLogin(false)">🔐 أنا مسجل مسبقاً (تسجيل الدخول)</button>
+            <button class="btn" style="background: linear-gradient(135deg, #10b981, #059669); margin-top: 15px;" onclick="openMerchantLogin(true)">📝 أنا تاجر جديد (إنشاء حساب جديد)</button>
+        </div>
+
+        <!-- 4. شاشة تسجيل الدخول للتاجر المسجل مسبقاً -->
+        <div id="merchantLoginView" class="view">
+            <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
+            <h2 style="color: var(--accent-purple); margin-bottom: 10px; font-size: 18px; font-weight: 800;">تسجيل دخول التاجر</h2>
             
             <div class="auth-box">
                 <div class="form-group">
@@ -673,15 +682,69 @@
                     <label>كلمة السر</label>
                     <input type="password" id="authMerchantPassword" placeholder="كلمة السر الخاصة بك">
                 </div>
-                <button type="button" class="btn" id="btnLoginMerchant" style="background: linear-gradient(135deg, var(--accent-purple), #7c3aed); color: white; margin-top: 8px;">الدخول إلى فضاء التاجر</button>
+                <button type="button" class="btn" id="btnLoginMerchant" style="background: linear-gradient(135deg, var(--accent-purple), #7c3aed); color: white; margin-top: 8px;">دخول إلى فضاء السلع</button>
             </div>
         </div>
 
-        <!-- 4. فضاء التاجر الخاص (إدارة المنتجات والأسعار) -->
+        <!-- 5. شاشة تسجيل تاجر جديد (معلومات المحل والولاية) -->
+        <div id="merchantRegisterView" class="view">
+            <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
+            <h2 style="color: #10b981; margin-bottom: 12px; font-size: 18px; font-weight: 800;">تسجيل تاجر جديد</h2>
+            <form id="merchantRegForm">
+                <div class="form-group">
+                    <label>اسم المحل أو المؤسسة التجارية</label>
+                    <input type="text" id="regMerchantName" required placeholder="مثال: مؤسسة بيع التجهيزات المتنوعة">
+                </div>
+                <div class="form-group">
+                    <label>الولاية (المقر)</label>
+                    <select id="regMerchantCity" required>
+                        <option value="">اختر الولاية...</option>
+                        <option value="تونس">تونس</option>
+                        <option value="أريانة">أريانة</option>
+                        <option value="بن عروس">بن عروس</option>
+                        <option value="منوبة">منوبة</option>
+                        <option value="نابل">نابل</option>
+                        <option value="زغوان">زغوان</option>
+                        <option value="بنزرت">بنزرت</option>
+                        <option value="باجة">باجة</option>
+                        <option value="جندوبة">جندوبة</option>
+                        <option value="الكاف">الكاف</option>
+                        <option value="سليانة">سليانة</option>
+                        <option value="سوسة">سوسة</option>
+                        <option value="المنستير">المنستير</option>
+                        <option value="المهدية">المهدية</option>
+                        <option value="صفاقس">صفاقس</option>
+                        <option value="القيروان">القيروان</option>
+                        <option value="القصرين">القصرين</option>
+                        <option value="سيدي بوزيد">سيدي بوزيد</option>
+                        <option value="قابس">قابس</option>
+                        <option value="مدنين">مدنين</option>
+                        <option value="تطاوين">تطاوين</option>
+                        <option value="قفصة">قفصة</option>
+                        <option value="توزر">توزر</option>
+                        <option value="قبلي">قبلي</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف</label>
+                    <div class="phone-input-group">
+                        <input type="text" id="regMerchantPhone" class="phone-main-input" placeholder="مثال: 98123456">
+                        <span class="phone-prefix">+216 🇹🇳</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>كلمة السر</label>
+                    <input type="password" id="regMerchantPassword" required placeholder="اختر كلمة سر لحسابك">
+                </div>
+                <button type="submit" class="btn" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">حفظ التسجيل والانتقال للفضاء</button>
+            </form>
+        </div>
+
+        <!-- 6. فضاء التاجر الخاص (إدارة المنتجات والأسعار والصور) -->
         <div id="merchantDashboardView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج</button>
             <h2 style="color: var(--accent-purple); margin-bottom: 10px; font-size: 19px; font-weight: 800;" id="merchantPanelTitle">🛒 فضاء إدارة سلع وعروض التاجر</h2>
-            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 15px; font-weight: 700;">أضف منتجاتك، أسعارها العادية، وتخفيضات الأسبوع لتظهر للحرفيين بوضوح.</p>
+            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 15px; font-weight: 700;">أضف منتجاتك، أسعارها، وتخفيضات الأسبوع مع إمكانية رفع الصور مباشرة.</p>
 
             <div class="add-category-box" style="background: #f3e8ff; border-color: #d8b4fe;">
                 <h3 style="color: #7c3aed; font-size: 14px; margin-bottom: 10px; font-weight: 800;">➕ إضافة منتج أو سلعة جديدة</h3>
@@ -701,8 +764,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>رابط صورة المنتج (اختياري)</label>
-                        <input type="url" id="prodImage" placeholder="رابط صورة المنتج على الإنترنت...">
+                        <label>اختر صورة المنتج (من الهاتف أو الحاسوب)</label>
+                        <input type="file" id="prodImageFile" accept="image/*" style="padding: 9px;">
                     </div>
                     <div class="form-group">
                         <label>تفاصيل أو ملاحظات (اختياري)</label>
@@ -716,7 +779,7 @@
             <div id="merchantProductsList">جاري جلب منتجاتك...</div>
         </div>
 
-        <!-- 5. لوحة تحكم الأدمن -->
+        <!-- 7. لوحة تحكم الأدمن -->
         <div id="adminView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
             <h2 style="color: #d97706; margin-bottom: 12px; font-size: 18px; font-weight: 800;">⚙️ لوحة تحكم المشرف (الإحصائيات والتحكم)</h2>
@@ -745,7 +808,7 @@
             </div>
 
             <div class="admin-actions">
-                <button class="admin-action-btn" style="background: linear-gradient(135deg, #0284c7, #0369a1);" onclick="exportDatabase()">📥 تحميل نسخة احتياطية (Backup)</button>
+                <button class="admin-action-btn" style="background: linear-gradient(135deg, #0284c7, #0369a1);" onclick="exportDatabase()">📥 تحميل نسخة احتياطية شاملة (Backup)</button>
                 <label class="admin-action-btn" style="background: linear-gradient(135deg, #059669, #047857); display: inline-block; cursor: pointer; line-height: normal; padding-top: 13px;">
                     📤 استعادة البيانات (Restore)
                     <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDatabase(event)">
@@ -756,7 +819,7 @@
             <div id="adminArtisansList">جاري التحميل...</div>
         </div>
 
-        <!-- 6. واجهة تسجيل أو تعديل الحرفي -->
+        <!-- 8. واجهة تسجيل أو تعديل الحرفي -->
         <div id="artisanRegisterView" class="view">
             <button class="back-btn" onclick="switchView('artisanAuthView', true)">⬅️ العودة إلى البوابة</button>
             <h2 style="color: #d97706; margin-bottom: 12px; font-size: 18px; font-weight: 800;" id="formArtisanTitle">استكمال ملف الحرفي</h2>
@@ -824,7 +887,7 @@
             </form>
         </div>
 
-        <!-- 7. واجهة الزبون: دليل الحرفيين -->
+        <!-- 9. واجهة الزبون: دليل الحرفيين -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #047857; margin-bottom: 14px; font-size: 19px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
@@ -886,7 +949,7 @@
             </div>
         </div>
 
-        <!-- 8. فضاء التجار وتخفيضات التجهيزات المتنوعة (للحرفيين والزوار) -->
+        <!-- 10. فضاء التجار وتخفيضات التجهيزات المتنوعة (للحرفيين والزوار) -->
         <div id="merchantsView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #b45309; margin-bottom: 14px; font-size: 19px; font-weight: 800;">🔥 تخفيضات الأسبوع لحاجيات وحرفيي التجهيزات المتنوعة</h2>
@@ -1026,7 +1089,7 @@
 
         document.getElementById('btnMerchant').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
-            switchView('merchantAuthView');
+            switchView('merchantAuthChoiceView');
         });
 
         document.getElementById('btnCustomer').addEventListener('click', async function() {
@@ -1099,6 +1162,16 @@
             return /^\d{8,12}$/.test(clean);
         }
 
+        // توجيه خيار التاجر (جديد أم مسجل)
+        window.openMerchantLogin = function(isNew) {
+            document.getElementById('mainContainerBox').classList.remove('wide-container');
+            if(isNew) {
+                switchView('merchantRegisterView');
+            } else {
+                switchView('merchantLoginView');
+            }
+        };
+
         // تسجيل دخول الحرفي
         document.getElementById('btnLoginArtisan').addEventListener('click', async function() {
             let phoneInput = document.getElementById('authPhone').value.trim();
@@ -1163,7 +1236,7 @@
             }
         });
 
-        // تسجيل دخول التاجر لفضاءه الخاص
+        // تسجيل دخول التاجر المسجل مسبقاً
         document.getElementById('btnLoginMerchant').addEventListener('click', async function() {
             let phoneInput = document.getElementById('authMerchantPhone').value.trim();
             const password = document.getElementById('authMerchantPassword').value.trim();
@@ -1200,65 +1273,100 @@
                     switchView('merchantDashboardView');
                     listenToMerchantProducts(currentPhone);
                 } else {
-                    // إذا لم يكن مسجلاً، نسجل له معلوماته الأساسية أولاً
-                    let name = prompt("هذا الرقم جديد. أدخل اسم المحل أو المؤسسة التجارية:");
-                    if(!name) return;
-                    let city = prompt("أدخل ولاية المقر (مثال: قابس، تونس...):");
-                    if(!city) return;
-
-                    currentMerchantData = {
-                        name: name.trim(),
-                        city: city.trim(),
-                        phone: currentPhone,
-                        password,
-                        updatedAt: new Date().toISOString()
-                    };
-
-                    await window.setDoc(window.doc(window.db, "merchants", currentPhone), currentMerchantData);
-                    showCustomAlert('✅ تم إنشاء حساب التاجر بنجاح! مرحباً بك في فضاء سلعك.');
-                    document.getElementById('mainContainerBox').classList.add('wide-container');
-                    switchView('merchantDashboardView');
-                    listenToMerchantProducts(currentPhone);
+                    showCustomAlert('⚠️ هذا الرقم غير مسجل مسبقاً. يرجى اختيار "تاجر جديد" للتسجيل.');
                 }
             } catch(e) {
                 showCustomAlert('حدث خطأ أثناء تسجيل الدخول.');
             }
         });
 
-        // إضافة منتج جديد من طرف التاجر
+        // حفظ تسجيل تاجر جديد
+        document.getElementById('merchantRegForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            let name = document.getElementById('regMerchantName').value.trim();
+            let city = document.getElementById('regMerchantCity').value;
+            let phoneInput = document.getElementById('regMerchantPhone').value.trim();
+            let password = document.getElementById('regMerchantPassword').value.trim();
+
+            if(!name || !city || !phoneInput || !password) {
+                showCustomAlert('الرجاء ملء كل الحقول المطلوبة!');
+                return;
+            }
+
+            if (!isValidPhoneNumber(phoneInput)) {
+                showCustomAlert('⚠️ رقم الهاتف غير صالح!');
+                return;
+            }
+
+            let cleanNum = phoneInput.replace(/[^0-9]/g, '');
+            currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
+
+            currentMerchantData = {
+                name,
+                city,
+                phone: currentPhone,
+                password,
+                updatedAt: new Date().toISOString()
+            };
+
+            try {
+                await window.setDoc(window.doc(window.db, "merchants", currentPhone), currentMerchantData);
+                showCustomAlert('✅ تم تسجيل حسابك بنجاح! مرحباً بك في فضاء السلع.');
+                document.getElementById('merchantRegForm').reset();
+                document.getElementById('mainContainerBox').classList.add('wide-container');
+                switchView('merchantDashboardView');
+                listenToMerchantProducts(currentPhone);
+            } catch(err) {
+                showCustomAlert('❌ حدث خطأ أثناء الحفظ.');
+            }
+        });
+
+        // إضافة منتج جديد من طرف التاجر مع دعم رفع الصور من الجهاز
         document.getElementById('addProductForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let prodName = document.getElementById('prodName').value.trim();
             let prodPrice = document.getElementById('prodPrice').value.trim();
             let prodDiscountPrice = document.getElementById('prodDiscountPrice').value.trim();
-            let prodImage = document.getElementById('prodImage').value.trim();
             let prodDesc = document.getElementById('prodDesc').value.trim();
+            let fileInput = document.getElementById('prodImageFile');
 
             if(!prodName) {
                 showCustomAlert('الرجاء إدخال اسم المنتج!');
                 return;
             }
 
-            let productId = 'prod_' + Date.now();
-            let productData = {
-                id: productId,
-                merchantPhone: currentPhone,
-                merchantName: currentMerchantData.name,
-                merchantCity: currentMerchantData.city,
-                name: prodName,
-                price: prodPrice,
-                discountPrice: prodDiscountPrice,
-                image: prodImage,
-                desc: prodDesc,
-                createdAt: new Date().toISOString()
+            let saveProductToDb = async (imageUrl = "") => {
+                let productId = 'prod_' + Date.now();
+                let productData = {
+                    id: productId,
+                    merchantPhone: currentPhone,
+                    merchantName: currentMerchantData.name,
+                    merchantCity: currentMerchantData.city,
+                    name: prodName,
+                    price: prodPrice,
+                    discountPrice: prodDiscountPrice,
+                    image: imageUrl,
+                    desc: prodDesc,
+                    createdAt: new Date().toISOString()
+                };
+
+                try {
+                    await window.setDoc(window.doc(window.db, "products", productId), productData);
+                    document.getElementById('addProductForm').reset();
+                    showCustomAlert('✅ تم نشر السلعة في قائمة التخفيضات بنجاح!');
+                } catch(err) {
+                    showCustomAlert('❌ حدث خطأ أثناء نشر السلعة.');
+                }
             };
 
-            try {
-                await window.setDoc(window.doc(window.db, "products", productId), productData);
-                document.getElementById('addProductForm').reset();
-                showCustomAlert('✅ تم نشر السلعة في قائمة التخفيضات بنجاح!');
-            } catch(err) {
-                showCustomAlert('❌ حدث خطأ أثناء نشر السلعة.');
+            if(fileInput.files && fileInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = async function(e) {
+                    await saveProductToDb(e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                await saveProductToDb("");
             }
         });
 
@@ -1281,12 +1389,16 @@
 
                 container.innerHTML = '';
                 myProducts.forEach(p => {
+                    let imgTag = p.image ? `<img src="${p.image}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; margin-left: 10px;" />` : '';
                     container.innerHTML += `
                         <div class="admin-card">
-                            <div style="flex: 1;">
-                                <h3 style="color: #7c3aed; font-size: 15px; font-weight: 800;">📦 ${p.name}</h3>
-                                <p style="color: var(--text-main); font-size: 12px; font-weight: 700;">السعر: <span style="text-decoration: line-through; color: #64748b;">${p.price || '-'}</span> | التخفيض: <span style="color: #dc2626; font-weight: 800;">${p.discountPrice || 'غير محدد'}</span></p>
-                                <p style="color: var(--text-gray); font-size: 11px;">"${p.desc || 'بلا تفاصيل'}"</p>
+                            <div style="display: flex; align-items: center; flex: 1;">
+                                ${imgTag}
+                                <div>
+                                    <h3 style="color: #7c3aed; font-size: 15px; font-weight: 800;">📦 ${p.name}</h3>
+                                    <p style="color: var(--text-main); font-size: 12px; font-weight: 700;">السعر: <span style="text-decoration: line-through; color: #64748b;">${p.price || '-'}</span> | التخفيض: <span style="color: #dc2626; font-weight: 800;">${p.discountPrice || 'غير محدد'}</span></p>
+                                    <p style="color: var(--text-gray); font-size: 11px;">"${p.desc || 'بلا تفاصيل'}"</p>
+                                </div>
                             </div>
                             <div>
                                 <button onclick="deleteProduct('${p.id}')" style="background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; font-size: 11px;">حذف السلعة</button>
@@ -1365,45 +1477,64 @@
             }, { enableHighAccuracy: true });
         });
 
+        // النسخة الاحتياطية الشاملة (تشمل الحرفيين، التجار، والمنتجات)
         window.exportDatabase = async function() {
             try {
-                const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
-                let artisans = [];
-                querySnapshot.forEach((d) => artisans.push(d.data()));
+                let backupData = { artisans: [], merchants: [], products: [] };
 
-                let data = JSON.stringify(artisans, null, 2);
+                const artisansSnap = await window.getDocs(window.collection(window.db, "artisans"));
+                artisansSnap.forEach(d => backupData.artisans.push(d.data()));
+
+                const merchantsSnap = await window.getDocs(window.collection(window.db, "merchants"));
+                merchantsSnap.forEach(d => backupData.merchants.push(d.data()));
+
+                const productsSnap = await window.getDocs(window.collection(window.db, "products"));
+                productsSnap.forEach(d => backupData.products.push(d.data()));
+
+                let data = JSON.stringify(backupData, null, 2);
                 let blob = new Blob([data], { type: 'application/json' });
                 let url = URL.createObjectURL(blob);
                 let a = document.createElement('a');
                 a.href = url;
-                a.download = 'sonaa_backup.json';
+                a.download = 'sonaa_full_backup.json';
                 a.click();
                 URL.revokeObjectURL(url);
+                showCustomAlert('✅ تم تحميل النسخة الاحتياطية الشاملة بنجاح!');
             } catch(e) {
                 showCustomAlert('❌ فشل تحميل النسخة الاحتياطية.');
             }
         };
 
+        // استعادة البيانات الشاملة (Restore)
         window.importDatabase = async function(event) {
             let file = event.target.files[0];
             if(!file) return;
             let reader = new FileReader();
             reader.onload = async function(e) {
                 try {
-                    let artisans = JSON.parse(e.target.result);
-                    if(Array.isArray(artisans)) {
-                        for(let a of artisans) {
-                            if(a.phone) {
-                                let cleanId = a.phone.replace(/[^0-9]/g, '');
-                                await window.setDoc(window.doc(window.db, "artisans", cleanId), a);
-                            }
+                    let backup = JSON.parse(e.target.result);
+                    
+                    if(backup.artisans) {
+                        for(let a of backup.artisans) {
+                            if(a.phone) await window.setDoc(window.doc(window.db, "artisans", a.phone), a);
                         }
-                        loadAdminPanel();
-                        window.initFirebaseData();
-                        showCustomAlert('✅ تم استعادة البيانات بنجاح!');
                     }
+                    if(backup.merchants) {
+                        for(let m of backup.merchants) {
+                            if(m.phone) await window.setDoc(window.doc(window.db, "merchants", m.phone), m);
+                        }
+                    }
+                    if(backup.products) {
+                        for(let p of backup.products) {
+                            if(p.id) await window.setDoc(window.doc(window.db, "products", p.id), p);
+                        }
+                    }
+
+                    loadAdminPanel();
+                    window.initFirebaseData();
+                    showCustomAlert('✅ تم استعادة كافة بيانات المنصة بنجاح!');
                 } catch(err) {
-                    showCustomAlert('❌ ملف غير صالح.');
+                    showCustomAlert('❌ ملف النسخة الاحتياطية غير صالح.');
                 }
             };
             reader.readAsText(file);
@@ -1556,14 +1687,18 @@
 
                 let priceDisplay = p.price ? `<span style="text-decoration: line-through; color: #64748b; margin-left: 8px;">${p.price}</span>` : '';
                 let discountDisplay = p.discountPrice ? `<span style="color: #dc2626; font-weight: 800;">السعر المخفض: ${p.discountPrice}</span>` : '';
+                let imgTag = p.image ? `<img src="${p.image}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px; margin-left: 10px;" />` : '';
 
                 container.innerHTML += `
                     <div class="artisan-card">
-                        <div class="artisan-info">
-                            <h3 style="color: #b45309; margin-bottom: 3px; font-size: 14px; font-weight: 800;">📦 ${p.name}</h3>
-                            <p style="color: var(--text-main); font-size: 11px; font-weight: 700; margin-bottom: 2px;">${priceDisplay} ${discountDisplay}</p>
-                            <p style="color: #047857; font-size: 10px; font-weight: 800; margin-bottom: 2px;">🛒 المتجر: ${p.merchantName} | 📍 ولاية ${p.merchantCity}</p>
-                            <p style="color: var(--text-gray); font-size: 10px; font-style: italic;">"${p.desc || ''}"</p>
+                        <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
+                            ${imgTag}
+                            <div class="artisan-info">
+                                <h3 style="color: #b45309; margin-bottom: 3px; font-size: 14px; font-weight: 800;">📦 ${p.name}</h3>
+                                <p style="color: var(--text-main); font-size: 11px; font-weight: 700; margin-bottom: 2px;">${priceDisplay} ${discountDisplay}</p>
+                                <p style="color: #047857; font-size: 10px; font-weight: 800; margin-bottom: 2px;">🛒 المتجر: ${p.merchantName} | 📍 ولاية ${p.merchantCity}</p>
+                                <p style="color: var(--text-gray); font-size: 10px; font-style: italic;">"${p.desc || ''}"</p>
+                            </div>
                         </div>
                         <div class="artisan-actions-small">
                             <a href="tel:+${p.merchantPhone}" class="small-action-btn" style="background: linear-gradient(135deg, #0284c7, #0369a1);">📞 اتصال</a>
