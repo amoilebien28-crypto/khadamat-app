@@ -476,7 +476,7 @@
 </head>
 <body>
 
-    <!-- نافذة الترحيب والصلاة على النبي (مرتبطة بعداد الزيارات) -->
+    <!-- نافذة الترحيب والصلاة على النبي -->
     <div id="welcomeModal">
         <div class="welcome-content">
             <div class="welcome-flower">🌹</div>
@@ -554,7 +554,6 @@
 
         window.initFirebaseData();
 
-        // تسجيل الزيارة بركتها عند النقر على زر جزاك الله خيراً
         window.handleWelcomeVisit = async function() {
             let modal = document.getElementById('welcomeModal');
             if (modal) {
@@ -747,10 +746,10 @@
             <div id="merchantProductsList">جاري جلب منتجاتك...</div>
         </div>
 
-        <!-- 7. لوحة تحكم الأدمن -->
+        <!-- 7. لوحة تحكم الأدمن (منظمة بأزرار مستقلة لكل قسم) -->
         <div id="adminView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
-            <h2 style="color: #fbbf24; margin-bottom: 10px; font-size: 16px; font-weight: 800;">⚙️ لوحة تحكم المشرف (الإحصائيات والتحكم)</h2>
+            <h2 style="color: #fbbf24; margin-bottom: 12px; font-size: 16px; font-weight: 800;">⚙️ لوحة تحكم المشرف</h2>
             
             <div class="stats-table">
                 <div class="stat-card">
@@ -765,6 +764,22 @@
                     <h4>👥 زيارات الزبائن (عبر الصلاة على النبي)</h4>
                     <span id="statClientsCount">...</span>
                 </div>
+            </div>
+
+            <!-- أزرار إدارة الأدمن المنظمة -->
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+                <button class="btn btn-artisan" onclick="openAdminSection('artisans')">🛠️ إدارة الحرفيين (عرض، تعديل أو حذف)</button>
+                <button class="btn btn-merchant" onclick="openAdminSection('merchants')">🛒 إدارة التجار والموردين (عرض أو حذف)</button>
+                <button class="btn btn-merchants-offers" onclick="openAdminSection('products')">📦 إدارة سلع وعروض التجار (عرض أو حذف)</button>
+            </div>
+
+            <!-- منطقة عرض القوائم عند النقر على الزر -->
+            <div id="adminSectionContainer" style="background: #111827; padding: 15px; border-radius: 14px; border: 2px solid var(--border-color); display: none; margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h3 id="adminSectionTitle" style="color: #fbbf24; font-size: 14px; font-weight: 800;">العنوان هنا</h3>
+                    <button onclick="closeAdminSection()" style="background: #475569; color: white; border: none; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700;">إغلاق القائمة ✕</button>
+                </div>
+                <div id="adminSectionContent">جاري التحميل...</div>
             </div>
 
             <div class="add-category-box">
@@ -782,9 +797,6 @@
                     <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDatabase(event)">
                 </label>
             </div>
-
-            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 6px; font-weight: 700;">قائمة الحرفيين المسجلين:</p>
-            <div id="adminArtisansList">جاري التحميل...</div>
         </div>
 
         <!-- 8. واجهة تسجيل أو تعديل الحرفي -->
@@ -1110,11 +1122,9 @@
             window.initFirebaseData();
         }
 
-        // قراءة الهاش عند فتح الصفحة أو عمل Actualiser للبقاء في نفس القسم
         window.addEventListener('DOMContentLoaded', () => {
             let hash = window.location.hash.replace('#', '');
             if(hash && document.getElementById(hash)) {
-                // إذا كان في قسم يتطلب حاوية عريضة
                 if(hash === 'customerView' || hash === 'merchantsView') {
                     document.getElementById('mainContainerBox').classList.add('wide-container');
                     if(hash === 'customerView') listenToArtisans('all');
@@ -1149,7 +1159,7 @@
             }
 
             if(phoneInput === ADMIN_PHONE && password === ADMIN_PASS) {
-                await loadAdminPanel();
+                await window.initFirebaseData();
                 switchView('adminView');
                 return;
             }
@@ -1287,7 +1297,7 @@
             }
         });
 
-        // إضافة منتج جديد من طرف التاجر مع دعم رفع الصور من الجهاز
+        // إضافة منتج جديد من طرف التاجر
         document.getElementById('addProductForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let prodName = document.getElementById('prodName').value.trim();
@@ -1375,12 +1385,112 @@
         }
 
         window.deleteProduct = async function(prodId) {
-            if(confirm('هل أنت متأكد من حذف هذه السلعة من قائمة العروض؟')) {
+            if(confirm('هل أنت متأكد من حذف هذه السلعة؟')) {
                 try {
                     await window.deleteDoc(window.doc(window.db, "products", prodId));
                     showCustomAlert('تم الحذف بنجاح.');
                 } catch(e) {
                     showCustomAlert('فشل الحذف.');
+                }
+            }
+        };
+
+        // دوال التحكم بأقسام الأدمن (فتح وإغلاق القوائم بالضغط على الأزرار)
+        window.openAdminSection = async function(sectionType) {
+            let container = document.getElementById('adminSectionContainer');
+            let titleEl = document.getElementById('adminSectionTitle');
+            let contentEl = document.getElementById('adminSectionContent');
+            container.style.display = 'block';
+            contentEl.innerHTML = '<p style="text-align:center; padding: 15px;">جاري التحميل...</p>';
+
+            try {
+                if (sectionType === 'artisans') {
+                    titleEl.innerText = "🛠️ قائمة الحرفيين المسجلين";
+                    const snap = await window.getDocs(window.collection(window.db, "artisans"));
+                    if(snap.empty) {
+                        contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا يوجد حرفيون مسجلون.</p>';
+                        return;
+                    }
+                    contentEl.innerHTML = '';
+                    snap.forEach(d => {
+                        let a = d.data();
+                        let docId = d.id;
+                        let nameDisplay = a.workName ? `${a.name} (${a.workName})` : a.name;
+                        contentEl.innerHTML += `
+                            <div class="admin-card">
+                                <div>
+                                    <h4 style="color:#fbbf24; font-size:13px; font-weight:800;">${nameDisplay}</h4>
+                                    <p style="color:#38bdf8; font-size:11px;">🛠️ ${a.category} | 📍 ${a.city} | 📞 +${a.phone}</p>
+                                </div>
+                                <button onclick="adminDeleteRecord('artisans', '${docId}')" style="background:#991b1b; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
+                            </div>
+                        `;
+                    });
+                } else if (sectionType === 'merchants') {
+                    titleEl.innerText = "🛒 قائمة التجار والموردين";
+                    const snap = await window.getDocs(window.collection(window.db, "merchants"));
+                    if(snap.empty) {
+                        contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا يوجد تجار مسجلون.</p>';
+                        return;
+                    }
+                    contentEl.innerHTML = '';
+                    snap.forEach(d => {
+                        let m = d.data();
+                        let docId = d.id;
+                        contentEl.innerHTML += `
+                            <div class="admin-card">
+                                <div>
+                                    <h4 style="color:#c084fc; font-size:13px; font-weight:800;">🛒 ${m.name}</h4>
+                                    <p style="color:#34d399; font-size:11px;">📍 ولاية ${m.city} | 📞 +${m.phone}</p>
+                                </div>
+                                <button onclick="adminDeleteRecord('merchants', '${docId}')" style="background:#991b1b; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
+                            </div>
+                        `;
+                    });
+                } else if (sectionType === 'products') {
+                    titleEl.innerText = "📦 قائمة سلع وعروض التجار";
+                    const snap = await window.getDocs(window.collection(window.db, "products"));
+                    if(snap.empty) {
+                        contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد سلع معروضة حالياً.</p>';
+                        return;
+                    }
+                    contentEl.innerHTML = '';
+                    snap.forEach(d => {
+                        let p = d.data();
+                        let docId = d.id;
+                        let imgTag = p.image ? `<img src="${p.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
+                        contentEl.innerHTML += `
+                            <div class="admin-card">
+                                <div style="display:flex; align-items:center; flex:1;">
+                                    ${imgTag}
+                                    <div>
+                                        <h4 style="color:#fbbf24; font-size:13px; font-weight:800;">📦 ${p.name}</h4>
+                                        <p style="color:#f8fafc; font-size:11px;">السعر: ${p.price || '-'} | التخفيض: <span style="color:#ef4444;">${p.discountPrice || '-'}</span> | التاجر: ${p.merchantName}</p>
+                                    </div>
+                                </div>
+                                <button onclick="adminDeleteRecord('products', '${docId}')" style="background:#991b1b; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
+                            </div>
+                        `;
+                    });
+                }
+            } catch(e) {
+                contentEl.innerHTML = '<p style="color:red; text-align:center;">حدث خطأ أثناء جلب البيانات.</p>';
+            }
+        };
+
+        window.closeAdminSection = function() {
+            document.getElementById('adminSectionContainer').style.display = 'none';
+        };
+
+        window.adminDeleteRecord = async function(collectionName, docId) {
+            if(confirm('هل أنت متأكد من الحذف النهائي؟')) {
+                try {
+                    await window.deleteDoc(window.doc(window.db, collectionName, docId));
+                    showCustomAlert('✅ تمت عملية الحذف بنجاح.');
+                    window.initFirebaseData();
+                    window.openAdminSection(collectionName);
+                } catch(e) {
+                    showCustomAlert('❌ فشل الحذف.');
                 }
             }
         };
@@ -1493,7 +1603,6 @@
                         }
                     }
 
-                    loadAdminPanel();
                     window.initFirebaseData();
                     showCustomAlert('✅ تم استعادة كافة بيانات المنصة بنجاح!');
                 } catch(err) {
@@ -1501,53 +1610,6 @@
                 }
             };
             reader.readAsText(file);
-        };
-
-        async function loadAdminPanel() {
-            const container = document.getElementById('adminArtisansList');
-            container.innerHTML = '<p style="text-align:center;">جاري التحميل...</p>';
-            window.initFirebaseData();
-
-            try {
-                const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
-                if(querySnapshot.empty) {
-                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 12px; font-weight: 700;">لا يوجد حرفيون مسجلون.</p>';
-                    return;
-                }
-
-                container.innerHTML = '';
-                querySnapshot.forEach((d) => {
-                    let a = d.data();
-                    let docId = d.id;
-                    let displayName = a.workName ? `${a.name} (${a.workName})` : a.name;
-                    container.innerHTML += `
-                        <div class="admin-card">
-                            <div style="flex: 1;">
-                                <h3 style="color: #fbbf24; font-size: 14px; font-weight: 800;">${displayName}</h3>
-                                <p style="color: #38bdf8; font-size: 11px; font-weight: 700;">🛠️ ${a.category || 'حرفي'} | 📍 ولاية ${a.city || 'غير محدد'} | 📞 +${a.phone}</p>
-                            </div>
-                            <div>
-                                <button onclick="deleteArtisan('${docId}')" style="background: #991b1b; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 10px;">حذف</button>
-                            </div>
-                        </div>
-                    `;
-                });
-            } catch(e) {
-                container.innerHTML = '<p style="color: red; text-align: center;">فشل التحميل.</p>';
-            }
-        }
-
-        window.deleteArtisan = async function(docId) {
-            if(confirm('هل أنت متأكد من الحذف؟')) {
-                try {
-                    await window.deleteDoc(window.doc(window.db, "artisans", docId));
-                    showCustomAlert('تم الحذف بنجاح.');
-                    loadAdminPanel();
-                    window.initFirebaseData();
-                } catch(e) {
-                    showCustomAlert('فشل الحذف.');
-                }
-            }
         };
 
         async function selectCategory(cat) {
