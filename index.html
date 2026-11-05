@@ -514,7 +514,10 @@
         }
         .welcome-btn:hover { opacity: 0.95; }
     </style>
+</head>
+<body>
 
+    <!-- نافذة الترحيب والصلاة على النبي -->
     <div id="welcomeModal">
         <div class="welcome-content">
             <div class="welcome-flower">🌹</div>
@@ -592,8 +595,6 @@
 
         window.initFirebaseData();
     </script>
-</head>
-<body>
 
     <div class="container" id="mainContainerBox">
         <div class="logo-header">
@@ -853,7 +854,11 @@
         const ADMIN_PASS = "admin123";
 
         function closeWelcomeModal() {
-            document.getElementById('welcomeModal').style.display = 'none';
+            let modal = document.getElementById('welcomeModal');
+            if (modal) {
+                modal.style.display = 'none';
+                modal.remove(); // إزالة العنصر نهائياً من الـ DOM لضمان عدم تغطيته للشاشة
+            }
         }
 
         function showCustomAlert(message) {
@@ -982,7 +987,7 @@
 
             // تسجيل زيارة زبون للإحصائيات بطريقة ذكية صامتة
             try {
-                let visitId = 'visit_' + new Date().toISOString().slice(0, 10) + '_' + Math.random().toString(36.substring(2, 7));
+                let visitId = 'visit_' + new Date().toISOString().slice(0, 10) + '_' + Math.random().toString(36).substring(2, 7);
                 await window.setDoc(window.doc(window.db, "clients", visitId), {
                     timestamp: new Date().toISOString(),
                     date: new Date().toISOString().slice(0, 10)
@@ -1071,7 +1076,6 @@
             currentArtisanPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
             
             try {
-                // البحث في الحرفيين أولاً ثم التجار
                 const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
                 let existing = null;
                 querySnapshot.forEach((d) => {
