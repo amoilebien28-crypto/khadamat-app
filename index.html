@@ -108,7 +108,6 @@
             font-weight: 500;
         }
         
-        /* أزرار بحجم أصغر وأنيق (Compact & Luxury) */
         .btn {
             display: block;
             width: 100%;
@@ -477,13 +476,13 @@
 </head>
 <body>
 
-    <!-- نافذة الترحيب والصلاة على النبي -->
+    <!-- نافذة الترحيب والصلاة على النبي (مرتبطة بعداد الزيارات) -->
     <div id="welcomeModal">
         <div class="welcome-content">
             <div class="welcome-flower">🌹</div>
             <div class="welcome-title">صلّ على الحبيب المصطفى</div>
             <div class="welcome-text">اللهم صلّ وسلم وبارك على سيدنا محمد وعلى آله وصحبه أجمعين</div>
-            <button class="welcome-btn" onclick="closeWelcomeModal()">جزاك الله خيراً (دخول)</button>
+            <button class="welcome-btn" onclick="handleWelcomeVisit()">جزاك الله خيراً (دخول)</button>
         </div>
     </div>
 
@@ -554,6 +553,25 @@
         };
 
         window.initFirebaseData();
+
+        // تسجيل الزيارة بركتها عند النقر على زر جزاك الله خيراً
+        window.handleWelcomeVisit = async function() {
+            let modal = document.getElementById('welcomeModal');
+            if (modal) {
+                modal.style.display = 'none';
+                modal.remove();
+            }
+            try {
+                let visitId = 'visit_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+                await window.setDoc(window.doc(window.db, "clients", visitId), {
+                    timestamp: new Date().toISOString(),
+                    date: new Date().toISOString().slice(0, 10)
+                });
+                window.initFirebaseData();
+            } catch(e) {
+                console.error("Visit log error:", e);
+            }
+        };
     </script>
 
     <div class="container" id="mainContainerBox">
@@ -605,7 +623,7 @@
             </div>
         </div>
 
-        <!-- 3. بوابة اختيار التاجر (جديد أم مسجل مسبقاً) -->
+        <!-- 3. بوابة اختيار التاجر -->
         <div id="merchantAuthChoiceView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #c084fc; margin-bottom: 12px; font-size: 16px; font-weight: 800;">بوابة التجار والموردين</h2>
@@ -744,7 +762,7 @@
                     <span id="statMerchantsCount">...</span>
                 </div>
                 <div class="stat-card" style="grid-column: span 2;">
-                    <h4>👥 زيارات الزبائن (دخول البحث)</h4>
+                    <h4>👥 زيارات الزبائن (عبر الصلاة على النبي)</h4>
                     <span id="statClientsCount">...</span>
                 </div>
             </div>
@@ -928,14 +946,6 @@
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
 
-        function closeWelcomeModal() {
-            let modal = document.getElementById('welcomeModal');
-            if (modal) {
-                modal.style.display = 'none';
-                modal.remove();
-            }
-        }
-
         function showCustomAlert(message) {
             document.getElementById('modalMessage').innerText = message;
             document.getElementById('customModal').style.display = 'flex';
@@ -1042,20 +1052,10 @@
             switchView('merchantAuthChoiceView');
         });
 
-        document.getElementById('btnCustomer').addEventListener('click', async function() {
+        document.getElementById('btnCustomer').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('customerView');
             listenToArtisans('all');
-
-            try {
-                let visitId = 'visit_' + new Date().toISOString().slice(0, 10) + '_' + Math.random().toString(36).substring(2, 7);
-                await window.setDoc(window.doc(window.db, "clients", visitId), {
-                    timestamp: new Date().toISOString(),
-                    date: new Date().toISOString().slice(0, 10)
-                });
-            } catch(e) {
-                console.error("Visit log error:", e);
-            }
         });
 
         document.getElementById('btnMerchantsOffers').addEventListener('click', function() {
@@ -1064,9 +1064,11 @@
             listenToProducts();
         });
 
+        // نظام إدارة التنقل وحفظ الحالة عند عمل Actualiser
         function switchView(viewId, pushHistory = true) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
+            let targetView = document.getElementById(viewId);
+            if(targetView) targetView.classList.add('active');
             
             if(viewId !== 'customerView' && realtimeUnsubscribe) {
                 realtimeUnsubscribe();
@@ -1085,25 +1087,40 @@
 
         window.addEventListener('popstate', function(event) {
             if (event.state && event.state.view) {
-                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-                document.getElementById(event.state.view).classList.add('active');
-                if(event.state.view === 'customerView') {
-                    document.getElementById('mainContainerBox').classList.add('wide-container');
-                    listenToArtisans(selectedFilter);
-                } else if(event.state.view === 'merchantsView') {
-                    document.getElementById('mainContainerBox').classList.add('wide-container');
-                    listenToProducts();
-                } else {
-                    document.getElementById('mainContainerBox').classList.remove('wide-container');
-                    if(realtimeUnsubscribe) { realtimeUnsubscribe(); realtimeUnsubscribe = null; }
-                    if(productsUnsubscribe) { productsUnsubscribe(); productsUnsubscribe = null; }
-                }
+                restoreView(event.state.view);
             } else {
-                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-                document.getElementById('welcomeView').classList.add('active');
+                restoreView('welcomeView');
+            }
+        });
+
+        function restoreView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            let target = document.getElementById(viewId);
+            if(target) target.classList.add('active');
+
+            if(viewId === 'customerView') {
+                document.getElementById('mainContainerBox').classList.add('wide-container');
+                listenToArtisans(selectedFilter);
+            } else if(viewId === 'merchantsView') {
+                document.getElementById('mainContainerBox').classList.add('wide-container');
+                listenToProducts();
+            } else {
                 document.getElementById('mainContainerBox').classList.remove('wide-container');
-                if(realtimeUnsubscribe) { realtimeUnsubscribe(); realtimeUnsubscribe = null; }
-                if(productsUnsubscribe) { productsUnsubscribe(); productsUnsubscribe = null; }
+            }
+            window.initFirebaseData();
+        }
+
+        // قراءة الهاش عند فتح الصفحة أو عمل Actualiser للبقاء في نفس القسم
+        window.addEventListener('DOMContentLoaded', () => {
+            let hash = window.location.hash.replace('#', '');
+            if(hash && document.getElementById(hash)) {
+                // إذا كان في قسم يتطلب حاوية عريضة
+                if(hash === 'customerView' || hash === 'merchantsView') {
+                    document.getElementById('mainContainerBox').classList.add('wide-container');
+                    if(hash === 'customerView') listenToArtisans('all');
+                    if(hash === 'merchantsView') listenToProducts();
+                }
+                restoreView(hash);
             }
         });
 
