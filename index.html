@@ -129,8 +129,9 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.15);
         }
         .btn-artisan { background: linear-gradient(135deg, #0284c7, #0369a1); }
+        .btn-merchant { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
         .btn-customer { background: linear-gradient(135deg, #059669, #047857); }
-        .btn-merchants { 
+        .btn-merchants-offers { 
             background: linear-gradient(135deg, #dc2626, #b91c1c); 
             animation: pulseBtn 2s infinite;
         }
@@ -582,7 +583,7 @@
 
                 const badge = document.getElementById('statsBadge');
                 if(badge) {
-                    if(artisansCount > 0) {
+                    if(artisansCount > 0 || merchantsCount > 0) {
                         badge.innerHTML = `🌟 يوجد حالياً <b>${artisansCount}</b> حرفياً و <b>${merchantsCount}</b> مورداً مسجلاً`;
                     } else {
                         badge.innerHTML = `📍 المنصة نشطة - كن أول من يسجل في منطقتك!`;
@@ -614,28 +615,29 @@
         </div>
         <p class="subtitle">صلة الوصل بين مهارة الحرفي واحتياجات الناس</p>
 
-        <!-- 1. الشاشة الرئيسية -->
+        <!-- 1. الشاشة الرئيسية مع الأزرار المفصولة -->
         <div id="welcomeView" class="view active">
             <div class="middle-badge" id="statsBadge">
                 <span>📍</span> جاري الاتصال بقاعدة البيانات واحتساب النشاط...
             </div>
 
             <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي (دخول مباشر للبحث)</button>
-            <button class="btn btn-merchants" id="btnMerchants">🔥 تخفيضات الأسبوع الكبرى لحاجيات وحرفيي التجهيزات المتنوعة</button>
-            <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي / تاجر (تسجيل أو تعديل الحساب)</button>
+            <button class="btn btn-merchants-offers" id="btnMerchantsOffers">🔥 تخفيضات الأسبوع لحاجيات وحرفيي التجهيزات المتنوعة</button>
+            <button class="btn btn-artisan" id="btnArtisan">🛠️ أنا حرفي (تسجيل أو تعديل حساب حرفي)</button>
+            <button class="btn btn-merchant" id="btnMerchant">🛒 أنا تاجر / مورد (تسجيل أو تعديل عروض السلع)</button>
 
             <div class="info-box">
                 <h3>💡 كيف تعمل المنصة؟</h3>
-                <p><b>للصناع والحرفيين والتجار:</b> سجل برقم هاتفك، حدد ولايتك واعرض بضائعك أو مهارتك بكل سهولة.</p>
-                <p><b>للباحثين والمهتمين:</b> تصفح أصحاب المهارات وعروض السلع وتخفيضات التجهيزات بكل راحة وسرعة.</p>
+                <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك وحدد اختصاصك وولاك ليعثر عليك الزبائن.</p>
+                <p><b>للتجار والموردين:</b> سجل في فضاء التجار وانشر أهم تخفيضات التجهيزات وحاجيات الحرفيين.</p>
             </div>
         </div>
 
-        <!-- 2. بوابة دخول الحرفي أو الأدمن -->
+        <!-- 2. بوابة دخول الحرفيين -->
         <div id="artisanAuthView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: var(--accent-blue); margin-bottom: 10px; font-size: 18px; font-weight: 800;">بوابة دخول الحرفيين والتجار</h2>
-            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 15px; font-weight: 700;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب جديد.</p>
+            <h2 style="color: var(--accent-blue); margin-bottom: 10px; font-size: 18px; font-weight: 800;">بوابة دخول الحرفيين</h2>
+            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 15px; font-weight: 700;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب حرفي جديد.</p>
             
             <div class="auth-box">
                 <div class="form-group">
@@ -649,11 +651,33 @@
                     <label>كلمة السر</label>
                     <input type="password" id="authPassword" placeholder="كلمة السر الخاصة بك">
                 </div>
-                <button type="button" class="btn" id="btnLoginArtisan" style="background: linear-gradient(135deg, var(--accent-blue), #0369a1); color: white; margin-top: 8px;">دخول أو تعديل الحساب</button>
+                <button type="button" class="btn" id="btnLoginArtisan" style="background: linear-gradient(135deg, var(--accent-blue), #0369a1); color: white; margin-top: 8px;">دخول أو تعديل حساب الحرفي</button>
             </div>
         </div>
 
-        <!-- 3. لوحة تحكم الأدمن مع إحصائيات مفصلة -->
+        <!-- 3. بوابة دخول التجار والموردين -->
+        <div id="merchantAuthView" class="view">
+            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
+            <h2 style="color: var(--accent-purple); margin-bottom: 10px; font-size: 18px; font-weight: 800;">بوابة دخول التجار والموردين</h2>
+            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 15px; font-weight: 700;">أدخل رقم هاتفك وكلمة السر لتعديل أو نشر عروض وتخفيضات السلع.</p>
+            
+            <div class="auth-box">
+                <div class="form-group">
+                    <label>رقم الهاتف</label>
+                    <div class="phone-input-group">
+                        <input type="text" id="authMerchantPhone" class="phone-main-input" placeholder="مثال: 98123456">
+                        <span class="phone-prefix">+216 🇹🇳</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>كلمة السر</label>
+                    <input type="password" id="authMerchantPassword" placeholder="كلمة السر الخاصة بك">
+                </div>
+                <button type="button" class="btn" id="btnLoginMerchant" style="background: linear-gradient(135deg, var(--accent-purple), #7c3aed); color: white; margin-top: 8px;">دخول أو تعديل عروض التاجر</button>
+            </div>
+        </div>
+
+        <!-- 4. لوحة تحكم الأدمن -->
         <div id="adminView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
             <h2 style="color: #d97706; margin-bottom: 12px; font-size: 18px; font-weight: 800;">⚙️ لوحة تحكم المشرف (الإحصائيات والتحكم)</h2>
@@ -664,7 +688,7 @@
                     <span id="statArtisansCount">...</span>
                 </div>
                 <div class="stat-card">
-                    <h4>🛒 التجار وموردو التجهيزات</h4>
+                    <h4>🛒 التجار والموردون</h4>
                     <span id="statMerchantsCount">...</span>
                 </div>
                 <div class="stat-card" style="grid-column: span 2;">
@@ -693,23 +717,16 @@
             <div id="adminArtisansList">جاري التحميل...</div>
         </div>
 
-        <!-- 4. واجهة تسجيل وتعديل بيانات الحرفي أو التاجر -->
+        <!-- 5. واجهة تسجيل أو تعديل الحرفي -->
         <div id="artisanRegisterView" class="view">
             <button class="back-btn" onclick="switchView('artisanAuthView', true)">⬅️ العودة إلى البوابة</button>
-            <h2 style="color: #d97706; margin-bottom: 12px; font-size: 18px; font-weight: 800;" id="formTitle">تعديل أو استكمال الملف الشخصي</h2>
+            <h2 style="color: #d97706; margin-bottom: 12px; font-size: 18px; font-weight: 800;" id="formArtisanTitle">استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
-                    <label>نوع الحساب</label>
-                    <select id="accountType" required onchange="toggleAccountFields()">
-                        <option value="artisan">حرفي / صاحب مهارة</option>
-                        <option value="merchant">تاجر / مورد حاجيات وحرفيي التجهيزات المتنوعة</option>
-                    </select>
+                    <label>الاسم الحقيقي أو اسم المؤسسة</label>
+                    <input type="text" id="artisanName" required placeholder="مثال: محمد الصادق">
                 </div>
                 <div class="form-group">
-                    <label>الاسم الحقيقي أو اسم المحل / المؤسسة</label>
-                    <input type="text" id="artisanName" required placeholder="مثال: مؤسسة بيع التجهيزات واللوازم">
-                </div>
-                <div class="form-group" id="workNameGroup">
                     <label>الاسم العملي أو اللقب (اختياري)</label>
                     <input type="text" id="artisanWorkName" placeholder="مثال: عمي صالح للكهرباء">
                 </div>
@@ -745,34 +762,85 @@
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف المعتمد</label>
-                    <input type="text" id="displayPhone" readonly style="background: #e2e8f0; font-weight: bold; color: var(--accent-blue);" placeholder="رقم هاتفك">
+                    <input type="text" id="displayArtisanPhone" readonly style="background: #e2e8f0; font-weight: bold; color: var(--accent-blue);" placeholder="رقم هاتفك">
                 </div>
-                <div class="form-group" id="categoryGroup">
+                <div class="form-group">
                     <label>الاختصاص المهني</label>
                     <select id="artisanCategory">
                         <!-- تعبئة ديناميكية -->
                     </select>
                 </div>
-                <div class="form-group" id="goodsGroup" style="display:none;">
-                    <label>أهم تخفيضات السلع وحاجيات الحرفيين لهذا الأسبوع</label>
-                    <input type="text" id="merchantGoods" placeholder="مثال: تخفيضات كبرى على لوازم التجهيزات والعتاد هذا الأسبوع">
-                </div>
                 <div class="form-group">
-                    <label>نبذة تعريفية أو تفاصيل إضافية (اختياري)</label>
-                    <textarea id="artisanBio" placeholder="اكتب تفاصيل إضافية للخدمة أو العروض..."></textarea>
+                    <label>نبذة تعريفية أو رسالة للزبائن (اختياري)</label>
+                    <textarea id="artisanBio" placeholder="خبرة 10 سنوات في الصيانة والتركيب..."></textarea>
                 </div>
                 <div class="form-group">
                     <label>الموقع الجغرافي (GPS - اختياري)</label>
-                    <button type="button" class="btn-gps" id="btnGetLocation">📍 اضغط هنا لتحديد موقعك عبر الـ GPS</button>
-                    <input type="text" id="locationStatus" readonly style="margin-top: 6px; background:#e2e8f0; color:var(--accent-green); font-size:12px; text-align:center; font-weight:700;" placeholder="لم يتم تحديد الموقع (اختياري)">
-                    <input type="hidden" id="lat" value="33.8">
-                    <input type="hidden" id="lng" value="10.8">
+                    <button type="button" class="btn-gps" id="btnGetArtisanLocation">📍 تحديد الموقع عبر الـ GPS</button>
+                    <input type="text" id="artisanLocationStatus" readonly style="margin-top: 6px; background:#e2e8f0; color:var(--accent-green); font-size:12px; text-align:center; font-weight:700;" placeholder="لم يتم تحديد الموقع (اختياري)">
+                    <input type="hidden" id="artisanLat" value="33.8">
+                    <input type="hidden" id="artisanLng" value="10.8">
                 </div>
-                <button type="submit" class="btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">حفظ وتحديث الملف (Enregistrer)</button>
+                <button type="submit" class="btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">حفظ وتحديث الحرفي (Enregistrer)</button>
             </form>
         </div>
 
-        <!-- 5. واجهة الزبون: دليل الحرفيين -->
+        <!-- 6. واجهة تسجيل أو تعديل التاجر -->
+        <div id="merchantRegisterView" class="view">
+            <button class="back-btn" onclick="switchView('merchantAuthView', true)">⬅️ العودة إلى البوابة</button>
+            <h2 style="color: var(--accent-purple); margin-bottom: 12px; font-size: 18px; font-weight: 800;" id="formMerchantTitle">استكمال ملف التاجر والمورد</h2>
+            <form id="merchantForm">
+                <div class="form-group">
+                    <label>اسم المحل أو المؤسسة التجارية</label>
+                    <input type="text" id="merchantName" required placeholder="مثال: مؤسسة بيع التجهيزات المتنوعة">
+                </div>
+                <div class="form-group">
+                    <label>الولاية (المقر)</label>
+                    <select id="merchantCity" required>
+                        <option value="">اختر الولاية...</option>
+                        <option value="تونس">تونس</option>
+                        <option value="أريانة">أريانة</option>
+                        <option value="بن عروس">بن عروس</option>
+                        <option value="منوبة">منوبة</option>
+                        <option value="نابل">نابل</option>
+                        <option value="زغوان">زغوان</option>
+                        <option value="بنزرت">بنزرت</option>
+                        <option value="باجة">باجة</option>
+                        <option value="جندوبة">جندوبة</option>
+                        <option value="الكاف">الكاف</option>
+                        <option value="سليانة">سليانة</option>
+                        <option value="سوسة">سوسة</option>
+                        <option value="المنستير">المنستير</option>
+                        <option value="المهدية">المهدية</option>
+                        <option value="صفاقس">صفاقس</option>
+                        <option value="القيروان">القيروان</option>
+                        <option value="القصرين">القصرين</option>
+                        <option value="سيدي بوزيد">سيدي بوزيد</option>
+                        <option value="قابس">قابس</option>
+                        <option value="مدنين">مدنين</option>
+                        <option value="تطاوين">تطاوين</option>
+                        <option value="قفصة">قفصة</option>
+                        <option value="توزر">توزر</option>
+                        <option value="قبلي">قبلي</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف المعتمد</label>
+                    <input type="text" id="displayMerchantPhone" readonly style="background: #e2e8f0; font-weight: bold; color: var(--accent-purple);" placeholder="رقم هاتفك">
+                </div>
+                <div class="form-group">
+                    <label>أهم تخفيضات السلع وحاجيات الحرفيين لهذا الأسبوع</label>
+                    <input type="text" id="merchantGoods" required placeholder="مثال: تخفيضات كبرى على لوازم التجهيزات والعتاد هذا الأسبوع">
+                </div>
+                <div class="form-group">
+                    <label>نبذة تعريفية أو تفاصيل إضافية (اختياري)</label>
+                    <textarea id="merchantBio" placeholder="اكتب تفاصيل إضافية أو عناوين التوصيل..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="background: linear-gradient(135deg, var(--accent-purple), #7c3aed); color: white;">حفظ وتحديث عروض التاجر (Enregistrer)</button>
+            </form>
+        </div>
+
+        <!-- 7. واجهة الزبون: دليل الحرفيين -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #047857; margin-bottom: 14px; font-size: 19px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
@@ -834,7 +902,7 @@
             </div>
         </div>
 
-        <!-- 6. فضاء التجار وتخفيضات التجهيزات المتنوعة -->
+        <!-- 8. فضاء التجار وتخفيضات التجهيزات المتنوعة -->
         <div id="merchantsView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #b45309; margin-bottom: 14px; font-size: 19px; font-weight: 800;">🔥 تخفيضات الأسبوع لحاجيات وحرفيي التجهيزات المتنوعة</h2>
@@ -852,7 +920,7 @@
     </div>
 
     <script>
-        let currentArtisanPhone = "";
+        let currentPhone = "";
         let selectedFilter = 'all';
         let realtimeUnsubscribe = null;
         let merchantsUnsubscribe = null;
@@ -885,23 +953,6 @@
                 box.classList.remove('mobile-show');
             } else {
                 box.classList.add('mobile-show');
-            }
-        };
-
-        window.toggleAccountFields = function() {
-            let type = document.getElementById('accountType').value;
-            let catGroup = document.getElementById('categoryGroup');
-            let goodsGroup = document.getElementById('goodsGroup');
-            let workNameGroup = document.getElementById('workNameGroup');
-
-            if(type === 'merchant') {
-                catGroup.style.display = 'none';
-                goodsGroup.style.display = 'block';
-                workNameGroup.style.display = 'none';
-            } else {
-                catGroup.style.display = 'block';
-                goodsGroup.style.display = 'none';
-                workNameGroup.style.display = 'block';
             }
         };
 
@@ -944,7 +995,6 @@
                     selectEl.innerHTML += `<option value="${c}">${c}</option>`;
                 });
             }
-
             renderSidebarCategories(cats);
         }
 
@@ -983,12 +1033,17 @@
             showCustomAlert('✅ تمت إضافة التخصص الجديد بنجاح!');
         };
 
+        // أزرار الشاشة الرئيسية
         document.getElementById('btnArtisan').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
             switchView('artisanAuthView');
         });
 
-        // زر البحث المباشر للزبون مع تسجيل عدد الزيارات (الإحصائيات)
+        document.getElementById('btnMerchant').addEventListener('click', function() {
+            document.getElementById('mainContainerBox').classList.remove('wide-container');
+            switchView('merchantAuthView');
+        });
+
         document.getElementById('btnCustomer').addEventListener('click', async function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('customerView');
@@ -1005,8 +1060,7 @@
             }
         });
 
-        // زر فضاء التجار والتخفيضات
-        document.getElementById('btnMerchants').addEventListener('click', function() {
+        document.getElementById('btnMerchantsOffers').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('merchantsView');
             listenToMerchants();
@@ -1060,6 +1114,7 @@
             return /^\d{8,12}$/.test(clean);
         }
 
+        // تسجيل دخول الحرفي
         document.getElementById('btnLoginArtisan').addEventListener('click', async function() {
             let phoneInput = document.getElementById('authPhone').value.trim();
             const password = document.getElementById('authPassword').value.trim();
@@ -1081,63 +1136,189 @@
             }
 
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
-            currentArtisanPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
+            currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
             
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
                 let existing = null;
                 querySnapshot.forEach((d) => {
                     let data = d.data();
-                    if(data.phone === currentArtisanPhone) existing = data;
+                    if(data.phone === currentPhone) existing = data;
                 });
 
-                if(!existing) {
-                    const merchSnapshot = await window.getDocs(window.collection(window.db, "merchants"));
-                    merchSnapshot.forEach((d) => {
-                        let data = d.data();
-                        if(data.phone === currentArtisanPhone) existing = data;
-                    });
-                }
-
-                document.getElementById('displayPhone').value = '+' + currentArtisanPhone;
+                document.getElementById('displayArtisanPhone').value = '+' + currentPhone;
 
                 if(existing) {
                     if(existing.password !== password) {
                         showCustomAlert('كلمة السر غير صحيحة لهذا الرقم!');
                         return;
                     }
-                    document.getElementById('accountType').value = existing.type || 'artisan';
-                    toggleAccountFields();
-
                     document.getElementById('artisanName').value = existing.name || '';
                     document.getElementById('artisanWorkName').value = existing.workName || '';
                     document.getElementById('artisanCity').value = existing.city || '';
-                    if(existing.type === 'merchant') {
-                        document.getElementById('merchantGoods').value = existing.goods || '';
-                    } else {
-                        document.getElementById('artisanCategory').value = existing.category || getCategories()[0];
-                    }
+                    document.getElementById('artisanCategory').value = existing.category || getCategories()[0];
                     document.getElementById('artisanBio').value = existing.bio || '';
-                    document.getElementById('lat').value = existing.lat || '33.8';
-                    document.getElementById('lng').value = existing.lng || '10.8';
-                    document.getElementById('locationStatus').value = existing.lat ? "✅ موقعك مسجل مسبقاً" : "لم يتم تحديد الموقع (اختياري)";
-                    document.getElementById('formTitle').innerText = "تعديل بيانات الحساب";
+                    document.getElementById('artisanLat').value = existing.lat || '33.8';
+                    document.getElementById('artisanLng').value = existing.lng || '10.8';
+                    document.getElementById('artisanLocationStatus').value = existing.lat ? "✅ موقعك مسجل مسبقاً" : "لم يتم تحديد الموقع (اختياري)";
+                    document.getElementById('formArtisanTitle').innerText = "تعديل بيانات الحرفي";
                     showCustomAlert('مرحباً بك! تم التعرف على حسابك.');
                 } else {
                     document.getElementById('artisanForm').reset();
-                    document.getElementById('displayPhone').value = '+' + currentArtisanPhone;
-                    document.getElementById('accountType').value = 'artisan';
-                    toggleAccountFields();
-                    document.getElementById('lat').value = '33.8';
-                    document.getElementById('lng').value = '10.8';
-                    document.getElementById('locationStatus').value = "لم يتم تحديد الموقع (اختياري)";
-                    document.getElementById('formTitle').innerText = "إنشاء حساب جديد";
+                    document.getElementById('displayArtisanPhone').value = '+' + currentPhone;
+                    document.getElementById('artisanLat').value = '33.8';
+                    document.getElementById('artisanLng').value = '10.8';
+                    document.getElementById('artisanLocationStatus').value = "لم يتم تحديد الموقع (اختياري)";
+                    document.getElementById('formArtisanTitle').innerText = "إنشاء حساب حرفي جديد";
                     showCustomAlert('هذا الرقم جديد، يرجى إكمال بياناتك.');
                 }
                 switchView('artisanRegisterView');
             } catch(e) {
                 showCustomAlert('حدث خطأ أثناء الاتصال بقاعدة البيانات.');
             }
+        });
+
+        // تسجيل دخول التاجر
+        document.getElementById('btnLoginMerchant').addEventListener('click', async function() {
+            let phoneInput = document.getElementById('authMerchantPhone').value.trim();
+            const password = document.getElementById('authMerchantPassword').value.trim();
+
+            if(!phoneInput || !password) {
+                showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!');
+                return;
+            }
+
+            if (!isValidPhoneNumber(phoneInput)) {
+                showCustomAlert('⚠️ رقم الهاتف غير صالح!');
+                return;
+            }
+
+            let cleanNum = phoneInput.replace(/[^0-9]/g, '');
+            currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
+            
+            try {
+                const querySnapshot = await window.getDocs(window.collection(window.db, "merchants"));
+                let existing = null;
+                querySnapshot.forEach((d) => {
+                    let data = d.data();
+                    if(data.phone === currentPhone) existing = data;
+                });
+
+                document.getElementById('displayMerchantPhone').value = '+' + currentPhone;
+
+                if(existing) {
+                    if(existing.password !== password) {
+                        showCustomAlert('كلمة السر غير صحيحة لهذا الرقم!');
+                        return;
+                    }
+                    document.getElementById('merchantName').value = existing.name || '';
+                    document.getElementById('merchantCity').value = existing.city || '';
+                    document.getElementById('merchantGoods').value = existing.goods || '';
+                    document.getElementById('merchantBio').value = existing.bio || '';
+                    document.getElementById('formMerchantTitle').innerText = "تعديل عروض التاجر";
+                    showCustomAlert('مرحباً بك في فضاء التجار!');
+                } else {
+                    document.getElementById('merchantForm').reset();
+                    document.getElementById('displayMerchantPhone').value = '+' + currentPhone;
+                    document.getElementById('formMerchantTitle').innerText = "تسجيل تاجر جديد";
+                    showCustomAlert('هذا الرقم جديد، يرجى إدخال عروضك وتخفيضاتك.');
+                }
+                switchView('merchantRegisterView');
+            } catch(e) {
+                showCustomAlert('حدث خطأ أثناء الاتصال بقاعدة البيانات.');
+            }
+        });
+
+        // حفظ الحرفي
+        document.getElementById('artisanForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('artisanName').value.trim();
+            const workName = document.getElementById('artisanWorkName').value.trim();
+            const city = document.getElementById('artisanCity').value;
+            const category = document.getElementById('artisanCategory').value;
+            const password = document.getElementById('authPassword').value;
+            const bio = document.getElementById('artisanBio').value.trim() || "";
+            const lat = document.getElementById('artisanLat').value || "33.8";
+            const lng = document.getElementById('artisanLng').value || "10.8";
+
+            if(!name || !city) {
+                showCustomAlert('الرجاء إدخال الاسم واختيار الولاية!');
+                return;
+            }
+
+            const dataObj = {
+                type: 'artisan',
+                name,
+                workName,
+                city,
+                category,
+                phone: currentPhone,
+                password,
+                bio,
+                lat,
+                lng,
+                updatedAt: new Date().toISOString()
+            };
+
+            try {
+                await window.setDoc(window.doc(window.db, "artisans", currentPhone), dataObj);
+                showCustomAlert('✅ تم حفظ حساب الحرفي بنجاح!');
+                switchView('welcomeView');
+                document.getElementById('mainContainerBox').classList.remove('wide-container');
+            } catch(err) {
+                showCustomAlert('❌ حدث خطأ أثناء الحفظ.');
+            }
+        });
+
+        // حفظ التاجر
+        document.getElementById('merchantForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('merchantName').value.trim();
+            const city = document.getElementById('merchantCity').value;
+            const goods = document.getElementById('merchantGoods').value.trim();
+            const password = document.getElementById('authMerchantPassword').value;
+            const bio = document.getElementById('merchantBio').value.trim() || "";
+
+            if(!name || !city || !goods) {
+                showCustomAlert('الرجاء إدخال اسم المحل، الولاية، وتخفيضات الأسبوع!');
+                return;
+            }
+
+            const dataObj = {
+                type: 'merchant',
+                name,
+                city,
+                goods,
+                phone: currentPhone,
+                password,
+                bio,
+                updatedAt: new Date().toISOString()
+            };
+
+            try {
+                await window.setDoc(window.doc(window.db, "merchants", currentPhone), dataObj);
+                showCustomAlert('✅ تم حفظ عروض التاجر بنجاح!');
+                switchView('welcomeView');
+                document.getElementById('mainContainerBox').classList.remove('wide-container');
+            } catch(err) {
+                showCustomAlert('❌ حدث خطأ أثناء الحفظ.');
+            }
+        });
+
+        document.getElementById('btnGetArtisanLocation').addEventListener('click', function() {
+            const status = document.getElementById('artisanLocationStatus');
+            if(!navigator.geolocation) {
+                showCustomAlert('متصفحك لا يدعم تحديد الموقع');
+                return;
+            }
+            status.value = "جاري جلب الموقع...";
+            navigator.geolocation.getCurrentPosition((position) => {
+                document.getElementById('artisanLat').value = position.coords.latitude;
+                document.getElementById('artisanLng').value = position.coords.longitude;
+                status.value = `✅ تم تحديث الموقع بدقة`;
+            }, () => {
+                status.value = "⚠️ تعذر جلب الموقع";
+            }, { enableHighAccuracy: true });
         });
 
         window.exportDatabase = async function() {
@@ -1205,7 +1386,7 @@
                         <div class="admin-card">
                             <div style="flex: 1;">
                                 <h3 style="color: #d97706; font-size: 15px; font-weight: 800;">${displayName}</h3>
-                                <p style="color: var(--accent-blue); font-size: 12px; font-weight: 700;">🛠️ ${a.category || 'حرفي'} | 📍 ${a.city || 'غير محدد'} | 📞 +${a.phone}</p>
+                                <p style="color: var(--accent-blue); font-size: 12px; font-weight: 700;">🛠️ ${a.category || 'حرفي'} | 📍 ولاية ${a.city || 'غير محدد'} | 📞 +${a.phone}</p>
                             </div>
                             <div>
                                 <button onclick="deleteArtisan('${docId}')" style="background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 11px;">حذف</button>
@@ -1230,64 +1411,6 @@
                 }
             }
         };
-
-        document.getElementById('btnGetLocation').addEventListener('click', function() {
-            const status = document.getElementById('locationStatus');
-            if(!navigator.geolocation) {
-                showCustomAlert('متصفحك لا يدعم تحديد الموقع');
-                return;
-            }
-            status.value = "جاري جلب الموقع...";
-            navigator.geolocation.getCurrentPosition((position) => {
-                document.getElementById('lat').value = position.coords.latitude;
-                document.getElementById('lng').value = position.coords.longitude;
-                status.value = `✅ تم تحديث الموقع بدقة`;
-            }, () => {
-                status.value = "⚠️ تعذر جلب الموقع";
-            }, { enableHighAccuracy: true });
-        });
-
-        document.getElementById('artisanForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const type = document.getElementById('accountType').value;
-            const name = document.getElementById('artisanName').value.trim();
-            const workName = document.getElementById('artisanWorkName').value.trim();
-            const city = document.getElementById('artisanCity').value;
-            const password = document.getElementById('authPassword').value;
-            const bio = document.getElementById('artisanBio').value.trim() || "";
-            const lat = document.getElementById('lat').value || "33.8";
-            const lng = document.getElementById('lng').value || "10.8";
-
-            if(!name || !city) {
-                showCustomAlert('الرجاء إدخال الاسم واختيار الولاية!');
-                return;
-            }
-
-            let collectionName = type === 'merchant' ? 'merchants' : 'artisans';
-            const dataObj = {
-                type,
-                name,
-                workName: type === 'merchant' ? '' : workName,
-                city,
-                category: type === 'merchant' ? 'مورد ومجهز' : document.getElementById('artisanCategory').value,
-                goods: type === 'merchant' ? document.getElementById('merchantGoods').value.trim() : '',
-                phone: currentArtisanPhone,
-                password,
-                bio,
-                lat,
-                lng,
-                updatedAt: new Date().toISOString()
-            };
-
-            try {
-                await window.setDoc(window.doc(window.db, collectionName, currentArtisanPhone), dataObj);
-                showCustomAlert('✅ تم حفظ وتحديث حسابك بنجاح!');
-                switchView('welcomeView');
-                document.getElementById('mainContainerBox').classList.remove('wide-container');
-            } catch(err) {
-                showCustomAlert('❌ حدث خطأ أثناء الحفظ.');
-            }
-        });
 
         async function selectCategory(cat) {
             selectedFilter = cat;
