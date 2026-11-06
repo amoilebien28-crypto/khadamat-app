@@ -6,11 +6,9 @@
     <title>منصة أصحاب المهارات والحرفيين</title>
     <style>
         :root {
-            --bg-main: #f8fafc;
-            --card-bg: #f1f5f9;
+            --bg-main: #f3f4f6;
             --text-main: #1e293b;
             --text-gray: #64748b;
-            --border-color: #cbd5e1;
         }
         * {
             box-sizing: border-box;
@@ -19,26 +17,24 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #f3f4f6;
+            background-color: var(--bg-main);
             background-image: 
                 radial-gradient(at 10% 20%, rgba(203, 213, 225, 0.3) 0px, transparent 50%),
                 radial-gradient(at 90% 80%, rgba(226, 232, 240, 0.4) 0px, transparent 50%),
-                linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%),
-                radial-gradient(#cbd5e1 0.75px, transparent 0.75px);
-            background-size: 100% 100%, 100% 100%, 100% 100%, 24px 24px;
+                linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 15px;
+            padding: 10px;
         }
         .container {
             max-width: 620px;
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.97);
-            padding: 22px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            margin: 10px auto;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             border: 1px solid #cbd5e1;
             width: 100%;
         }
@@ -46,42 +42,66 @@
             max-width: 1000px !important;
         }
 
-        .logo-header {
+        /* --- الهيدر العلوي الفاخر --- */
+        .app-header {
+            background: linear-gradient(135deg, #0284c7, #1d4ed8, #3b82f6);
+            border-radius: 18px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 2px;
+            justify-content: space-between;
+            color: white;
+            margin-bottom: 14px;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+            position: relative;
+            overflow: hidden;
         }
-        .logo-icon {
-            width: 30px;
-            height: 30px;
-            fill: #d97706;
-            filter: drop-shadow(0 2px 4px rgba(217, 119, 6, 0.3));
+        .app-header::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: shine 4s infinite;
         }
-        
-        .title-box {
-            border: 2px dashed #cbd5e1;
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            padding: 12px;
-            border-radius: 14px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
-        h1 {
-            color: #b45309;
-            text-align: center;
-            font-size: 22px;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-icon-box {
+            font-size: 32px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+        .header-titles h1 {
+            font-size: 18px;
             font-weight: 900;
-            letter-spacing: 0.5px;
+            color: white;
+            margin-bottom: 2px;
+            text-align: right;
         }
-        .subtitle {
-            text-align: center;
-            color: var(--text-gray);
-            font-size: 12px;
-            margin-top: 4px;
-            font-weight: 700;
+        .header-titles p {
+            font-size: 11px;
+            color: #e0f2fe;
+            font-style: italic;
+            font-weight: 600;
+            text-align: right;
         }
+        .header-settings-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .header-settings-btn:hover { transform: rotate(90deg); }
+
         .middle-badge {
             background: linear-gradient(135deg, #d1fae5, #a7f3d0);
             border: 1px solid #34d399;
@@ -122,7 +142,7 @@
             border: 1px solid #fcd34d;
             border-radius: 14px;
             padding: 14px;
-            margin-top: 16px;
+            margin-top: 14px;
             text-align: right;
             box-shadow: 0 4px 12px rgba(252, 211, 77, 0.15);
         }
@@ -130,9 +150,6 @@
             color: #b45309;
             font-size: 14px;
             margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
             font-weight: 800;
         }
         .info-box p {
@@ -143,58 +160,131 @@
             font-weight: 600;
         }
         
+        /* --- تصميم الأزرار البارزة (3D Glossy Buttons Grid 2x2) --- */
         .main-buttons-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-top: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
         }
-        .btn-grid-item {
+        .glossy-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 12px;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-weight: 900;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15), inset 0 2px 3px rgba(255,255,255,0.4);
+            transition: all 0.2s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            height: 85px;
+        }
+        .glossy-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2), inset 0 2px 3px rgba(255,255,255,0.5);
+        }
+        .btn-content-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: right;
+        }
+        .btn-icon {
+            font-size: 28px;
+            background: rgba(255,255,255,0.25);
+            padding: 6px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-texts {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            width: 100%;
-            padding: 14px 8px;
-            font-size: 13px;
+        }
+        .btn-title-ar {
+            font-size: 14px;
             font-weight: 900;
             color: white;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            height: 105px;
-        }
-        .btn-grid-item::before {
-            font-size: 26px;
-            margin-bottom: 6px;
-            display: block;
-        }
-        .btn-customer { background: linear-gradient(135deg, #059669, #047857); }
-        .btn-customer::before { content: '🔍'; }
-
-        .btn-merchants-offers { background: linear-gradient(135deg, #dc2626, #b91c1c); }
-        .btn-merchants-offers::before { content: '🔥'; }
-
-        .btn-artisan { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
-        .btn-artisan::before { content: '🛠️'; }
-
-        .btn-merchant { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
-        .btn-merchant::before { content: '🛒'; }
-
-        .btn-grid-item:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 8px 22px rgba(0,0,0,0.15);
-            filter: brightness(1.05);
-        }
-        .btn-main-text {
-            color: #fff;
-            font-size: 13px;
-            font-weight: 900;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        .btn-title-fr {
+            font-size: 10px;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            font-weight: 600;
+        }
+        .btn-arrow {
+            background: rgba(255,255,255,0.25);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* ألوان الأزرار الستة بتدرجات فخمة مطابقة للصورة */
+        .btn-search { background: linear-gradient(135deg, #0284c7, #0369a1); }
+        .btn-market { background: linear-gradient(135deg, #16a34a, #15803d); }
+        .btn-artisan-main { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+        .btn-merchant-main { background: linear-gradient(135deg, #9333ea, #7e22ce); }
+        .btn-offers-main { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+        .btn-quick-call { background: linear-gradient(135deg, #0891b2, #0e7490); }
+
+        /* --- شريط الأدوات السفلي (Footer Bottom Bar) مثل الصورة تماماً --- */
+        .bottom-footer-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            border: 1px solid #cbd5e1;
+            border-radius: 16px;
+            padding: 10px 5px;
+            margin-top: 16px;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.6);
+        }
+        .footer-action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .footer-action-item:hover { transform: scale(1.05); }
+        .footer-icon-circle {
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+        .footer-text-ar {
+            font-size: 11px;
+            font-weight: 800;
+            color: #1e293b;
+        }
+        .footer-text-fr {
+            font-size: 9px;
+            color: #64748b;
+            font-style: italic;
+            font-weight: 600;
+        }
+        .footer-divider {
+            width: 1px;
+            height: 32px;
+            background-color: #cbd5e1;
         }
 
         .suggestion-btn {
@@ -215,7 +305,7 @@
             gap: 6px;
             transition: 0.2s;
         }
-        .suggestion-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+        .suggestion-btn:hover { filter: brightness(1.05); }
         
         .view { display: none; }
         .view.active { display: block; }
@@ -234,7 +324,7 @@
             outline: none;
             transition: 0.2s;
         }
-        input:focus, select:focus, textarea:focus { border-color: #0284c7; background: #ffffff; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+        input:focus, select:focus, textarea:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
         textarea { resize: vertical; height: 70px; }
         
         .phone-input-group {
@@ -270,9 +360,7 @@
             font-weight: 700;
             margin-top: 4px;
             text-align: center;
-            transition: 0.2s;
         }
-        .btn-gps:hover { background-color: #d1fae5; }
         
         .back-btn {
             background: #f1f5f9;
@@ -287,10 +375,7 @@
             font-weight: 700;
             font-size: 12px;
             margin-bottom: 14px;
-            transition: 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .back-btn:hover { background: #e2e8f0; transform: translateY(-1px); }
 
         .customer-layout {
             display: grid;
@@ -323,7 +408,7 @@
         }
 
         .sidebar-filters {
-            background: var(--card-bg);
+            background: var(--card-bg, #f1f5f9);
             border: 2px solid #cbd5e1;
             padding: 12px;
             border-radius: 14px;
@@ -357,7 +442,6 @@
             font-size: 11px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
             color: #334155;
         }
         .filter-cat-btn:hover, .filter-cat-btn.active {
@@ -376,7 +460,7 @@
         }
 
         .artisan-card {
-            background: var(--card-bg);
+            background: #f1f5f9;
             padding: 14px;
             border-radius: 14px;
             border: 2px solid #cbd5e1;
@@ -385,23 +469,9 @@
             justify-content: space-between;
             gap: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
         }
-        .artisan-card:hover {
-            border-color: #0284c7;
-            transform: translateY(-2px);
-        }
-        .artisan-info {
-            flex: 1;
-            text-align: right;
-            min-width: 0;
-        }
-        .artisan-actions-small {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            flex-shrink: 0;
-        }
+        .artisan-info { flex: 1; text-align: right; min-width: 0; }
+        .artisan-actions-small { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
         .small-action-btn {
             padding: 7px 12px;
             border-radius: 8px;
@@ -411,12 +481,10 @@
             text-align: center;
             color: white;
             white-space: nowrap;
-            transition: 0.2s;
         }
-        .small-action-btn:hover { opacity: 0.9; transform: scale(1.03); }
 
         .admin-card {
-            background: var(--card-bg);
+            background: #f1f5f9;
             padding: 14px;
             border-radius: 12px;
             margin-bottom: 12px;
@@ -424,208 +492,61 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
+        .auth-box { background: #f1f5f9; padding: 16px; border-radius: 14px; border: 2px solid #cbd5e1; margin-bottom: 14px; }
+        .admin-actions { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+        .admin-action-btn { flex: 1; padding: 11px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; font-size: 12px; color: white; text-align: center; }
+        .add-category-box { background: #ecfdf5; border: 2px solid #34d399; padding: 14px; border-radius: 12px; margin-bottom: 14px; }
+        .stats-table { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+        .stat-card { background: #f1f5f9; border: 2px solid #cbd5e1; padding: 12px; border-radius: 12px; text-align: center; }
+        .stat-card h4 { color: #64748b; font-size: 12px; margin-bottom: 3px; font-weight: 700; }
+        .stat-card span { font-size: 20px; font-weight: 800; color: #0284c7; }
+        .rating-stars { color: #f59e0b; font-size: 12px; margin-top: 3px; cursor: pointer; }
 
-        .auth-box {
-            background: var(--card-bg);
-            padding: 16px;
-            border-radius: 14px;
-            border: 2px solid #cbd5e1;
-            margin-bottom: 14px;
-        }
-        .admin-actions {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
-        }
-        .admin-action-btn {
-            flex: 1;
-            padding: 11px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 800;
-            cursor: pointer;
-            font-size: 12px;
-            color: white;
-            text-align: center;
-        }
-        .add-category-box {
-            background: #ecfdf5;
-            border: 2px solid #34d399;
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 14px;
-        }
-        .stats-table {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-        .stat-card {
-            background: var(--card-bg);
-            border: 2px solid #cbd5e1;
-            padding: 12px;
-            border-radius: 12px;
-            text-align: center;
-        }
-        .stat-card h4 {
-            color: var(--text-gray);
-            font-size: 12px;
-            margin-bottom: 3px;
-            font-weight: 700;
-        }
-        .stat-card span {
-            font-size: 20px;
-            font-weight: 800;
-            color: #0284c7;
-        }
-
-        .rating-stars {
-            color: #f59e0b;
-            font-size: 12px;
-            margin-top: 3px;
-            cursor: pointer;
-        }
-
-        .image-upload-wrapper {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
+        .image-upload-wrapper { position: relative; display: inline-block; width: 100%; }
         .remove-img-btn {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            background: #ef4444;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: absolute; top: 5px; left: 5px; background: #ef4444; color: white; border: none; border-radius: 50%;
+            width: 24px; height: 24px; font-weight: bold; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 12px;
         }
 
         #promoPopupModal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 10050;
-            padding: 15px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+            display: none; justify-content: center; align-items: center; z-index: 10050; padding: 15px;
         }
         .promo-popup-content {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 18px;
-            max-width: 320px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            border: 2px solid #f59e0b;
-            position: relative;
+            background: #ffffff; padding: 20px; border-radius: 18px; max-width: 320px; width: 100%; text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid #f59e0b; position: relative;
         }
         .promo-close-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ef4444;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; border: none; border-radius: 50%;
+            width: 28px; height: 28px; font-weight: bold; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;
         }
 
         #customModal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            padding: 15px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
+            display: none; justify-content: center; align-items: center; z-index: 9999; padding: 15px;
         }
         .modal-content {
-            background: #ffffff;
-            padding: 22px;
-            border-radius: 18px;
-            max-width: 350px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            border: 1px solid #cbd5e1;
+            background: #ffffff; padding: 22px; border-radius: 18px; max-width: 350px; width: 100%; text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid #cbd5e1;
         }
-        .modal-text {
-            font-size: 14px;
-            color: #1e293b;
-            font-weight: 700;
-            margin-bottom: 16px;
-            line-height: 1.4;
-        }
-        .modal-btn {
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: white;
-            border: none;
-            padding: 11px 20px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            width: 100%;
-        }
+        .modal-text { font-size: 14px; color: #1e293b; font-weight: 700; margin-bottom: 16px; line-height: 1.4; }
+        .modal-btn { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 11px 20px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; }
 
         #welcomeModal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            padding: 15px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+            display: flex; justify-content: center; align-items: center; z-index: 10000; padding: 15px;
         }
         .welcome-content {
-            background: #ffffff;
-            padding: 26px;
-            border-radius: 20px;
-            max-width: 360px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-            border: 2px solid #34d399;
+            background: #ffffff; padding: 26px; border-radius: 20px; max-width: 360px; width: 100%; text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25); border: 2px solid #34d399;
         }
         .welcome-flower { font-size: 40px; margin-bottom: 8px; }
         .welcome-title { color: #059669; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
         .welcome-text { font-size: 14px; color: #475569; font-weight: 600; line-height: 1.5; margin-bottom: 18px; }
         .welcome-btn {
-            background: linear-gradient(135deg, #059669, #047857);
-            color: white;
-            border: none;
-            padding: 13px 20px;
-            border-radius: 14px;
-            font-size: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+            background: linear-gradient(135deg, #059669, #047857); color: white; border: none; padding: 13px 20px; border-radius: 14px;
+            font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
         }
     </style>
 </head>
@@ -734,14 +655,17 @@
     </script>
 
     <div class="container" id="mainContainerBox">
-        <div class="logo-header">
-            <svg class="logo-icon" viewBox="0 0 24 24">
-                <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.5 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
-            </svg>
-        </div>
-        <div class="title-box">
-            <h1>منصة أصحاب المهارات والحرفيين</h1>
-            <p class="subtitle">صلة الوصل بين مهارة الحرفي واحتياجات الناس</p>
+        
+        <!-- الترويسة العلوية (Header) المطابقة تماماً للصورة بتدرجات فخمة -->
+        <div class="app-header">
+            <div class="header-left">
+                <div class="header-icon-box">🤖</div>
+                <div class="header-titles">
+                    <h1>منصة أصحاب المهارات والحرفيين</h1>
+                    <p>Plateforme des artisans et prestataires</p>
+                </div>
+            </div>
+            <button class="header-settings-btn" onclick="openAdminQuickLogin()" title="الإعدادات">⚙️</button>
         </div>
 
         <div id="welcomeView" class="view active">
@@ -755,26 +679,82 @@
                 </div>
             </div>
 
-            <!-- شبكة الأزرار الرئيسية المربعة (Grid 2x2) -->
+            <!-- شبكة الأزرار البارزة (Glossy 3D Buttons Grid 2x2) مطابقة للصورة -->
             <div class="main-buttons-grid">
-                <button class="btn-grid-item btn-customer" id="btnCustomer">
-                    <span class="btn-main-text">أبحث عن حرفي</span>
+                <!-- زر البحث -->
+                <button class="glossy-btn btn-search" id="btnCustomer">
+                    <div class="btn-content-right">
+                        <div class="btn-icon">🔍</div>
+                        <div class="btn-texts">
+                            <span class="btn-title-ar">البحث عن حرفي</span>
+                            <span class="btn-title-fr">Rechercher</span>
+                        </div>
+                    </div>
+                    <div class="btn-arrow">❮</div>
                 </button>
-                <button class="btn-grid-item btn-merchants-offers" id="btnMerchantsOffers">
-                    <span class="btn-main-text">تخفيضات ومتاجر</span>
+
+                <!-- زر السوق -->
+                <button class="glossy-btn btn-market" id="btnMerchantsOffers">
+                    <div class="btn-content-right">
+                        <div class="btn-icon">🛒</div>
+                        <div class="btn-texts">
+                            <span class="btn-title-ar">السوق والمتاجر</span>
+                            <span class="btn-title-fr">Boutique</span>
+                        </div>
+                    </div>
+                    <div class="btn-arrow">❮</div>
                 </button>
-                <button class="btn-grid-item btn-artisan" id="btnArtisan">
-                    <span class="btn-main-text">أنا حرفي</span>
+
+                <!-- زر أنا حرفي -->
+                <button class="glossy-btn btn-artisan-main" id="btnArtisan">
+                    <div class="btn-content-right">
+                        <div class="btn-icon">🛠️</div>
+                        <div class="btn-texts">
+                            <span class="btn-title-ar">أنا حرفي</span>
+                            <span class="btn-title-fr">Artisan</span>
+                        </div>
+                    </div>
+                    <div class="btn-arrow">❮</div>
                 </button>
-                <button class="btn-grid-item btn-merchant" id="btnMerchant">
-                    <span class="btn-main-text">أنا تاجر / مورد</span>
+
+                <!-- زر أنا تاجر -->
+                <button class="glossy-btn btn-merchant-main" id="btnMerchant">
+                    <div class="btn-content-right">
+                        <div class="btn-icon">📦</div>
+                        <div class="btn-texts">
+                            <span class="btn-title-ar">أنا تاجر / مورد</span>
+                            <span class="btn-title-fr">Fournisseur</span>
+                        </div>
+                    </div>
+                    <div class="btn-arrow">❮</div>
                 </button>
             </div>
 
             <!-- زر اقتراح أو ملاحظة لصاحب الموقع -->
             <button class="suggestion-btn" onclick="openSuggestionModal()">
-                💬 اقتراح أو ملاحظة لصاحب الموقع
+                💬 اقتراح أو ملاحظة لصاحب الموقع (Suggestion)
             </button>
+
+            <!-- شريط الأدوات السفلي الموحد (Footer Bar) مثل الصورة تماماً -->
+            <div class="bottom-footer-bar">
+                <button class="footer-action-item" onclick="openAboutModal()">
+                    <span class="footer-icon-circle">ℹ️</span>
+                    <span class="footer-text-ar">حول التطبيق</span>
+                    <span class="footer-text-fr">À propos</span>
+                </button>
+                <div class="footer-divider"></div>
+                <button class="footer-action-item" onclick="rateAppPopup()">
+                    <span class="footer-icon-circle">⭐</span>
+                    <span class="footer-text-ar">تقييم التطبيق</span>
+                    <span class="footer-text-fr">Noter l'app</span>
+                </button>
+                <div class="footer-divider"></div>
+                <button class="footer-action-item" onclick="shareAppAction()">
+                    <span class="footer-icon-circle">🔗</span>
+                    <span class="footer-text-ar">مشاركة التطبيق</span>
+                    <span class="footer-text-fr">Partager</span>
+                </button>
+            </div>
 
             <div class="info-box">
                 <h3>💡 كيف تعمل المنصة؟</h3>
@@ -875,7 +855,7 @@
             <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 16px; font-weight: 800;" id="merchantPanelTitle">🛒 فضاء إدارة سلع وعروض التاجر</h2>
             <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">أضف منتجاتك، أسعارها، وتخفيضات الأسبوع مع إمكانية رفع الصور مباشرة.</p>
 
-            <div class="add-category-box" style="background: var(--card-bg); border-color: #7c3aed;">
+            <div class="add-category-box" style="background: #f1f5f9; border-color: #7c3aed;">
                 <h3 style="color: #7c3aed; font-size: 13px; margin-bottom: 8px; font-weight: 800;">➕ إضافة منتج أو سلعة جديدة</h3>
                 <form id="addProductForm">
                     <div class="form-group">
@@ -937,7 +917,7 @@
                 <button class="btn btn-customer" style="background: linear-gradient(135deg, #d97706, #b45309); width:100%; padding:12px; border-radius:12px; border:none; color:white; font-weight:800; cursor:pointer;" onclick="openAdminSection('promos')">⭐ إدارة الإعلانات التلقائية المميزة</button>
             </div>
 
-            <div id="adminSectionContainer" style="background: var(--card-bg); padding: 15px; border-radius: 14px; border: 2px solid #cbd5e1; display: none; margin-bottom: 15px;">
+            <div id="adminSectionContainer" style="background: #f1f5f9; padding: 15px; border-radius: 14px; border: 2px solid #cbd5e1; display: none; margin-bottom: 15px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <h3 id="adminSectionTitle" style="color: #d97706; font-size: 14px; font-weight: 800;">العنوان هنا</h3>
                     <button onclick="closeAdminSection()" style="background: #64748b; color: white; border: none; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700;">إغلاق ✕</button>
@@ -1094,7 +1074,7 @@
             document.getElementById('customModal').style.display = 'none';
         }
 
-        // دالة فتح نافذة كتابة الاقتراح وإرساله للواتساب
+        // دالة فتح نافذة الاقتراح والملاحظات للواتساب
         window.openSuggestionModal = function() {
             let msg = prompt("أكتب اقتراحك أو ملاحظتك لصاحب الموقع:");
             if(msg && msg.trim() !== "") {
@@ -1104,7 +1084,32 @@
             }
         };
 
-        // دالة حفظ رقم الواتساب من لوحة الأدمن
+        // دوال شريط الأدوات السفلي (Footer Actions)
+        window.openAboutModal = function() {
+            showCustomAlert("ℹ️ منصة أصحاب المهارات والحرفيين الإصدار الأول 1.0\nصلة الوصل بين مهارة الحرفي واحتياجات الناس في تونس.");
+        };
+
+        window.rateAppPopup = function() {
+            let stars = prompt("قيم هذا التطبيق من 1 إلى 5 نجوم:");
+            if(stars >= 1 && stars <= 5) {
+                showCustomAlert("⭐ شكراً جزيلاً لتقييمك الرائع!");
+            }
+        };
+
+        window.shareAppAction = function() {
+            let shareText = encodeURIComponent("حمّل تطبيق منصة أصحاب المهارات والحرفيين الآن لتجد أفضل الصناع والمتاجر في تونس!");
+            if (navigator.share) {
+                navigator.share({ title: 'منصة الحرفيين', text: 'حمّل التطبيق الآن', url: window.location.href }).catch(() => {});
+            } else {
+                window.open(`https://wa.me/?text=${shareText}`, '_blank');
+            }
+        };
+
+        window.openAdminQuickLogin = function() {
+            document.getElementById('mainContainerBox').classList.remove('wide-container');
+            switchView('artisanAuthView');
+        };
+
         window.saveAdminWhatsapp = function() {
             let phoneInput = document.getElementById('adminWhatsappInput').value.trim();
             if(!phoneInput) { showCustomAlert('الرجاء إدخال رقم الهاتف!'); return; }
