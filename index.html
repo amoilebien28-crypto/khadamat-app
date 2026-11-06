@@ -59,13 +59,25 @@
             align-items: center;
             gap: 10px;
         }
-        .header-logo-img {
+        .header-logo-box {
             width: 44px;
             height: 44px;
-            object-fit: cover;
+            background: #ffffff;
             border-radius: 10px;
             border: 2px solid rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: #0284c7;
+            font-size: 11px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+            overflow: hidden;
+        }
+        .header-logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .header-titles h1 {
             font-size: 15px;
@@ -470,7 +482,7 @@
 
     <div class="container" id="mainContainerBox">
         
-        <!-- الترويسة العلوية المصغرة: الشعار على اليمين وزر الإعدادات على اليسار -->
+        <!-- الترويسة العلوية المصغرة: الشعار المضمون على اليمين وزر الإعدادات على اليسار -->
         <div class="app-header">
             <button class="header-settings-btn" onclick="openAdminQuickLogin()" title="الإعدادات">⚙️</button>
             <div class="header-right-side">
@@ -478,7 +490,9 @@
                     <h1>منصة الحرفيين تونس</h1>
                     <p>Plateforme des artisans</p>
                 </div>
-                <img src="1000012468.jpg" alt="شعار المنصة" class="header-logo-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'44\' height=\'44\'><rect width=\'44\' height=\'44\' fill=\'%230284c7\'/><text x=\'50%\' y=\'50%\' fill=\'white\' font-size=\'12\' text-anchor=\'middle\' dominant-baseline=\'middle\' font-weight=\'bold\'>شعار</text></svg>';">
+                <div class="header-logo-box">
+                    <img src="1000012468.jpg" alt="شعار" onerror="this.parentElement.innerHTML='🛠️';">
+                </div>
             </div>
         </div>
 
@@ -587,7 +601,7 @@
         </div>
 
         <div id="artisanAuthView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
+            <button class="back-btn" onclick="goBackToMain()">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #0284c7; margin-bottom: 8px; font-size: 15px; font-weight: 800;">بوابة دخول الحرفيين</h2>
             <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 10px; font-weight: 700;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب حرفي جديد.</p>
             
@@ -608,7 +622,7 @@
         </div>
 
         <div id="merchantAuthChoiceView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
+            <button class="back-btn" onclick="goBackToMain()">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #7c3aed; margin-bottom: 10px; font-size: 15px; font-weight: 800;">بوابة التجار والموردين</h2>
             <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">اختر نوع الدخول المناسب لحسابك:</p>
             
@@ -617,7 +631,7 @@
         </div>
 
         <div id="merchantLoginView" class="view">
-            <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
+            <button class="back-btn" onclick="switchView('merchantAuthChoiceView')">⬅️ رجوع</button>
             <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 15px; font-weight: 800;">تسجيل دخول التاجر</h2>
             
             <div class="auth-box">
@@ -637,7 +651,7 @@
         </div>
 
         <div id="merchantRegisterView" class="view">
-            <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
+            <button class="back-btn" onclick="switchView('merchantAuthChoiceView')">⬅️ رجوع</button>
             <h2 style="color: #059669; margin-bottom: 8px; font-size: 15px; font-weight: 800;">تسجيل تاجر جديد</h2>
             <form id="merchantRegForm">
                 <div class="form-group">
@@ -674,7 +688,7 @@
         </div>
 
         <div id="merchantDashboardView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج</button>
+            <button class="back-btn" onclick="goBackToMain()">⬅️ تسجيل الخروج</button>
             <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 15px; font-weight: 800;" id="merchantPanelTitle">🛒 فضاء إدارة سلع وعروض التاجر</h2>
             <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 10px; font-weight: 700;">أضف منتجاتك، أسعارها، وتخفيضات الأسبوع مع التصغير التلقائي للصور.</p>
 
@@ -715,7 +729,7 @@
         </div>
 
         <div id="adminView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
+            <button class="back-btn" onclick="goBackToMain()">⬅️ تسجيل الخروج للرئيسية</button>
             <h2 style="color: #d97706; margin-bottom: 10px; font-size: 15px; font-weight: 800;">⚙️ لوحة تحكم المشرف</h2>
             
             <div class="stats-table">
@@ -774,7 +788,7 @@
         </div>
 
         <div id="artisanRegisterView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى البوابة</button>
+            <button class="back-btn" onclick="switchView('artisanAuthView')">⬅️ العودة إلى البوابة</button>
             <h2 style="color: #d97706; margin-bottom: 8px; font-size: 15px; font-weight: 800;" id="formArtisanTitle">استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
@@ -816,7 +830,7 @@
         </div>
 
         <div id="customerView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
+            <button class="back-btn" onclick="goBackToMain()">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #059669; margin-bottom: 10px; font-size: 15px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
             
             <button class="toggle-cat-mobile-btn" onclick="toggleMobileSidebar()">🔍 تصفية حسب الولاية أو الاختصاص</button>
@@ -852,7 +866,7 @@
         </div>
 
         <div id="merchantsView" class="view">
-            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
+            <button class="back-btn" onclick="goBackToMain()">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #d97706; margin-bottom: 10px; font-size: 15px; font-weight: 800;">🔥 متاجر وعروض التجهيزات المتنوعة</h2>
             <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 10px; font-weight: 700;">اختر متجراً لاستعراض سلعهم وتخفيضاتهم الخاصة:</p>
 
@@ -866,7 +880,7 @@
         </div>
 
         <div id="storeProductsView" class="view">
-            <button class="back-btn" onclick="switchView('merchantsView', true)">⬅️ رجوع إلى قائمة المتاجر</button>
+            <button class="back-btn" onclick="switchView('merchantsView')">⬅️ رجوع إلى قائمة المتاجر</button>
             <h2 style="color: #d97706; margin-bottom: 10px; font-size: 15px; font-weight: 800;" id="storeProductsTitle">سلع وعروض المتجر</h2>
             
             <div id="storeProductsList" class="artisans-grid-2col"></div>
@@ -957,16 +971,29 @@
             showCustomAlert("ℹ️ منصة أصحاب المهارات والحرفيين الإصدار الأول 1.0\nصلة الوصل بين مهارة الحرفي واحتياجات الناس في تونس.");
         };
 
+        // --- إصلاح نافذة التقييم تماماً وإزالة الـ Prompt التقليدية المزعجة ---
         window.rateAppPopup = function() {
-            let stars = prompt("قيم هذا التطبيق من 1 إلى 5 نجوم:\n(اكتب رقم من 1 إلى 5 فقط)");
-            if(stars !== null) {
-                let cleanStars = parseInt(stars.trim());
-                if(cleanStars >= 1 && cleanStars <= 5) {
-                    showCustomAlert("⭐ شكراً جزيلاً لتقييمك الرائع للتطبيق!");
-                } else if(stars !== "") {
-                    showCustomAlert("⚠️ الرجاء إدخال رقم صحيح بين 1 و 5.");
-                }
-            }
+            let ratingModalHtml = `
+                <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center; z-index:11000;" id="customRateModal">
+                    <div style="background:white; padding:20px; border-radius:16px; max-width:300px; width:100%; text-align:center; border:2px solid #f59e0b;">
+                        <h3 style="color:#d97706; font-size:15px; font-weight:800; margin-bottom:10px;">⭐ تقييم التطبيق</h3>
+                        <p style="font-size:12px; color:#475569; margin-bottom:12px; font-weight:700;">اختر عدد النجوم لتقييم المنصة:</p>
+                        <div style="font-size:24px; color:#f59e0b; margin-bottom:14px; cursor:pointer;" id="starRatingContainer">
+                            <span onclick="submitAppRating(1)">★</span><span onclick="submitAppRating(2)">★</span><span onclick="submitAppRating(3)">★</span><span onclick="submitAppRating(4)">★</span><span onclick="submitAppRating(5)">★</span>
+                        </div>
+                        <button onclick="document.getElementById('customRateModal').remove()" style="background:#e2e8f0; color:#334155; border:none; padding:8px 16px; border-radius:8px; font-weight:800; cursor:pointer; font-size:11px;">إلغاء</button>
+                    </div>
+                </div>
+            `;
+            let div = document.createElement('div');
+            div.innerHTML = ratingModalHtml;
+            document.body.appendChild(div);
+        };
+
+        window.submitAppRating = function(stars) {
+            let modal = document.getElementById('customRateModal');
+            if(modal) modal.remove();
+            showCustomAlert(`⭐ شكراً جزيلاً لتقييمك الرائع (${stars} نجوم)!`);
         };
 
         window.shareAppAction = function() {
@@ -980,7 +1007,7 @@
 
         window.openAdminQuickLogin = function() {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
-            switchView('artisanAuthView', true);
+            switchView('artisanAuthView');
         };
 
         window.saveAdminWhatsapp = async function() {
@@ -1076,44 +1103,46 @@
 
         document.getElementById('btnCustomer').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
-            switchView('customerView', true);
+            switchView('customerView');
             renderFilteredArtisans();
         });
 
         document.getElementById('btnMerchantsOffers').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
-            switchView('merchantsView', true);
+            switchView('merchantsView');
             renderStoresList();
         });
 
         document.getElementById('btnArtisan').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
-            switchView('artisanAuthView', true);
+            switchView('artisanAuthView');
         });
 
         document.getElementById('btnMerchant').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
-            switchView('merchantAuthChoiceView', true);
+            switchView('merchantAuthChoiceView');
         });
 
-        // --- إدارة زر الرجوع في الأندرويد والـ History بدقة تامة ---
-        function switchView(viewId, pushHistory = true) {
+        // --- إصلاح جذرى لزر الرجوع فى الأندرويد والـ History ليعود فوراً للصفحة الرئيسية دون إغلاق ---
+        function switchView(viewId) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             let targetView = document.getElementById(viewId);
             if(targetView) targetView.classList.add('active');
             
-            if (pushHistory) { 
-                history.pushState({ view: viewId }, "", "#" + viewId); 
-            }
+            // دفع حالة للـ History لمنع الخروج
+            history.pushState({ view: viewId }, "", "#" + viewId);
             window.initFirebaseData();
         }
 
+        window.goBackToMain = function() {
+            history.pushState({ view: 'welcomeView' }, "", "#welcomeView");
+            restoreView('welcomeView');
+        };
+
         window.addEventListener('popstate', function(event) {
-            if (event.state && event.state.view) { 
-                restoreView(event.state.view); 
-            } else { 
-                restoreView('welcomeView'); 
-            }
+            // عند ضغط زر السهم فى الهاتف، يرجع فوراً للرئيسية بسلاسة
+            restoreView('welcomeView');
+            history.pushState({ view: 'welcomeView' }, "", "#welcomeView");
         });
 
         function restoreView(viewId) {
@@ -1141,19 +1170,8 @@
                 document.getElementById('adminWhatsappInput').value = savedAdminWp;
             }
 
-            if (!window.location.hash) {
-                history.replaceState({ view: 'welcomeView' }, "", "#welcomeView");
-            }
-
-            let hash = window.location.hash.replace('#', '');
-            if(hash && document.getElementById(hash)) {
-                if(hash === 'customerView' || hash === 'merchantsView' || hash === 'storeProductsView') {
-                    document.getElementById('mainContainerBox').classList.add('wide-container');
-                    if(hash === 'customerView') renderFilteredArtisans();
-                    if(hash === 'merchantsView') renderStoresList();
-                }
-                restoreView(hash);
-            }
+            history.replaceState({ view: 'welcomeView' }, "", "#welcomeView");
+            restoreView('welcomeView');
             
             initGlobalDataSync();
             startPromoPopupLoop();
@@ -1181,8 +1199,8 @@
 
         window.openMerchantLogin = function(isNew) {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
-            if(isNew) { switchView('merchantRegisterView', true); }
-            else { switchView('merchantLoginView', true); }
+            if(isNew) { switchView('merchantRegisterView'); }
+            else { switchView('merchantLoginView'); }
         };
 
         document.getElementById('btnLoginArtisan').addEventListener('click', async function() {
@@ -1190,7 +1208,7 @@
             const password = document.getElementById('authPassword').value.trim();
 
             if(!phoneInput || !password) { showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!'); return; }
-            if(phoneInput === ADMIN_PHONE && password === ADMIN_PASS) { await window.initFirebaseData(); switchView('adminView', true); return; }
+            if(phoneInput === ADMIN_PHONE && password === ADMIN_PASS) { await window.initFirebaseData(); switchView('adminView'); return; }
 
             if (!navigator.onLine && cachedArtisansList.length === 0) {
                 showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.');
@@ -1232,7 +1250,7 @@
                     document.getElementById('formArtisanTitle').innerText = "إنشاء حساب حرفي جديد";
                     showCustomAlert('هذا الرقم جديد، يرجى إكمال بياناتك.');
                 }
-                switchView('artisanRegisterView', true);
+                switchView('artisanRegisterView');
             } catch(e) { showCustomAlert('حدث خطأ أثناء الاتصال بقاعدة البيانات.'); }
         });
 
@@ -1259,7 +1277,7 @@
                     currentMerchantData = existing;
                     document.getElementById('merchantPanelTitle').innerText = `🛒 فضاء إدارة سلع وعروض: ${existing.name}`;
                     document.getElementById('mainContainerBox').classList.add('wide-container');
-                    switchView('merchantDashboardView', true);
+                    switchView('merchantDashboardView');
                     listenToMerchantProducts(currentPhone);
                 } else { showCustomAlert('⚠️ هذا الرقم غير مسجل مسبقاً.'); }
             } catch(e) { showCustomAlert('حدث خطأ أثناء تسجيل الدخول.'); }
@@ -1291,14 +1309,13 @@
                     document.getElementById('merchantRegForm').reset();
                     clearImageInput('regMerchantLogoFile', 'removeMerchantLogoBtn');
                     document.getElementById('mainContainerBox').classList.add('wide-container');
-                    switchView('merchantDashboardView', true);
+                    switchView('merchantDashboardView');
                     listenToMerchantProducts(currentPhone);
                 } catch(err) { showCustomAlert('❌ فشل الحفظ.'); }
             };
 
             if(fileInput.files && fileInput.files[0]) {
                 let file = fileInput.files[0];
-                // ضغط الشعار تلقائياً
                 compressImage(file, 500, 500, 0.7, async function(compressedUrl) {
                     await saveMerchantToDb(compressedUrl);
                 });
@@ -1332,7 +1349,6 @@
 
             if(fileInput.files && fileInput.files[0]) {
                 let file = fileInput.files[0];
-                // ضغط صورة المنتج تلقائياً
                 compressImage(file, 600, 600, 0.7, async function(compressedUrl) {
                     await saveProductToDb(compressedUrl);
                 });
@@ -1510,7 +1526,7 @@
             try {
                 await window.setDoc(window.doc(window.db, "artisans", currentPhone), dataObj);
                 showCustomAlert('✅ تم حفظ حساب الحرفي بنجاح!');
-                switchView('welcomeView', true);
+                switchView('welcomeView');
                 document.getElementById('mainContainerBox').classList.remove('wide-container');
             } catch(err) { showCustomAlert('❌ حدث خطأ أثناء الحفظ.'); }
         });
@@ -1761,7 +1777,7 @@
         window.openStoreProducts = function(merchantPhone, merchantName) {
             document.getElementById('mainContainerBox').classList.add('wide-container');
             document.getElementById('storeProductsTitle').innerText = `📦 سلع وعروض متجر: ${merchantName}`;
-            switchView('storeProductsView', true);
+            switchView('storeProductsView');
 
             const container = document.getElementById('storeProductsList');
             let storeProducts = cachedProductsList.filter(p => p.merchantPhone === merchantPhone);
