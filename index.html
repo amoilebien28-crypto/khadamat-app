@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة أصحاب المهارات والحرفيين</title>
+    <title>منصة أصحاب المهارات والحرفيين والتجار</title>
     <style>
         :root {
             --bg-main: #f3f4f6;
@@ -42,7 +42,7 @@
             max-width: 1000px !important;
         }
 
-        /* --- الترويسة العلوية المصغرة: شعار logo.jpg على اليمين وزر الإعدادات على اليسار --- */
+        /* --- الترويسة العلوية: الشعار على اليمين والنص بجانبه، وزر الإعدادات على اليسار --- */
         .app-header {
             background: linear-gradient(135deg, #0284c7, #1d4ed8, #3b82f6);
             border-radius: 14px;
@@ -54,32 +54,10 @@
             margin-bottom: 10px;
             box-shadow: 0 6px 15px rgba(2, 132, 199, 0.25);
         }
-        .header-right-side {
+        .header-left-side {
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-        .header-logo-img {
-            width: 44px;
-            height: 44px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.7);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-        }
-        .header-titles h1 {
-            font-size: 15px;
-            font-weight: 900;
-            color: white;
-            margin-bottom: 1px;
-            text-align: right;
-        }
-        .header-titles p {
-            font-size: 10px;
-            color: #e0f2fe;
-            font-style: italic;
-            font-weight: 600;
-            text-align: right;
         }
         .header-settings-btn {
             background: none;
@@ -90,6 +68,35 @@
             transition: transform 0.3s;
         }
         .header-settings-btn:hover { transform: rotate(90deg); }
+
+        .header-right-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: right;
+        }
+        .header-logo-img {
+            width: 42px;
+            height: 42px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+        .header-titles h1 {
+            font-size: 13px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 2px;
+            text-align: right;
+        }
+        .header-titles p {
+            font-size: 9px;
+            color: #e0f2fe;
+            font-style: italic;
+            font-weight: 600;
+            text-align: right;
+        }
 
         .middle-badge {
             background: linear-gradient(135deg, #d1fae5, #a7f3d0);
@@ -468,15 +475,17 @@
 
     <div class="container" id="mainContainerBox">
         
-        <!-- الترويسة العلوية المصغرة: استخدام logo.jpg الجديد على اليمين وزر الإعدادات على اليسار -->
+        <!-- الترويسة العلوية: الشعار على اليمين والنص بجانبه، وزر الإعدادات على أقصى اليسار -->
         <div class="app-header">
             <button class="header-settings-btn" onclick="openAdminQuickLogin()" title="الإعدادات">⚙️</button>
-            <div class="header-right-side">
-                <div class="header-titles">
-                    <h1>منصة الحرفيين تونس</h1>
-                    <p>Plateforme des artisans</p>
+            <div class="header-left-side">
+                <div class="header-right-group">
+                    <img src="logo.jpg" alt="شعار المنصة" class="header-logo-img">
+                    <div class="header-titles">
+                        <h1>منصة أصحاب المهارات والحرفيين والتجار</h1>
+                        <p>Plateforme des artisans et commerçants</p>
+                    </div>
                 </div>
-                <img src="logo.jpg" alt="شعار المنصة" class="header-logo-img">
             </div>
         </div>
 
@@ -746,6 +755,15 @@
                 <div id="adminSectionContent">جاري التحميل...</div>
             </div>
 
+            <!-- خانة تغيير كلمة السر للأدمن -->
+            <div class="add-category-box" style="background: #fef3c7; border-color: #f59e0b;">
+                <h3 style="color: #b45309; font-size: 12px; margin-bottom: 4px; font-weight: 800;">🔑 تغيير كلمة سر المشرف (Admin Password)</h3>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <input type="password" id="adminNewPassInput" placeholder="أدخل كلمة السر الجديدة...">
+                    <button onclick="saveAdminNewPassword()" style="background: #d97706; color: white; border: none; padding: 7px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; width: 100%;">حفظ كلمة السر الجديدة</button>
+                </div>
+            </div>
+
             <div class="add-category-box" style="background: #f0fdf4; border-color: #22c55e;">
                 <h3 style="color: #16a34a; font-size: 12px; margin-bottom: 4px; font-weight: 800;">📱 رقم واتساب استقبال المقترحات</h3>
                 <div style="display: flex; gap: 6px;">
@@ -895,7 +913,6 @@
             document.getElementById('customModal').style.display = 'none';
         }
 
-        // --- دالة ضغط وتصغير الصور تلقائياً ---
         function compressImage(file, maxWidth, maxHeight, quality, callback) {
             let reader = new FileReader();
             reader.readAsDataURL(file);
@@ -940,26 +957,21 @@
         };
 
         window.sendSuggestionWhatsApp = function() {
-            let msg = document.getElementById('suggestionTextareaText') || document.getElementById('suggestionTextarea').value.trim();
-            if(typeof msg === 'string' && !msg) {
-                let val = document.getElementById('suggestionTextarea').value.trim();
-                if(!val) {
-                    showCustomAlert("الرجاء كتابة اقتراحك أو ملاحظتك أولاً!");
-                    return;
-                }
-                msg = val;
+            let msg = document.getElementById('suggestionTextarea').value.trim();
+            if(!msg) {
+                showCustomAlert("الرجاء كتابة اقتراحك أو ملاحظتك أولاً!");
+                return;
             }
             let adminPhone = localStorage.getItem('adminWhatsAppPhone') || defaultAdminWhatsapp; 
-            let encodedMsg = encodeURIComponent("مرحباً صاحب الموقع، لدي مقترح/ملاحظة:\n" + (document.getElementById('suggestionTextarea').value.trim()));
+            let encodedMsg = encodeURIComponent("مرحباً صاحب الموقع، لدي مقترح/ملاحظة:\n" + msg);
             window.open(`https://wa.me/${adminPhone}?text=${encodedMsg}`, '_blank');
             closeSuggestionModal();
         };
 
         window.openAboutModal = function() {
-            showCustomAlert("ℹ️ منصة أصحاب المهارات والحرفيين الإصدار الأول 1.0\nصلة الوصل بين مهارة الحرفي واحتياجات الناس في تونس.");
+            showCustomAlert("ℹ️ منصة أصحاب المهارات والحرفيين والتجار الإصدار الأول 1.0\nصلة الوصل بين مهارة الحرفي والتاجر واحتياجات الناس في تونس.");
         };
 
-        // --- نافذة التقييم النظيفة والمخصصة (بدون ظهور رابط GitHub نهائياً) ---
         window.rateAppPopup = function() {
             let ratingModalHtml = `
                 <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center; z-index:11000;" id="customRateModal">
@@ -985,9 +997,9 @@
         };
 
         window.shareAppAction = function() {
-            let shareText = encodeURIComponent("حمّل تطبيق منصة أصحاب المهارات والحرفيين الآن لتجد أفضل الصناع والمتاجر في تونس!");
+            let shareText = encodeURIComponent("حمّل تطبيق منصة أصحاب المهارات والحرفيين والتجار الآن لتجد أفضل الصناع والمتاجر في تونس!");
             if (navigator.share) {
-                navigator.share({ title: 'منصة الحرفيين', text: 'حمّل التطبيق الآن', url: window.location.href }).catch(() => {});
+                navigator.share({ title: 'منصة الحرفيين والتجار', text: 'حمّل التطبيق الآن', url: window.location.href }).catch(() => {});
             } else {
                 window.open(`https://wa.me/?text=${shareText}`, '_blank');
             }
@@ -1004,9 +1016,27 @@
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             localStorage.setItem('adminWhatsAppPhone', cleanNum);
             try {
-                await window.setDoc(window.doc(window.db, "settings", "admin_config"), { whatsappPhone: cleanNum });
+                await window.setDoc(window.doc(window.db, "settings", "admin_config"), { whatsappPhone: cleanNum }, { merge: true });
             } catch(e) {}
             showCustomAlert('✅ تم حفظ وتثبيت رقم واتساب المقترحات بنجاح!');
+        };
+
+        window.saveAdminNewPassword = async function() {
+            let newPass = document.getElementById('adminNewPassInput').value.trim();
+            if(!newPass) { 
+                showCustomAlert('الرجاء إدخال كلمة السر الجديدة!'); 
+                return; 
+            }
+            try {
+                await window.setDoc(window.doc(window.db, "settings", "admin_config"), {
+                    adminPassword: newPass,
+                    updatedAt: new Date().toISOString()
+                }, { merge: true });
+                showCustomAlert('✅ تم تغيير وتثبيت كلمة السر الجديدة بنجاح!');
+                document.getElementById('adminNewPassInput').value = '';
+            } catch(e) {
+                showCustomAlert('❌ حدث خطأ أثناء حفظ كلمة السر.');
+            }
         };
 
         window.toggleMobileSidebar = function() {
@@ -1111,7 +1141,6 @@
             navigateTo('merchantAuthChoiceView');
         });
 
-        // --- حل نهائي وجذري لزر الرجوع في الأندرويد والـ History بدون إغلاق التطبيق ---
         function navigateTo(viewId) {
             history.pushState({ view: viewId }, "", "#" + viewId);
             applyView(viewId);
@@ -1135,7 +1164,6 @@
         }
 
         window.addEventListener('popstate', function(event) {
-            // عند الضغط على زر الرجوع في الهاتف، يتم عرض الصفحة الرئيسية فوراً بدلاً من الخروج من التطبيق
             history.pushState({ view: 'welcomeView' }, "", "#welcomeView");
             applyView('welcomeView');
         });
@@ -1186,7 +1214,27 @@
             const password = document.getElementById('authPassword').value.trim();
 
             if(!phoneInput || !password) { showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!'); return; }
-            if(phoneInput === ADMIN_PHONE && password === ADMIN_PASS) { await window.initFirebaseData(); navigateTo('adminView'); return; }
+            
+            if(phoneInput === ADMIN_PHONE) {
+                let savedPass = ADMIN_PASS;
+                try {
+                    const docSnap = await window.getDocs(window.collection(window.db, "settings"));
+                    docSnap.forEach(d => {
+                        if(d.id === "admin_config" && d.data().adminPassword) {
+                            savedPass = d.data().adminPassword;
+                        }
+                    });
+                } catch(e) {}
+
+                if(password === savedPass) {
+                    await window.initFirebaseData();
+                    navigateTo('adminView');
+                    return;
+                } else {
+                    showCustomAlert('⚠️ كلمة سر المشرف غير صحيحة!');
+                    return;
+                }
+            }
 
             if (!navigator.onLine && cachedArtisansList.length === 0) {
                 showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.');
@@ -1593,7 +1641,6 @@
 
             window.onSnapshot(window.collection(window.db, "products"), (snap) => {
                 cachedProductsList = [];
-                snap.forEach(d => cachedProductsList.data ? cachedProductsList.push(d.data()) : cachedProductsList.push(d.data()));
                 snap.forEach(d => cachedProductsList.push(d.data()));
                 localStorage.setItem('cache_products', JSON.stringify(cachedProductsList));
                 renderStoresList();
