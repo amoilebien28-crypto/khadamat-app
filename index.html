@@ -42,7 +42,7 @@
             max-width: 1000px !important;
         }
 
-        /* --- الترويسة العلوية المصغرة مع الشعار الجديد على اليمين --- */
+        /* --- الترويسة العلوية المصغرة مع الشعار على اليمين والضبط على اليسار --- */
         .app-header {
             background: linear-gradient(135deg, #0284c7, #1d4ed8, #3b82f6);
             border-radius: 14px;
@@ -54,18 +54,18 @@
             margin-bottom: 10px;
             box-shadow: 0 6px 15px rgba(2, 132, 199, 0.25);
         }
-        .header-left {
+        .header-right-side {
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .header-logo-img {
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             object-fit: cover;
             border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
         }
         .header-titles h1 {
             font-size: 15px;
@@ -149,7 +149,7 @@
             font-weight: 600;
         }
         
-        /* --- ترتيب الأزرار عمودياً فوق بعضها البعض --- */
+        /* --- الأزرار الرئيسية عمودياً --- */
         .main-buttons-stack {
             display: flex;
             flex-direction: column;
@@ -225,7 +225,7 @@
         .btn-artisan-main { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
         .btn-merchant-main { background: linear-gradient(135deg, #9333ea, #7e22ce); }
 
-        /* --- شريط الأدوات السفلي (Footer Bar) --- */
+        /* --- شريط الأدوات السفلي --- */
         .bottom-footer-bar {
             display: flex;
             align-items: center;
@@ -363,7 +363,7 @@
         </div>
     </div>
 
-    <!-- نافذة منبثقة مخصصة للاقتراحات والملاحظات -->
+    <!-- نافذة الاقتراحات والملاحظات -->
     <div id="suggestionModal">
         <div class="suggestion-box">
             <h3>💬 اقتراح أو ملاحظة لصاحب الموقع</h3>
@@ -470,17 +470,16 @@
 
     <div class="container" id="mainContainerBox">
         
-        <!-- الترويسة العلوية المصغرة مع الشعار الجديد على اليمين -->
+        <!-- الترويسة العلوية المصغرة: الشعار على اليمين وزر الإعدادات على اليسار -->
         <div class="app-header">
-            <div class="header-left">
-                <!-- الشعار الجديد الذي أرسلته -->
-                <img src="1000012468.jpg" alt="شعار المنصة" class="header-logo-img">
+            <button class="header-settings-btn" onclick="openAdminQuickLogin()" title="الإعدادات">⚙️</button>
+            <div class="header-right-side">
                 <div class="header-titles">
                     <h1>منصة الحرفيين تونس</h1>
                     <p>Plateforme des artisans</p>
                 </div>
+                <img src="1000012468.jpg" alt="شعار المنصة" class="header-logo-img">
             </div>
-            <button class="header-settings-btn" onclick="openAdminQuickLogin()" title="الإعدادات">⚙️</button>
         </div>
 
         <div id="welcomeView" class="view active">
@@ -494,7 +493,7 @@
                 </div>
             </div>
 
-            <!-- شبكة الأزرار مترتبة عمودياً (البحث عن حرفي في الأعلى تماماً) -->
+            <!-- شبكة الأزرار عمودياً -->
             <div class="main-buttons-stack">
                 <button class="glossy-btn btn-search" id="btnCustomer">
                     <div class="btn-content-right">
@@ -541,12 +540,12 @@
                 </button>
             </div>
 
-            <!-- زر اقتراح أو ملاحظة لصاحب الموقع -->
+            <!-- زر الاقتراحات والملاحظات -->
             <button class="suggestion-btn" onclick="openSuggestionModal()">
                 💬 اقتراح أو ملاحظة لصاحب الموقع (Suggestion)
             </button>
 
-            <!-- شريط الأدوات السفلي الموحد (Footer Bar) مع رابط سياسة الخصوصية -->
+            <!-- شريط الأدوات السفلي -->
             <div class="bottom-footer-bar">
                 <button class="footer-action-item" onclick="openAboutModal()">
                     <span class="footer-icon-circle">ℹ️</span>
@@ -579,7 +578,7 @@
                 <p><b>للتجار والموردين:</b> سجل معلومات محلك وصورة شعارك، لتظهر أيقونة متجرك لجميع الزوار والحرفيين.</p>
             </div>
 
-            <!-- رابط سياسة الخصوصية في أسفل الصفحة الرئيسية بوضوح تام -->
+            <!-- رابط سياسة الخصوصية في الأسفل -->
             <div style="text-align: center; margin-top: 12px; padding-bottom: 6px;">
                 <a href="privacy.html" style="color: #64748b; font-size: 11px; font-weight: 700; text-decoration: underline;">
                     🛡️ الاطلاع على سياسة الخصوصية (Privacy Policy)
@@ -775,7 +774,7 @@
         </div>
 
         <div id="artisanRegisterView" class="view">
-            <button class="back-btn" onclick="switchView('artisanAuthView', true)">⬅️ العودة إلى البوابة</button>
+            <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى البوابة</button>
             <h2 style="color: #d97706; margin-bottom: 8px; font-size: 15px; font-weight: 800;" id="formArtisanTitle">استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
@@ -887,6 +886,8 @@
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
+        // رقم واتساب افتراضي ثابت للموقع (يمكن تغليفه من لوحة الأدمن وحفظه في Firebase)
+        let defaultAdminWhatsapp = "21698123456";
 
         function showCustomAlert(message) {
             document.getElementById('modalMessage').innerText = message;
@@ -897,7 +898,7 @@
             document.getElementById('customModal').style.display = 'none';
         }
 
-        // --- دالة ضغط الصور تلقائياً لحل مشكلة الحجم الكبير نهائياً ---
+        // --- دالة ضغط وتصغير الصور تلقائياً ---
         function compressImage(file, maxWidth, maxHeight, quality, callback) {
             let reader = new FileReader();
             reader.readAsDataURL(file);
@@ -947,7 +948,7 @@
                 showCustomAlert("الرجاء كتابة اقتراحك أو ملاحظتك أولاً!");
                 return;
             }
-            let adminPhone = localStorage.getItem('adminWhatsAppPhone') || '21698123456'; 
+            let adminPhone = localStorage.getItem('adminWhatsAppPhone') || defaultAdminWhatsapp; 
             let encodedMsg = encodeURIComponent("مرحباً صاحب الموقع، لدي مقترح/ملاحظة:\n" + msg);
             window.open(`https://wa.me/${adminPhone}?text=${encodedMsg}`, '_blank');
             closeSuggestionModal();
@@ -978,12 +979,15 @@
             switchView('artisanAuthView', true);
         };
 
-        window.saveAdminWhatsapp = function() {
+        window.saveAdminWhatsapp = async function() {
             let phoneInput = document.getElementById('adminWhatsappInput').value.trim();
             if(!phoneInput) { showCustomAlert('الرجاء إدخال رقم الهاتف!'); return; }
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             localStorage.setItem('adminWhatsAppPhone', cleanNum);
-            showCustomAlert('✅ تم حفظ رقم واتساب المقترحات بنجاح!');
+            try {
+                await window.setDoc(window.doc(window.db, "settings", "admin_config"), { whatsappPhone: cleanNum });
+            } catch(e) {}
+            showCustomAlert('✅ تم حفظ وتثبيت رقم واتساب المقترحات بنجاح!');
         };
 
         window.toggleMobileSidebar = function() {
@@ -1088,6 +1092,7 @@
             switchView('merchantAuthChoiceView', true);
         });
 
+        // --- إدارة زر الرجوع في الأندرويد والـ History بدقة تامة ---
         function switchView(viewId, pushHistory = true) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             let targetView = document.getElementById(viewId);
@@ -1162,9 +1167,7 @@
 
                 renderFilteredArtisans();
                 renderStoresList();
-            } catch(e) {
-                console.error("Cache load error:", e);
-            }
+            } catch(e) {}
         }
 
         function isValidPhoneNumber(phone) {
@@ -1291,7 +1294,7 @@
 
             if(fileInput.files && fileInput.files[0]) {
                 let file = fileInput.files[0];
-                // تصغط الصورة تلقائياً بحد أقصى 500 بكسل وجودة 0.7 لتفادي الحجم الكبير
+                // ضغط الشعار تلقائياً
                 compressImage(file, 500, 500, 0.7, async function(compressedUrl) {
                     await saveMerchantToDb(compressedUrl);
                 });
