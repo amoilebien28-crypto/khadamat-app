@@ -26,15 +26,15 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 10px;
+            padding: 8px;
         }
         .container {
             max-width: 620px;
-            margin: 10px auto;
+            margin: 5px auto;
             background: #ffffff;
-            padding: 15px;
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 12px 15px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
             border: 1px solid #cbd5e1;
             width: 100%;
         }
@@ -42,38 +42,38 @@
             max-width: 1000px !important;
         }
 
-        /* --- الهيدر العلوي الفاخر --- */
+        /* --- الترويسة العلوية المصغرة والمدمجة --- */
         .app-header {
             background: linear-gradient(135deg, #0284c7, #1d4ed8, #3b82f6);
-            border-radius: 18px;
-            padding: 16px 20px;
+            border-radius: 14px;
+            padding: 10px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             color: white;
-            margin-bottom: 14px;
-            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+            margin-bottom: 10px;
+            box-shadow: 0 6px 15px rgba(2, 132, 199, 0.25);
         }
         .header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
         .header-icon-box {
-            font-size: 32px;
+            font-size: 26px;
             background: rgba(255, 255, 255, 0.2);
-            padding: 8px 12px;
-            border-radius: 12px;
+            padding: 6px 10px;
+            border-radius: 10px;
         }
         .header-titles h1 {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 900;
             color: white;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
             text-align: right;
         }
         .header-titles p {
-            font-size: 11px;
+            font-size: 10px;
             color: #e0f2fe;
             font-style: italic;
             font-weight: 600;
@@ -83,7 +83,7 @@
             background: none;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: 20px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -93,21 +93,21 @@
             background: linear-gradient(135deg, #d1fae5, #a7f3d0);
             border: 1px solid #34d399;
             color: #065f46;
-            padding: 10px;
-            border-radius: 14px;
+            padding: 8px;
+            border-radius: 12px;
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
-            margin-bottom: 14px;
-            box-shadow: 0 3px 10px rgba(52, 211, 153, 0.2);
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(52, 211, 153, 0.15);
         }
         
         .flash-ticker-wrapper {
             background: linear-gradient(135deg, #ffedd5, #fed7aa);
             border: 1px solid #fb923c;
-            border-radius: 12px;
-            padding: 9px 12px;
-            margin-bottom: 14px;
+            border-radius: 10px;
+            padding: 8px 10px;
+            margin-bottom: 10px;
             overflow: hidden;
             white-space: nowrap;
         }
@@ -127,49 +127,48 @@
         .info-box {
             background: #fef3c7;
             border: 1px solid #fcd34d;
-            border-radius: 14px;
-            padding: 14px;
-            margin-top: 14px;
+            border-radius: 12px;
+            padding: 10px;
+            margin-top: 10px;
             text-align: right;
-            box-shadow: 0 4px 12px rgba(252, 211, 77, 0.15);
+            box-shadow: 0 3px 10px rgba(252, 211, 77, 0.15);
         }
         .info-box h3 {
             color: #b45309;
-            font-size: 14px;
-            margin-bottom: 6px;
+            font-size: 13px;
+            margin-bottom: 4px;
             font-weight: 800;
         }
         .info-box p {
             color: #78350f;
             font-size: 11px;
-            line-height: 1.5;
-            margin-bottom: 4px;
+            line-height: 1.4;
+            margin-bottom: 3px;
             font-weight: 600;
         }
         
-        /* --- ترتيب الأزرار فوق بعضها البعض عمودياً (مطابق للصورة ولكن عمودي) --- */
+        /* --- ترتيب الأزرار عمودياً فوق بعضها البعض (البحث عن حرفي في الأعلى) --- */
         .main-buttons-stack {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 10px;
-            margin-bottom: 14px;
+            gap: 10px;
+            margin-bottom: 10px;
         }
         .glossy-btn {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 16px;
-            border-radius: 16px;
+            padding: 12px 15px;
+            border-radius: 14px;
             border: none;
             cursor: pointer;
             color: white;
             font-weight: 900;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15), inset 0 2px 3px rgba(255,255,255,0.4);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.12), inset 0 2px 3px rgba(255,255,255,0.4);
             transition: all 0.2s ease;
             text-decoration: none;
             width: 100%;
-            height: 75px;
+            height: 68px;
         }
         .glossy-btn:hover {
             transform: translateY(-2px);
@@ -178,14 +177,14 @@
         .btn-content-right {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             text-align: right;
         }
         .btn-icon {
-            font-size: 26px;
+            font-size: 24px;
             background: rgba(255,255,255,0.25);
-            padding: 8px;
-            border-radius: 12px;
+            padding: 6px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -195,31 +194,31 @@
             flex-direction: column;
         }
         .btn-title-ar {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 900;
             color: white;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
         .btn-title-fr {
-            font-size: 11px;
+            font-size: 10px;
             color: rgba(255,255,255,0.9);
             font-style: italic;
             font-weight: 600;
         }
         .btn-arrow {
             background: rgba(255,255,255,0.25);
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 11px;
             color: white;
             font-weight: bold;
         }
 
-        /* ألوان الأزرار بتدرجات فخمة */
+        /* تدرجات ألوان الأزرار */
         .btn-search { background: linear-gradient(135deg, #0284c7, #0369a1); }
         .btn-market { background: linear-gradient(135deg, #16a34a, #15803d); }
         .btn-artisan-main { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
@@ -232,9 +231,9 @@
             justify-content: space-around;
             background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
             border: 1px solid #cbd5e1;
-            border-radius: 16px;
-            padding: 10px 5px;
-            margin-top: 14px;
+            border-radius: 14px;
+            padding: 8px 4px;
+            margin-top: 10px;
             box-shadow: inset 0 2px 4px rgba(255,255,255,0.6);
         }
         .footer-action-item {
@@ -249,23 +248,23 @@
             transition: transform 0.2s;
         }
         .footer-action-item:hover { transform: scale(1.05); }
-        .footer-icon-circle { font-size: 18px; margin-bottom: 3px; }
+        .footer-icon-circle { font-size: 16px; margin-bottom: 2px; }
         .footer-text-ar { font-size: 11px; font-weight: 800; color: #1e293b; }
         .footer-text-fr { font-size: 9px; color: #64748b; font-style: italic; font-weight: 600; }
-        .footer-divider { width: 1px; height: 32px; background-color: #cbd5e1; }
+        .footer-divider { width: 1px; height: 28px; background-color: #cbd5e1; }
 
         .suggestion-btn {
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
             width: 100%;
-            padding: 13px;
-            border-radius: 14px;
+            padding: 11px;
+            border-radius: 12px;
             border: none;
             font-weight: 800;
             cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            font-size: 13px;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+            font-size: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -273,84 +272,84 @@
         }
         .suggestion-btn:hover { filter: brightness(1.05); }
 
-        /* نافذة الاقتراح المخصصة النظيفة (بدون رابط URL المزعج) */
+        /* نافذة الاقتراحات المخصصة النظيفة */
         #suggestionModal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 10500; padding: 15px;
         }
         .suggestion-box {
-            background: #ffffff; padding: 22px; border-radius: 18px; max-width: 340px; width: 100%;
+            background: #ffffff; padding: 20px; border-radius: 16px; max-width: 340px; width: 100%;
             box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid #25D366; text-align: right;
         }
-        .suggestion-box h3 { color: #128C7E; font-size: 15px; font-weight: 900; margin-bottom: 8px; }
-        .suggestion-box textarea { width: 100%; height: 90px; padding: 10px; border: 2px solid #cbd5e1; border-radius: 10px; margin-bottom: 12px; font-size: 13px; }
+        .suggestion-box h3 { color: #128C7E; font-size: 14px; font-weight: 900; margin-bottom: 8px; }
+        .suggestion-box textarea { width: 100%; height: 85px; padding: 10px; border: 2px solid #cbd5e1; border-radius: 10px; margin-bottom: 10px; font-size: 13px; }
         .suggestion-actions { display: flex; gap: 8px; }
-        .suggestion-actions button { flex: 1; padding: 10px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; }
+        .suggestion-actions button { flex: 1; padding: 9px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; font-size: 12px; }
         .btn-send-sug { background: #25D366; color: white; }
         .btn-cancel-sug { background: #e2e8f0; color: #475569; }
         
         .view { display: none; }
         .view.active { display: block; }
         
-        .form-group { margin-bottom: 14px; text-align: right; }
-        label { display: block; margin-bottom: 5px; color: #0284c7; font-weight: 700; font-size: 12px; }
+        .form-group { margin-bottom: 12px; text-align: right; }
+        label { display: block; margin-bottom: 4px; color: #0284c7; font-weight: 700; font-size: 12px; }
         input, select, textarea {
-            width: 100%; padding: 11px; border: 2px solid #cbd5e1; border-radius: 12px;
+            width: 100%; padding: 10px; border: 2px solid #cbd5e1; border-radius: 10px;
             background: #ffffff; color: #0f172a; font-size: 13px; font-weight: 600; outline: none;
         }
         .phone-input-group { display: flex; direction: ltr; }
-        .phone-prefix { background: #e2e8f0; color: #0f172a; padding: 11px; border: 2px solid #cbd5e1; border-radius: 0 12px 12px 0; font-weight: 800; display: flex; align-items: center; font-size: 13px; }
-        .phone-main-input { border-radius: 12px 0 0 12px !important; border-left: none !important; text-align: right; }
+        .phone-prefix { background: #e2e8f0; color: #0f172a; padding: 10px; border: 2px solid #cbd5e1; border-radius: 0 10px 10px 0; font-weight: 800; display: flex; align-items: center; font-size: 12px; }
+        .phone-main-input { border-radius: 10px 0 0 10px !important; border-left: none !important; text-align: right; }
 
         .btn-gps {
-            background-color: #ecfdf5; color: #059669; border: 2px dashed #34d399; padding: 11px;
-            border-radius: 12px; width: 100%; cursor: pointer; font-size: 12px; font-weight: 700; margin-top: 4px; text-align: center;
+            background-color: #ecfdf5; color: #059669; border: 2px dashed #34d399; padding: 10px;
+            border-radius: 10px; width: 100%; cursor: pointer; font-size: 12px; font-weight: 700; margin-top: 4px; text-align: center;
         }
         .back-btn {
-            background: #f1f5f9; color: #0284c7; border: 1px solid #cbd5e1; padding: 7px 14px;
-            border-radius: 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-weight: 700; font-size: 12px; margin-bottom: 14px;
+            background: #f1f5f9; color: #0284c7; border: 1px solid #cbd5e1; padding: 6px 12px;
+            border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-weight: 700; font-size: 11px; margin-bottom: 10px;
         }
-        .customer-layout { display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: start; }
+        .customer-layout { display: grid; grid-template-columns: 240px 1fr; gap: 14px; align-items: start; }
         @media(max-width: 768px) { .customer-layout { grid-template-columns: 1fr; } }
-        .toggle-cat-mobile-btn { display: none; width: 100%; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 11px; border-radius: 12px; font-weight: 800; font-size: 13px; margin-bottom: 12px; cursor: pointer; text-align: center; }
-        @media(max-width: 768px) { .toggle-cat-mobile-btn { display: block; } .sidebar-filters { display: none; } .sidebar-filters.mobile-show { display: block; margin-bottom: 14px; } }
-        .sidebar-filters { background: #f1f5f9; border: 2px solid #cbd5e1; padding: 12px; border-radius: 14px; max-height: 500px; overflow-y: auto; }
-        .sidebar-filters h3 { font-size: 13px; color: #0284c7; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 2px solid #cbd5e1; font-weight: 800; }
-        .filter-search-input { margin-bottom: 8px; padding: 8px; font-size: 11px; }
-        .filter-cat-list { display: flex; flex-direction: column; gap: 5px; }
-        .filter-cat-btn { background: #ffffff; border: 2px solid #cbd5e1; padding: 8px; border-radius: 8px; text-align: right; font-size: 11px; font-weight: 700; cursor: pointer; color: #334155; }
+        .toggle-cat-mobile-btn { display: none; width: 100%; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 10px; border-radius: 10px; font-weight: 800; font-size: 12px; margin-bottom: 10px; cursor: pointer; text-align: center; }
+        @media(max-width: 768px) { .toggle-cat-mobile-btn { display: block; } .sidebar-filters { display: none; } .sidebar-filters.mobile-show { display: block; margin-bottom: 12px; } }
+        .sidebar-filters { background: #f1f5f9; border: 2px solid #cbd5e1; padding: 10px; border-radius: 12px; max-height: 500px; overflow-y: auto; }
+        .sidebar-filters h3 { font-size: 12px; color: #0284c7; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 2px solid #cbd5e1; font-weight: 800; }
+        .filter-search-input { margin-bottom: 6px; padding: 7px; font-size: 11px; }
+        .filter-cat-list { display: flex; flex-direction: column; gap: 4px; }
+        .filter-cat-btn { background: #ffffff; border: 2px solid #cbd5e1; padding: 7px; border-radius: 8px; text-align: right; font-size: 11px; font-weight: 700; cursor: pointer; color: #334155; }
         .filter-cat-btn:hover, .filter-cat-btn.active { background: #0284c7; color: white; border-color: #0284c7; }
-        .artisans-grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .artisans-grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         @media(max-width: 600px) { .artisans-grid-2col { grid-template-columns: 1fr; } }
-        .artisan-card { background: #f1f5f9; padding: 14px; border-radius: 14px; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .artisan-card { background: #f1f5f9; padding: 12px; border-radius: 12px; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.04); }
         .artisan-info { flex: 1; text-align: right; min-width: 0; }
-        .artisan-actions-small { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
-        .small-action-btn { padding: 7px 12px; border-radius: 8px; text-decoration: none; font-size: 10px; font-weight: 800; text-align: center; color: white; white-space: nowrap; }
-        .admin-card { background: #f1f5f9; padding: 14px; border-radius: 12px; margin-bottom: 12px; border: 2px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; }
-        .auth-box { background: #f1f5f9; padding: 16px; border-radius: 14px; border: 2px solid #cbd5e1; margin-bottom: 14px; }
-        .admin-actions { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-        .admin-action-btn { flex: 1; padding: 11px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; font-size: 12px; color: white; text-align: center; }
-        .add-category-box { background: #ecfdf5; border: 2px solid #34d399; padding: 14px; border-radius: 12px; margin-bottom: 14px; }
-        .stats-table { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
-        .stat-card { background: #f1f5f9; border: 2px solid #cbd5e1; padding: 12px; border-radius: 12px; text-align: center; }
-        .stat-card h4 { color: #64748b; font-size: 12px; margin-bottom: 3px; font-weight: 700; }
-        .stat-card span { font-size: 20px; font-weight: 800; color: #0284c7; }
-        .rating-stars { color: #f59e0b; font-size: 12px; margin-top: 3px; cursor: pointer; }
+        .artisan-actions-small { display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; }
+        .small-action-btn { padding: 6px 10px; border-radius: 8px; text-decoration: none; font-size: 10px; font-weight: 800; text-align: center; color: white; white-space: nowrap; }
+        .admin-card { background: #f1f5f9; padding: 12px; border-radius: 10px; margin-bottom: 10px; border: 2px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; }
+        .auth-box { background: #f1f5f9; padding: 14px; border-radius: 12px; border: 2px solid #cbd5e1; margin-bottom: 12px; }
+        .admin-actions { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .admin-action-btn { flex: 1; padding: 10px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; font-size: 11px; color: white; text-align: center; }
+        .add-category-box { background: #ecfdf5; border: 2px solid #34d399; padding: 12px; border-radius: 10px; margin-bottom: 12px; }
+        .stats-table { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+        .stat-card { background: #f1f5f9; border: 2px solid #cbd5e1; padding: 10px; border-radius: 10px; text-align: center; }
+        .stat-card h4 { color: #64748b; font-size: 11px; margin-bottom: 2px; font-weight: 700; }
+        .stat-card span { font-size: 18px; font-weight: 800; color: #0284c7; }
+        .rating-stars { color: #f59e0b; font-size: 11px; margin-top: 2px; cursor: pointer; }
         .image-upload-wrapper { position: relative; display: inline-block; width: 100%; }
-        .remove-img-btn { position: absolute; top: 5px; left: 5px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-weight: bold; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 12px; }
+        .remove-img-btn { position: absolute; top: 4px; left: 4px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; font-weight: bold; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 11px; }
         #promoPopupModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 10050; padding: 15px; }
-        .promo-popup-content { background: #ffffff; padding: 20px; border-radius: 18px; max-width: 320px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid #f59e0b; position: relative; }
-        .promo-close-btn { position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 28px; height: 28px; font-weight: bold; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+        .promo-popup-content { background: #ffffff; padding: 18px; border-radius: 16px; max-width: 320px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid #f59e0b; position: relative; }
+        .promo-close-btn { position: absolute; top: 8px; left: 8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 26px; height: 26px; font-weight: bold; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; }
         #customModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 15px; }
-        .modal-content { background: #ffffff; padding: 22px; border-radius: 18px; max-width: 350px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid #cbd5e1; }
-        .modal-text { font-size: 14px; color: #1e293b; font-weight: 700; margin-bottom: 16px; line-height: 1.4; }
-        .modal-btn { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 11px 20px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; }
+        .modal-content { background: #ffffff; padding: 20px; border-radius: 16px; max-width: 340px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid #cbd5e1; }
+        .modal-text { font-size: 13px; color: #1e293b; font-weight: 700; margin-bottom: 14px; line-height: 1.4; }
+        .modal-btn { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 10px 18px; border-radius: 10px; font-size: 13px; font-weight: 800; cursor: pointer; width: 100%; }
         #welcomeModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 10000; padding: 15px; }
-        .welcome-content { background: #ffffff; padding: 26px; border-radius: 20px; max-width: 360px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.25); border: 2px solid #34d399; }
-        .welcome-flower { font-size: 40px; margin-bottom: 8px; }
-        .welcome-title { color: #059669; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
-        .welcome-text { font-size: 14px; color: #475569; font-weight: 600; line-height: 1.5; margin-bottom: 18px; }
-        .welcome-btn { background: linear-gradient(135deg, #059669, #047857); color: white; border: none; padding: 13px 20px; border-radius: 14px; font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3); }
+        .welcome-content { background: #ffffff; padding: 24px; border-radius: 18px; max-width: 340px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.25); border: 2px solid #34d399; }
+        .welcome-flower { font-size: 36px; margin-bottom: 6px; }
+        .welcome-title { color: #059669; font-size: 16px; font-weight: 800; margin-bottom: 6px; }
+        .welcome-text { font-size: 13px; color: #475569; font-weight: 600; line-height: 1.4; margin-bottom: 16px; }
+        .welcome-btn { background: linear-gradient(135deg, #059669, #047857); color: white; border: none; padding: 11px 18px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; width: 100%; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25); }
     </style>
 </head>
 <body>
@@ -364,7 +363,7 @@
         </div>
     </div>
 
-    <!-- نافذة منبثقة مخصصة للاقتراحات بدل الـ prompt القديم -->
+    <!-- نافذة منبثقة مخصصة للاقتراحات والملاحظات -->
     <div id="suggestionModal">
         <div class="suggestion-box">
             <h3>💬 اقتراح أو ملاحظة لصاحب الموقع</h3>
@@ -471,7 +470,7 @@
 
     <div class="container" id="mainContainerBox">
         
-        <!-- الترويسة العلوية (Header) -->
+        <!-- الترويسة العلوية المصغرة والمدمجة -->
         <div class="app-header">
             <div class="header-left">
                 <div class="header-icon-box">🤖</div>
@@ -494,9 +493,8 @@
                 </div>
             </div>
 
-            <!-- شبكة الأزرار مترتبة عمودياً (وقوع الأولى: ابحث عن حرفي في الأعلى) -->
+            <!-- شبكة الأزرار مترتبة عمودياً (البحث عن حرفي في الأعلى تماماً) -->
             <div class="main-buttons-stack">
-                <!-- زر 1: البحث عن حرفي (في الأعلى) -->
                 <button class="glossy-btn btn-search" id="btnCustomer">
                     <div class="btn-content-right">
                         <div class="btn-icon">🔍</div>
@@ -508,7 +506,6 @@
                     <div class="btn-arrow">❮</div>
                 </button>
 
-                <!-- زر 2: السوق -->
                 <button class="glossy-btn btn-market" id="btnMerchantsOffers">
                     <div class="btn-content-right">
                         <div class="btn-icon">🛒</div>
@@ -520,7 +517,6 @@
                     <div class="btn-arrow">❮</div>
                 </button>
 
-                <!-- زر 3: أنا حرفي -->
                 <button class="glossy-btn btn-artisan-main" id="btnArtisan">
                     <div class="btn-content-right">
                         <div class="btn-icon">🛠️</div>
@@ -532,7 +528,6 @@
                     <div class="btn-arrow">❮</div>
                 </button>
 
-                <!-- زر 4: أنا تاجر -->
                 <button class="glossy-btn btn-merchant-main" id="btnMerchant">
                     <div class="btn-content-right">
                         <div class="btn-icon">📦</div>
@@ -580,8 +575,8 @@
 
         <div id="artisanAuthView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #0284c7; margin-bottom: 8px; font-size: 16px; font-weight: 800;">بوابة دخول الحرفيين</h2>
-            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب حرفي جديد.</p>
+            <h2 style="color: #0284c7; margin-bottom: 8px; font-size: 15px; font-weight: 800;">بوابة دخول الحرفيين</h2>
+            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 10px; font-weight: 700;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب حرفي جديد.</p>
             
             <div class="auth-box">
                 <div class="form-group">
@@ -595,22 +590,22 @@
                     <label>كلمة السر</label>
                     <input type="password" id="authPassword" placeholder="كلمة السر الخاصة بك">
                 </div>
-                <button type="button" class="btn btn-artisan" id="btnLoginArtisan" style="margin-top: 6px; width:100%; padding:12px; background:linear-gradient(135deg, #2563eb, #1d4ed8); color:white; border:none; border-radius:12px; font-weight:800; cursor:pointer;">دخول أو تعديل حساب الحرفي</button>
+                <button type="button" class="btn btn-artisan" id="btnLoginArtisan" style="margin-top: 4px; width:100%; padding:11px; background:linear-gradient(135deg, #2563eb, #1d4ed8); color:white; border:none; border-radius:10px; font-weight:800; cursor:pointer;">دخول أو تعديل حساب الحرفي</button>
             </div>
         </div>
 
         <div id="merchantAuthChoiceView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #7c3aed; margin-bottom: 12px; font-size: 16px; font-weight: 800;">بوابة التجار والموردين</h2>
-            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 15px; font-weight: 700;">اختر نوع الدخول المناسب لحسابك:</p>
+            <h2 style="color: #7c3aed; margin-bottom: 10px; font-size: 15px; font-weight: 800;">بوابة التجار والموردين</h2>
+            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">اختر نوع الدخول المناسب لحسابك:</p>
             
-            <button class="btn btn-merchant" onclick="openMerchantLogin(false)" style="width:100%; padding:12px; border-radius:12px; border:none; background:linear-gradient(135deg, #7c3aed, #6d28d9); color:white; font-weight:800; cursor:pointer; margin-bottom:10px;">🔐 أنا مسجل مسبقاً (تسجيل الدخول)</button>
-            <button class="btn btn-customer" onclick="openMerchantLogin(true)" style="width:100%; padding:12px; border-radius:12px; border:none; background:linear-gradient(135deg, #059669, #047857); color:white; font-weight:800; cursor:pointer;">📝 أنا تاجر جديد (إنشاء حساب جديد)</button>
+            <button class="btn btn-merchant" onclick="openMerchantLogin(false)" style="width:100%; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg, #7c3aed, #6d28d9); color:white; font-weight:800; cursor:pointer; margin-bottom:8px;">🔐 أنا مسجل مسبقاً (تسجيل الدخول)</button>
+            <button class="btn btn-customer" onclick="openMerchantLogin(true)" style="width:100%; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg, #059669, #047857); color:white; font-weight:800; cursor:pointer;">📝 أنا تاجر جديد (إنشاء حساب جديد)</button>
         </div>
 
         <div id="merchantLoginView" class="view">
             <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
-            <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 16px; font-weight: 800;">تسجيل دخول التاجر</h2>
+            <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 15px; font-weight: 800;">تسجيل دخول التاجر</h2>
             
             <div class="auth-box">
                 <div class="form-group">
@@ -624,13 +619,13 @@
                     <label>كلمة السر</label>
                     <input type="password" id="authMerchantPassword" placeholder="كلمة السر الخاصة بك">
                 </div>
-                <button type="button" class="btn btn-merchant" id="btnLoginMerchant" style="margin-top: 6px; width:100%; padding:12px; border-radius:12px; border:none; background:linear-gradient(135deg, #7c3aed, #6d28d9); color:white; font-weight:800; cursor:pointer;">دخول إلى فضاء السلع</button>
+                <button type="button" class="btn btn-merchant" id="btnLoginMerchant" style="margin-top: 4px; width:100%; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg, #7c3aed, #6d28d9); color:white; font-weight:800; cursor:pointer;">دخول إلى فضاء السلع</button>
             </div>
         </div>
 
         <div id="merchantRegisterView" class="view">
             <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
-            <h2 style="color: #059669; margin-bottom: 10px; font-size: 16px; font-weight: 800;">تسجيل تاجر جديد</h2>
+            <h2 style="color: #059669; margin-bottom: 8px; font-size: 15px; font-weight: 800;">تسجيل تاجر جديد</h2>
             <form id="merchantRegForm">
                 <div class="form-group">
                     <label>اسم المحل أو المؤسسة التجارية</label>
@@ -646,7 +641,7 @@
                 <div class="form-group">
                     <label>صورة المحل أو الشعار (Logo)</label>
                     <div class="image-upload-wrapper">
-                        <input type="file" id="regMerchantLogoFile" accept="image/*" style="padding: 7px;" onchange="previewImage(this, 'regMerchantLogoPreview', 'removeMerchantLogoBtn')">
+                        <input type="file" id="regMerchantLogoFile" accept="image/*" style="padding: 6px;" onchange="previewImage(this, 'regMerchantLogoPreview', 'removeMerchantLogoBtn')">
                         <button type="button" id="removeMerchantLogoBtn" class="remove-img-btn" onclick="clearImageInput('regMerchantLogoFile', 'removeMerchantLogoBtn')">✕</button>
                     </div>
                 </div>
@@ -661,17 +656,17 @@
                     <label>كلمة السر</label>
                     <input type="password" id="regMerchantPassword" required placeholder="اختر كلمة سر لحسابك">
                 </div>
-                <button type="submit" class="btn btn-customer" style="width:100%; padding:12px; border-radius:12px; border:none; background:linear-gradient(135deg, #059669, #047857); color:white; font-weight:800; cursor:pointer;">حفظ التسجيل والانتقال للفضاء</button>
+                <button type="submit" class="btn btn-customer" style="width:100%; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg, #059669, #047857); color:white; font-weight:800; cursor:pointer;">حفظ التسجيل والانتقال للفضاء</button>
             </form>
         </div>
 
         <div id="merchantDashboardView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج</button>
-            <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 16px; font-weight: 800;" id="merchantPanelTitle">🛒 فضاء إدارة سلع وعروض التاجر</h2>
-            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">أضف منتجاتك، أسعارها، وتخفيضات الأسبوع مع إمكانية رفع الصور مباشرة.</p>
+            <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 15px; font-weight: 800;" id="merchantPanelTitle">🛒 فضاء إدارة سلع وعروض التاجر</h2>
+            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 10px; font-weight: 700;">أضف منتجاتك، أسعارها، وتخفيضات الأسبوع مع إمكانية رفع الصور مباشرة.</p>
 
             <div class="add-category-box" style="background: #f1f5f9; border-color: #7c3aed;">
-                <h3 style="color: #7c3aed; font-size: 13px; margin-bottom: 8px; font-weight: 800;">➕ إضافة منتج أو سلعة جديدة</h3>
+                <h3 style="color: #7c3aed; font-size: 12px; margin-bottom: 6px; font-weight: 800;">➕ إضافة منتج أو سلعة جديدة</h3>
                 <form id="addProductForm">
                     <div class="form-group">
                         <label>اسم المنتج أو السلعة</label>
@@ -690,7 +685,7 @@
                     <div class="form-group">
                         <label>اختر صورة المنتج</label>
                         <div class="image-upload-wrapper">
-                            <input type="file" id="prodImageFile" accept="image/*" style="padding: 7px;" onchange="previewImage(this, 'prodImagePreview', 'removeProdImageBtn')">
+                            <input type="file" id="prodImageFile" accept="image/*" style="padding: 6px;" onchange="previewImage(this, 'prodImagePreview', 'removeProdImageBtn')">
                             <button type="button" id="removeProdImageBtn" class="remove-img-btn" onclick="clearImageInput('prodImageFile', 'removeProdImageBtn')">✕</button>
                         </div>
                     </div>
@@ -698,17 +693,17 @@
                         <label>تفاصيل أو ملاحظات (اختياري)</label>
                         <textarea id="prodDesc" placeholder="مواصفات السلعة أو كمية التخفيض..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-merchant" style="width:100%; padding:12px; border-radius:12px; border:none; background:linear-gradient(135deg, #7c3aed, #6d28d9); color:white; font-weight:800; cursor:pointer;">نشر السلعة في التخفيضات</button>
+                    <button type="submit" class="btn btn-merchant" style="width:100%; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg, #7c3aed, #6d28d9); color:white; font-weight:800; cursor:pointer;">نشر السلعة في التخفيضات</button>
                 </form>
             </div>
 
-            <h3 style="color: var(--text-main); font-size: 13px; margin-bottom: 8px; font-weight: 800;">📦 قائمة منتجاتك المعروضة حالياً:</h3>
+            <h3 style="color: var(--text-main); font-size: 12px; margin-bottom: 6px; font-weight: 800;">📦 قائمة منتجاتك المعروضة حالياً:</h3>
             <div id="merchantProductsList">جاري جلب سلعك...</div>
         </div>
 
         <div id="adminView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
-            <h2 style="color: #d97706; margin-bottom: 12px; font-size: 16px; font-weight: 800;">⚙️ لوحة تحكم المشرف</h2>
+            <h2 style="color: #d97706; margin-bottom: 10px; font-size: 15px; font-weight: 800;">⚙️ لوحة تحكم المشرف</h2>
             
             <div class="stats-table">
                 <div class="stat-card">
@@ -725,41 +720,41 @@
                 </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
-                <button class="btn btn-artisan" onclick="openAdminSection('artisans')" style="width:100%; padding:12px; border-radius:12px; border:none; background:linear-gradient(135deg, #2563eb, #1d4ed8); color:white; font-weight:800; cursor:pointer;">🛠️ إدارة الحرفيين (عرض أو حذف)</button>
-                <button class="btn btn-merchant" onclick="openAdminSection('merchants')" style="width:100%; padding:12px; border-radius:12px; border:none; background:linear-gradient(135deg, #7c3aed, #6d28d9); color:white; font-weight:800; cursor:pointer;">🛒 إدارة التجار والموردين (عرض أو حذف)</button>
-                <button class="btn btn-merchants-offers" onclick="openAdminSection('products')" style="width:100%; padding:12px; border-radius:12px; border:none; background:linear-gradient(135deg, #dc2626, #b91c1c); color:white; font-weight:800; cursor:pointer;">📦 إدارة سلع وعروض التجار (عرض أو حذف)</button>
-                <button class="btn btn-customer" style="background: linear-gradient(135deg, #d97706, #b45309); width:100%; padding:12px; border-radius:12px; border:none; color:white; font-weight:800; cursor:pointer;" onclick="openAdminSection('promos')">⭐ إدارة الإعلانات التلقائية المميزة</button>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
+                <button class="btn btn-artisan" onclick="openAdminSection('artisans')" style="width:100%; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg, #2563eb, #1d4ed8); color:white; font-weight:800; cursor:pointer;">🛠️ إدارة الحرفيين (عرض أو حذف)</button>
+                <button class="btn btn-merchant" onclick="openAdminSection('merchants')" style="width:100%; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg, #7c3aed, #6d28d9); color:white; font-weight:800; cursor:pointer;">🛒 إدارة التجار والموردين (عرض أو حذف)</button>
+                <button class="btn btn-merchants-offers" onclick="openAdminSection('products')" style="width:100%; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg, #dc2626, #b91c1c); color:white; font-weight:800; cursor:pointer;">📦 إدارة سلع وعروض التجار (عرض أو حذف)</button>
+                <button class="btn btn-customer" style="background: linear-gradient(135deg, #d97706, #b45309); width:100%; padding:11px; border-radius:10px; border:none; color:white; font-weight:800; cursor:pointer;" onclick="openAdminSection('promos')">⭐ إدارة الإعلانات التلقائية المميزة</button>
             </div>
 
-            <div id="adminSectionContainer" style="background: #f1f5f9; padding: 15px; border-radius: 14px; border: 2px solid #cbd5e1; display: none; margin-bottom: 15px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <h3 id="adminSectionTitle" style="color: #d97706; font-size: 14px; font-weight: 800;">العنوان هنا</h3>
-                    <button onclick="closeAdminSection()" style="background: #64748b; color: white; border: none; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700;">إغلاق ✕</button>
+            <div id="adminSectionContainer" style="background: #f1f5f9; padding: 12px; border-radius: 12px; border: 2px solid #cbd5e1; display: none; margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 id="adminSectionTitle" style="color: #d97706; font-size: 13px; font-weight: 800;">العنوان هنا</h3>
+                    <button onclick="closeAdminSection()" style="background: #64748b; color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 10px; font-weight: 700;">إغلاق ✕</button>
                 </div>
                 <div id="adminSectionContent">جاري التحميل...</div>
             </div>
 
             <!-- خانة تخصيص رقم الواتساب لاستقبال الاقتراحات والملاحظات -->
             <div class="add-category-box" style="background: #f0fdf4; border-color: #22c55e;">
-                <h3 style="color: #16a34a; font-size: 13px; margin-bottom: 5px; font-weight: 800;">📱 رقم واتساب استقبال المقترحات</h3>
+                <h3 style="color: #16a34a; font-size: 12px; margin-bottom: 4px; font-weight: 800;">📱 رقم واتساب استقبال المقترحات</h3>
                 <div style="display: flex; gap: 6px;">
                     <input type="text" id="adminWhatsappInput" placeholder="أدخل رقمك مثال: 21698123456">
-                    <button onclick="saveAdminWhatsapp()" style="background: #16a34a; color: white; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 800; white-space: nowrap;">حفظ الرقم</button>
+                    <button onclick="saveAdminWhatsapp()" style="background: #16a34a; color: white; border: none; padding: 7px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; white-space: nowrap;">حفظ الرقم</button>
                 </div>
             </div>
 
             <div class="add-category-box">
-                <h3 style="color: #059669; font-size: 13px; margin-bottom: 5px; font-weight: 800;">➕ إضافة تخصص مهني جديد</h3>
+                <h3 style="color: #059669; font-size: 12px; margin-bottom: 4px; font-weight: 800;">➕ إضافة تخصص مهني جديد</h3>
                 <div style="display: flex; gap: 6px;">
                     <input type="text" id="newCatInput" placeholder="أدخل اسم التخصص الجديد...">
-                    <button onclick="addNewCategory()" style="background: #059669; color: white; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 800; white-space: nowrap;">إضافة</button>
+                    <button onclick="addNewCategory()" style="background: #059669; color: white; border: none; padding: 7px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; white-space: nowrap;">إضافة</button>
                 </div>
             </div>
 
             <div class="admin-actions">
                 <button class="admin-action-btn" style="background: #0284c7;" onclick="exportDatabase()">📥 تحميل نسخة احتياطية شاملة (Backup)</button>
-                <label class="admin-action-btn" style="background: #059669; display: inline-block; cursor: pointer; line-height: normal; padding-top: 12px;">
+                <label class="admin-action-btn" style="background: #059669; display: inline-block; cursor: pointer; line-height: normal; padding-top: 10px;">
                     📤 استعادة البيانات (Restore)
                     <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDatabase(event)">
                 </label>
@@ -768,7 +763,7 @@
 
         <div id="artisanRegisterView" class="view">
             <button class="back-btn" onclick="switchView('artisanAuthView', true)">⬅️ العودة إلى البوابة</button>
-            <h2 style="color: #d97706; margin-bottom: 10px; font-size: 16px; font-weight: 800;" id="formArtisanTitle">استكمال ملف الحرفي</h2>
+            <h2 style="color: #d97706; margin-bottom: 8px; font-size: 15px; font-weight: 800;" id="formArtisanTitle">استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
                     <label>الاسم الحقيقي أو اسم المؤسسة</label>
@@ -800,45 +795,45 @@
                 <div class="form-group">
                     <label>الموقع الجغرافي (GPS - اختياري)</label>
                     <button type="button" class="btn-gps" id="btnGetArtisanLocation">📍 تحديد الموقع عبر الـ GPS</button>
-                    <input type="text" id="artisanLocationStatus" readonly style="margin-top: 5px; background:#f8fafc; color:#059669; font-size:11px; text-align:center; font-weight:700;" placeholder="لم يتم تحديد الموقع (اختياري)">
+                    <input type="text" id="artisanLocationStatus" readonly style="margin-top: 4px; background:#f8fafc; color:#059669; font-size:11px; text-align:center; font-weight:700;" placeholder="لم يتم تحديد الموقع (اختياري)">
                     <input type="hidden" id="artisanLat" value="33.8">
                     <input type="hidden" id="artisanLng" value="10.8">
                 </div>
-                <button type="submit" class="btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: white; width:100%; padding:12px; border-radius:12px; border:none; font-weight:800; cursor:pointer;">حفظ وتحديث الحرفي (Enregistrer)</button>
+                <button type="submit" class="btn" style="background: linear-gradient(135deg, #d97706, #b45309); color: white; width:100%; padding:11px; border-radius:10px; border:none; font-weight:800; cursor:pointer;">حفظ وتحديث الحرفي (Enregistrer)</button>
             </form>
         </div>
 
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #059669; margin-bottom: 12px; font-size: 16px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
+            <h2 style="color: #059669; margin-bottom: 10px; font-size: 15px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
             
             <button class="toggle-cat-mobile-btn" onclick="toggleMobileSidebar()">🔍 تصفية حسب الولاية أو الاختصاص</button>
 
             <div class="customer-layout">
                 <div class="sidebar-filters" id="sidebarFiltersBox">
                     <h3>📍 تصفية حسب الولاية</h3>
-                    <div style="margin-bottom: 10px;">
-                        <select id="filterGovernorateSelect" class="filter-search-input" onchange="filterArtisansBySearch()" style="padding: 8px; font-size: 11px; font-weight: 700;">
+                    <div style="margin-bottom: 8px;">
+                        <select id="filterGovernorateSelect" class="filter-search-input" onchange="filterArtisansBySearch()" style="padding: 7px; font-size: 11px; font-weight: 700;">
                             <option value="all">🌐 كل الولايات (جمهورية تونس)</option>
                             <option value="تونس">تونس</option><option value="أريانة">أريانة</option><option value="بن عروس">بن عروس</option><option value="منوبة">منوبة</option><option value="نابل">نابل</option><option value="زغوان">زغوان</option><option value="بنزرت">بنزرت</option><option value="باجة">باجة</option><option value="جندوبة">جندوبة</option><option value="الكاف">الكاف</option><option value="سليانة">سليانة</option><option value="سوسة">سوسة</option><option value="المنستير">المنستير</option><option value="المهدية">المهدية</option><option value="صفاقس">صفاقس</option><option value="القيروان">القيروان</option><option value="القصرين">القصرين</option><option value="سيدي بوزيد">سيدي بوزيد</option><option value="قابس">قابس</option><option value="مدنين">مدنين</option><option value="تطاوين">تطاوين</option><option value="قفصة">قفصة</option><option value="توزر">توزر</option><option value="قبلي">قبلي</option>
                         </select>
                     </div>
 
                     <h3>🔍 البحث الحر</h3>
-                    <div style="margin-bottom: 10px;">
+                    <div style="margin-bottom: 8px;">
                         <input type="text" id="globalSearchInput" class="filter-search-input" placeholder="ابحث بالاسم أو الاختصاص..." oninput="filterArtisansBySearch()">
                     </div>
 
-                    <h3 style="font-size: 12px; margin-top: 8px;">التخصصات</h3>
+                    <h3 style="font-size: 11px; margin-top: 6px;">التخصصات</h3>
                     <div class="filter-cat-list" id="sidebarCatList"></div>
                 </div>
 
                 <div>
-                    <div style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-                        <span id="resultCountText" style="font-size: 12px; color: var(--text-main); font-weight: 800;">جاري جلب الحرفيين...</span>
+                    <div style="margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                        <span id="resultCountText" style="font-size: 11px; color: var(--text-main); font-weight: 800;">جاري جلب الحرفيين...</span>
                     </div>
                     <div id="artisansList" class="artisans-grid-2col">
-                        <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">جاري تحميل الحرفيين...</p>
+                        <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 12px; font-weight: 700;">جاري تحميل الحرفيين...</p>
                     </div>
                 </div>
             </div>
@@ -846,21 +841,21 @@
 
         <div id="merchantsView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #d97706; margin-bottom: 12px; font-size: 16px; font-weight: 800;">🔥 متاجر وعروض التجهيزات المتنوعة</h2>
-            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">اختر متجراً لاستعراض سلعهم وتخفيضاتهم الخاصة:</p>
+            <h2 style="color: #d97706; margin-bottom: 10px; font-size: 15px; font-weight: 800;">🔥 متاجر وعروض التجهيزات المتنوعة</h2>
+            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 10px; font-weight: 700;">اختر متجراً لاستعراض سلعهم وتخفيضاتهم الخاصة:</p>
 
-            <div style="margin-bottom: 15px;">
-                <input type="text" id="storeSearchInput" class="filter-search-input" placeholder="ابحث عن اسم المحل أو الولاية..." oninput="renderStoresList()" style="padding: 10px; font-weight: 700;">
+            <div style="margin-bottom: 12px;">
+                <input type="text" id="storeSearchInput" class="filter-search-input" placeholder="ابحث عن اسم المحل أو الولاية..." oninput="renderStoresList()" style="padding: 8px; font-weight: 700;">
             </div>
 
             <div id="storesGridList" class="artisans-grid-2col">
-                <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">جاري جلب المتاجر...</p>
+                <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 12px; font-weight: 700;">جاري جلب المتاجر...</p>
             </div>
         </div>
 
         <div id="storeProductsView" class="view">
             <button class="back-btn" onclick="switchView('merchantsView', true)">⬅️ رجوع إلى قائمة المتاجر</button>
-            <h2 style="color: #d97706; margin-bottom: 12px; font-size: 16px; font-weight: 800;" id="storeProductsTitle">سلع وعروض المتجر</h2>
+            <h2 style="color: #d97706; margin-bottom: 10px; font-size: 15px; font-weight: 800;" id="storeProductsTitle">سلع وعروض المتجر</h2>
             
             <div id="storeProductsList" class="artisans-grid-2col"></div>
         </div>
@@ -889,7 +884,7 @@
             document.getElementById('customModal').style.display = 'none';
         }
 
-        // --- دوال الاقتراحات والملاحظات الجديدة النظيفة (بدون رابط URL المزعج) ---
+        // --- دوال الاقتراحات والملاحظات المخصصة النظيفة ---
         window.openSuggestionModal = function() {
             document.getElementById('suggestionTextarea').value = "";
             document.getElementById('suggestionModal').style.display = 'flex';
@@ -934,7 +929,7 @@
 
         window.openAdminQuickLogin = function() {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
-            switchView('artisanAuthView');
+            switchView('artisanAuthView', true);
         };
 
         window.saveAdminWhatsapp = function() {
@@ -1027,37 +1022,44 @@
 
         document.getElementById('btnCustomer').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
-            switchView('customerView');
+            switchView('customerView', true);
             renderFilteredArtisans();
         });
 
         document.getElementById('btnMerchantsOffers').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
-            switchView('merchantsView');
+            switchView('merchantsView', true);
             renderStoresList();
         });
 
         document.getElementById('btnArtisan').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
-            switchView('artisanAuthView');
+            switchView('artisanAuthView', true);
         });
 
         document.getElementById('btnMerchant').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
-            switchView('merchantAuthChoiceView');
+            switchView('merchantAuthChoiceView', true);
         });
 
+        // --- نظام التنقل وحفظ الحالة لأجل زر الرجوع في الأندرويد (Back Button) ---
         function switchView(viewId, pushHistory = true) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             let targetView = document.getElementById(viewId);
             if(targetView) targetView.classList.add('active');
-            if (pushHistory) { history.pushState({ view: viewId }, "", "#" + viewId); }
+            
+            if (pushHistory) { 
+                history.pushState({ view: viewId }, "", "#" + viewId); 
+            }
             window.initFirebaseData();
         }
 
         window.addEventListener('popstate', function(event) {
-            if (event.state && event.state.view) { restoreView(event.state.view); }
-            else { restoreView('welcomeView'); }
+            if (event.state && event.state.view) { 
+                restoreView(event.state.view); 
+            } else { 
+                restoreView('welcomeView'); 
+            }
         });
 
         function restoreView(viewId) {
@@ -1083,6 +1085,11 @@
             let savedAdminWp = localStorage.getItem('adminWhatsAppPhone');
             if(savedAdminWp && document.getElementById('adminWhatsappInput')) {
                 document.getElementById('adminWhatsappInput').value = savedAdminWp;
+            }
+
+            // ضبط حالة الهستوري عند فتح التطبيق أول مرة
+            if (!window.location.hash) {
+                history.replaceState({ view: 'welcomeView' }, "", "#welcomeView");
             }
 
             let hash = window.location.hash.replace('#', '');
@@ -1123,8 +1130,8 @@
 
         window.openMerchantLogin = function(isNew) {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
-            if(isNew) { switchView('merchantRegisterView'); }
-            else { switchView('merchantLoginView'); }
+            if(isNew) { switchView('merchantRegisterView', true); }
+            else { switchView('merchantLoginView', true); }
         };
 
         document.getElementById('btnLoginArtisan').addEventListener('click', async function() {
@@ -1132,7 +1139,7 @@
             const password = document.getElementById('authPassword').value.trim();
 
             if(!phoneInput || !password) { showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!'); return; }
-            if(phoneInput === ADMIN_PHONE && password === ADMIN_PASS) { await window.initFirebaseData(); switchView('adminView'); return; }
+            if(phoneInput === ADMIN_PHONE && password === ADMIN_PASS) { await window.initFirebaseData(); switchView('adminView', true); return; }
 
             if (!navigator.onLine && cachedArtisansList.length === 0) {
                 showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.');
@@ -1174,7 +1181,7 @@
                     document.getElementById('formArtisanTitle').innerText = "إنشاء حساب حرفي جديد";
                     showCustomAlert('هذا الرقم جديد، يرجى إكمال بياناتك.');
                 }
-                switchView('artisanRegisterView');
+                switchView('artisanRegisterView', true);
             } catch(e) { showCustomAlert('حدث خطأ أثناء الاتصال بقاعدة البيانات.'); }
         });
 
@@ -1201,7 +1208,7 @@
                     currentMerchantData = existing;
                     document.getElementById('merchantPanelTitle').innerText = `🛒 فضاء إدارة سلع وعروض: ${existing.name}`;
                     document.getElementById('mainContainerBox').classList.add('wide-container');
-                    switchView('merchantDashboardView');
+                    switchView('merchantDashboardView', true);
                     listenToMerchantProducts(currentPhone);
                 } else { showCustomAlert('⚠️ هذا الرقم غير مسجل مسبقاً.'); }
             } catch(e) { showCustomAlert('حدث خطأ أثناء تسجيل الدخول.'); }
@@ -1233,7 +1240,7 @@
                     document.getElementById('merchantRegForm').reset();
                     clearImageInput('regMerchantLogoFile', 'removeMerchantLogoBtn');
                     document.getElementById('mainContainerBox').classList.add('wide-container');
-                    switchView('merchantDashboardView');
+                    switchView('merchantDashboardView', true);
                     listenToMerchantProducts(currentPhone);
                 } catch(err) { showCustomAlert('❌ فشل الحفظ، حجم الصورة كبير جداً.'); }
             };
@@ -1290,24 +1297,24 @@
                 snapshot.forEach((d) => { let p = d.data(); if(p.merchantPhone === phone) myProducts.push({ id: d.id, ...p }); });
 
                 if(myProducts.length === 0) {
-                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 12px; font-weight: 700;">لم تقم بإضافة أي سلع بعد.</p>';
+                    container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 10px; font-weight: 700;">لم تقم بإضافة أي سلع بعد.</p>';
                     return;
                 }
 
                 container.innerHTML = '';
                 myProducts.forEach(p => {
-                    let imgTag = p.image ? `<img src="${p.image}" style="width: 45px; height: 45px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
+                    let imgTag = p.image ? `<img src="${p.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
                     container.innerHTML += `
                         <div class="admin-card">
                             <div style="display: flex; align-items: center; flex: 1;">
                                 ${imgTag}
                                 <div>
-                                    <h3 style="color: #7c3aed; font-size: 14px; font-weight: 800;">📦 ${p.name}</h3>
+                                    <h3 style="color: #7c3aed; font-size: 13px; font-weight: 800;">📦 ${p.name}</h3>
                                     <p style="color: var(--text-main); font-size: 11px; font-weight: 700;">السعر: <span style="text-decoration: line-through; color: #94a3b8;">${p.price || '-'}</span> | التخفيض: <span style="color: #ef4444; font-weight: 800;">${p.discountPrice || 'غير محدد'}</span></p>
                                     <p style="color: var(--text-gray); font-size: 10px;">"${p.desc || 'بلا تفاصيل'}"</p>
                                 </div>
                             </div>
-                            <div><button onclick="deleteProduct('${p.id}')" style="background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 10px;">حذف</button></div>
+                            <div><button onclick="deleteProduct('${p.id}')" style="background: #ef4444; color: white; border: none; padding: 5px 8px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 10px;">حذف</button></div>
                         </div>
                     `;
                 });
@@ -1326,7 +1333,7 @@
             let titleEl = document.getElementById('adminSectionTitle');
             let contentEl = document.getElementById('adminSectionContent');
             container.style.display = 'block';
-            contentEl.innerHTML = '<p style="text-align:center; padding: 15px;">جاري التحميل...</p>';
+            contentEl.innerHTML = '<p style="text-align:center; padding: 12px;">جاري التحميل...</p>';
 
             try {
                 if (sectionType === 'artisans') {
@@ -1338,8 +1345,8 @@
                         let nameDisplay = a.workName ? `${a.name} (${a.workName})` : a.name;
                         contentEl.innerHTML += `
                             <div class="admin-card">
-                                <div><h4 style="color:#d97706; font-size:13px; font-weight:800;">${nameDisplay}</h4><p style="color:#0284c7; font-size:11px;">🛠️ ${a.category} | 📍 ${a.city} | 📞 +${a.phone}</p></div>
-                                <button onclick="adminDeleteRecord('artisans', '${docId}')" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
+                                <div><h4 style="color:#d97706; font-size:12px; font-weight:800;">${nameDisplay}</h4><p style="color:#0284c7; font-size:10px;">🛠️ ${a.category} | 📍 ${a.city} | 📞 +${a.phone}</p></div>
+                                <button onclick="adminDeleteRecord('artisans', '${docId}')" style="background:#ef4444; color:white; border:none; padding:5px 8px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
                             </div>`;
                     });
                 } else if (sectionType === 'merchants') {
@@ -1350,8 +1357,8 @@
                         let docId = m.phone;
                         contentEl.innerHTML += `
                             <div class="admin-card">
-                                <div><h4 style="color:#7c3aed; font-size:13px; font-weight:800;">🛒 ${m.name}</h4><p style="color:#059669; font-size:11px;">📍 ولاية ${m.city} | 📞 +${m.phone}</p></div>
-                                <button onclick="adminDeleteRecord('merchants', '${docId}')" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
+                                <div><h4 style="color:#7c3aed; font-size:12px; font-weight:800;">🛒 ${m.name}</h4><p style="color:#059669; font-size:10px;">📍 ولاية ${m.city} | 📞 +${m.phone}</p></div>
+                                <button onclick="adminDeleteRecord('merchants', '${docId}')" style="background:#ef4444; color:white; border:none; padding:5px 8px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
                             </div>`;
                     });
                 } else if (sectionType === 'products') {
@@ -1360,24 +1367,24 @@
                     contentEl.innerHTML = '';
                     cachedProductsList.forEach(p => {
                         let docId = p.id;
-                        let imgTag = p.image ? `<img src="${p.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
+                        let imgTag = p.image ? `<img src="${p.image}" style="width: 35px; height: 35px; object-fit: cover; border-radius: 6px; margin-left: 6px;" />` : '';
                         contentEl.innerHTML += `
                             <div class="admin-card">
-                                <div style="display:flex; align-items:center; flex:1;">${imgTag}<div><h4 style="color:#d97706; font-size:13px; font-weight:800;">📦 ${p.name}</h4><p style="color:#334155; font-size:11px;">السعر: ${p.price || '-'} | التاجر: ${p.merchantName}</p></div></div>
-                                <button onclick="adminDeleteRecord('products', '${docId}')" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
+                                <div style="display:flex; align-items:center; flex:1;">${imgTag}<div><h4 style="color:#d97706; font-size:12px; font-weight:800;">📦 ${p.name}</h4><p style="color:#334155; font-size:10px;">السعر: ${p.price || '-'} | التاجر: ${p.merchantName}</p></div></div>
+                                <button onclick="adminDeleteRecord('products', '${docId}')" style="background:#ef4444; color:white; border:none; padding:5px 8px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
                             </div>`;
                     });
                 } else if (sectionType === 'promos') {
                     titleEl.innerText = "⭐ اختر التاجر لعرض وتهيئة سلعه المميزة";
                     if(cachedMerchantsList.length === 0) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد متاجر مسجلة حالياً.</p>'; return; }
-                    contentEl.innerHTML = '<p style="font-size:11px; color:#64748b; margin-bottom:10px;">اضغط على أي تاجر لاستعراض سلعه وتحديد الإعلانات:</p>';
+                    contentEl.innerHTML = '<p style="font-size:11px; color:#64748b; margin-bottom:8px;">اضغط على أي تاجر لاستعراض سلعه وتحديد الإعلانات:</p>';
                     
                     cachedMerchantsList.forEach(m => {
                         let merchantProducts = cachedProductsList.filter(p => p.merchantPhone === m.phone);
                         contentEl.innerHTML += `
                             <div class="admin-card" style="cursor:pointer; background:#f8fafc;" onclick="openMerchantPromoProducts('${m.phone}', '${m.name}')">
-                                <div><h4 style="color:#7c3aed; font-size:13px; font-weight:800;">🛒 متجر: ${m.name}</h4><p style="color:#059669; font-size:11px;">📍 ولاية ${m.city} | 📦 عدد السلع: ${merchantProducts.length}</p></div>
-                                <span style="background:#0284c7; color:white; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:800;">عرض السلع ➡️</span>
+                                <div><h4 style="color:#7c3aed; font-size:12px; font-weight:800;">🛒 متجر: ${m.name}</h4><p style="color:#059669; font-size:10px;">📍 ولاية ${m.city} | 📦 عدد السلع: ${merchantProducts.length}</p></div>
+                                <span style="background:#0284c7; color:white; padding:5px 10px; border-radius:6px; font-size:10px; font-weight:800;">عرض السلع ➡️</span>
                             </div>`;
                     });
                 }
@@ -1392,21 +1399,21 @@
             let merchantProducts = cachedProductsList.filter(p => p.merchantPhone === merchantPhone);
             if(merchantProducts.length === 0) {
                 contentEl.innerHTML = `
-                    <button onclick="openAdminSection('promos')" class="back-btn" style="margin-bottom:10px;">⬅️ رجوع لقائمة التجار</button>
-                    <p style="text-align:center; color:var(--text-gray); padding:15px;">هذا التاجر لم يضف أي سلع بعد.</p>`;
+                    <button onclick="openAdminSection('promos')" class="back-btn" style="margin-bottom:8px;">⬅️ رجوع لقائمة التجار</button>
+                    <p style="text-align:center; color:var(--text-gray); padding:12px;">هذا التاجر لم يضف أي سلع بعد.</p>`;
                 return;
             }
 
-            contentEl.innerHTML = `<button onclick="openAdminSection('promos')" class="back-btn" style="margin-bottom:10px;">⬅️ رجوع لقائمة التجار</button>`;
+            contentEl.innerHTML = `<button onclick="openAdminSection('promos')" class="back-btn" style="margin-bottom:8px;">⬅️ رجوع لقائمة التجار</button>`;
             
             merchantProducts.forEach(p => {
                 let docId = p.id;
                 let isChecked = p.isPromo ? 'checked' : '';
-                let imgTag = p.image ? `<img src="${p.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
+                let imgTag = p.image ? `<img src="${p.image}" style="width: 35px; height: 35px; object-fit: cover; border-radius: 6px; margin-left: 6px;" />` : '';
                 contentEl.innerHTML += `
                     <div class="admin-card">
-                        <div style="display:flex; align-items:center; flex:1;">${imgTag}<div><h4 style="color:#d97706; font-size:13px; font-weight:800;">📦 ${p.name}</h4><p style="color:#334155; font-size:11px;">السعر: ${p.price || '-'}</p></div></div>
-                        <div><label style="cursor:pointer; font-size:11px; font-weight:800; color:#059669; display:flex; align-items:center; gap:4px;"><input type="checkbox" ${isChecked} onchange="togglePromoProduct('${docId}', this.checked)" style="width:16px; height:16px;"> مميز كإعلان</label></div>
+                        <div style="display:flex; align-items:center; flex:1;">${imgTag}<div><h4 style="color:#d97706; font-size:12px; font-weight:800;">📦 ${p.name}</h4><p style="color:#334155; font-size:10px;">السعر: ${p.price || '-'}</p></div></div>
+                        <div><label style="cursor:pointer; font-size:11px; font-weight:800; color:#059669; display:flex; align-items:center; gap:4px;"><input type="checkbox" ${isChecked} onchange="togglePromoProduct('${docId}', this.checked)" style="width:15px; height:15px;"> مميز كإعلان</label></div>
                     </div>`;
             });
         };
@@ -1452,7 +1459,7 @@
             try {
                 await window.setDoc(window.doc(window.db, "artisans", currentPhone), dataObj);
                 showCustomAlert('✅ تم حفظ حساب الحرفي بنجاح!');
-                switchView('welcomeView');
+                switchView('welcomeView', true);
                 document.getElementById('mainContainerBox').classList.remove('wide-container');
             } catch(err) { showCustomAlert('❌ حدث خطأ أثناء الحفظ.'); }
         });
@@ -1573,16 +1580,16 @@
             let promoProd = promoProducts[currentPromoIndex];
             currentPromoIndex++;
 
-            let imgTag = promoProd.image ? `<img src="${promoProd.image}" style="width: 100%; height: 140px; object-fit: cover; border-radius: 10px; margin-bottom: 8px;" />` : '';
+            let imgTag = promoProd.image ? `<img src="${promoProd.image}" style="width: 100%; height: 130px; object-fit: cover; border-radius: 8px; margin-bottom: 6px;" />` : '';
             let priceText = promoProd.discountPrice ? `<span style="color:#ef4444; font-weight:800;">السعر: ${promoProd.discountPrice}</span>` : `السعر: ${promoProd.price || 'متاح'}`;
 
             let bodyEl = document.getElementById('promoPopupBody');
             bodyEl.innerHTML = `
-                <div style="font-size:11px; color:#d97706; font-weight:800; margin-bottom:4px;">🔥 إعلان مميز من متجر: ${promoProd.merchantName}</div>
+                <div style="font-size:11px; color:#d97706; font-weight:800; margin-bottom:3px;">🔥 إعلان مميز من متجر: ${promoProd.merchantName}</div>
                 ${imgTag}
-                <h4 style="color:#1e293b; font-size:14px; font-weight:900; margin-bottom:4px;">${promoProd.name}</h4>
-                <p style="color:#059669; font-size:12px; font-weight:700; margin-bottom:6px;">${priceText} (${promoProd.merchantCity})</p>
-                <a href="tel:+${promoProd.merchantPhone}" style="display:block; background:#0284c7; color:white; padding:8px; border-radius:8px; text-decoration:none; font-size:12px; font-weight:800; margin-top:6px;">📞 اتصال بالتاجر فوراً</a>
+                <h4 style="color:#1e293b; font-size:13px; font-weight:900; margin-bottom:3px;">${promoProd.name}</h4>
+                <p style="color:#059669; font-size:11px; font-weight:700; margin-bottom:5px;">${priceText} (${promoProd.merchantCity})</p>
+                <a href="tel:+${promoProd.merchantPhone}" style="display:block; background:#0284c7; color:white; padding:7px; border-radius:8px; text-decoration:none; font-size:11px; font-weight:800; margin-top:5px;">📞 اتصال بالتاجر فوراً</a>
             `;
             document.getElementById('promoPopupModal').style.display = 'flex';
         }
@@ -1599,7 +1606,7 @@
 
             if (!navigator.onLine && cachedArtisansList.length === 0) {
                 countText.innerText = "⚠️ انقطع الاتصال بالإنترنت";
-                container.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">🌐 انقطع الاتصال بالإنترنت ولا توجد بيانات مخزنة محلياً.</p>';
+                container.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">🌐 انقطع الاتصال بالإنترنت ولا توجد بيانات مخزنة محلياً.</p>';
                 return;
             }
 
@@ -1618,7 +1625,7 @@
 
             countText.innerText = `📦 تم العثور على ${artisans.length} حرفياً`;
             if(artisans.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">لا توجد نتائج مطابقة لبحثك.</p>';
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 12px; font-weight: 700;">لا توجد نتائج مطابقة لبحثك.</p>';
                 return;
             }
 
@@ -1638,7 +1645,7 @@
                 container.innerHTML += `
                     <div class="artisan-card">
                         <div class="artisan-info">
-                            <h3 style="color: #d97706; margin-bottom: 2px; font-size: 13px; font-weight: 800;">${titleDisplay}</h3>
+                            <h3 style="color: #d97706; margin-bottom: 2px; font-size: 12px; font-weight: 800;">${titleDisplay}</h3>
                             <p style="color: #0284c7; font-size: 10px; font-weight: 800; margin-bottom: 2px;">🛠️ ${a.category}</p>
                             <p style="color: #059669; font-size: 10px; font-weight: 800; margin-bottom: 2px;">📍 ولاية ${a.city}</p>
                             <div class="rating-stars" onclick="let s=prompt('قيم الحرفي من 1 إلى 5 نجوم:'); if(s>=1 && s<=5) rateItem('${artisanId}', s)">${starsHTML}</div>
@@ -1669,13 +1676,13 @@
             }
 
             if(merchants.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">لا توجد متاجر مسجلة حالياً.</p>';
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 12px; font-weight: 700;">لا توجد متاجر مسجلة حالياً.</p>';
                 return;
             }
 
             container.innerHTML = '';
             merchants.forEach(m => {
-                let logoImg = m.logo ? `<img src="${m.logo}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 10px; margin-left: 10px;" />` : `<div style="width: 55px; height: 55px; background: #e2e8f0; border-radius: 10px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-left:10px;">🛒</div>`;
+                let logoImg = m.logo ? `<img src="${m.logo}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; margin-left: 8px;" />` : `<div style="width: 50px; height: 50px; background: #e2e8f0; border-radius: 8px; display:flex; align-items:center; justify-content:center; font-size:20px; margin-left:8px;">🛒</div>`;
                 let cleanPhone = m.phone ? m.phone.replace(/[^0-9]/g, '') : '';
                 if(!cleanPhone.startsWith('216')) cleanPhone = '216' + cleanPhone;
 
@@ -1686,8 +1693,8 @@
                         <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
                             ${logoImg}
                             <div class="artisan-info">
-                                <h3 style="color: #d97706; margin-bottom: 2px; font-size: 14px; font-weight: 800;">${m.name}</h3>
-                                <p style="color: #059669; font-size: 11px; font-weight: 800; margin-bottom: 2px;">📍 ولاية ${m.city}</p>
+                                <h3 style="color: #d97706; margin-bottom: 2px; font-size: 13px; font-weight: 800;">${m.name}</h3>
+                                <p style="color: #059669; font-size: 10px; font-weight: 800; margin-bottom: 2px;">📍 ولاية ${m.city}</p>
                                 <p style="color: #0284c7; font-size: 10px; font-weight: 700;">📦 ${merchantProductsCount} سلع متوفرة</p>
                             </div>
                         </div>
@@ -1709,7 +1716,7 @@
             let storeProducts = cachedProductsList.filter(p => p.merchantPhone === merchantPhone);
 
             if(storeProducts.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">هذا المتجر لم يضف أي سلع بعد.</p>';
+                container.innerHTML = '<p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">هذا المتجر لم يضف أي سلع بعد.</p>';
                 return;
             }
 
@@ -1720,7 +1727,7 @@
 
                 let priceDisplay = p.price ? `<span style="text-decoration: line-through; color: #94a3b8; margin-left: 6px;">${p.price}</span>` : '';
                 let discountDisplay = p.discountPrice ? `<span style="color: #ef4444; font-weight: 800;">السعر المخفض: ${p.discountPrice}</span>` : '';
-                let imgTag = p.image ? `<img src="${p.image}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px; margin-left: 10px;" />` : '';
+                let imgTag = p.image ? `<img src="${p.image}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; margin-left: 8px;" />` : '';
                 let shareText = encodeURIComponent(`شاهد هذا العرض الحصري من ${p.merchantName}: ${p.name} - السعر: ${p.discountPrice || p.price}`);
 
                 container.innerHTML += `
@@ -1728,7 +1735,7 @@
                         <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
                             ${imgTag}
                             <div class="artisan-info">
-                                <h3 style="color: #d97706; margin-bottom: 2px; font-size: 13px; font-weight: 800;">📦 ${p.name}</h3>
+                                <h3 style="color: #d97706; margin-bottom: 2px; font-size: 12px; font-weight: 800;">📦 ${p.name}</h3>
                                 <p style="color: var(--text-main); font-size: 11px; font-weight: 700; margin-bottom: 2px;">${priceDisplay} ${discountDisplay}</p>
                                 <p style="color: #059669; font-size: 10px; font-weight: 800; margin-bottom: 2px;">📍 ${p.merchantCity}</p>
                                 <p style="color: var(--text-gray); font-size: 10px; font-style: italic;">"${p.desc || ''}"</p>
