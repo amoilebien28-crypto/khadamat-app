@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-main: #f8fafc;
-            --card-bg: #f1f5f9; /* نافذة بلون أغمق قليلاً للتباين وراحة العين */
+            --card-bg: #f1f5f9;
             --text-main: #1e293b;
             --text-gray: #64748b;
             --border-color: #cbd5e1;
@@ -19,7 +19,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            /* خلفية رخام إيطالي فخمة وناعمة مع تعرجات رقيقة */
             background-color: #f3f4f6;
             background-image: 
                 radial-gradient(at 10% 20%, rgba(203, 213, 225, 0.3) 0px, transparent 50%),
@@ -61,7 +60,6 @@
             filter: drop-shadow(0 2px 4px rgba(217, 119, 6, 0.3));
         }
         
-        /* تزيين العنوان الرئيسي بإطار أنيق وخط فخم */
         .title-box {
             border: 2px dashed #cbd5e1;
             background: linear-gradient(135deg, #f8fafc, #f1f5f9);
@@ -76,7 +74,6 @@
             font-size: 22px;
             font-weight: 900;
             letter-spacing: 0.5px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
         .subtitle {
             text-align: center;
@@ -98,7 +95,6 @@
             box-shadow: 0 3px 10px rgba(52, 211, 153, 0.2);
         }
         
-        /* شريط إعلانات متحرك (Marquee) */
         .flash-ticker-wrapper {
             background: linear-gradient(135deg, #ffedd5, #fed7aa);
             border: 1px solid #fb923c;
@@ -458,7 +454,6 @@
             cursor: pointer;
         }
 
-        /* حاوية رفع الصورة مع زر الحذف (✕) */
         .image-upload-wrapper {
             position: relative;
             display: inline-block;
@@ -483,7 +478,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* نافذة الإعلانات المنبثقة التلقائية (Popup) */
         #promoPopupModal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -601,7 +595,6 @@
 </head>
 <body>
 
-    <!-- نافذة الترحيب والصلاة على النبي -->
     <div id="welcomeModal">
         <div class="welcome-content">
             <div class="welcome-flower">🌹</div>
@@ -611,7 +604,6 @@
         </div>
     </div>
 
-    <!-- نافذة الإعلانات المنبثقة التلقائية -->
     <div id="promoPopupModal">
         <div class="promo-popup-content">
             <button class="promo-close-btn" onclick="closePromoPopup()">✕</button>
@@ -626,7 +618,6 @@
         </div>
     </div>
 
-    <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -717,7 +708,6 @@
             <p class="subtitle">صلة الوصل بين مهارة الحرفي واحتياجات الناس</p>
         </div>
 
-        <!-- 1. الشاشة الرئيسية -->
         <div id="welcomeView" class="view active">
             <div class="middle-badge" id="statsBadge">
                 <span>📍</span> جاري الاتصال بقاعدة البيانات واحتساب النشاط...
@@ -746,7 +736,6 @@
             </div>
         </div>
 
-        <!-- 2. بوابة دخول الحرفيين -->
         <div id="artisanAuthView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #0284c7; margin-bottom: 8px; font-size: 16px; font-weight: 800;">بوابة دخول الحرفيين</h2>
@@ -768,7 +757,6 @@
             </div>
         </div>
 
-        <!-- 3. بوابة اختيار التاجر -->
         <div id="merchantAuthChoiceView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #7c3aed; margin-bottom: 12px; font-size: 16px; font-weight: 800;">بوابة التجار والموردين</h2>
@@ -778,7 +766,6 @@
             <button class="btn btn-customer" style="margin-top: 12px;" onclick="openMerchantLogin(true)">📝 أنا تاجر جديد (إنشاء حساب جديد)</button>
         </div>
 
-        <!-- 4. شاشة تسجيل الدخول للتاجر المسجل مسبقاً -->
         <div id="merchantLoginView" class="view">
             <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
             <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 16px; font-weight: 800;">تسجيل دخول التاجر</h2>
@@ -799,7 +786,6 @@
             </div>
         </div>
 
-        <!-- 5. شاشة تسجيل تاجر جديد -->
         <div id="merchantRegisterView" class="view">
             <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
             <h2 style="color: #059669; margin-bottom: 10px; font-size: 16px; font-weight: 800;">تسجيل تاجر جديد</h2>
@@ -860,7 +846,6 @@
             </form>
         </div>
 
-        <!-- 6. فضاء التاجر الخاص -->
         <div id="merchantDashboardView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج</button>
             <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 16px; font-weight: 800;" id="merchantPanelTitle">🛒 فضاء إدارة سلع وعروض التاجر</h2>
@@ -902,7 +887,6 @@
             <div id="merchantProductsList">جاري جلب منتجاتك...</div>
         </div>
 
-        <!-- 7. لوحة تحكم الأدمن (مع قسم خاص لاختيار السلع المميزة للإعلانات التلقائية) -->
         <div id="adminView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
             <h2 style="color: #d97706; margin-bottom: 12px; font-size: 16px; font-weight: 800;">⚙️ لوحة تحكم المشرف</h2>
@@ -954,7 +938,6 @@
             </div>
         </div>
 
-        <!-- 8. واجهة تسجيل أو تعديل الحرفي -->
         <div id="artisanRegisterView" class="view">
             <button class="back-btn" onclick="switchView('artisanAuthView', true)">⬅️ العودة إلى البوابة</button>
             <h2 style="color: #d97706; margin-bottom: 10px; font-size: 16px; font-weight: 800;" id="formArtisanTitle">استكمال ملف الحرفي</h2>
@@ -1003,9 +986,7 @@
                 </div>
                 <div class="form-group">
                     <label>الاختصاص المهني</label>
-                    <select id="artisanCategory">
-                        <!-- تعبئة ديناميكية -->
-                    </select>
+                    <select id="artisanCategory"></select>
                 </div>
                 <div class="form-group">
                     <label>نبذة تعريفية أو رسالة للزبائن (اختياري)</label>
@@ -1022,7 +1003,6 @@
             </form>
         </div>
 
-        <!-- 9. واجهة الزبون: دليل الحرفيين -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #059669; margin-bottom: 12px; font-size: 16px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
@@ -1068,9 +1048,7 @@
                     </div>
 
                     <h3 style="font-size: 12px; margin-top: 8px;">التخصصات</h3>
-                    <div class="filter-cat-list" id="sidebarCatList">
-                        <!-- تعبئة ديناميكية -->
-                    </div>
+                    <div class="filter-cat-list" id="sidebarCatList"></div>
                 </div>
 
                 <div>
@@ -1078,13 +1056,12 @@
                         <span id="resultCountText" style="font-size: 12px; color: var(--text-main); font-weight: 800;">جاري جلب الحرفيين...</span>
                     </div>
                     <div id="artisansList" class="artisans-grid-2col">
-                        <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">جاري تحميل الحرفيين من قاعدة البيانات...</p>
+                        <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">جاري تحميل الحرفيين...</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 10. فضاء تخفيضات الأسبوع وعرض المتاجر (الأيقونات) -->
         <div id="merchantsView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
             <h2 style="color: #d97706; margin-bottom: 12px; font-size: 16px; font-weight: 800;">🔥 متاجر وعروض التجهيزات المتنوعة</h2>
@@ -1099,14 +1076,11 @@
             </div>
         </div>
 
-        <!-- 11. واجهة منتجات تاجر محدد -->
         <div id="storeProductsView" class="view">
             <button class="back-btn" onclick="switchView('merchantsView', true)">⬅️ رجوع إلى قائمة المتاجر</button>
             <h2 style="color: #d97706; margin-bottom: 12px; font-size: 16px; font-weight: 800;" id="storeProductsTitle">سلع وعروض المتجر</h2>
             
-            <div id="storeProductsList" class="artisans-grid-2col">
-                <!-- تعبئة ديناميكية لسلع التاجر -->
-            </div>
+            <div id="storeProductsList" class="artisans-grid-2col"></div>
         </div>
 
     </div>
@@ -1115,11 +1089,11 @@
         let currentPhone = "";
         let currentMerchantData = null;
         let selectedFilter = 'all';
-        let realtimeUnsubscribe = null;
         let cachedArtisansList = [];
         let cachedMerchantsList = [];
         let cachedProductsList = [];
         let promoPopupInterval = null;
+        let currentPromoIndex = 0; // مؤشر للتدوير الدوري على السلع المميزة
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
@@ -1142,7 +1116,6 @@
             }
         };
 
-        // معاينة الصورة وإظهار زر الحذف (✕)
         window.previewImage = function(input, previewImgId, btnId) {
             let btn = document.getElementById(btnId);
             if(input.files && input.files[0]) {
@@ -1150,7 +1123,6 @@
             }
         };
 
-        // مسح حقل الصورة وإخفاء زر الحذف
         window.clearImageInput = function(inputId, btnId) {
             let input = document.getElementById(inputId);
             input.value = "";
@@ -1159,20 +1131,11 @@
         };
 
         let defaultCategories = [
-            "كهربائي (منزلي وصناعي)",
-            "سباك (إصلاح صحي)",
-            "نجار (عام وأبواب)",
-            "مختص في نجارة الألمنيوم والديكور",
-            "حداد وهياكل معدنية",
-            "مكيفات وهواء معالج",
-            "بناء ومقاولات صغرى",
-            "دهان وتركيب ورق حائط",
-            "ميكانيكي سيارات (مصلح سيارات)",
-            "كهرباء وفحص سيارات",
-            "تصليح أجهزة منزلية (غسالات وثلاجات)",
-            "تركيب كاميرات مراقبة وأجهزة إنذار",
-            "زجاج ومرايا",
-            "أصاحب النقل واللواج ونقل العفش"
+            "كهربائي (منزلي وصناعي)", "سباك (إصلاح صحي)", "نجار (عام وأبواب)",
+            "مختص في نجارة الألمنيوم والديكور", "حداد وهياكل معدنية", "مكيفات وهواء معالج",
+            "بناء ومقاولات صغرى", "دهان وتركيب ورق حائط", "ميكانيكي سيارات (مصلح سيارات)",
+            "كهرباء وفحص سيارات", "تصليح أجهزة منزلية (غسالات وثلاجات)",
+            "تركيب كاميرات مراقبة وأجهزة إنذار", "زجاج ومرايا", "أصاحب النقل واللواج ونقل العفش"
         ];
 
         function getCategories() {
@@ -1193,9 +1156,7 @@
             let selectEl = document.getElementById('artisanCategory');
             if(selectEl) {
                 selectEl.innerHTML = '';
-                cats.forEach(c => {
-                    selectEl.innerHTML += `<option value="${c}">${c}</option>`;
-                });
+                cats.forEach(c => { selectEl.innerHTML += `<option value="${c}">${c}</option>`; });
             }
             renderSidebarCategories(cats);
         }
@@ -1206,10 +1167,7 @@
             let sidebarList = document.getElementById('sidebarCatList');
             if(!sidebarList) return;
 
-            sidebarList.innerHTML = `
-                <button class="filter-cat-btn ${selectedFilter === 'all' ? 'active' : ''}" onclick="selectCategory('all')">🌐 كل التخصصات</button>
-            `;
-
+            sidebarList.innerHTML = `<button class="filter-cat-btn ${selectedFilter === 'all' ? 'active' : ''}" onclick="selectCategory('all')">🌐 كل التخصصات</button>`;
             cats.forEach(c => {
                 let shortName = c.split('(')[0].trim();
                 let isActive = selectedFilter === c ? 'active' : '';
@@ -1220,15 +1178,9 @@
         window.addNewCategory = function() {
             let input = document.getElementById('newCatInput');
             let val = input.value.trim();
-            if(!val) {
-                showCustomAlert('الرجاء كتابة اسم التخصص الجديد!');
-                return;
-            }
+            if(!val) { showCustomAlert('الرجاء كتابة اسم التخصص الجديد!'); return; }
             let cats = getCategories();
-            if(cats.includes(val)) {
-                showCustomAlert('هذا التخصص موجود بالفعل!');
-                return;
-            }
+            if(cats.includes(val)) { showCustomAlert('هذا التخصص موجود بالفعل!'); return; }
             cats.push(val);
             saveCategories(cats);
             input.value = '';
@@ -1261,19 +1213,13 @@
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             let targetView = document.getElementById(viewId);
             if(targetView) targetView.classList.add('active');
-
-            if (pushHistory) {
-                history.pushState({ view: viewId }, "", "#" + viewId);
-            }
+            if (pushHistory) { history.pushState({ view: viewId }, "", "#" + viewId); }
             window.initFirebaseData();
         }
 
         window.addEventListener('popstate', function(event) {
-            if (event.state && event.state.view) {
-                restoreView(event.state.view);
-            } else {
-                restoreView('welcomeView');
-            }
+            if (event.state && event.state.view) { restoreView(event.state.view); }
+            else { restoreView('welcomeView'); }
         });
 
         function restoreView(viewId) {
@@ -1303,9 +1249,7 @@
                 }
                 restoreView(hash);
             }
-            // تشغيل محرك البيانات العامة لضمان الذاكرة المحلية (Caching)
             initGlobalDataSync();
-            // بدء عرض الإعلانات التلقائية بصفة دورية
             startPromoPopupLoop();
         });
 
@@ -1316,37 +1260,23 @@
 
         window.openMerchantLogin = function(isNew) {
             document.getElementById('mainContainerBox').classList.remove('wide-container');
-            if(isNew) {
-                switchView('merchantRegisterView');
-            } else {
-                switchView('merchantLoginView');
-            }
+            if(isNew) { switchView('merchantRegisterView'); }
+            else { switchView('merchantLoginView'); }
         };
 
         document.getElementById('btnLoginArtisan').addEventListener('click', async function() {
             let phoneInput = document.getElementById('authPhone').value.trim();
             const password = document.getElementById('authPassword').value.trim();
 
-            if(!phoneInput || !password) {
-                showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!');
-                return;
-            }
-
-            if(phoneInput === ADMIN_PHONE && password === ADMIN_PASS) {
-                await window.initFirebaseData();
-                switchView('adminView');
-                return;
-            }
+            if(!phoneInput || !password) { showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!'); return; }
+            if(phoneInput === ADMIN_PHONE && password === ADMIN_PASS) { await window.initFirebaseData(); switchView('adminView'); return; }
 
             if (!navigator.onLine) {
                 showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.');
                 return;
             }
 
-            if (!isValidPhoneNumber(phoneInput)) {
-                showCustomAlert('⚠️ رقم الهاتف غير صالح!');
-                return;
-            }
+            if (!isValidPhoneNumber(phoneInput)) { showCustomAlert('⚠️ رقم الهاتف غير صالح!'); return; }
 
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
@@ -1354,18 +1284,12 @@
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
                 let existing = null;
-                querySnapshot.forEach((d) => {
-                    let data = d.data();
-                    if(data.phone === currentPhone) existing = data;
-                });
+                querySnapshot.forEach((d) => { let data = d.data(); if(data.phone === currentPhone) existing = data; });
 
                 document.getElementById('displayArtisanPhone').value = '+' + currentPhone;
 
                 if(existing) {
-                    if(existing.password !== password) {
-                        showCustomAlert('كلمة السر غير صحيحة لهذا الرقم!');
-                        return;
-                    }
+                    if(existing.password !== password) { showCustomAlert('كلمة السر غير صحيحة لهذا الرقم!'); return; }
                     document.getElementById('artisanName').value = existing.name || '';
                     document.getElementById('artisanWorkName').value = existing.workName || '';
                     document.getElementById('artisanCity').value = existing.city || '';
@@ -1386,29 +1310,16 @@
                     showCustomAlert('هذا الرقم جديد، يرجى إكمال بياناتك.');
                 }
                 switchView('artisanRegisterView');
-            } catch(e) {
-                showCustomAlert('حدث خطأ أثناء الاتصال بقاعدة البيانات.');
-            }
+            } catch(e) { showCustomAlert('حدث خطأ أثناء الاتصال بقاعدة البيانات.'); }
         });
 
         document.getElementById('btnLoginMerchant').addEventListener('click', async function() {
             let phoneInput = document.getElementById('authMerchantPhone').value.trim();
             const password = document.getElementById('authMerchantPassword').value.trim();
 
-            if(!phoneInput || !password) {
-                showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!');
-                return;
-            }
-
-            if (!navigator.onLine) {
-                showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.');
-                return;
-            }
-
-            if (!isValidPhoneNumber(phoneInput)) {
-                showCustomAlert('⚠️ رقم الهاتف غير صالح!');
-                return;
-            }
+            if(!phoneInput || !password) { showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!'); return; }
+            if (!navigator.onLine) { showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.'); return; }
+            if (!isValidPhoneNumber(phoneInput)) { showCustomAlert('⚠️ رقم الهاتف غير صالح!'); return; }
 
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
@@ -1416,27 +1327,17 @@
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "merchants"));
                 let existing = null;
-                querySnapshot.forEach((d) => {
-                    let data = d.data();
-                    if(data.phone === currentPhone) existing = data;
-                });
+                querySnapshot.forEach((d) => { let data = d.data(); if(data.phone === currentPhone) existing = data; });
 
                 if(existing) {
-                    if(existing.password !== password) {
-                        showCustomAlert('كلمة السر غير صحيحة لهذا الرقم!');
-                        return;
-                    }
+                    if(existing.password !== password) { showCustomAlert('كلمة السر غير صحيحة لهذا الرقم!'); return; }
                     currentMerchantData = existing;
                     document.getElementById('merchantPanelTitle').innerText = `🛒 فضاء إدارة سلع وعروض: ${existing.name}`;
                     document.getElementById('mainContainerBox').classList.add('wide-container');
                     switchView('merchantDashboardView');
                     listenToMerchantProducts(currentPhone);
-                } else {
-                    showCustomAlert('⚠️ هذا الرقم غير مسجل مسبقاً.');
-                }
-            } catch(e) {
-                showCustomAlert('حدث خطأ أثناء تسجيل الدخول.');
-            }
+                } else { showCustomAlert('⚠️ هذا الرقم غير مسجل مسبقاً.'); }
+            } catch(e) { showCustomAlert('حدث خطأ أثناء تسجيل الدخول.'); }
         });
 
         document.getElementById('merchantRegForm').addEventListener('submit', async function(e) {
@@ -1447,20 +1348,9 @@
             let password = document.getElementById('regMerchantPassword').value.trim();
             let fileInput = document.getElementById('regMerchantLogoFile');
 
-            if(!name || !city || !phoneInput || !password) {
-                showCustomAlert('الرجاء ملء كل الحقول المطلوبة!');
-                return;
-            }
-
-            if (!navigator.onLine) {
-                showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.');
-                return;
-            }
-
-            if (!isValidPhoneNumber(phoneInput)) {
-                showCustomAlert('⚠️ رقم الهاتف غير صالح!');
-                return;
-            }
+            if(!name || !city || !phoneInput || !password) { showCustomAlert('الرجاء ملء كل الحقول المطلوبة!'); return; }
+            if (!navigator.onLine) { showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.'); return; }
+            if (!isValidPhoneNumber(phoneInput)) { showCustomAlert('⚠️ رقم الهاتف غير صالح!'); return; }
 
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
@@ -1468,28 +1358,12 @@
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "merchants"));
                 let alreadyExists = false;
-                querySnapshot.forEach((d) => {
-                    if(d.data().phone === currentPhone) alreadyExists = true;
-                });
-
-                if(alreadyExists) {
-                    showCustomAlert('⚠️ رقم الهاتف هذا مسجل مسبقاً!');
-                    return;
-                }
-            } catch(err) {
-                console.error(err);
-            }
+                querySnapshot.forEach((d) => { if(d.data().phone === currentPhone) alreadyExists = true; });
+                if(alreadyExists) { showCustomAlert('⚠️ رقم الهاتف هذا مسجل مسبقاً!'); return; }
+            } catch(err) { console.error(err); }
 
             let saveMerchantToDb = async (logoUrl = "") => {
-                currentMerchantData = {
-                    name,
-                    city,
-                    phone: currentPhone,
-                    password,
-                    logo: logoUrl,
-                    updatedAt: new Date().toISOString()
-                };
-
+                currentMerchantData = { name, city, phone: currentPhone, password, logo: logoUrl, updatedAt: new Date().toISOString() };
                 try {
                     await window.setDoc(window.doc(window.db, "merchants", currentPhone), currentMerchantData);
                     showCustomAlert('✅ تم تسجيل حسابك بنجاح!');
@@ -1498,25 +1372,16 @@
                     document.getElementById('mainContainerBox').classList.add('wide-container');
                     switchView('merchantDashboardView');
                     listenToMerchantProducts(currentPhone);
-                } catch(err) {
-                    showCustomAlert('❌ فشل الحفظ، حجم الصورة كبير جداً.');
-                }
+                } catch(err) { showCustomAlert('❌ فشل الحفظ، حجم الصورة كبير جداً.'); }
             };
 
             if(fileInput.files && fileInput.files[0]) {
                 let file = fileInput.files[0];
-                if(file.size > 2 * 1024 * 1024) {
-                    showCustomAlert('⚠️ حجم الصورة كبير جداً، يرجى اختيار صورة أصغر من 2 ميغابايت.');
-                    return;
-                }
+                if(file.size > 2 * 1024 * 1024) { showCustomAlert('⚠️ حجم الصورة كبير جداً.'); return; }
                 let reader = new FileReader();
-                reader.onload = async function(e) {
-                    await saveMerchantToDb(e.target.result);
-                };
+                reader.onload = async function(e) { await saveMerchantToDb(e.target.result); };
                 reader.readAsDataURL(file);
-            } else {
-                await saveMerchantToDb("");
-            }
+            } else { await saveMerchantToDb(""); }
         });
 
         document.getElementById('addProductForm').addEventListener('submit', async function(e) {
@@ -1527,51 +1392,30 @@
             let prodDesc = document.getElementById('prodDesc').value.trim();
             let fileInput = document.getElementById('prodImageFile');
 
-            if(!prodName) {
-                showCustomAlert('الرجاء إدخال اسم المنتج!');
-                return;
-            }
+            if(!prodName) { showCustomAlert('الرجاء إدخال اسم المنتج!'); return; }
 
             let saveProductToDb = async (imageUrl = "") => {
                 let productId = 'prod_' + Date.now();
                 let productData = {
-                    id: productId,
-                    merchantPhone: currentPhone,
-                    merchantName: currentMerchantData.name,
-                    merchantCity: currentMerchantData.city,
-                    name: prodName,
-                    price: prodPrice,
-                    discountPrice: prodDiscountPrice,
-                    image: imageUrl,
-                    desc: prodDesc,
-                    isPromo: false, // افتراضياً غير مميز للإعلان التلقائي حتى يختاره الأدمن
-                    createdAt: new Date().toISOString()
+                    id: productId, merchantPhone: currentPhone, merchantName: currentMerchantData.name,
+                    merchantCity: currentMerchantData.city, name: prodName, price: prodPrice,
+                    discountPrice: prodDiscountPrice, image: imageUrl, desc: prodDesc, isPromo: false, createdAt: new Date().toISOString()
                 };
-
                 try {
                     await window.setDoc(window.doc(window.db, "products", productId), productData);
                     document.getElementById('addProductForm').reset();
                     clearImageInput('prodImageFile', 'removeProdImageBtn');
                     showCustomAlert('✅ تم نشر السلعة بنجاح!');
-                } catch(err) {
-                    showCustomAlert('❌ حدث خطأ أثناء نشر السلعة.');
-                }
+                } catch(err) { showCustomAlert('❌ حدث خطأ أثناء نشر السلعة.'); }
             };
 
             if(fileInput.files && fileInput.files[0]) {
                 let file = fileInput.files[0];
-                if(file.size > 2 * 1024 * 1024) {
-                    showCustomAlert('⚠️ حجم صورة المنتج كبير جداً.');
-                    return;
-                }
+                if(file.size > 2 * 1024 * 1024) { showCustomAlert('⚠️ حجم صورة المنتج كبير جداً.'); return; }
                 let reader = new FileReader();
-                reader.onload = async function(e) {
-                    await saveProductToDb(e.target.result);
-                };
+                reader.onload = async function(e) { await saveProductToDb(e.target.result); };
                 reader.readAsDataURL(file);
-            } else {
-                await saveProductToDb("");
-            }
+            } else { await saveProductToDb(""); }
         });
 
         function listenToMerchantProducts(phone) {
@@ -1580,10 +1424,7 @@
 
             window.onSnapshot(window.collection(window.db, "products"), (snapshot) => {
                 let myProducts = [];
-                snapshot.forEach((d) => {
-                    let p = d.data();
-                    if(p.merchantPhone === phone) myProducts.push({ id: d.id, ...p });
-                });
+                snapshot.forEach((d) => { let p = d.data(); if(p.merchantPhone === phone) myProducts.push({ id: d.id, ...p }); });
 
                 if(myProducts.length === 0) {
                     container.innerHTML = '<p style="color: var(--text-gray); text-align: center; padding: 12px; font-weight: 700;">لم تقم بإضافة أي سلع بعد.</p>';
@@ -1603,9 +1444,7 @@
                                     <p style="color: var(--text-gray); font-size: 10px;">"${p.desc || 'بلا تفاصيل'}"</p>
                                 </div>
                             </div>
-                            <div>
-                                <button onclick="deleteProduct('${p.id}')" style="background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 10px;">حذف</button>
-                            </div>
+                            <div><button onclick="deleteProduct('${p.id}')" style="background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 10px;">حذف</button></div>
                         </div>
                     `;
                 });
@@ -1614,16 +1453,11 @@
 
         window.deleteProduct = async function(prodId) {
             if(confirm('هل أنت متأكد من حذف هذه السلعة؟')) {
-                try {
-                    await window.deleteDoc(window.doc(window.db, "products", prodId));
-                    showCustomAlert('تم الحذف بنجاح.');
-                } catch(e) {
-                    showCustomAlert('فشل الحذف.');
-                }
+                try { await window.deleteDoc(window.doc(window.db, "products", prodId)); showCustomAlert('تم الحذف بنجاح.'); }
+                catch(e) { showCustomAlert('فشل الحذف.'); }
             }
         };
 
-        // إدارة لوحة تحكم المشرف (Admin) مع قسم الإعلانات المميزة
         window.openAdminSection = async function(sectionType) {
             let container = document.getElementById('adminSectionContainer');
             let titleEl = document.getElementById('adminSectionTitle');
@@ -1635,119 +1469,70 @@
                 if (sectionType === 'artisans') {
                     titleEl.innerText = "🛠️ قائمة الحرفيين المسجلين";
                     const snap = await window.getDocs(window.collection(window.db, "artisans"));
-                    if(snap.empty) {
-                        contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا يوجد حرفيون مسجلون.</p>';
-                        return;
-                    }
+                    if(snap.empty) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا يوجد حرفيون مسجلون.</p>'; return; }
                     contentEl.innerHTML = '';
                     snap.forEach(d => {
-                        let a = d.data();
-                        let docId = d.id;
+                        let a = d.data(); let docId = d.id;
                         let nameDisplay = a.workName ? `${a.name} (${a.workName})` : a.name;
                         contentEl.innerHTML += `
                             <div class="admin-card">
-                                <div>
-                                    <h4 style="color:#d97706; font-size:13px; font-weight:800;">${nameDisplay}</h4>
-                                    <p style="color:#0284c7; font-size:11px;">🛠️ ${a.category} | 📍 ${a.city} | 📞 +${a.phone}</p>
-                                </div>
+                                <div><h4 style="color:#d97706; font-size:13px; font-weight:800;">${nameDisplay}</h4><p style="color:#0284c7; font-size:11px;">🛠️ ${a.category} | 📍 ${a.city} | 📞 +${a.phone}</p></div>
                                 <button onclick="adminDeleteRecord('artisans', '${docId}')" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
-                            </div>
-                        `;
+                            </div>`;
                     });
                 } else if (sectionType === 'merchants') {
                     titleEl.innerText = "🛒 قائمة التجار والموردين";
                     const snap = await window.getDocs(window.collection(window.db, "merchants"));
-                    if(snap.empty) {
-                        contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا يوجد تجار مسجلون.</p>';
-                        return;
-                    }
+                    if(snap.empty) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا يوجد تجار مسجلون.</p>'; return; }
                     contentEl.innerHTML = '';
                     snap.forEach(d => {
-                        let m = d.data();
-                        let docId = d.id;
+                        let m = d.data(); let docId = d.id;
                         contentEl.innerHTML += `
                             <div class="admin-card">
-                                <div>
-                                    <h4 style="color:#7c3aed; font-size:13px; font-weight:800;">🛒 ${m.name}</h4>
-                                    <p style="color:#059669; font-size:11px;">📍 ولاية ${m.city} | 📞 +${m.phone}</p>
-                                </div>
+                                <div><h4 style="color:#7c3aed; font-size:13px; font-weight:800;">🛒 ${m.name}</h4><p style="color:#059669; font-size:11px;">📍 ولاية ${m.city} | 📞 +${m.phone}</p></div>
                                 <button onclick="adminDeleteRecord('merchants', '${docId}')" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
-                            </div>
-                        `;
+                            </div>`;
                     });
                 } else if (sectionType === 'products') {
                     titleEl.innerText = "📦 قائمة سلع وعروض التجار";
                     const snap = await window.getDocs(window.collection(window.db, "products"));
-                    if(snap.empty) {
-                        contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد سلع معروضة.</p>';
-                        return;
-                    }
+                    if(snap.empty) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد سلع معروضة.</p>'; return; }
                     contentEl.innerHTML = '';
                     snap.forEach(d => {
-                        let p = d.data();
-                        let docId = d.id;
+                        let p = d.data(); let docId = d.id;
                         let imgTag = p.image ? `<img src="${p.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
                         contentEl.innerHTML += `
                             <div class="admin-card">
-                                <div style="display:flex; align-items:center; flex:1;">
-                                    ${imgTag}
-                                    <div>
-                                        <h4 style="color:#d97706; font-size:13px; font-weight:800;">📦 ${p.name}</h4>
-                                        <p style="color:#334155; font-size:11px;">السعر: ${p.price || '-'} | التاجر: ${p.merchantName}</p>
-                                    </div>
-                                </div>
+                                <div style="display:flex; align-items:center; flex:1;">${imgTag}<div><h4 style="color:#d97706; font-size:13px; font-weight:800;">📦 ${p.name}</h4><p style="color:#334155; font-size:11px;">السعر: ${p.price || '-'} | التاجر: ${p.merchantName}</p></div></div>
                                 <button onclick="adminDeleteRecord('products', '${docId}')" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
-                            </div>
-                        `;
+                            </div>`;
                     });
                 } else if (sectionType === 'promos') {
                     titleEl.innerText = "⭐ تحديد السلع المميزة للإعلانات التلقائية";
                     const snap = await window.getDocs(window.collection(window.db, "products"));
-                    if(snap.empty) {
-                        contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد سلع متاحة حالياً لتفعيلها.</p>';
-                        return;
-                    }
+                    if(snap.empty) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد سلع متاحة.</p>'; return; }
                     contentEl.innerHTML = '<p style="font-size:11px; color:#64748b; margin-bottom:10px;">اختر السلع التي تريد أن تظهر كإعلانات منبثقة دورية للزوار:</p>';
                     snap.forEach(d => {
-                        let p = d.data();
-                        let docId = d.id;
+                        let p = d.data(); let docId = d.id;
                         let isChecked = p.isPromo ? 'checked' : '';
                         let imgTag = p.image ? `<img src="${p.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
                         contentEl.innerHTML += `
                             <div class="admin-card">
-                                <div style="display:flex; align-items:center; flex:1;">
-                                    ${imgTag}
-                                    <div>
-                                        <h4 style="color:#d97706; font-size:13px; font-weight:800;">📦 ${p.name}</h4>
-                                        <p style="color:#334155; font-size:11px;">التاجر: ${p.merchantName}</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label style="cursor:pointer; font-size:11px; font-weight:800; color:#059669; display:flex; align-items:center; gap:4px;">
-                                        <input type="checkbox" ${isChecked} onchange="togglePromoProduct('${docId}', this.checked)" style="width:16px; height:16px;"> مميز كإعلان
-                                    </label>
-                                </div>
-                            </div>
-                        `;
+                                <div style="display:flex; align-items:center; flex:1;">${imgTag}<div><h4 style="color:#d97706; font-size:13px; font-weight:800;">📦 ${p.name}</h4><p style="color:#334155; font-size:11px;">التاجر: ${p.merchantName}</p></div></div>
+                                <div><label style="cursor:pointer; font-size:11px; font-weight:800; color:#059669; display:flex; align-items:center; gap:4px;"><input type="checkbox" ${isChecked} onchange="togglePromoProduct('${docId}', this.checked)" style="width:16px; height:16px;"> مميز كإعلان</label></div>
+                            </div>`;
                     });
                 }
-            } catch(e) {
-                contentEl.innerHTML = '<p style="color:red; text-align:center;">حدث خطأ أثناء جلب البيانات.</p>';
-            }
+            } catch(e) { contentEl.innerHTML = '<p style="color:red; text-align:center;">حدث خطأ أثناء جلب البيانات.</p>'; }
         };
 
-        window.closeAdminSection = function() {
-            document.getElementById('adminSectionContainer').style.display = 'none';
-        };
+        window.closeAdminSection = function() { document.getElementById('adminSectionContainer').style.display = 'none'; };
 
-        // تفعيل أو إلغاء تمييز السلعة للإعلانات التلقائية من الأدمن
         window.togglePromoProduct = async function(prodId, status) {
             try {
                 await window.setDoc(window.doc(window.db, "products", prodId), { isPromo: status }, { merge: true });
                 showCustomAlert(status ? '⭐ تم تعيين السلعة كإعلان مميز دوري بنجاح!' : '🛑 تم إلغاء تمييز السلعة.');
-            } catch(e) {
-                showCustomAlert('❌ حدث خطأ، حاول مجدداً.');
-            }
+            } catch(e) { showCustomAlert('❌ حدث خطأ.'); }
         };
 
         window.adminDeleteRecord = async function(collectionName, docId) {
@@ -1757,9 +1542,7 @@
                     showCustomAlert('✅ تمت عملية الحذف بنجاح.');
                     window.initFirebaseData();
                     window.openAdminSection(collectionName);
-                } catch(e) {
-                    showCustomAlert('❌ فشل الحذف.');
-                }
+                } catch(e) { showCustomAlert('❌ فشل الحذف.'); }
             }
         };
 
@@ -1774,54 +1557,27 @@
             const lat = document.getElementById('artisanLat').value || "33.8";
             const lng = document.getElementById('artisanLng').value || "10.8";
 
-            if(!name || !city) {
-                showCustomAlert('الرجاء إدخال الاسم واختيار الولاية!');
-                return;
-            }
+            if(!name || !city) { showCustomAlert('الرجاء إدخال الاسم واختيار الولاية!'); return; }
+            if (!navigator.onLine) { showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.'); return; }
 
-            if (!navigator.onLine) {
-                showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.');
-                return;
-            }
-
-            const dataObj = {
-                type: 'artisan',
-                name,
-                workName,
-                city,
-                category,
-                phone: currentPhone,
-                password,
-                bio,
-                lat,
-                lng,
-                updatedAt: new Date().toISOString()
-            };
-
+            const dataObj = { type: 'artisan', name, workName, city, category, phone: currentPhone, password, bio, lat, lng, updatedAt: new Date().toISOString() };
             try {
                 await window.setDoc(window.doc(window.db, "artisans", currentPhone), dataObj);
                 showCustomAlert('✅ تم حفظ حساب الحرفي بنجاح!');
                 switchView('welcomeView');
                 document.getElementById('mainContainerBox').classList.remove('wide-container');
-            } catch(err) {
-                showCustomAlert('❌ حدث خطأ أثناء الحفظ.');
-            }
+            } catch(err) { showCustomAlert('❌ حدث خطأ أثناء الحفظ.'); }
         });
 
         document.getElementById('btnGetArtisanLocation').addEventListener('click', function() {
             const status = document.getElementById('artisanLocationStatus');
-            if(!navigator.geolocation) {
-                showCustomAlert('متصفحك لا يدعم تحديد الموقع');
-                return;
-            }
+            if(!navigator.geolocation) { showCustomAlert('متصفحك لا يدعم تحديد الموقع'); return; }
             status.value = "جاري جلب الموقع...";
             navigator.geolocation.getCurrentPosition((position) => {
                 document.getElementById('artisanLat').value = position.coords.latitude;
                 document.getElementById('artisanLng').value = position.coords.longitude;
                 status.value = `✅ تم تحديث الموقع بدقة`;
-            }, () => {
-                status.value = "⚠️ تعذر جلب الموقع";
-            }, { enableHighAccuracy: true });
+            }, () => { status.value = "⚠️ تعذر جلب الموقع"; }, { enableHighAccuracy: true });
         });
 
         window.exportDatabase = async function() {
@@ -1837,15 +1593,10 @@
                 let data = JSON.stringify(backupData, null, 2);
                 let blob = new Blob([data], { type: 'application/json' });
                 let url = URL.createObjectURL(blob);
-                let a = document.createElement('a');
-                a.href = url;
-                a.download = 'sonaa_full_backup.json';
-                a.click();
+                let a = document.createElement('a'); a.href = url; a.download = 'sonaa_full_backup.json'; a.click();
                 URL.revokeObjectURL(url);
                 showCustomAlert('✅ تم تحميل النسخة الاحتياطية بنجاح!');
-            } catch(e) {
-                showCustomAlert('❌ فشل التحميل.');
-            }
+            } catch(e) { showCustomAlert('❌ فشل التحميل.'); }
         };
 
         window.importDatabase = async function(event) {
@@ -1855,20 +1606,12 @@
             reader.onload = async function(e) {
                 try {
                     let backup = JSON.parse(e.target.result);
-                    if(backup.artisans) {
-                        for(let a of backup.artisans) { if(a.phone) await window.setDoc(window.doc(window.db, "artisans", a.phone), a); }
-                    }
-                    if(backup.merchants) {
-                        for(let m of backup.merchants) { if(m.phone) await window.setDoc(window.doc(window.db, "merchants", m.phone), m); }
-                    }
-                    if(backup.products) {
-                        for(let p of backup.products) { if(p.id) await window.setDoc(window.doc(window.db, "products", p.id), p); }
-                    }
+                    if(backup.artisans) { for(let a of backup.artisans) { if(a.phone) await window.setDoc(window.doc(window.db, "artisans", a.phone), a); } }
+                    if(backup.merchants) { for(let m of backup.merchants) { if(m.phone) await window.setDoc(window.doc(window.db, "merchants", m.phone), m); } }
+                    if(backup.products) { for(let p of backup.products) { if(p.id) await window.setDoc(window.doc(window.db, "products", p.id), p); } }
                     window.initFirebaseData();
                     showCustomAlert('✅ تمت استعادة البيانات بنجاح!');
-                } catch(err) {
-                    showCustomAlert('❌ الملف غير صالح.');
-                }
+                } catch(err) { showCustomAlert('❌ الملف غير صالح.'); }
             };
             reader.readAsText(file);
         };
@@ -1888,32 +1631,22 @@
             selectedFilter = cat;
             renderSidebarCategories(getCategories());
             renderFilteredArtisans();
-            if(window.innerWidth <= 768) {
-                document.getElementById('sidebarFiltersBox').classList.remove('mobile-show');
-            }
+            if(window.innerWidth <= 768) { document.getElementById('sidebarFiltersBox').classList.remove('mobile-show'); }
         }
 
-        window.filterArtisansBySearch = function() {
-            renderFilteredArtisans();
-        };
+        window.filterArtisansBySearch = function() { renderFilteredArtisans(); };
 
-        // نظام التخزين المحلي والذاكرة المؤقتة (Caching) لفتح فوري
+        // نظام المزامنة المزدوج (الذاكرة المحلية + التحديث الفوري والفعلي في الخلفية وحذف ما تم حذفه)
         function initGlobalDataSync() {
             let cachedArtisans = localStorage.getItem('cache_artisans');
             let cachedMerchants = localStorage.getItem('cache_merchants');
             let cachedProducts = localStorage.getItem('cache_products');
 
-            if(cachedArtisans) {
-                try { cachedArtisansList = JSON.parse(cachedArtisans); } catch(e){}
-            }
-            if(cachedMerchants) {
-                try { cachedMerchantsList = JSON.parse(cachedMerchants); } catch(e){}
-            }
-            if(cachedProducts) {
-                try { cachedProductsList = JSON.parse(cachedProducts); } catch(e){}
-            }
+            if(cachedArtisans) { try { cachedArtisansList = JSON.parse(cachedArtisans); } catch(e){} }
+            if(cachedMerchants) { try { cachedMerchantsList = JSON.parse(cachedMerchants); } catch(e){} }
+            if(cachedProducts) { try { cachedProductsList = JSON.parse(cachedProducts); } catch(e){} }
 
-            // الاستماع في الخلفية للتحديثات والجديد دون انتظار
+            // استماع وتحديث فوري (Actualisation تلقائية للبيانات والحذف والإضافة)
             window.onSnapshot(window.collection(window.db, "artisans"), (snap) => {
                 cachedArtisansList = [];
                 snap.forEach(d => cachedArtisansList.push(d.data()));
@@ -1944,29 +1677,36 @@
             });
         }
 
-        // إظهار نافذة إعلانات منبثقة دورية للسلع المميزة من الأدمن
+        // نظام الإعلانات المنبثقة التلقائية المتنوعة بالدور (Round-Robin) لكل سلع التجار المختارة في الأدمن
         function startPromoPopupLoop() {
             if(promoPopupInterval) clearInterval(promoPopupInterval);
             promoPopupInterval = setInterval(() => {
-                showRandomPromoPopup();
-            }, 30000); // كل 30 ثانية تظهر بصفة دورية
+                showNextPromoPopup();
+            }, 35000); // كل 35 ثانية إعلان متنوع دوري
         }
 
-        function showRandomPromoPopup() {
+        function showNextPromoPopup() {
             let promoProducts = cachedProductsList.filter(p => p.isPromo === true);
             if(promoProducts.length === 0) return;
 
-            let randomProd = promoProducts[Math.floor(Math.random() * promoProducts.length)];
-            let imgTag = randomProd.image ? `<img src="${randomProd.image}" style="width: 100%; height: 140px; object-fit: cover; border-radius: 10px; margin-bottom: 8px;" />` : '';
-            let priceText = randomProd.discountPrice ? `<span style="color:#ef4444; font-weight:800;">السعر: ${randomProd.discountPrice}</span>` : `السعر: ${randomProd.price || 'متاح'}`;
+            // التأكد من أن المؤشر لا يتجاوز الحدود وإعادة تدويره
+            if(currentPromoIndex >= promoProducts.length) {
+                currentPromoIndex = 0;
+            }
+
+            let promoProd = promoProducts[currentPromoIndex];
+            currentPromoIndex++; // الانتقال للسلعة الموالية في الدورة القادمة
+
+            let imgTag = promoProd.image ? `<img src="${promoProd.image}" style="width: 100%; height: 140px; object-fit: cover; border-radius: 10px; margin-bottom: 8px;" />` : '';
+            let priceText = promoProd.discountPrice ? `<span style="color:#ef4444; font-weight:800;">السعر: ${promoProd.discountPrice}</span>` : `السعر: ${promoProd.price || 'متاح'}`;
 
             let bodyEl = document.getElementById('promoPopupBody');
             bodyEl.innerHTML = `
-                <div style="font-size:11px; color:#d97706; font-weight:800; margin-bottom:4px;">🔥 إعلان مميز من متجر: ${randomProd.merchantName}</div>
+                <div style="font-size:11px; color:#d97706; font-weight:800; margin-bottom:4px;">🔥 إعلان مميز من متجر: ${promoProd.merchantName}</div>
                 ${imgTag}
-                <h4 style="color:#1e293b; font-size:14px; font-weight:900; margin-bottom:4px;">${randomProd.name}</h4>
-                <p style="color:#059669; font-size:12px; font-weight:700; margin-bottom:6px;">${priceText} (${randomProd.merchantCity})</p>
-                <a href="tel:+${randomProd.merchantPhone}" style="display:block; background:#0284c7; color:white; padding:8px; border-radius:8px; text-decoration:none; font-size:12px; font-weight:800; margin-top:6px;">📞 اتصال بالتاجر فوراً</a>
+                <h4 style="color:#1e293b; font-size:14px; font-weight:900; margin-bottom:4px;">${promoProd.name}</h4>
+                <p style="color:#059669; font-size:12px; font-weight:700; margin-bottom:6px;">${priceText} (${promoProd.merchantCity})</p>
+                <a href="tel:+${promoProd.merchantPhone}" style="display:block; background:#0284c7; color:white; padding:8px; border-radius:8px; text-decoration:none; font-size:12px; font-weight:800; margin-top:6px;">📞 اتصال بالتاجر فوراً</a>
             `;
             document.getElementById('promoPopupModal').style.display = 'flex';
         }
@@ -1981,9 +1721,10 @@
             const searchVal = document.getElementById('globalSearchInput').value.toLowerCase().trim();
             const selectedGov = document.getElementById('filterGovernorateSelect').value;
 
+            // معالجة حالة انقطاع الإنترنت تماماً وعدم وجود بيانات مخزنة
             if (!navigator.onLine && cachedArtisansList.length === 0) {
                 countText.innerText = "⚠️ انقطع الاتصال بالإنترنت";
-                container.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">🌐 لا يوجد اتصال بالإنترنت.</p>';
+                container.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">🌐 لا توجد أي بيانات مخزنة حالياً لعدم الاتصال بالإنترنت. يرجى الاتصال بالشبكة.</p>';
                 return;
             }
 
