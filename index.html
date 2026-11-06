@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-main: #0b0f19;
-            --card-bg: #1e1b2e; /* لون خافت يميل إلى الزهري/البنفسجي الهادئ */
+            --card-bg: #1e1b2e;
             --accent-gold: #fbbf24;
             --accent-gold-dark: #d97706;
             --text-main: #f8fafc;
@@ -33,11 +33,11 @@
         .container {
             max-width: 620px;
             margin: 20px auto;
-            background: rgba(35, 27, 48, 0.92); /* صندوق بلون زهري/بنفسجي خافت وأنيق جداً */
+            background: rgba(35, 27, 48, 0.92);
             padding: 22px;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border: 1px solid rgba(244, 114, 182, 0.2); /* إطار زهري خفيف وفاخر */
+            border: 1px solid rgba(244, 114, 182, 0.2);
             width: 100%;
         }
         .container.wide-container {
@@ -148,7 +148,6 @@
             filter: brightness(1.1);
         }
         
-        /* تنسيق الألوان داخل الأزرار لتبرز الكلمات الرئيسية */
         .btn-main-text {
             color: #fff;
             font-size: 15px;
@@ -156,7 +155,7 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
         .btn-sub-text {
-            color: #f472b6; /* لون زهري خافت وناعم لباقي الجملة داخل الزر */
+            color: #f472b6;
             font-size: 12px;
             font-weight: 600;
         }
@@ -629,7 +628,6 @@
             <button class="btn btn-customer" id="btnCustomer">🔍 أبحث عن حرفي <span class="btn-sub-text">(دخول مباشر للبحث)</span></button>
             <button class="btn btn-merchants-offers" id="btnMerchantsOffers">🔥 تخفيضات الأسبوع ومتاجر التجهيزات المتنوعة</button>
             
-            <!-- أزرار الحرفي والتاجر مع فصل الألوان لبروز الكلمات الرئيسية -->
             <button class="btn btn-artisan" id="btnArtisan">
                 🛠️ <span class="btn-main-text">أنا حرفي</span> <span class="btn-sub-text">(تسجيل أو تعديل حساب حرفي)</span>
             </button>
@@ -985,7 +983,6 @@
                 <input type="text" id="storeSearchInput" class="filter-search-input" placeholder="ابحث عن اسم المحل أو الولاية..." oninput="renderStoresList()" style="padding: 10px; font-weight: 700;">
             </div>
 
-            <!-- قائمة أيقونات المتاجر -->
             <div id="storesGridList" class="artisans-grid-2col">
                 <p style="color: var(--text-gray); text-align: center; grid-column: span 2; padding: 15px; font-weight: 700;">جاري جلب المتاجر...</p>
             </div>
@@ -1316,6 +1313,7 @@
             }
         });
 
+        // دالة تسجيل تاجر جديد (مُحدثة بالإصلاح الشامل للتحقق من التكرار وضغط الصورة)
         document.getElementById('merchantRegForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let name = document.getElementById('regMerchantName').value.trim();
@@ -1342,6 +1340,22 @@
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
 
+            // التحقق من تكرار رقم هاتف التاجر مسبقاً
+            try {
+                const querySnapshot = await window.getDocs(window.collection(window.db, "merchants"));
+                let alreadyExists = false;
+                querySnapshot.forEach((d) => {
+                    if(d.data().phone === currentPhone) alreadyExists = true;
+                });
+
+                if(alreadyExists) {
+                    showCustomAlert('⚠️ رقم الهاتف هذا مسجل مسبقاً! يرجى استخدام "تسجيل الدخول".');
+                    return;
+                }
+            } catch(err) {
+                console.error(err);
+            }
+
             let saveMerchantToDb = async (logoUrl = "") => {
                 currentMerchantData = {
                     name,
@@ -1360,16 +1374,21 @@
                     switchView('merchantDashboardView');
                     listenToMerchantProducts(currentPhone);
                 } catch(err) {
-                    showCustomAlert('❌ حدث خطأ أثناء الحفظ.');
+                    showCustomAlert('❌ فشل الحفظ، قد تكون حجم الصورة كبيراً جداً. حاول اختيار صورة أصغر.');
                 }
             };
 
             if(fileInput.files && fileInput.files[0]) {
+                let file = fileInput.files[0];
+                if(file.size > 2 * 1024 * 1024) {
+                    showCustomAlert('⚠️ حجم الصورة كبير جداً، يرجى اختيار صورة أصغر من 2 ميغابايت.');
+                    return;
+                }
                 let reader = new FileReader();
                 reader.onload = async function(e) {
                     await saveMerchantToDb(e.target.result);
                 };
-                reader.readAsDataURL(fileInput.files[0]);
+                reader.readAsDataURL(file);
             } else {
                 await saveMerchantToDb("");
             }
@@ -1413,11 +1432,16 @@
             };
 
             if(fileInput.files && fileInput.files[0]) {
+                let file = fileInput.files[0];
+                if(file.size > 2 * 1024 * 1024) {
+                    showCustomAlert('⚠️ حجم صورة المنتج كبير جداً (أكبر من 2 ميغابايت).');
+                    return;
+                }
                 let reader = new FileReader();
                 reader.onload = async function(e) {
                     await saveProductToDb(e.target.result);
                 };
-                reader.readAsDataURL(fileInput.files[0]);
+                reader.readAsDataURL(file);
             } else {
                 await saveProductToDb("");
             }
