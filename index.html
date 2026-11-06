@@ -42,7 +42,7 @@
             max-width: 1000px !important;
         }
 
-        /* --- الترويسة العلوية المصغرة والمدمجة --- */
+        /* --- الترويسة العلوية المصغرة مع الشعار الجديد على اليمين --- */
         .app-header {
             background: linear-gradient(135deg, #0284c7, #1d4ed8, #3b82f6);
             border-radius: 14px;
@@ -59,11 +59,13 @@
             align-items: center;
             gap: 10px;
         }
-        .header-icon-box {
-            font-size: 26px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 6px 10px;
+        .header-logo-img {
+            width: 42px;
+            height: 42px;
+            object-fit: cover;
             border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         .header-titles h1 {
             font-size: 15px;
@@ -147,7 +149,7 @@
             font-weight: 600;
         }
         
-        /* --- ترتيب الأزرار عمودياً فوق بعضها البعض (البحث عن حرفي في الأعلى) --- */
+        /* --- ترتيب الأزرار عمودياً فوق بعضها البعض --- */
         .main-buttons-stack {
             display: flex;
             flex-direction: column;
@@ -218,7 +220,6 @@
             font-weight: bold;
         }
 
-        /* تدرجات ألوان الأزرار */
         .btn-search { background: linear-gradient(135deg, #0284c7, #0369a1); }
         .btn-market { background: linear-gradient(135deg, #16a34a, #15803d); }
         .btn-artisan-main { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
@@ -249,8 +250,8 @@
         }
         .footer-action-item:hover { transform: scale(1.05); }
         .footer-icon-circle { font-size: 16px; margin-bottom: 2px; }
-        .footer-text-ar { font-size: 11px; font-weight: 800; color: #1e293b; }
-        .footer-text-fr { font-size: 9px; color: #64748b; font-style: italic; font-weight: 600; }
+        .footer-text-ar { font-size: 10px; font-weight: 800; color: #1e293b; }
+        .footer-text-fr { font-size: 8px; color: #64748b; font-style: italic; font-weight: 600; }
         .footer-divider { width: 1px; height: 28px; background-color: #cbd5e1; }
 
         .suggestion-btn {
@@ -272,7 +273,6 @@
         }
         .suggestion-btn:hover { filter: brightness(1.05); }
 
-        /* نافذة الاقتراحات المخصصة النظيفة */
         #suggestionModal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 10500; padding: 15px;
@@ -470,13 +470,14 @@
 
     <div class="container" id="mainContainerBox">
         
-        <!-- الترويسة العلوية المصغرة والمدمجة -->
+        <!-- الترويسة العلوية المصغرة مع الشعار الجديد على اليمين -->
         <div class="app-header">
             <div class="header-left">
-                <div class="header-icon-box">🤖</div>
+                <!-- الشعار الجديد الذي أرسلته -->
+                <img src="1000012468.jpg" alt="شعار المنصة" class="header-logo-img">
                 <div class="header-titles">
-                    <h1>منصة أصحاب المهارات والحرفيين</h1>
-                    <p>Plateforme des artisans et prestataires</p>
+                    <h1>منصة الحرفيين تونس</h1>
+                    <p>Plateforme des artisans</p>
                 </div>
             </div>
             <button class="header-settings-btn" onclick="openAdminQuickLogin()" title="الإعدادات">⚙️</button>
@@ -545,7 +546,7 @@
                 💬 اقتراح أو ملاحظة لصاحب الموقع (Suggestion)
             </button>
 
-            <!-- شريط الأدوات السفلي الموحد (Footer Bar) -->
+            <!-- شريط الأدوات السفلي الموحد (Footer Bar) مع رابط سياسة الخصوصية -->
             <div class="bottom-footer-bar">
                 <button class="footer-action-item" onclick="openAboutModal()">
                     <span class="footer-icon-circle">ℹ️</span>
@@ -561,15 +562,28 @@
                 <div class="footer-divider"></div>
                 <button class="footer-action-item" onclick="shareAppAction()">
                     <span class="footer-icon-circle">🔗</span>
-                    <span class="footer-text-ar">مشاركة التطبيق</span>
+                    <span class="footer-text-ar">مشاركة</span>
                     <span class="footer-text-fr">Partager</span>
                 </button>
+                <div class="footer-divider"></div>
+                <a href="privacy.html" class="footer-action-item" style="text-decoration: none;">
+                    <span class="footer-icon-circle">🛡️</span>
+                    <span class="footer-text-ar">الخصوصية</span>
+                    <span class="footer-text-fr">Confidentialité</span>
+                </a>
             </div>
 
             <div class="info-box">
                 <h3>💡 كيف تعمل المنصة؟</h3>
                 <p><b>للصناع والحرفيين:</b> سجل برقم هاتفك وحدد اختصاصك وولاك ليعثر عليك الزبائن.</p>
                 <p><b>للتجار والموردين:</b> سجل معلومات محلك وصورة شعارك، لتظهر أيقونة متجرك لجميع الزوار والحرفيين.</p>
+            </div>
+
+            <!-- رابط سياسة الخصوصية في أسفل الصفحة الرئيسية بوضوح تام -->
+            <div style="text-align: center; margin-top: 12px; padding-bottom: 6px;">
+                <a href="privacy.html" style="color: #64748b; font-size: 11px; font-weight: 700; text-decoration: underline;">
+                    🛡️ الاطلاع على سياسة الخصوصية (Privacy Policy)
+                </a>
             </div>
         </div>
 
@@ -641,7 +655,7 @@
                 <div class="form-group">
                     <label>صورة المحل أو الشعار (Logo)</label>
                     <div class="image-upload-wrapper">
-                        <input type="file" id="regMerchantLogoFile" accept="image/*" style="padding: 6px;" onchange="previewImage(this, 'regMerchantLogoPreview', 'removeMerchantLogoBtn')">
+                        <input type="file" id="regMerchantLogoFile" accept="image/*" style="padding: 6px;" onchange="previewImage(this, 'removeMerchantLogoBtn')">
                         <button type="button" id="removeMerchantLogoBtn" class="remove-img-btn" onclick="clearImageInput('regMerchantLogoFile', 'removeMerchantLogoBtn')">✕</button>
                     </div>
                 </div>
@@ -663,7 +677,7 @@
         <div id="merchantDashboardView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج</button>
             <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 15px; font-weight: 800;" id="merchantPanelTitle">🛒 فضاء إدارة سلع وعروض التاجر</h2>
-            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 10px; font-weight: 700;">أضف منتجاتك، أسعارها، وتخفيضات الأسبوع مع إمكانية رفع الصور مباشرة.</p>
+            <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 10px; font-weight: 700;">أضف منتجاتك، أسعارها، وتخفيضات الأسبوع مع التصغير التلقائي للصور.</p>
 
             <div class="add-category-box" style="background: #f1f5f9; border-color: #7c3aed;">
                 <h3 style="color: #7c3aed; font-size: 12px; margin-bottom: 6px; font-weight: 800;">➕ إضافة منتج أو سلعة جديدة</h3>
@@ -685,7 +699,7 @@
                     <div class="form-group">
                         <label>اختر صورة المنتج</label>
                         <div class="image-upload-wrapper">
-                            <input type="file" id="prodImageFile" accept="image/*" style="padding: 6px;" onchange="previewImage(this, 'prodImagePreview', 'removeProdImageBtn')">
+                            <input type="file" id="prodImageFile" accept="image/*" style="padding: 6px;" onchange="previewImage(this, 'removeProdImageBtn')">
                             <button type="button" id="removeProdImageBtn" class="remove-img-btn" onclick="clearImageInput('prodImageFile', 'removeProdImageBtn')">✕</button>
                         </div>
                     </div>
@@ -735,7 +749,6 @@
                 <div id="adminSectionContent">جاري التحميل...</div>
             </div>
 
-            <!-- خانة تخصيص رقم الواتساب لاستقبال الاقتراحات والملاحظات -->
             <div class="add-category-box" style="background: #f0fdf4; border-color: #22c55e;">
                 <h3 style="color: #16a34a; font-size: 12px; margin-bottom: 4px; font-weight: 800;">📱 رقم واتساب استقبال المقترحات</h3>
                 <div style="display: flex; gap: 6px;">
@@ -884,7 +897,41 @@
             document.getElementById('customModal').style.display = 'none';
         }
 
-        // --- دوال الاقتراحات والملاحظات المخصصة النظيفة ---
+        // --- دالة ضغط الصور تلقائياً لحل مشكلة الحجم الكبير نهائياً ---
+        function compressImage(file, maxWidth, maxHeight, quality, callback) {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (event) {
+                let img = new Image();
+                img.src = event.target.result;
+                img.onload = function () {
+                    let canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    let ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    let dataUrl = canvas.toDataURL('image/jpeg', quality);
+                    callback(dataUrl);
+                }
+            };
+        }
+
         window.openSuggestionModal = function() {
             document.getElementById('suggestionTextarea').value = "";
             document.getElementById('suggestionModal').style.display = 'flex';
@@ -906,7 +953,6 @@
             closeSuggestionModal();
         };
 
-        // دوال شريط الأدوات السفلي (Footer Actions)
         window.openAboutModal = function() {
             showCustomAlert("ℹ️ منصة أصحاب المهارات والحرفيين الإصدار الأول 1.0\nصلة الوصل بين مهارة الحرفي واحتياجات الناس في تونس.");
         };
@@ -949,7 +995,7 @@
             }
         };
 
-        window.previewImage = function(input, previewImgId, btnId) {
+        window.previewImage = function(input, btnId) {
             let btn = document.getElementById(btnId);
             if(input.files && input.files[0]) {
                 if(btn) btn.style.display = 'flex';
@@ -1042,7 +1088,6 @@
             switchView('merchantAuthChoiceView', true);
         });
 
-        // --- نظام التنقل وحفظ الحالة لأجل زر الرجوع في الأندرويد (Back Button) ---
         function switchView(viewId, pushHistory = true) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             let targetView = document.getElementById(viewId);
@@ -1087,7 +1132,6 @@
                 document.getElementById('adminWhatsappInput').value = savedAdminWp;
             }
 
-            // ضبط حالة الهستوري عند فتح التطبيق أول مرة
             if (!window.location.hash) {
                 history.replaceState({ view: 'welcomeView' }, "", "#welcomeView");
             }
@@ -1242,15 +1286,15 @@
                     document.getElementById('mainContainerBox').classList.add('wide-container');
                     switchView('merchantDashboardView', true);
                     listenToMerchantProducts(currentPhone);
-                } catch(err) { showCustomAlert('❌ فشل الحفظ، حجم الصورة كبير جداً.'); }
+                } catch(err) { showCustomAlert('❌ فشل الحفظ.'); }
             };
 
             if(fileInput.files && fileInput.files[0]) {
                 let file = fileInput.files[0];
-                if(file.size > 2 * 1024 * 1024) { showCustomAlert('⚠️ حجم الصورة كبير جداً.'); return; }
-                let reader = new FileReader();
-                reader.onload = async function(e) { await saveMerchantToDb(e.target.result); };
-                reader.readAsDataURL(file);
+                // تصغط الصورة تلقائياً بحد أقصى 500 بكسل وجودة 0.7 لتفادي الحجم الكبير
+                compressImage(file, 500, 500, 0.7, async function(compressedUrl) {
+                    await saveMerchantToDb(compressedUrl);
+                });
             } else { await saveMerchantToDb(""); }
         });
 
@@ -1281,10 +1325,10 @@
 
             if(fileInput.files && fileInput.files[0]) {
                 let file = fileInput.files[0];
-                if(file.size > 2 * 1024 * 1024) { showCustomAlert('⚠️ حجم صورة المنتج كبير جداً.'); return; }
-                let reader = new FileReader();
-                reader.onload = async function(e) { await saveProductToDb(e.target.result); };
-                reader.readAsDataURL(file);
+                // ضغط صورة المنتج تلقائياً
+                compressImage(file, 600, 600, 0.7, async function(compressedUrl) {
+                    await saveProductToDb(compressedUrl);
+                });
             } else { await saveProductToDb(""); }
         });
 
