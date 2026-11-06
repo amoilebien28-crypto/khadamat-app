@@ -6,7 +6,7 @@
     <title>منصة أصحاب المهارات والحرفيين</title>
     <style>
         :root {
-            --bg-main: #0b0f19;
+            --bg-main: #0f172a;
             --card-bg: #1e1b2e;
             --accent-gold: #fbbf24;
             --accent-gold-dark: #d97706;
@@ -33,11 +33,11 @@
         .container {
             max-width: 620px;
             margin: 20px auto;
-            background: rgba(35, 27, 48, 0.92);
+            background: rgba(30, 27, 46, 0.95); /* لون خلفية ناعم وفخم مأخوذ من التصميم المفضل لديك */
             padding: 22px;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border: 1px solid rgba(244, 114, 182, 0.2);
+            border: 1px solid rgba(124, 58, 237, 0.3); /* إطار بنفسجي راقي */
             width: 100%;
         }
         .container.wide-container {
@@ -71,9 +71,9 @@
             font-weight: 600;
         }
         .middle-badge {
-            background: linear-gradient(135deg, #2a1b3d, #3b2654);
-            border: 1px solid #7c3aed;
-            color: #38bdf8;
+            background: linear-gradient(135deg, #1b2e23, #143826); /* تدرج أخضر صحي مريح للعين */
+            border: 1px solid #059669;
+            color: #34d399;
             padding: 9px;
             border-radius: 12px;
             text-align: center;
@@ -97,7 +97,7 @@
             text-overflow: ellipsis;
         }
         .info-box {
-            background: linear-gradient(135deg, #231934, #1a1025);
+            background: linear-gradient(135deg, #1e1b2e, #171023);
             border: 1px solid #d97706;
             border-radius: 14px;
             padding: 14px;
@@ -1313,7 +1313,6 @@
             }
         });
 
-        // دالة تسجيل تاجر جديد (مُحدثة بالإصلاح الشامل للتحقق من التكرار وضغط الصورة)
         document.getElementById('merchantRegForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             let name = document.getElementById('regMerchantName').value.trim();
@@ -1340,7 +1339,6 @@
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
 
-            // التحقق من تكرار رقم هاتف التاجر مسبقاً
             try {
                 const querySnapshot = await window.getDocs(window.collection(window.db, "merchants"));
                 let alreadyExists = false;
