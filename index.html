@@ -53,19 +53,6 @@
             color: white;
             margin-bottom: 14px;
             box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .app-header::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-            animation: shine 4s infinite;
-        }
-        @keyframes shine {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
         }
         .header-left {
             display: flex;
@@ -160,10 +147,10 @@
             font-weight: 600;
         }
         
-        /* --- تصميم الأزرار البارزة (3D Glossy Buttons Grid 2x2) --- */
-        .main-buttons-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        /* --- ترتيب الأزرار فوق بعضها البعض عمودياً (مطابق للصورة ولكن عمودي) --- */
+        .main-buttons-stack {
+            display: flex;
+            flex-direction: column;
             gap: 12px;
             margin-top: 10px;
             margin-bottom: 14px;
@@ -172,7 +159,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 12px;
+            padding: 14px 16px;
             border-radius: 16px;
             border: none;
             cursor: pointer;
@@ -181,25 +168,23 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.15), inset 0 2px 3px rgba(255,255,255,0.4);
             transition: all 0.2s ease;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            height: 85px;
+            width: 100%;
+            height: 75px;
         }
         .glossy-btn:hover {
             transform: translateY(-2px);
             filter: brightness(1.05);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2), inset 0 2px 3px rgba(255,255,255,0.5);
         }
         .btn-content-right {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 14px;
             text-align: right;
         }
         .btn-icon {
-            font-size: 28px;
+            font-size: 26px;
             background: rgba(255,255,255,0.25);
-            padding: 6px;
+            padding: 8px;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -210,21 +195,21 @@
             flex-direction: column;
         }
         .btn-title-ar {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 900;
             color: white;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
         .btn-title-fr {
-            font-size: 10px;
+            font-size: 11px;
             color: rgba(255,255,255,0.9);
             font-style: italic;
             font-weight: 600;
         }
         .btn-arrow {
             background: rgba(255,255,255,0.25);
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -234,15 +219,13 @@
             font-weight: bold;
         }
 
-        /* ألوان الأزرار الستة بتدرجات فخمة مطابقة للصورة */
+        /* ألوان الأزرار بتدرجات فخمة */
         .btn-search { background: linear-gradient(135deg, #0284c7, #0369a1); }
         .btn-market { background: linear-gradient(135deg, #16a34a, #15803d); }
         .btn-artisan-main { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
         .btn-merchant-main { background: linear-gradient(135deg, #9333ea, #7e22ce); }
-        .btn-offers-main { background: linear-gradient(135deg, #dc2626, #b91c1c); }
-        .btn-quick-call { background: linear-gradient(135deg, #0891b2, #0e7490); }
 
-        /* --- شريط الأدوات السفلي (Footer Bottom Bar) مثل الصورة تماماً --- */
+        /* --- شريط الأدوات السفلي (Footer Bar) --- */
         .bottom-footer-bar {
             display: flex;
             align-items: center;
@@ -251,7 +234,7 @@
             border: 1px solid #cbd5e1;
             border-radius: 16px;
             padding: 10px 5px;
-            margin-top: 16px;
+            margin-top: 14px;
             box-shadow: inset 0 2px 4px rgba(255,255,255,0.6);
         }
         .footer-action-item {
@@ -266,32 +249,16 @@
             transition: transform 0.2s;
         }
         .footer-action-item:hover { transform: scale(1.05); }
-        .footer-icon-circle {
-            font-size: 18px;
-            margin-bottom: 3px;
-        }
-        .footer-text-ar {
-            font-size: 11px;
-            font-weight: 800;
-            color: #1e293b;
-        }
-        .footer-text-fr {
-            font-size: 9px;
-            color: #64748b;
-            font-style: italic;
-            font-weight: 600;
-        }
-        .footer-divider {
-            width: 1px;
-            height: 32px;
-            background-color: #cbd5e1;
-        }
+        .footer-icon-circle { font-size: 18px; margin-bottom: 3px; }
+        .footer-text-ar { font-size: 11px; font-weight: 800; color: #1e293b; }
+        .footer-text-fr { font-size: 9px; color: #64748b; font-style: italic; font-weight: 600; }
+        .footer-divider { width: 1px; height: 32px; background-color: #cbd5e1; }
 
         .suggestion-btn {
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
             width: 100%;
-            padding: 12px;
+            padding: 13px;
             border-radius: 14px;
             border: none;
             font-weight: 800;
@@ -303,9 +270,24 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            transition: 0.2s;
         }
         .suggestion-btn:hover { filter: brightness(1.05); }
+
+        /* نافذة الاقتراح المخصصة النظيفة (بدون رابط URL المزعج) */
+        #suggestionModal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 10500; padding: 15px;
+        }
+        .suggestion-box {
+            background: #ffffff; padding: 22px; border-radius: 18px; max-width: 340px; width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid #25D366; text-align: right;
+        }
+        .suggestion-box h3 { color: #128C7E; font-size: 15px; font-weight: 900; margin-bottom: 8px; }
+        .suggestion-box textarea { width: 100%; height: 90px; padding: 10px; border: 2px solid #cbd5e1; border-radius: 10px; margin-bottom: 12px; font-size: 13px; }
+        .suggestion-actions { display: flex; gap: 8px; }
+        .suggestion-actions button { flex: 1; padding: 10px; border-radius: 10px; font-weight: 800; border: none; cursor: pointer; }
+        .btn-send-sug { background: #25D366; color: white; }
+        .btn-cancel-sug { background: #e2e8f0; color: #475569; }
         
         .view { display: none; }
         .view.active { display: block; }
@@ -313,186 +295,38 @@
         .form-group { margin-bottom: 14px; text-align: right; }
         label { display: block; margin-bottom: 5px; color: #0284c7; font-weight: 700; font-size: 12px; }
         input, select, textarea {
-            width: 100%;
-            padding: 11px;
-            border: 2px solid #cbd5e1;
-            border-radius: 12px;
-            background: #ffffff;
-            color: #0f172a;
-            font-size: 13px;
-            font-weight: 600;
-            outline: none;
-            transition: 0.2s;
+            width: 100%; padding: 11px; border: 2px solid #cbd5e1; border-radius: 12px;
+            background: #ffffff; color: #0f172a; font-size: 13px; font-weight: 600; outline: none;
         }
-        input:focus, select:focus, textarea:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
-        textarea { resize: vertical; height: 70px; }
-        
-        .phone-input-group {
-            display: flex;
-            direction: ltr;
-        }
-        .phone-prefix {
-            background: #e2e8f0;
-            color: #0f172a;
-            padding: 11px;
-            border: 2px solid #cbd5e1;
-            border-radius: 0 12px 12px 0;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            font-size: 13px;
-        }
-        .phone-main-input {
-            border-radius: 12px 0 0 12px !important;
-            border-left: none !important;
-            text-align: right;
-        }
+        .phone-input-group { display: flex; direction: ltr; }
+        .phone-prefix { background: #e2e8f0; color: #0f172a; padding: 11px; border: 2px solid #cbd5e1; border-radius: 0 12px 12px 0; font-weight: 800; display: flex; align-items: center; font-size: 13px; }
+        .phone-main-input { border-radius: 12px 0 0 12px !important; border-left: none !important; text-align: right; }
 
         .btn-gps {
-            background-color: #ecfdf5;
-            color: #059669;
-            border: 2px dashed #34d399;
-            padding: 11px;
-            border-radius: 12px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 700;
-            margin-top: 4px;
-            text-align: center;
+            background-color: #ecfdf5; color: #059669; border: 2px dashed #34d399; padding: 11px;
+            border-radius: 12px; width: 100%; cursor: pointer; font-size: 12px; font-weight: 700; margin-top: 4px; text-align: center;
         }
-        
         .back-btn {
-            background: #f1f5f9;
-            color: #0284c7;
-            border: 1px solid #cbd5e1;
-            padding: 7px 14px;
-            border-radius: 10px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: 700;
-            font-size: 12px;
-            margin-bottom: 14px;
+            background: #f1f5f9; color: #0284c7; border: 1px solid #cbd5e1; padding: 7px 14px;
+            border-radius: 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-weight: 700; font-size: 12px; margin-bottom: 14px;
         }
-
-        .customer-layout {
-            display: grid;
-            grid-template-columns: 240px 1fr;
-            gap: 16px;
-            align-items: start;
-        }
-        @media(max-width: 768px) {
-            .customer-layout { grid-template-columns: 1fr; }
-        }
-
-        .toggle-cat-mobile-btn {
-            display: none;
-            width: 100%;
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: white;
-            border: none;
-            padding: 11px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 13px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            text-align: center;
-        }
-        @media(max-width: 768px) {
-            .toggle-cat-mobile-btn { display: block; }
-            .sidebar-filters { display: none; }
-            .sidebar-filters.mobile-show { display: block; margin-bottom: 14px; }
-        }
-
-        .sidebar-filters {
-            background: var(--card-bg, #f1f5f9);
-            border: 2px solid #cbd5e1;
-            padding: 12px;
-            border-radius: 14px;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        .sidebar-filters h3 {
-            font-size: 13px;
-            color: #0284c7;
-            margin-bottom: 8px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid #cbd5e1;
-            font-weight: 800;
-        }
-        .filter-search-input {
-            margin-bottom: 8px;
-            padding: 8px;
-            font-size: 11px;
-        }
-        .filter-cat-list {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .filter-cat-btn {
-            background: #ffffff;
-            border: 2px solid #cbd5e1;
-            padding: 8px;
-            border-radius: 8px;
-            text-align: right;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            color: #334155;
-        }
-        .filter-cat-btn:hover, .filter-cat-btn.active {
-            background: #0284c7;
-            color: white;
-            border-color: #0284c7;
-        }
-
-        .artisans-grid-2col {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-        @media(max-width: 600px) {
-            .artisans-grid-2col { grid-template-columns: 1fr; }
-        }
-
-        .artisan-card {
-            background: #f1f5f9;
-            padding: 14px;
-            border-radius: 14px;
-            border: 2px solid #cbd5e1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
+        .customer-layout { display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: start; }
+        @media(max-width: 768px) { .customer-layout { grid-template-columns: 1fr; } }
+        .toggle-cat-mobile-btn { display: none; width: 100%; background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 11px; border-radius: 12px; font-weight: 800; font-size: 13px; margin-bottom: 12px; cursor: pointer; text-align: center; }
+        @media(max-width: 768px) { .toggle-cat-mobile-btn { display: block; } .sidebar-filters { display: none; } .sidebar-filters.mobile-show { display: block; margin-bottom: 14px; } }
+        .sidebar-filters { background: #f1f5f9; border: 2px solid #cbd5e1; padding: 12px; border-radius: 14px; max-height: 500px; overflow-y: auto; }
+        .sidebar-filters h3 { font-size: 13px; color: #0284c7; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 2px solid #cbd5e1; font-weight: 800; }
+        .filter-search-input { margin-bottom: 8px; padding: 8px; font-size: 11px; }
+        .filter-cat-list { display: flex; flex-direction: column; gap: 5px; }
+        .filter-cat-btn { background: #ffffff; border: 2px solid #cbd5e1; padding: 8px; border-radius: 8px; text-align: right; font-size: 11px; font-weight: 700; cursor: pointer; color: #334155; }
+        .filter-cat-btn:hover, .filter-cat-btn.active { background: #0284c7; color: white; border-color: #0284c7; }
+        .artisans-grid-2col { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        @media(max-width: 600px) { .artisans-grid-2col { grid-template-columns: 1fr; } }
+        .artisan-card { background: #f1f5f9; padding: 14px; border-radius: 14px; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .artisan-info { flex: 1; text-align: right; min-width: 0; }
         .artisan-actions-small { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
-        .small-action-btn {
-            padding: 7px 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 10px;
-            font-weight: 800;
-            text-align: center;
-            color: white;
-            white-space: nowrap;
-        }
-
-        .admin-card {
-            background: #f1f5f9;
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            border: 2px solid #cbd5e1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .small-action-btn { padding: 7px 12px; border-radius: 8px; text-decoration: none; font-size: 10px; font-weight: 800; text-align: center; color: white; white-space: nowrap; }
+        .admin-card { background: #f1f5f9; padding: 14px; border-radius: 12px; margin-bottom: 12px; border: 2px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center; }
         .auth-box { background: #f1f5f9; padding: 16px; border-radius: 14px; border: 2px solid #cbd5e1; margin-bottom: 14px; }
         .admin-actions { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
         .admin-action-btn { flex: 1; padding: 11px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; font-size: 12px; color: white; text-align: center; }
@@ -502,52 +336,21 @@
         .stat-card h4 { color: #64748b; font-size: 12px; margin-bottom: 3px; font-weight: 700; }
         .stat-card span { font-size: 20px; font-weight: 800; color: #0284c7; }
         .rating-stars { color: #f59e0b; font-size: 12px; margin-top: 3px; cursor: pointer; }
-
         .image-upload-wrapper { position: relative; display: inline-block; width: 100%; }
-        .remove-img-btn {
-            position: absolute; top: 5px; left: 5px; background: #ef4444; color: white; border: none; border-radius: 50%;
-            width: 24px; height: 24px; font-weight: bold; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 12px;
-        }
-
-        #promoPopupModal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);
-            display: none; justify-content: center; align-items: center; z-index: 10050; padding: 15px;
-        }
-        .promo-popup-content {
-            background: #ffffff; padding: 20px; border-radius: 18px; max-width: 320px; width: 100%; text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid #f59e0b; position: relative;
-        }
-        .promo-close-btn {
-            position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; border: none; border-radius: 50%;
-            width: 28px; height: 28px; font-weight: bold; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;
-        }
-
-        #customModal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
-            display: none; justify-content: center; align-items: center; z-index: 9999; padding: 15px;
-        }
-        .modal-content {
-            background: #ffffff; padding: 22px; border-radius: 18px; max-width: 350px; width: 100%; text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid #cbd5e1;
-        }
+        .remove-img-btn { position: absolute; top: 5px; left: 5px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-weight: bold; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 12px; }
+        #promoPopupModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 10050; padding: 15px; }
+        .promo-popup-content { background: #ffffff; padding: 20px; border-radius: 18px; max-width: 320px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid #f59e0b; position: relative; }
+        .promo-close-btn { position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 28px; height: 28px; font-weight: bold; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+        #customModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 15px; }
+        .modal-content { background: #ffffff; padding: 22px; border-radius: 18px; max-width: 350px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid #cbd5e1; }
         .modal-text { font-size: 14px; color: #1e293b; font-weight: 700; margin-bottom: 16px; line-height: 1.4; }
         .modal-btn { background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 11px 20px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; }
-
-        #welcomeModal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);
-            display: flex; justify-content: center; align-items: center; z-index: 10000; padding: 15px;
-        }
-        .welcome-content {
-            background: #ffffff; padding: 26px; border-radius: 20px; max-width: 360px; width: 100%; text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25); border: 2px solid #34d399;
-        }
+        #welcomeModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 10000; padding: 15px; }
+        .welcome-content { background: #ffffff; padding: 26px; border-radius: 20px; max-width: 360px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.25); border: 2px solid #34d399; }
         .welcome-flower { font-size: 40px; margin-bottom: 8px; }
         .welcome-title { color: #059669; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
         .welcome-text { font-size: 14px; color: #475569; font-weight: 600; line-height: 1.5; margin-bottom: 18px; }
-        .welcome-btn {
-            background: linear-gradient(135deg, #059669, #047857); color: white; border: none; padding: 13px 20px; border-radius: 14px;
-            font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
-        }
+        .welcome-btn { background: linear-gradient(135deg, #059669, #047857); color: white; border: none; padding: 13px 20px; border-radius: 14px; font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3); }
     </style>
 </head>
 <body>
@@ -558,6 +361,18 @@
             <div class="welcome-title">صلّ على الحبيب المصطفى</div>
             <div class="welcome-text">اللهم صلّ وسلم وبارك على سيدنا محمد وعلى آله وصحبه أجمعين</div>
             <button class="welcome-btn" onclick="handleWelcomeVisit()">جزاك الله خيراً (دخول)</button>
+        </div>
+    </div>
+
+    <!-- نافذة منبثقة مخصصة للاقتراحات بدل الـ prompt القديم -->
+    <div id="suggestionModal">
+        <div class="suggestion-box">
+            <h3>💬 اقتراح أو ملاحظة لصاحب الموقع</h3>
+            <textarea id="suggestionTextarea" placeholder="اكتب اقتراحك هنا بكل حرية..."></textarea>
+            <div class="suggestion-actions">
+                <button class="btn-send-sug" onclick="sendSuggestionWhatsApp()">إرسال عبر واتساب</button>
+                <button class="btn-cancel-sug" onclick="closeSuggestionModal()">إلغاء</button>
+            </div>
         </div>
     </div>
 
@@ -656,7 +471,7 @@
 
     <div class="container" id="mainContainerBox">
         
-        <!-- الترويسة العلوية (Header) المطابقة تماماً للصورة بتدرجات فخمة -->
+        <!-- الترويسة العلوية (Header) -->
         <div class="app-header">
             <div class="header-left">
                 <div class="header-icon-box">🤖</div>
@@ -679,9 +494,9 @@
                 </div>
             </div>
 
-            <!-- شبكة الأزرار البارزة (Glossy 3D Buttons Grid 2x2) مطابقة للصورة -->
-            <div class="main-buttons-grid">
-                <!-- زر البحث -->
+            <!-- شبكة الأزرار مترتبة عمودياً (وقوع الأولى: ابحث عن حرفي في الأعلى) -->
+            <div class="main-buttons-stack">
+                <!-- زر 1: البحث عن حرفي (في الأعلى) -->
                 <button class="glossy-btn btn-search" id="btnCustomer">
                     <div class="btn-content-right">
                         <div class="btn-icon">🔍</div>
@@ -693,7 +508,7 @@
                     <div class="btn-arrow">❮</div>
                 </button>
 
-                <!-- زر السوق -->
+                <!-- زر 2: السوق -->
                 <button class="glossy-btn btn-market" id="btnMerchantsOffers">
                     <div class="btn-content-right">
                         <div class="btn-icon">🛒</div>
@@ -705,7 +520,7 @@
                     <div class="btn-arrow">❮</div>
                 </button>
 
-                <!-- زر أنا حرفي -->
+                <!-- زر 3: أنا حرفي -->
                 <button class="glossy-btn btn-artisan-main" id="btnArtisan">
                     <div class="btn-content-right">
                         <div class="btn-icon">🛠️</div>
@@ -717,7 +532,7 @@
                     <div class="btn-arrow">❮</div>
                 </button>
 
-                <!-- زر أنا تاجر -->
+                <!-- زر 4: أنا تاجر -->
                 <button class="glossy-btn btn-merchant-main" id="btnMerchant">
                     <div class="btn-content-right">
                         <div class="btn-icon">📦</div>
@@ -735,7 +550,7 @@
                 💬 اقتراح أو ملاحظة لصاحب الموقع (Suggestion)
             </button>
 
-            <!-- شريط الأدوات السفلي الموحد (Footer Bar) مثل الصورة تماماً -->
+            <!-- شريط الأدوات السفلي الموحد (Footer Bar) -->
             <div class="bottom-footer-bar">
                 <button class="footer-action-item" onclick="openAboutModal()">
                     <span class="footer-icon-circle">ℹ️</span>
@@ -1074,14 +889,26 @@
             document.getElementById('customModal').style.display = 'none';
         }
 
-        // دالة فتح نافذة الاقتراح والملاحظات للواتساب
+        // --- دوال الاقتراحات والملاحظات الجديدة النظيفة (بدون رابط URL المزعج) ---
         window.openSuggestionModal = function() {
-            let msg = prompt("أكتب اقتراحك أو ملاحظتك لصاحب الموقع:");
-            if(msg && msg.trim() !== "") {
-                let adminPhone = localStorage.getItem('adminWhatsAppPhone') || '21698123456'; 
-                let encodedMsg = encodeURIComponent("مرحباً صاحب الموقع، لدي مقترح/ملاحظة:\n" + msg);
-                window.open(`https://wa.me/${adminPhone}?text=${encodedMsg}`, '_blank');
+            document.getElementById('suggestionTextarea').value = "";
+            document.getElementById('suggestionModal').style.display = 'flex';
+        };
+
+        window.closeSuggestionModal = function() {
+            document.getElementById('suggestionModal').style.display = 'none';
+        };
+
+        window.sendSuggestionWhatsApp = function() {
+            let msg = document.getElementById('suggestionTextarea').value.trim();
+            if(!msg) {
+                showCustomAlert("الرجاء كتابة اقتراحك أو ملاحظتك أولاً!");
+                return;
             }
+            let adminPhone = localStorage.getItem('adminWhatsAppPhone') || '21698123456'; 
+            let encodedMsg = encodeURIComponent("مرحباً صاحب الموقع، لدي مقترح/ملاحظة:\n" + msg);
+            window.open(`https://wa.me/${adminPhone}?text=${encodedMsg}`, '_blank');
+            closeSuggestionModal();
         };
 
         // دوال شريط الأدوات السفلي (Footer Actions)
