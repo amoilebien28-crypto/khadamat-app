@@ -143,13 +143,12 @@
             font-weight: 600;
         }
         
-        /* --- تصميم الشبكة المربعة الجديدة للأزرار الرئيسية (Grid 2x2) --- */
         .main-buttons-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-top: 10px;
-            margin-bottom: 14px;
+            margin-bottom: 10px;
         }
         .btn-grid-item {
             display: flex;
@@ -197,6 +196,26 @@
             font-weight: 900;
             text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
+
+        .suggestion-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            width: 100%;
+            padding: 12px;
+            border-radius: 14px;
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .suggestion-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
         
         .view { display: none; }
         .view.active { display: block; }
@@ -732,7 +751,7 @@
             
             <div class="flash-ticker-wrapper">
                 <div class="flash-ticker" id="flashTickerBox">
-                    ⚡ أهلاً بك في منصة الحرفيين والتجار — 🌟 تصفح أحدث عروض التجهيزات والمهارات الآن — 🛠️ سجل معنا لتطوير نشاطك وزيادة حرفائك — 🔥 تخفيضات الأسبوع الكبرى متوفرة الآن في المتاجر المعتمدة!
+                    ⚡ أهلاً بك في منصة الحرفيين والتجار &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🌟 تصفح أحدث عروض التجهيزات والمهارات الآن &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🛠️ سجل معنا لتطوير نشاطك وزيادة حرفائك &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🔥 تخفيضات الأسبوع الكبرى متوفرة الآن في المتاجر المعتمدة!
                 </div>
             </div>
 
@@ -751,6 +770,11 @@
                     <span class="btn-main-text">أنا تاجر / مورد</span>
                 </button>
             </div>
+
+            <!-- زر اقتراح أو ملاحظة لصاحب الموقع -->
+            <button class="suggestion-btn" onclick="openSuggestionModal()">
+                💬 اقتراح أو ملاحظة لصاحب الموقع
+            </button>
 
             <div class="info-box">
                 <h3>💡 كيف تعمل المنصة؟</h3>
@@ -921,6 +945,15 @@
                 <div id="adminSectionContent">جاري التحميل...</div>
             </div>
 
+            <!-- خانة تخصيص رقم الواتساب لاستقبال الاقتراحات والملاحظات -->
+            <div class="add-category-box" style="background: #f0fdf4; border-color: #22c55e;">
+                <h3 style="color: #16a34a; font-size: 13px; margin-bottom: 5px; font-weight: 800;">📱 رقم واتساب استقبال المقترحات</h3>
+                <div style="display: flex; gap: 6px;">
+                    <input type="text" id="adminWhatsappInput" placeholder="أدخل رقمك مثال: 21698123456">
+                    <button onclick="saveAdminWhatsapp()" style="background: #16a34a; color: white; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 800; white-space: nowrap;">حفظ الرقم</button>
+                </div>
+            </div>
+
             <div class="add-category-box">
                 <h3 style="color: #059669; font-size: 13px; margin-bottom: 5px; font-weight: 800;">➕ إضافة تخصص مهني جديد</h3>
                 <div style="display: flex; gap: 6px;">
@@ -1061,6 +1094,25 @@
             document.getElementById('customModal').style.display = 'none';
         }
 
+        // دالة فتح نافذة كتابة الاقتراح وإرساله للواتساب
+        window.openSuggestionModal = function() {
+            let msg = prompt("أكتب اقتراحك أو ملاحظتك لصاحب الموقع:");
+            if(msg && msg.trim() !== "") {
+                let adminPhone = localStorage.getItem('adminWhatsAppPhone') || '21698123456'; 
+                let encodedMsg = encodeURIComponent("مرحباً صاحب الموقع، لدي مقترح/ملاحظة:\n" + msg);
+                window.open(`https://wa.me/${adminPhone}?text=${encodedMsg}`, '_blank');
+            }
+        };
+
+        // دالة حفظ رقم الواتساب من لوحة الأدمن
+        window.saveAdminWhatsapp = function() {
+            let phoneInput = document.getElementById('adminWhatsappInput').value.trim();
+            if(!phoneInput) { showCustomAlert('الرجاء إدخال رقم الهاتف!'); return; }
+            let cleanNum = phoneInput.replace(/[^0-9]/g, '');
+            localStorage.setItem('adminWhatsAppPhone', cleanNum);
+            showCustomAlert('✅ تم حفظ رقم واتساب المقترحات بنجاح!');
+        };
+
         window.toggleMobileSidebar = function() {
             let box = document.getElementById('sidebarFiltersBox');
             if(box.classList.contains('mobile-show')) {
@@ -1195,6 +1247,11 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadDataFromCache();
+
+            let savedAdminWp = localStorage.getItem('adminWhatsAppPhone');
+            if(savedAdminWp && document.getElementById('adminWhatsappInput')) {
+                document.getElementById('adminWhatsappInput').value = savedAdminWp;
+            }
 
             let hash = window.location.hash.replace('#', '');
             if(hash && document.getElementById(hash)) {
@@ -1479,21 +1536,47 @@
                             </div>`;
                     });
                 } else if (sectionType === 'promos') {
-                    titleEl.innerText = "⭐ تحديد السلع المميزة للإعلانات التلقائية";
-                    if(cachedProductsList.length === 0) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد سلع متاحة.</p>'; return; }
-                    contentEl.innerHTML = '<p style="font-size:11px; color:#64748b; margin-bottom:10px;">اختر السلع التي تريد أن تظهر كإعلانات منبثقة دورية للزوار:</p>';
-                    cachedProductsList.forEach(p => {
-                        let docId = p.id;
-                        let isChecked = p.isPromo ? 'checked' : '';
-                        let imgTag = p.image ? `<img src="${p.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
+                    titleEl.innerText = "⭐ اختر التاجر لعرض وتهيئة سلعه المميزة";
+                    if(cachedMerchantsList.length === 0) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد متاجر مسجلة حالياً.</p>'; return; }
+                    contentEl.innerHTML = '<p style="font-size:11px; color:#64748b; margin-bottom:10px;">اضغط على أي تاجر لاستعراض سلعه وتحديد الإعلانات:</p>';
+                    
+                    cachedMerchantsList.forEach(m => {
+                        let merchantProducts = cachedProductsList.filter(p => p.merchantPhone === m.phone);
                         contentEl.innerHTML += `
-                            <div class="admin-card">
-                                <div style="display:flex; align-items:center; flex:1;">${imgTag}<div><h4 style="color:#d97706; font-size:13px; font-weight:800;">📦 ${p.name}</h4><p style="color:#334155; font-size:11px;">التاجر: ${p.merchantName}</p></div></div>
-                                <div><label style="cursor:pointer; font-size:11px; font-weight:800; color:#059669; display:flex; align-items:center; gap:4px;"><input type="checkbox" ${isChecked} onchange="togglePromoProduct('${docId}', this.checked)" style="width:16px; height:16px;"> مميز كإعلان</label></div>
+                            <div class="admin-card" style="cursor:pointer; background:#f8fafc;" onclick="openMerchantPromoProducts('${m.phone}', '${m.name}')">
+                                <div><h4 style="color:#7c3aed; font-size:13px; font-weight:800;">🛒 متجر: ${m.name}</h4><p style="color:#059669; font-size:11px;">📍 ولاية ${m.city} | 📦 عدد السلع: ${merchantProducts.length}</p></div>
+                                <span style="background:#0284c7; color:white; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:800;">عرض السلع ➡️</span>
                             </div>`;
                     });
                 }
             } catch(e) { contentEl.innerHTML = '<p style="color:red; text-align:center;">حدث خطأ أثناء جلب البيانات.</p>'; }
+        };
+
+        window.openMerchantPromoProducts = function(merchantPhone, merchantName) {
+            let titleEl = document.getElementById('adminSectionTitle');
+            let contentEl = document.getElementById('adminSectionContent');
+            titleEl.innerText = `⭐ سلع التاجر: ${merchantName}`;
+
+            let merchantProducts = cachedProductsList.filter(p => p.merchantPhone === merchantPhone);
+            if(merchantProducts.length === 0) {
+                contentEl.innerHTML = `
+                    <button onclick="openAdminSection('promos')" class="back-btn" style="margin-bottom:10px;">⬅️ رجوع لقائمة التجار</button>
+                    <p style="text-align:center; color:var(--text-gray); padding:15px;">هذا التاجر لم يضف أي سلع بعد.</p>`;
+                return;
+            }
+
+            contentEl.innerHTML = `<button onclick="openAdminSection('promos')" class="back-btn" style="margin-bottom:10px;">⬅️ رجوع لقائمة التجار</button>`;
+            
+            merchantProducts.forEach(p => {
+                let docId = p.id;
+                let isChecked = p.isPromo ? 'checked' : '';
+                let imgTag = p.image ? `<img src="${p.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
+                contentEl.innerHTML += `
+                    <div class="admin-card">
+                        <div style="display:flex; align-items:center; flex:1;">${imgTag}<div><h4 style="color:#d97706; font-size:13px; font-weight:800;">📦 ${p.name}</h4><p style="color:#334155; font-size:11px;">السعر: ${p.price || '-'}</p></div></div>
+                        <div><label style="cursor:pointer; font-size:11px; font-weight:800; color:#059669; display:flex; align-items:center; gap:4px;"><input type="checkbox" ${isChecked} onchange="togglePromoProduct('${docId}', this.checked)" style="width:16px; height:16px;"> مميز كإعلان</label></div>
+                    </div>`;
+            });
         };
 
         window.closeAdminSection = function() { document.getElementById('adminSectionContainer').style.display = 'none'; };
@@ -1634,7 +1717,7 @@
                     let latest = cachedProductsList[cachedProductsList.length - 1];
                     let ticker = document.getElementById('flashTickerBox');
                     if(ticker) {
-                        ticker.innerHTML = `⚡ عروض جديدة: <b>${latest.name}</b> لدى متجر <b>${latest.merchantName}</b> (${latest.merchantCity})`;
+                        ticker.innerHTML = `⚡ عروض جديدة: <b>${latest.name}</b> لدى متجر <b>${latest.merchantName}</b> (${latest.merchantCity}) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🔥 تصفح بقية عروض الأسبوع في قسم التخفيضات الآن!`;
                     }
                 }
             });
