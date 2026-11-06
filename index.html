@@ -6,13 +6,11 @@
     <title>منصة أصحاب المهارات والحرفيين</title>
     <style>
         :root {
-            --bg-main: #0f172a;
-            --card-bg: #1e1b2e;
-            --accent-gold: #fbbf24;
-            --accent-gold-dark: #d97706;
-            --text-main: #f8fafc;
-            --text-gray: #94a3b8;
-            --border-color: #3b2e4b;
+            --bg-main: #f0fdf4; /* خلفية عامة فاتحة ومنعشة */
+            --card-bg: #ffffff; /* صناديق بيضاء ناصعة ونظيفة */
+            --text-main: #1e293b; /* نص داكن وواضح جداً للقراءة */
+            --text-gray: #64748b;
+            --border-color: #cbd5e1;
         }
         * {
             box-sizing: border-box;
@@ -21,23 +19,21 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            background: linear-gradient(135deg, #ecfdf5 0%, #f8fafc 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             padding: 15px;
-            background-image: radial-gradient(rgba(245, 158, 11, 0.08) 1px, transparent 1px);
-            background-size: 24px 24px;
         }
         .container {
             max-width: 620px;
             margin: 20px auto;
-            background: rgba(30, 27, 46, 0.95); /* لون خلفية ناعم وفخم مأخوذ من التصميم المفضل لديك */
+            background: rgba(255, 255, 255, 0.96); /* صندوق أبيض ناصع وراقي */
             padding: 22px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            border: 1px solid rgba(124, 58, 237, 0.3); /* إطار بنفسجي راقي */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
             width: 100%;
         }
         .container.wide-container {
@@ -54,11 +50,11 @@
         .logo-icon {
             width: 30px;
             height: 30px;
-            fill: var(--accent-gold);
-            filter: drop-shadow(0 2px 4px rgba(251, 191, 36, 0.4));
+            fill: #d97706;
+            filter: drop-shadow(0 2px 4px rgba(217, 119, 6, 0.3));
         }
         h1 {
-            color: #fbbf24;
+            color: #b45309;
             text-align: center;
             font-size: 20px;
             font-weight: 800;
@@ -71,23 +67,23 @@
             font-weight: 600;
         }
         .middle-badge {
-            background: linear-gradient(135deg, #1b2e23, #143826); /* تدرج أخضر صحي مريح للعين */
-            border: 1px solid #059669;
-            color: #34d399;
-            padding: 9px;
-            border-radius: 12px;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0); /* شريط أخضر صحي وملهم */
+            border: 1px solid #34d399;
+            color: #065f46;
+            padding: 10px;
+            border-radius: 14px;
             text-align: center;
             font-size: 12px;
             font-weight: bold;
             margin-bottom: 14px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 10px rgba(52, 211, 153, 0.2);
         }
         .flash-ticker {
-            background: linear-gradient(135deg, #7c2d12, #9a3412);
-            border: 1px solid #f97316;
-            color: #ffedd5;
-            padding: 8px 12px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #ffedd5, #fed7aa);
+            border: 1px solid #fb923c;
+            color: #9a3412;
+            padding: 9px 12px;
+            border-radius: 12px;
             font-size: 11px;
             font-weight: 700;
             margin-bottom: 14px;
@@ -97,16 +93,16 @@
             text-overflow: ellipsis;
         }
         .info-box {
-            background: linear-gradient(135deg, #1e1b2e, #171023);
-            border: 1px solid #d97706;
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
             border-radius: 14px;
             padding: 14px;
             margin-top: 16px;
             text-align: right;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(252, 211, 77, 0.15);
         }
         .info-box h3 {
-            color: #fbbf24;
+            color: #b45309;
             font-size: 14px;
             margin-bottom: 6px;
             display: flex;
@@ -115,48 +111,48 @@
             font-weight: 800;
         }
         .info-box p {
-            color: #cbd5e1;
+            color: #78350f;
             font-size: 11px;
             line-height: 1.5;
             margin-bottom: 4px;
-            font-weight: 500;
+            font-weight: 600;
         }
         
         .btn {
             display: block;
             width: 100%;
-            padding: 12px 16px;
-            margin: 10px 0;
+            padding: 14px 16px;
+            margin: 12px 0;
             font-size: 14px;
             font-weight: 700;
             color: white;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 14px;
+            border: none;
+            border-radius: 16px;
             cursor: pointer;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .btn-customer { background: linear-gradient(135deg, #065f46, #047857); }
-        .btn-merchants-offers { background: linear-gradient(135deg, #991b1b, #7f1d1d); border-color: rgba(239, 68, 68, 0.4); }
-        .btn-artisan { background: linear-gradient(135deg, #1e40af, #1d4ed8); }
-        .btn-merchant { background: linear-gradient(135deg, #5b21b6, #6d28d9); }
+        .btn-customer { background: linear-gradient(135deg, #059669, #047857); }
+        .btn-merchants-offers { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+        .btn-artisan { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+        .btn-merchant { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
         
         .btn:hover { 
             transform: translateY(-2px); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            filter: brightness(1.1);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+            filter: brightness(1.05);
         }
         
         .btn-main-text {
             color: #fff;
             font-size: 15px;
             font-weight: 900;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
         .btn-sub-text {
-            color: #f472b6;
-            font-size: 12px;
+            color: #e2e8f0;
+            font-size: 11px;
             font-weight: 600;
         }
         
@@ -164,20 +160,20 @@
         .view.active { display: block; }
         
         .form-group { margin-bottom: 14px; text-align: right; }
-        label { display: block; margin-bottom: 5px; color: #38bdf8; font-weight: 700; font-size: 12px; }
+        label { display: block; margin-bottom: 5px; color: #0284c7; font-weight: 700; font-size: 12px; }
         input, select, textarea {
             width: 100%;
-            padding: 10px;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            background: #171023;
-            color: #f8fafc;
+            padding: 11px;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            background: #f8fafc;
+            color: #0f172a;
             font-size: 13px;
             font-weight: 600;
             outline: none;
             transition: 0.2s;
         }
-        input:focus, select:focus, textarea:focus { border-color: #f472b6; background: #221733; box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.2); }
+        input:focus, select:focus, textarea:focus { border-color: #0284c7; background: #ffffff; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
         textarea { resize: vertical; height: 70px; }
         
         .phone-input-group {
@@ -185,28 +181,28 @@
             direction: ltr;
         }
         .phone-prefix {
-            background: #221733;
-            color: #38bdf8;
-            padding: 10px;
-            border: 2px solid var(--border-color);
-            border-radius: 0 10px 10px 0;
+            background: #e2e8f0;
+            color: #0f172a;
+            padding: 11px;
+            border: 2px solid #cbd5e1;
+            border-radius: 0 12px 12px 0;
             font-weight: 800;
             display: flex;
             align-items: center;
-            font-size: 14px;
+            font-size: 13px;
         }
         .phone-main-input {
-            border-radius: 10px 0 0 10px !important;
+            border-radius: 12px 0 0 12px !important;
             border-left: none !important;
             text-align: right;
         }
 
         .btn-gps {
-            background-color: #064e3b;
-            color: #34d399;
-            border: 2px dashed #059669;
-            padding: 10px;
-            border-radius: 10px;
+            background-color: #ecfdf5;
+            color: #059669;
+            border: 2px dashed #34d399;
+            padding: 11px;
+            border-radius: 12px;
             width: 100%;
             cursor: pointer;
             font-size: 12px;
@@ -215,14 +211,14 @@
             text-align: center;
             transition: 0.2s;
         }
-        .btn-gps:hover { background-color: #065f46; }
+        .btn-gps:hover { background-color: #d1fae5; }
         
         .back-btn {
-            background: linear-gradient(135deg, #2a1b3d, #3b2654);
-            color: #38bdf8;
-            border: 1px solid #7c3aed;
-            padding: 6px 12px;
-            border-radius: 8px;
+            background: #f1f5f9;
+            color: #0284c7;
+            border: 1px solid #cbd5e1;
+            padding: 7px 14px;
+            border-radius: 10px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
@@ -231,9 +227,9 @@
             font-size: 12px;
             margin-bottom: 14px;
             transition: 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .back-btn:hover { background: #3b2654; transform: translateY(-1px); }
+        .back-btn:hover { background: #e2e8f0; transform: translateY(-1px); }
 
         .customer-layout {
             display: grid;
@@ -251,8 +247,8 @@
             background: linear-gradient(135deg, #0284c7, #0369a1);
             color: white;
             border: none;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 11px;
+            border-radius: 12px;
             font-weight: 800;
             font-size: 13px;
             margin-bottom: 12px;
@@ -266,8 +262,8 @@
         }
 
         .sidebar-filters {
-            background: #171023;
-            border: 2px solid var(--border-color);
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
             padding: 12px;
             border-radius: 14px;
             max-height: 500px;
@@ -275,10 +271,10 @@
         }
         .sidebar-filters h3 {
             font-size: 13px;
-            color: #38bdf8;
+            color: #0284c7;
             margin-bottom: 8px;
             padding-bottom: 5px;
-            border-bottom: 2px solid var(--border-color);
+            border-bottom: 2px solid #e2e8f0;
             font-weight: 800;
         }
         .filter-search-input {
@@ -292,8 +288,8 @@
             gap: 5px;
         }
         .filter-cat-btn {
-            background: #221733;
-            border: 2px solid var(--border-color);
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
             padding: 8px;
             border-radius: 8px;
             text-align: right;
@@ -301,7 +297,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: 0.2s;
-            color: #f8fafc;
+            color: #334155;
         }
         .filter-cat-btn:hover, .filter-cat-btn.active {
             background: #0284c7;
@@ -319,20 +315,21 @@
         }
 
         .artisan-card {
-            background: #171023;
-            padding: 12px;
+            background: #ffffff;
+            padding: 14px;
             border-radius: 14px;
-            border: 2px solid var(--border-color);
+            border: 2px solid #e2e8f0;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             transition: all 0.2s ease;
         }
         .artisan-card:hover {
-            border-color: #f472b6;
+            border-color: #38bdf8;
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
         }
         .artisan-info {
             flex: 1;
@@ -342,12 +339,12 @@
         .artisan-actions-small {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
             flex-shrink: 0;
         }
         .small-action-btn {
-            padding: 6px 10px;
-            border-radius: 6px;
+            padding: 7px 12px;
+            border-radius: 8px;
             text-decoration: none;
             font-size: 10px;
             font-weight: 800;
@@ -359,21 +356,22 @@
         .small-action-btn:hover { opacity: 0.9; transform: scale(1.03); }
 
         .admin-card {
-            background: #171023;
+            background: #ffffff;
             padding: 14px;
             border-radius: 12px;
             margin-bottom: 12px;
-            border: 2px solid var(--border-color);
+            border: 2px solid #e2e8f0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
         .auth-box {
-            background: #171023;
+            background: #f8fafc;
             padding: 16px;
             border-radius: 14px;
-            border: 2px solid var(--border-color);
+            border: 2px solid #e2e8f0;
             margin-bottom: 14px;
         }
         .admin-actions {
@@ -384,8 +382,8 @@
         }
         .admin-action-btn {
             flex: 1;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 11px;
+            border-radius: 10px;
             border: none;
             font-weight: 800;
             cursor: pointer;
@@ -394,9 +392,9 @@
             text-align: center;
         }
         .add-category-box {
-            background: #064e3b;
-            border: 2px solid #059669;
-            padding: 12px;
+            background: #ecfdf5;
+            border: 2px solid #34d399;
+            padding: 14px;
             border-radius: 12px;
             margin-bottom: 14px;
         }
@@ -407,10 +405,10 @@
             margin-bottom: 14px;
         }
         .stat-card {
-            background: #171023;
-            border: 2px solid var(--border-color);
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             text-align: center;
         }
         .stat-card h4 {
@@ -422,12 +420,12 @@
         .stat-card span {
             font-size: 20px;
             font-weight: 800;
-            color: #38bdf8;
+            color: #0284c7;
         }
 
         .rating-stars {
-            color: #fbbf24;
-            font-size: 11px;
+            color: #f59e0b;
+            font-size: 12px;
             margin-top: 3px;
             cursor: pointer;
         }
@@ -435,7 +433,7 @@
         #customModal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.5);
             display: none;
             justify-content: center;
             align-items: center;
@@ -443,28 +441,28 @@
             padding: 15px;
         }
         .modal-content {
-            background: #221733;
-            padding: 20px;
-            border-radius: 16px;
+            background: #ffffff;
+            padding: 22px;
+            border-radius: 18px;
             max-width: 350px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            border: 1px solid #7c3aed;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 1px solid #cbd5e1;
         }
         .modal-text {
             font-size: 14px;
-            color: #f8fafc;
+            color: #1e293b;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             line-height: 1.4;
         }
         .modal-btn {
             background: linear-gradient(135deg, #0284c7, #0369a1);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 11px 20px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
@@ -474,7 +472,7 @@
         #welcomeModal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.6);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -482,28 +480,29 @@
             padding: 15px;
         }
         .welcome-content {
-            background: #221733;
-            padding: 24px;
+            background: #ffffff;
+            padding: 26px;
             border-radius: 20px;
             max-width: 360px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            border: 2px solid #f472b6;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            border: 2px solid #34d399;
         }
-        .welcome-flower { font-size: 38px; margin-bottom: 8px; }
-        .welcome-title { color: #f472b6; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
-        .welcome-text { font-size: 14px; color: #cbd5e1; font-weight: 600; line-height: 1.5; margin-bottom: 15px; }
+        .welcome-flower { font-size: 40px; margin-bottom: 8px; }
+        .welcome-title { color: #059669; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+        .welcome-text { font-size: 14px; color: #475569; font-weight: 600; line-height: 1.5; margin-bottom: 18px; }
         .welcome-btn {
-            background: linear-gradient(135deg, #d97706, #b45309);
+            background: linear-gradient(135deg, #059669, #047857);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 12px;
+            padding: 13px 20px;
+            border-radius: 14px;
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
             width: 100%;
+            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
         }
     </style>
 </head>
@@ -645,7 +644,7 @@
         <!-- 2. بوابة دخول الحرفيين -->
         <div id="artisanAuthView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #38bdf8; margin-bottom: 8px; font-size: 16px; font-weight: 800;">بوابة دخول الحرفيين</h2>
+            <h2 style="color: #0284c7; margin-bottom: 8px; font-size: 16px; font-weight: 800;">بوابة دخول الحرفيين</h2>
             <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">أدخل رقم هاتفك وكلمة السر لتعديل ملفك أو إنشاء حساب حرفي جديد.</p>
             
             <div class="auth-box">
@@ -667,7 +666,7 @@
         <!-- 3. بوابة اختيار التاجر -->
         <div id="merchantAuthChoiceView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #c084fc; margin-bottom: 12px; font-size: 16px; font-weight: 800;">بوابة التجار والموردين</h2>
+            <h2 style="color: #7c3aed; margin-bottom: 12px; font-size: 16px; font-weight: 800;">بوابة التجار والموردين</h2>
             <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 15px; font-weight: 700;">اختر نوع الدخول المناسب لحسابك:</p>
             
             <button class="btn btn-merchant" onclick="openMerchantLogin(false)">🔐 أنا مسجل مسبقاً (تسجيل الدخول)</button>
@@ -677,7 +676,7 @@
         <!-- 4. شاشة تسجيل الدخول للتاجر المسجل مسبقاً -->
         <div id="merchantLoginView" class="view">
             <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
-            <h2 style="color: #c084fc; margin-bottom: 8px; font-size: 16px; font-weight: 800;">تسجيل دخول التاجر</h2>
+            <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 16px; font-weight: 800;">تسجيل دخول التاجر</h2>
             
             <div class="auth-box">
                 <div class="form-group">
@@ -698,7 +697,7 @@
         <!-- 5. شاشة تسجيل تاجر جديد -->
         <div id="merchantRegisterView" class="view">
             <button class="back-btn" onclick="switchView('merchantAuthChoiceView', true)">⬅️ رجوع</button>
-            <h2 style="color: #34d399; margin-bottom: 10px; font-size: 16px; font-weight: 800;">تسجيل تاجر جديد</h2>
+            <h2 style="color: #059669; margin-bottom: 10px; font-size: 16px; font-weight: 800;">تسجيل تاجر جديد</h2>
             <form id="merchantRegForm">
                 <div class="form-group">
                     <label>اسم المحل أو المؤسسة التجارية</label>
@@ -756,11 +755,11 @@
         <!-- 6. فضاء التاجر الخاص -->
         <div id="merchantDashboardView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج</button>
-            <h2 style="color: #c084fc; margin-bottom: 8px; font-size: 16px; font-weight: 800;" id="merchantPanelTitle">🛒 فضاء إدارة سلع وعروض التاجر</h2>
+            <h2 style="color: #7c3aed; margin-bottom: 8px; font-size: 16px; font-weight: 800;" id="merchantPanelTitle">🛒 فضاء إدارة سلع وعروض التاجر</h2>
             <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">أضف منتجاتك، أسعارها، وتخفيضات الأسبوع مع إمكانية رفع الصور مباشرة.</p>
 
-            <div class="add-category-box" style="background: #221733; border-color: #7c3aed;">
-                <h3 style="color: #c084fc; font-size: 13px; margin-bottom: 8px; font-weight: 800;">➕ إضافة منتج أو سلعة جديدة</h3>
+            <div class="add-category-box" style="background: #f8fafc; border-color: #7c3aed;">
+                <h3 style="color: #7c3aed; font-size: 13px; margin-bottom: 8px; font-weight: 800;">➕ إضافة منتج أو سلعة جديدة</h3>
                 <form id="addProductForm">
                     <div class="form-group">
                         <label>اسم المنتج أو السلعة</label>
@@ -795,7 +794,7 @@
         <!-- 7. لوحة تحكم الأدمن -->
         <div id="adminView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ تسجيل الخروج للرئيسية</button>
-            <h2 style="color: #fbbf24; margin-bottom: 12px; font-size: 16px; font-weight: 800;">⚙️ لوحة تحكم المشرف</h2>
+            <h2 style="color: #d97706; margin-bottom: 12px; font-size: 16px; font-weight: 800;">⚙️ لوحة تحكم المشرف</h2>
             
             <div class="stats-table">
                 <div class="stat-card">
@@ -818,16 +817,16 @@
                 <button class="btn btn-merchants-offers" onclick="openAdminSection('products')">📦 إدارة سلع وعروض التجار (عرض أو حذف)</button>
             </div>
 
-            <div id="adminSectionContainer" style="background: #171023; padding: 15px; border-radius: 14px; border: 2px solid var(--border-color); display: none; margin-bottom: 15px;">
+            <div id="adminSectionContainer" style="background: #f8fafc; padding: 15px; border-radius: 14px; border: 2px solid #e2e8f0; display: none; margin-bottom: 15px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <h3 id="adminSectionTitle" style="color: #fbbf24; font-size: 14px; font-weight: 800;">العنوان هنا</h3>
-                    <button onclick="closeAdminSection()" style="background: #475569; color: white; border: none; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700;">إغلاق ✕</button>
+                    <h3 id="adminSectionTitle" style="color: #d97706; font-size: 14px; font-weight: 800;">العنوان هنا</h3>
+                    <button onclick="closeAdminSection()" style="background: #64748b; color: white; border: none; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700;">إغلاق ✕</button>
                 </div>
                 <div id="adminSectionContent">جاري التحميل...</div>
             </div>
 
             <div class="add-category-box">
-                <h3 style="color: #34d399; font-size: 13px; margin-bottom: 5px; font-weight: 800;">➕ إضافة تخصص مهني جديد</h3>
+                <h3 style="color: #059669; font-size: 13px; margin-bottom: 5px; font-weight: 800;">➕ إضافة تخصص مهني جديد</h3>
                 <div style="display: flex; gap: 6px;">
                     <input type="text" id="newCatInput" placeholder="أدخل اسم التخصص الجديد...">
                     <button onclick="addNewCategory()" style="background: #059669; color: white; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 800; white-space: nowrap;">إضافة</button>
@@ -835,8 +834,8 @@
             </div>
 
             <div class="admin-actions">
-                <button class="admin-action-btn" style="background: #0369a1;" onclick="exportDatabase()">📥 تحميل نسخة احتياطية شاملة (Backup)</button>
-                <label class="admin-action-btn" style="background: #059669; display: inline-block; cursor: pointer; line-height: normal; padding-top: 11px;">
+                <button class="admin-action-btn" style="background: #0284c7;" onclick="exportDatabase()">📥 تحميل نسخة احتياطية شاملة (Backup)</button>
+                <label class="admin-action-btn" style="background: #059669; display: inline-block; cursor: pointer; line-height: normal; padding-top: 12px;">
                     📤 استعادة البيانات (Restore)
                     <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importDatabase(event)">
                 </label>
@@ -846,7 +845,7 @@
         <!-- 8. واجهة تسجيل أو تعديل الحرفي -->
         <div id="artisanRegisterView" class="view">
             <button class="back-btn" onclick="switchView('artisanAuthView', true)">⬅️ العودة إلى البوابة</button>
-            <h2 style="color: #fbbf24; margin-bottom: 10px; font-size: 16px; font-weight: 800;" id="formArtisanTitle">استكمال ملف الحرفي</h2>
+            <h2 style="color: #d97706; margin-bottom: 10px; font-size: 16px; font-weight: 800;" id="formArtisanTitle">استكمال ملف الحرفي</h2>
             <form id="artisanForm">
                 <div class="form-group">
                     <label>الاسم الحقيقي أو اسم المؤسسة</label>
@@ -888,7 +887,7 @@
                 </div>
                 <div class="form-group">
                     <label>رقم الهاتف المعتمد</label>
-                    <input type="text" id="displayArtisanPhone" readonly style="background: #171023; font-weight: bold; color: #38bdf8;" placeholder="رقم هاتفك">
+                    <input type="text" id="displayArtisanPhone" readonly style="background: #f1f5f9; font-weight: bold; color: #0284c7;" placeholder="رقم هاتفك">
                 </div>
                 <div class="form-group">
                     <label>الاختصاص المهني</label>
@@ -903,7 +902,7 @@
                 <div class="form-group">
                     <label>الموقع الجغرافي (GPS - اختياري)</label>
                     <button type="button" class="btn-gps" id="btnGetArtisanLocation">📍 تحديد الموقع عبر الـ GPS</button>
-                    <input type="text" id="artisanLocationStatus" readonly style="margin-top: 5px; background:#171023; color:#34d399; font-size:11px; text-align:center; font-weight:700;" placeholder="لم يتم تحديد الموقع (اختياري)">
+                    <input type="text" id="artisanLocationStatus" readonly style="margin-top: 5px; background:#f8fafc; color:#059669; font-size:11px; text-align:center; font-weight:700;" placeholder="لم يتم تحديد الموقع (اختياري)">
                     <input type="hidden" id="artisanLat" value="33.8">
                     <input type="hidden" id="artisanLng" value="10.8">
                 </div>
@@ -914,7 +913,7 @@
         <!-- 9. واجهة الزبون: دليل الحرفيين -->
         <div id="customerView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #34d399; margin-bottom: 12px; font-size: 16px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
+            <h2 style="color: #059669; margin-bottom: 12px; font-size: 16px; font-weight: 800;">دليل أصحاب المهارات والحرفيين</h2>
             
             <button class="toggle-cat-mobile-btn" onclick="toggleMobileSidebar()">🔍 تصفية حسب الولاية أو الاختصاص</button>
 
@@ -976,7 +975,7 @@
         <!-- 10. فضاء تخفيضات الأسبوع وعرض المتاجر (الأيقونات) -->
         <div id="merchantsView" class="view">
             <button class="back-btn" onclick="switchView('welcomeView', true)">⬅️ العودة إلى الرئيسية</button>
-            <h2 style="color: #fbbf24; margin-bottom: 12px; font-size: 16px; font-weight: 800;">🔥 متاجر وعروض التجهيزات المتنوعة</h2>
+            <h2 style="color: #d97706; margin-bottom: 12px; font-size: 16px; font-weight: 800;">🔥 متاجر وعروض التجهيزات المتنوعة</h2>
             <p style="color: var(--text-gray); font-size: 11px; margin-bottom: 12px; font-weight: 700;">اختر متجراً لاستعراض سلعهم وتخفيضاتهم الخاصة:</p>
 
             <div style="margin-bottom: 15px;">
@@ -991,7 +990,7 @@
         <!-- 11. واجهة منتجات تاجر محدد -->
         <div id="storeProductsView" class="view">
             <button class="back-btn" onclick="switchView('merchantsView', true)">⬅️ رجوع إلى قائمة المتاجر</button>
-            <h2 style="color: #fbbf24; margin-bottom: 12px; font-size: 16px; font-weight: 800;" id="storeProductsTitle">سلع وعروض المتجر</h2>
+            <h2 style="color: #d97706; margin-bottom: 12px; font-size: 16px; font-weight: 800;" id="storeProductsTitle">سلع وعروض المتجر</h2>
             
             <div id="storeProductsList" class="artisans-grid-2col">
                 <!-- تعبئة ديناميكية لسلع التاجر -->
@@ -1469,13 +1468,13 @@
                             <div style="display: flex; align-items: center; flex: 1;">
                                 ${imgTag}
                                 <div>
-                                    <h3 style="color: #c084fc; font-size: 14px; font-weight: 800;">📦 ${p.name}</h3>
+                                    <h3 style="color: #7c3aed; font-size: 14px; font-weight: 800;">📦 ${p.name}</h3>
                                     <p style="color: var(--text-main); font-size: 11px; font-weight: 700;">السعر: <span style="text-decoration: line-through; color: #94a3b8;">${p.price || '-'}</span> | التخفيض: <span style="color: #ef4444; font-weight: 800;">${p.discountPrice || 'غير محدد'}</span></p>
                                     <p style="color: var(--text-gray); font-size: 10px;">"${p.desc || 'بلا تفاصيل'}"</p>
                                 </div>
                             </div>
                             <div>
-                                <button onclick="deleteProduct('${p.id}')" style="background: #991b1b; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 10px;">حذف</button>
+                                <button onclick="deleteProduct('${p.id}')" style="background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 10px;">حذف</button>
                             </div>
                         </div>
                     `;
@@ -1517,10 +1516,10 @@
                         contentEl.innerHTML += `
                             <div class="admin-card">
                                 <div>
-                                    <h4 style="color:#fbbf24; font-size:13px; font-weight:800;">${nameDisplay}</h4>
-                                    <p style="color:#38bdf8; font-size:11px;">🛠️ ${a.category} | 📍 ${a.city} | 📞 +${a.phone}</p>
+                                    <h4 style="color:#d97706; font-size:13px; font-weight:800;">${nameDisplay}</h4>
+                                    <p style="color:#0284c7; font-size:11px;">🛠️ ${a.category} | 📍 ${a.city} | 📞 +${a.phone}</p>
                                 </div>
-                                <button onclick="adminDeleteRecord('artisans', '${docId}')" style="background:#991b1b; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
+                                <button onclick="adminDeleteRecord('artisans', '${docId}')" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
                             </div>
                         `;
                     });
@@ -1538,10 +1537,10 @@
                         contentEl.innerHTML += `
                             <div class="admin-card">
                                 <div>
-                                    <h4 style="color:#c084fc; font-size:13px; font-weight:800;">🛒 ${m.name}</h4>
-                                    <p style="color:#34d399; font-size:11px;">📍 ولاية ${m.city} | 📞 +${m.phone}</p>
+                                    <h4 style="color:#7c3aed; font-size:13px; font-weight:800;">🛒 ${m.name}</h4>
+                                    <p style="color:#059669; font-size:11px;">📍 ولاية ${m.city} | 📞 +${m.phone}</p>
                                 </div>
-                                <button onclick="adminDeleteRecord('merchants', '${docId}')" style="background:#991b1b; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
+                                <button onclick="adminDeleteRecord('merchants', '${docId}')" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
                             </div>
                         `;
                     });
@@ -1562,11 +1561,11 @@
                                 <div style="display:flex; align-items:center; flex:1;">
                                     ${imgTag}
                                     <div>
-                                        <h4 style="color:#fbbf24; font-size:13px; font-weight:800;">📦 ${p.name}</h4>
-                                        <p style="color:#f8fafc; font-size:11px;">السعر: ${p.price || '-'} | التخفيض: <span style="color:#ef4444;">${p.discountPrice || '-'}</span> | التاجر: ${p.merchantName}</p>
+                                        <h4 style="color:#d97706; font-size:13px; font-weight:800;">📦 ${p.name}</h4>
+                                        <p style="color:#334155; font-size:11px;">السعر: ${p.price || '-'} | التخفيض: <span style="color:#ef4444;">${p.discountPrice || '-'}</span> | التاجر: ${p.merchantName}</p>
                                     </div>
                                 </div>
-                                <button onclick="adminDeleteRecord('products', '${docId}')" style="background:#991b1b; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
+                                <button onclick="adminDeleteRecord('products', '${docId}')" style="background:#ef4444; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:800; font-size:10px; cursor:pointer;">حذف</button>
                             </div>
                         `;
                     });
@@ -1779,21 +1778,21 @@
                 let currentStars = getStoredRating(artisanId);
                 let starsHTML = '★'.repeat(currentStars) + '☆'.repeat(5 - currentStars);
 
-                let mapsLink = (a.lat && a.lng) ? `<a href="https://maps.google.com/?q=${a.lat},${a.lng}" target="_blank" style="color:#38bdf8; font-size:10px; font-weight:700; text-decoration:underline; display:block; margin-top:2px;">📍 الموقع على الخريطة</a>` : '';
+                let mapsLink = (a.lat && a.lng) ? `<a href="https://maps.google.com/?q=${a.lat},${a.lng}" target="_blank" style="color:#0284c7; font-size:10px; font-weight:700; text-decoration:underline; display:block; margin-top:2px;">📍 الموقع على الخريطة</a>` : '';
                 let shareText = encodeURIComponent(`مرحباً، أنصحك بالتواصل مع الحرفي ${a.name} (${a.category}) في ولاية ${a.city}. هاتف: +${a.phone}`);
 
                 container.innerHTML += `
                     <div class="artisan-card">
                         <div class="artisan-info">
-                            <h3 style="color: #fbbf24; margin-bottom: 2px; font-size: 13px; font-weight: 800;">${titleDisplay}</h3>
-                            <p style="color: #38bdf8; font-size: 10px; font-weight: 800; margin-bottom: 2px;">🛠️ ${a.category}</p>
-                            <p style="color: #34d399; font-size: 10px; font-weight: 800; margin-bottom: 2px;">📍 ولاية ${a.city}</p>
+                            <h3 style="color: #d97706; margin-bottom: 2px; font-size: 13px; font-weight: 800;">${titleDisplay}</h3>
+                            <p style="color: #0284c7; font-size: 10px; font-weight: 800; margin-bottom: 2px;">🛠️ ${a.category}</p>
+                            <p style="color: #059669; font-size: 10px; font-weight: 800; margin-bottom: 2px;">📍 ولاية ${a.city}</p>
                             <div class="rating-stars" onclick="let s=prompt('قيم الحرفي من 1 إلى 5 نجوم:'); if(s>=1 && s<=5) rateItem('${artisanId}', s)">${starsHTML}</div>
                             ${mapsLink}
                             <p style="color: var(--text-gray); font-size: 10px; font-style: italic; margin-top:2px;">"${a.bio || ''}"</p>
                         </div>
                         <div class="artisan-actions-small">
-                            <a href="tel:+${a.phone}" class="small-action-btn" style="background: #0369a1;">📞 اتصال</a>
+                            <a href="tel:+${a.phone}" class="small-action-btn" style="background: #0284c7;">📞 اتصال</a>
                             <a href="https://wa.me/${cleanPhone}" target="_blank" class="small-action-btn" style="background: #059669;">💬 واتساب</a>
                             <a href="https://wa.me/?text=${shareText}" target="_blank" class="small-action-btn" style="background: #7c3aed;" title="مشاركة عبر واتساب">📤 مشاركة</a>
                         </div>
@@ -1845,7 +1844,7 @@
 
             container.innerHTML = '';
             merchants.forEach(m => {
-                let logoImg = m.logo ? `<img src="${m.logo}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 10px; margin-left: 10px;" />` : `<div style="width: 55px; height: 55px; background: #334155; border-radius: 10px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-left:10px;">🛒</div>`;
+                let logoImg = m.logo ? `<img src="${m.logo}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 10px; margin-left: 10px;" />` : `<div style="width: 55px; height: 55px; background: #e2e8f0; border-radius: 10px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-left:10px;">🛒</div>`;
                 let cleanPhone = m.phone ? m.phone.replace(/[^0-9]/g, '') : '';
                 if(!cleanPhone.startsWith('216')) cleanPhone = '216' + cleanPhone;
 
@@ -1856,13 +1855,13 @@
                         <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
                             ${logoImg}
                             <div class="artisan-info">
-                                <h3 style="color: #fbbf24; margin-bottom: 2px; font-size: 14px; font-weight: 800;">${m.name}</h3>
-                                <p style="color: #34d399; font-size: 11px; font-weight: 800; margin-bottom: 2px;">📍 ولاية ${m.city}</p>
-                                <p style="color: #38bdf8; font-size: 10px; font-weight: 700;">📦 ${merchantProductsCount} سلع متوفرة في المتجر</p>
+                                <h3 style="color: #d97706; margin-bottom: 2px; font-size: 14px; font-weight: 800;">${m.name}</h3>
+                                <p style="color: #059669; font-size: 11px; font-weight: 800; margin-bottom: 2px;">📍 ولاية ${m.city}</p>
+                                <p style="color: #0284c7; font-size: 10px; font-weight: 700;">📦 ${merchantProductsCount} سلع متوفرة في المتجر</p>
                             </div>
                         </div>
                         <div class="artisan-actions-small" onclick="event.stopPropagation()">
-                            <a href="tel:+${m.phone}" class="small-action-btn" style="background: #0369a1;">📞 اتصال</a>
+                            <a href="tel:+${m.phone}" class="small-action-btn" style="background: #0284c7;">📞 اتصال</a>
                             <a href="https://wa.me/${cleanPhone}" target="_blank" class="small-action-btn" style="background: #059669;">💬 واتساب</a>
                         </div>
                     </div>
@@ -1898,14 +1897,14 @@
                         <div style="display: flex; align-items: center; flex: 1; min-width: 0;">
                             ${imgTag}
                             <div class="artisan-info">
-                                <h3 style="color: #fbbf24; margin-bottom: 2px; font-size: 13px; font-weight: 800;">📦 ${p.name}</h3>
+                                <h3 style="color: #d97706; margin-bottom: 2px; font-size: 13px; font-weight: 800;">📦 ${p.name}</h3>
                                 <p style="color: var(--text-main); font-size: 11px; font-weight: 700; margin-bottom: 2px;">${priceDisplay} ${discountDisplay}</p>
-                                <p style="color: #34d399; font-size: 10px; font-weight: 800; margin-bottom: 2px;">📍 ${p.merchantCity}</p>
+                                <p style="color: #059669; font-size: 10px; font-weight: 800; margin-bottom: 2px;">📍 ${p.merchantCity}</p>
                                 <p style="color: var(--text-gray); font-size: 10px; font-style: italic;">"${p.desc || ''}"</p>
                             </div>
                         </div>
                         <div class="artisan-actions-small">
-                            <a href="tel:+${p.merchantPhone}" class="small-action-btn" style="background: #0369a1;">📞 اتصال</a>
+                            <a href="tel:+${p.merchantPhone}" class="small-action-btn" style="background: #0284c7;">📞 اتصال</a>
                             <a href="https://wa.me/${cleanPhone}" target="_blank" class="small-action-btn" style="background: #059669;">💬 واتساب</a>
                             <a href="https://wa.me/?text=${shareText}" target="_blank" class="small-action-btn" style="background: #7c3aed;">📤 مشاركة</a>
                         </div>
