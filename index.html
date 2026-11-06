@@ -42,7 +42,7 @@
             max-width: 1000px !important;
         }
 
-        /* --- الترويسة العلوية المصغرة مع الشعار على اليمين والضبط على اليسار --- */
+        /* --- الترويسة العلوية المصغرة: الشعار على اليمين وزر الإعدادات على اليسار --- */
         .app-header {
             background: linear-gradient(135deg, #0284c7, #1d4ed8, #3b82f6);
             border-radius: 14px;
@@ -478,7 +478,7 @@
                     <h1>منصة الحرفيين تونس</h1>
                     <p>Plateforme des artisans</p>
                 </div>
-                <img src="1000012468.jpg" alt="شعار المنصة" class="header-logo-img">
+                <img src="1000012468.jpg" alt="شعار المنصة" class="header-logo-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'44\' height=\'44\'><rect width=\'44\' height=\'44\' fill=\'%230284c7\'/><text x=\'50%\' y=\'50%\' fill=\'white\' font-size=\'12\' text-anchor=\'middle\' dominant-baseline=\'middle\' font-weight=\'bold\'>شعار</text></svg>';">
             </div>
         </div>
 
@@ -886,7 +886,6 @@
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
-        // رقم واتساب افتراضي ثابت للموقع (يمكن تغليفه من لوحة الأدمن وحفظه في Firebase)
         let defaultAdminWhatsapp = "21698123456";
 
         function showCustomAlert(message) {
@@ -959,9 +958,14 @@
         };
 
         window.rateAppPopup = function() {
-            let stars = prompt("قيم هذا التطبيق من 1 إلى 5 نجوم:");
-            if(stars >= 1 && stars <= 5) {
-                showCustomAlert("⭐ شكراً جزيلاً لتقييمك الرائع!");
+            let stars = prompt("قيم هذا التطبيق من 1 إلى 5 نجوم:\n(اكتب رقم من 1 إلى 5 فقط)");
+            if(stars !== null) {
+                let cleanStars = parseInt(stars.trim());
+                if(cleanStars >= 1 && cleanStars <= 5) {
+                    showCustomAlert("⭐ شكراً جزيلاً لتقييمك الرائع للتطبيق!");
+                } else if(stars !== "") {
+                    showCustomAlert("⚠️ الرجاء إدخال رقم صحيح بين 1 و 5.");
+                }
             }
         };
 
