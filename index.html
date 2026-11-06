@@ -884,7 +884,7 @@
             </div>
 
             <h3 style="color: var(--text-main); font-size: 13px; margin-bottom: 8px; font-weight: 800;">📦 قائمة منتجاتك المعروضة حالياً:</h3>
-            <div id="merchantProductsList">جاري جلب منتجاتك...</div>
+            <div id="merchantProductsList">جاري جلب سلعك...</div>
         </div>
 
         <div id="adminView" class="view">
@@ -1093,7 +1093,7 @@
         let cachedMerchantsList = [];
         let cachedProductsList = [];
         let promoPopupInterval = null;
-        let currentPromoIndex = 0; // مؤشر للتدوير الدوري على السلع المميزة
+        let currentPromoIndex = 0;
 
         const ADMIN_PHONE = "admin";
         const ADMIN_PASS = "admin123";
@@ -1200,13 +1200,13 @@
         document.getElementById('btnCustomer').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('customerView');
-            listenToArtisans('all');
+            renderFilteredArtisans();
         });
 
         document.getElementById('btnMerchantsOffers').addEventListener('click', function() {
             document.getElementById('mainContainerBox').classList.add('wide-container');
             switchView('merchantsView');
-            listenToStoresAndProducts();
+            renderStoresList();
         });
 
         function switchView(viewId, pushHistory = true) {
@@ -1229,10 +1229,10 @@
 
             if(viewId === 'customerView') {
                 document.getElementById('mainContainerBox').classList.add('wide-container');
-                listenToArtisans(selectedFilter);
+                renderFilteredArtisans();
             } else if(viewId === 'merchantsView') {
                 document.getElementById('mainContainerBox').classList.add('wide-container');
-                listenToStoresAndProducts();
+                renderStoresList();
             } else {
                 document.getElementById('mainContainerBox').classList.remove('wide-container');
             }
@@ -1240,18 +1240,40 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            // تحميل البيانات من الذاكرة المحلية فوراً (استجابة فورية)
+            loadDataFromCache();
+
             let hash = window.location.hash.replace('#', '');
             if(hash && document.getElementById(hash)) {
                 if(hash === 'customerView' || hash === 'merchantsView' || hash === 'storeProductsView') {
                     document.getElementById('mainContainerBox').classList.add('wide-container');
-                    if(hash === 'customerView') listenToArtisans('all');
-                    if(hash === 'merchantsView') listenToStoresAndProducts();
+                    if(hash === 'customerView') renderFilteredArtisans();
+                    if(hash === 'merchantsView') renderStoresList();
                 }
                 restoreView(hash);
             }
+            
+            // مزامنة البيانات عبر الإنترنت في الخلفية وتحديث Actualisation
             initGlobalDataSync();
             startPromoPopupLoop();
         });
+
+        function loadDataFromCache() {
+            try {
+                let cachedArtisans = localStorage.getItem('cache_artisans');
+                let cachedMerchants = localStorage.getItem('cache_merchants');
+                let cachedProducts = localStorage.getItem('cache_products');
+
+                if(cachedArtisans) cachedArtisansList = JSON.parse(cachedArtisans);
+                if(cachedMerchants) cachedMerchantsList = JSON.parse(cachedMerchants);
+                if(cachedProducts) cachedProductsList = JSON.parse(cachedProducts);
+
+                renderFilteredArtisans();
+                renderStoresList();
+            } catch(e) {
+                console.error("Cache load error:", e);
+            }
+        }
 
         function isValidPhoneNumber(phone) {
             let clean = phone.replace(/[^0-9]/g, '');
@@ -1271,7 +1293,7 @@
             if(!phoneInput || !password) { showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!'); return; }
             if(phoneInput === ADMIN_PHONE && password === ADMIN_PASS) { await window.initFirebaseData(); switchView('adminView'); return; }
 
-            if (!navigator.onLine) {
+            if (!navigator.onLine && cachedArtisansList.length === 0) {
                 showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.');
                 return;
             }
@@ -1282,9 +1304,12 @@
             currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
             
             try {
-                const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
-                let existing = null;
-                querySnapshot.forEach((d) => { let data = d.data(); if(data.phone === currentPhone) existing = data; });
+                // البحث في الذاكرة المحلية أولاً لتسريع الدخول، أو جلب من الفايربيز إذا وُجد إنترنت
+                let existing = cachedArtisansList.find(a => a.phone === currentPhone);
+                if (!existing && navigator.onLine) {
+                    const querySnapshot = await window.getDocs(window.collection(window.db, "artisans"));
+                    querySnapshot.forEach((d) => { let data = d.data(); if(data.phone === currentPhone) existing = data; });
+                }
 
                 document.getElementById('displayArtisanPhone').value = '+' + currentPhone;
 
@@ -1318,16 +1343,18 @@
             const password = document.getElementById('authMerchantPassword').value.trim();
 
             if(!phoneInput || !password) { showCustomAlert('الرجاء إدخال رقم الهاتف وكلمة السر معاً!'); return; }
-            if (!navigator.onLine) { showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.'); return; }
+            if (!navigator.onLine && cachedMerchantsList.length === 0) { showCustomAlert('⚠️ لا يوجد اتصال بالإنترنت.'); return; }
             if (!isValidPhoneNumber(phoneInput)) { showCustomAlert('⚠️ رقم الهاتف غير صالح!'); return; }
 
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
             
             try {
-                const querySnapshot = await window.getDocs(window.collection(window.db, "merchants"));
-                let existing = null;
-                querySnapshot.forEach((d) => { let data = d.data(); if(data.phone === currentPhone) existing = data; });
+                let existing = cachedMerchantsList.find(m => m.phone === currentPhone);
+                if (!existing && navigator.onLine) {
+                    const querySnapshot = await window.getDocs(window.collection(window.db, "merchants"));
+                    querySnapshot.forEach((d) => { let data = d.data(); if(data.phone === currentPhone) existing = data; });
+                }
 
                 if(existing) {
                     if(existing.password !== password) { showCustomAlert('كلمة السر غير صحيحة لهذا الرقم!'); return; }
@@ -1355,12 +1382,8 @@
             let cleanNum = phoneInput.replace(/[^0-9]/g, '');
             currentPhone = cleanNum.startsWith('216') ? cleanNum : '216' + cleanNum;
 
-            try {
-                const querySnapshot = await window.getDocs(window.collection(window.db, "merchants"));
-                let alreadyExists = false;
-                querySnapshot.forEach((d) => { if(d.data().phone === currentPhone) alreadyExists = true; });
-                if(alreadyExists) { showCustomAlert('⚠️ رقم الهاتف هذا مسجل مسبقاً!'); return; }
-            } catch(err) { console.error(err); }
+            let alreadyExists = cachedMerchantsList.some(m => m.phone === currentPhone);
+            if(alreadyExists) { showCustomAlert('⚠️ رقم الهاتف هذا مسجل مسبقاً!'); return; }
 
             let saveMerchantToDb = async (logoUrl = "") => {
                 currentMerchantData = { name, city, phone: currentPhone, password, logo: logoUrl, updatedAt: new Date().toISOString() };
@@ -1468,11 +1491,10 @@
             try {
                 if (sectionType === 'artisans') {
                     titleEl.innerText = "🛠️ قائمة الحرفيين المسجلين";
-                    const snap = await window.getDocs(window.collection(window.db, "artisans"));
-                    if(snap.empty) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا يوجد حرفيون مسجلون.</p>'; return; }
+                    if(cachedArtisansList.length === 0) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا يوجد حرفيون مسجلون.</p>'; return; }
                     contentEl.innerHTML = '';
-                    snap.forEach(d => {
-                        let a = d.data(); let docId = d.id;
+                    cachedArtisansList.forEach(a => {
+                        let docId = a.phone;
                         let nameDisplay = a.workName ? `${a.name} (${a.workName})` : a.name;
                         contentEl.innerHTML += `
                             <div class="admin-card">
@@ -1482,11 +1504,10 @@
                     });
                 } else if (sectionType === 'merchants') {
                     titleEl.innerText = "🛒 قائمة التجار والموردين";
-                    const snap = await window.getDocs(window.collection(window.db, "merchants"));
-                    if(snap.empty) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا يوجد تجار مسجلون.</p>'; return; }
+                    if(cachedMerchantsList.length === 0) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا يوجد تجار مسجلون.</p>'; return; }
                     contentEl.innerHTML = '';
-                    snap.forEach(d => {
-                        let m = d.data(); let docId = d.id;
+                    cachedMerchantsList.forEach(m => {
+                        let docId = m.phone;
                         contentEl.innerHTML += `
                             <div class="admin-card">
                                 <div><h4 style="color:#7c3aed; font-size:13px; font-weight:800;">🛒 ${m.name}</h4><p style="color:#059669; font-size:11px;">📍 ولاية ${m.city} | 📞 +${m.phone}</p></div>
@@ -1495,11 +1516,10 @@
                     });
                 } else if (sectionType === 'products') {
                     titleEl.innerText = "📦 قائمة سلع وعروض التجار";
-                    const snap = await window.getDocs(window.collection(window.db, "products"));
-                    if(snap.empty) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد سلع معروضة.</p>'; return; }
+                    if(cachedProductsList.length === 0) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد سلع معروضة.</p>'; return; }
                     contentEl.innerHTML = '';
-                    snap.forEach(d => {
-                        let p = d.data(); let docId = d.id;
+                    cachedProductsList.forEach(p => {
+                        let docId = p.id;
                         let imgTag = p.image ? `<img src="${p.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
                         contentEl.innerHTML += `
                             <div class="admin-card">
@@ -1509,11 +1529,10 @@
                     });
                 } else if (sectionType === 'promos') {
                     titleEl.innerText = "⭐ تحديد السلع المميزة للإعلانات التلقائية";
-                    const snap = await window.getDocs(window.collection(window.db, "products"));
-                    if(snap.empty) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد سلع متاحة.</p>'; return; }
+                    if(cachedProductsList.length === 0) { contentEl.innerHTML = '<p style="text-align:center; color:var(--text-gray);">لا توجد سلع متاحة.</p>'; return; }
                     contentEl.innerHTML = '<p style="font-size:11px; color:#64748b; margin-bottom:10px;">اختر السلع التي تريد أن تظهر كإعلانات منبثقة دورية للزوار:</p>';
-                    snap.forEach(d => {
-                        let p = d.data(); let docId = d.id;
+                    cachedProductsList.forEach(p => {
+                        let docId = p.id;
                         let isChecked = p.isPromo ? 'checked' : '';
                         let imgTag = p.image ? `<img src="${p.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; margin-left: 8px;" />` : '';
                         contentEl.innerHTML += `
@@ -1531,6 +1550,10 @@
         window.togglePromoProduct = async function(prodId, status) {
             try {
                 await window.setDoc(window.doc(window.db, "products", prodId), { isPromo: status }, { merge: true });
+                // تحديث الذاكرة المحلية فوراً
+                let item = cachedProductsList.find(p => p.id === prodId);
+                if(item) item.isPromo = status;
+                localStorage.setItem('cache_products', JSON.stringify(cachedProductsList));
                 showCustomAlert(status ? '⭐ تم تعيين السلعة كإعلان مميز دوري بنجاح!' : '🛑 تم إلغاء تمييز السلعة.');
             } catch(e) { showCustomAlert('❌ حدث خطأ.'); }
         };
@@ -1636,17 +1659,9 @@
 
         window.filterArtisansBySearch = function() { renderFilteredArtisans(); };
 
-        // نظام المزامنة المزدوج (الذاكرة المحلية + التحديث الفوري والفعلي في الخلفية وحذف ما تم حذفه)
+        // نظام المزامنة والذاكرة المؤقتة الفورية (Caching & Actualisation)
         function initGlobalDataSync() {
-            let cachedArtisans = localStorage.getItem('cache_artisans');
-            let cachedMerchants = localStorage.getItem('cache_merchants');
-            let cachedProducts = localStorage.getItem('cache_products');
-
-            if(cachedArtisans) { try { cachedArtisansList = JSON.parse(cachedArtisans); } catch(e){} }
-            if(cachedMerchants) { try { cachedMerchantsList = JSON.parse(cachedMerchants); } catch(e){} }
-            if(cachedProducts) { try { cachedProductsList = JSON.parse(cachedProducts); } catch(e){} }
-
-            // استماع وتحديث فوري (Actualisation تلقائية للبيانات والحذف والإضافة)
+            // الاستماع للتحديثات في الخلفية وتحديث الذاكرة الحية وحذف ما تم حذفه تلقائياً
             window.onSnapshot(window.collection(window.db, "artisans"), (snap) => {
                 cachedArtisansList = [];
                 snap.forEach(d => cachedArtisansList.push(d.data()));
@@ -1677,7 +1692,7 @@
             });
         }
 
-        // نظام الإعلانات المنبثقة التلقائية المتنوعة بالدور (Round-Robin) لكل سلع التجار المختارة في الأدمن
+        // نظام الإعلانات المنبثقة الدورية (Round-Robin) المتنوعة لكل السلع المميزة
         function startPromoPopupLoop() {
             if(promoPopupInterval) clearInterval(promoPopupInterval);
             promoPopupInterval = setInterval(() => {
@@ -1689,13 +1704,12 @@
             let promoProducts = cachedProductsList.filter(p => p.isPromo === true);
             if(promoProducts.length === 0) return;
 
-            // التأكد من أن المؤشر لا يتجاوز الحدود وإعادة تدويره
             if(currentPromoIndex >= promoProducts.length) {
                 currentPromoIndex = 0;
             }
 
             let promoProd = promoProducts[currentPromoIndex];
-            currentPromoIndex++; // الانتقال للسلعة الموالية في الدورة القادمة
+            currentPromoIndex++;
 
             let imgTag = promoProd.image ? `<img src="${promoProd.image}" style="width: 100%; height: 140px; object-fit: cover; border-radius: 10px; margin-bottom: 8px;" />` : '';
             let priceText = promoProd.discountPrice ? `<span style="color:#ef4444; font-weight:800;">السعر: ${promoProd.discountPrice}</span>` : `السعر: ${promoProd.price || 'متاح'}`;
@@ -1721,10 +1735,10 @@
             const searchVal = document.getElementById('globalSearchInput').value.toLowerCase().trim();
             const selectedGov = document.getElementById('filterGovernorateSelect').value;
 
-            // معالجة حالة انقطاع الإنترنت تماماً وعدم وجود بيانات مخزنة
+            // التحقق من انقطاع الإنترنت وعدم وجود أي بيانات في الذاكرة
             if (!navigator.onLine && cachedArtisansList.length === 0) {
                 countText.innerText = "⚠️ انقطع الاتصال بالإنترنت";
-                container.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">🌐 لا توجد أي بيانات مخزنة حالياً لعدم الاتصال بالإنترنت. يرجى الاتصال بالشبكة.</p>';
+                container.innerHTML = '<p style="color: #ef4444; text-align: center; grid-column: span 2; padding: 20px; font-weight: 700;">🌐 انقطع الاتصال بالإنترنت ولا توجد بيانات مخزنة محلياً. يرجى الاتصال بالشبكة.</p>';
                 return;
             }
 
