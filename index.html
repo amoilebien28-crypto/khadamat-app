@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة أصحاب المهارات والحرفيين والتجار</title>
+    <title>منصة أصحاب المهارات، الحرفيين، التجار، وخدمات الصيانة</title>
     <style>
         :root {
             --bg-main: #f3f4f6;
@@ -42,7 +42,7 @@
             max-width: 1000px !important;
         }
 
-        /* --- الترويسة العلوية: الشعار على اليمين والنص بجانبه، وزر الإعدادات على اليسار --- */
+        /* --- الترويسة العلوية --- */
         .app-header {
             background: linear-gradient(135deg, #0284c7, #1d4ed8, #3b82f6);
             border-radius: 14px;
@@ -111,6 +111,7 @@
             box-shadow: 0 2px 8px rgba(52, 211, 153, 0.15);
         }
         
+        /* الشريط المتحرك (الباندو) */
         .flash-ticker-wrapper {
             background: linear-gradient(135deg, #ffedd5, #fed7aa);
             border: 1px solid #fb923c;
@@ -123,10 +124,10 @@
         .flash-ticker {
             display: inline-block;
             padding-left: 100%;
-            animation: marquee 22s linear infinite;
+            animation: marquee 30s linear infinite; /* سرعة هادئة ومريحة للقراءة */
             color: #9a3412;
-            font-size: 11px;
-            font-weight: 800;
+            font-size: 12px;
+            font-weight: 900;
         }
         @keyframes marquee {
             0% { transform: translate(0, 0); }
@@ -342,9 +343,12 @@
         .rating-stars { color: #f59e0b; font-size: 11px; margin-top: 2px; cursor: pointer; }
         .image-upload-wrapper { position: relative; display: inline-block; width: 100%; }
         .remove-img-btn { position: absolute; top: 4px; left: 4px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; font-weight: bold; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 11px; }
+        
+        /* نافذة الإعلانات المنبثقة للأدمن (Popup) */
         #promoPopupModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 10050; padding: 15px; }
         .promo-popup-content { background: #ffffff; padding: 18px; border-radius: 16px; max-width: 320px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid #f59e0b; position: relative; }
         .promo-close-btn { position: absolute; top: 8px; left: 8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 26px; height: 26px; font-weight: bold; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+        
         #customModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 9999; padding: 15px; }
         .modal-content { background: #ffffff; padding: 20px; border-radius: 16px; max-width: 340px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 1px solid #cbd5e1; }
         .modal-text { font-size: 13px; color: #1e293b; font-weight: 700; margin-bottom: 14px; line-height: 1.4; }
@@ -475,14 +479,15 @@
 
     <div class="container" id="mainContainerBox">
         
-        <!-- الترويسة العلوية: الشعار على اليمين والنص بجانبه، وزر الإعدادات على أقصى اليسار -->
+        <!-- الترويسة العلوية -->
         <div class="app-header">
             <button class="header-settings-btn" onclick="openAdminQuickLogin()" title="الإعدادات">⚙️</button>
             <div class="header-left-side">
                 <div class="header-right-group">
                     <img src="logo.jpg" alt="شعار المنصة" class="header-logo-img">
                     <div class="header-titles">
-                        <h1>منصة أصحاب المهارات والحرفيين والتجار</h1>
+                        <!-- العنوان الشامل والمحدث -->
+                        <h1>منصة أصحاب المهارات، الحرفيين، التجار، وخدمات الصيانة.</h1>
                         <p>Plateforme des artisans et commerçants</p>
                     </div>
                 </div>
@@ -494,9 +499,10 @@
                 <span>📍</span> جاري الاتصال بقاعدة البيانات واحتساب النشاط...
             </div>
             
+            <!-- الشريط المتحرك (الباندو) -->
             <div class="flash-ticker-wrapper">
                 <div class="flash-ticker" id="flashTickerBox">
-                    ⚡ أهلاً بك في منصة الحرفيين والتجار &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🌟 تصفح أحدث عروض التجهيزات والمهارات الآن &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🛠️ سجل معنا لتطوير نشاطك وزيادة حرفائك &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🔥 تخفيضات الأسبوع الكبرى متوفرة الآن في المتاجر المعتمدة!
+                    ⚡ أهلاً بك في منصة أصحاب المهارات، الحرفيين، التجار، وخدمات الصيانة &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🌟 تصفح أحدث عروض التجهيزات والمهارات الآن &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🛠️ سجل معنا لتطوير نشاطك وزيادة حرفائك
                 </div>
             </div>
 
@@ -585,7 +591,6 @@
                 <p><b>للتجار والموردين:</b> سجل معلومات محلك وصورة شعارك، لتظهر أيقونة متجرك لجميع الزوار والحرفيين.</p>
             </div>
 
-            <!-- رابط سياسة الخصوصية في الأسفل -->
             <div style="text-align: center; margin-top: 12px; padding-bottom: 6px;">
                 <a href="privacy.html" style="color: #64748b; font-size: 11px; font-weight: 700; text-decoration: underline;">
                     🛡️ الاطلاع على سياسة الخصوصية (Privacy Policy)
@@ -755,7 +760,6 @@
                 <div id="adminSectionContent">جاري التحميل...</div>
             </div>
 
-            <!-- خانة تغيير كلمة السر للأدمن -->
             <div class="add-category-box" style="background: #fef3c7; border-color: #f59e0b;">
                 <h3 style="color: #b45309; font-size: 12px; margin-bottom: 4px; font-weight: 800;">🔑 تغيير كلمة سر المشرف (Admin Password)</h3>
                 <div style="display: flex; flex-direction: column; gap: 6px;">
@@ -969,7 +973,7 @@
         };
 
         window.openAboutModal = function() {
-            showCustomAlert("ℹ️ منصة أصحاب المهارات والحرفيين والتجار الإصدار الأول 1.0\nصلة الوصل بين مهارة الحرفي والتاجر واحتياجات الناس في تونس.");
+            showCustomAlert("ℹ️ منصة أصحاب المهارات، الحرفيين، التجار، وخدمات الصيانة. الإصدار الأول 1.0\nصلة الوصل بين مهارة الحرفي والتاجر واحتياجات الناس في تونس.");
         };
 
         window.rateAppPopup = function() {
@@ -997,7 +1001,7 @@
         };
 
         window.shareAppAction = function() {
-            let shareText = encodeURIComponent("حمّل تطبيق منصة أصحاب المهارات والحرفيين والتجار الآن لتجد أفضل الصناع والمتاجر في تونس!");
+            let shareText = encodeURIComponent("حمّل تطبيق منصة أصحاب المهارات، الحرفيين، التجار، وخدمات الصيانة الآن لتجد أفضل الصناع والمتاجر في تونس!");
             if (navigator.share) {
                 navigator.share({ title: 'منصة الحرفيين والتجار', text: 'حمّل التطبيق الآن', url: window.location.href }).catch(() => {});
             } else {
