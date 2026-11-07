@@ -345,6 +345,10 @@
         .remove-img-btn { position: absolute; top: 4px; left: 4px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; font-weight: bold; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 11px; }
         
         /* نافذة الإعلانات المنبثقة للأدمن (Popup) */
+        #adminGlobalPopupModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 10500; padding: 15px; }
+        .admin-popup-content { background: #ffffff; padding: 20px; border-radius: 18px; max-width: 340px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid #d97706; position: relative; }
+        .admin-popup-close { background: #d97706; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 12px; margin-top: 12px; width: 100%; }
+
         #promoPopupModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 10050; padding: 15px; }
         .promo-popup-content { background: #ffffff; padding: 18px; border-radius: 16px; max-width: 320px; width: 100%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid #f59e0b; position: relative; }
         .promo-close-btn { position: absolute; top: 8px; left: 8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 26px; height: 26px; font-weight: bold; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; }
@@ -369,6 +373,15 @@
             <div class="welcome-title">صلّ على الحبيب المصطفى</div>
             <div class="welcome-text">اللهم صلّ وسلم وبارك على سيدنا محمد وعلى آله وصحبه أجمعين</div>
             <button class="welcome-btn" onclick="handleWelcomeVisit()">جزاك الله خيراً (دخول)</button>
+        </div>
+    </div>
+
+    <!-- نافذة إعلانات الأدمن العامة للجميع -->
+    <div id="adminGlobalPopupModal">
+        <div class="admin-popup-content">
+            <h3 style="color: #d97706; font-size: 15px; font-weight: 900; margin-bottom: 8px;" id="adminPopupTitleDisplay">📢 تنبيه هام</h3>
+            <p style="font-size: 12px; color: #334155; line-height: 1.5; font-weight: 700; margin-bottom: 12px;" id="adminPopupTextDisplay">جاري التحميل...</p>
+            <button class="admin-popup-close" onclick="closeAdminGlobalPopup()">حسناً (فهمت)</button>
         </div>
     </div>
 
@@ -499,10 +512,10 @@
                 <span>📍</span> جاري الاتصال بقاعدة البيانات واحتساب النشاط...
             </div>
             
-            <!-- الشريط المتحرك (الباندو) -->
+            <!-- الشريط المتحرك (الباندو) الديناميكي -->
             <div class="flash-ticker-wrapper">
                 <div class="flash-ticker" id="flashTickerBox">
-                    ⚡ أهلاً بك في منصة أصحاب المهارات، الحرفيين، التجار، وخدمات الصيانة &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🌟 تصفح أحدث عروض التجهيزات والمهارات الآن &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🛠️ سجل معنا لتطوير نشاطك وزيادة حرفائك
+                    ⚡ أهلاً بك في منصة أصحاب المهارات، الحرفيين، التجار، وخدمات الصيانة &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🌟 تصفح أحدث عروض التجهيزات والمهارات الآن
                 </div>
             </div>
 
@@ -750,6 +763,28 @@
                 <button class="btn btn-merchant" onclick="openAdminSection('merchants')" style="width:100%; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg, #7c3aed, #6d28d9); color:white; font-weight:800; cursor:pointer;">🛒 إدارة التجار والموردين (عرض أو حذف)</button>
                 <button class="btn btn-merchants-offers" onclick="openAdminSection('products')" style="width:100%; padding:11px; border-radius:10px; border:none; background:linear-gradient(135deg, #dc2626, #b91c1c); color:white; font-weight:800; cursor:pointer;">📦 إدارة سلع وعروض التجار (عرض أو حذف)</button>
                 <button class="btn btn-customer" style="background: linear-gradient(135deg, #d97706, #b45309); width:100%; padding:11px; border-radius:10px; border:none; color:white; font-weight:800; cursor:pointer;" onclick="openAdminSection('promos')">⭐ إدارة الإعلانات التلقائية المميزة</button>
+            </div>
+
+            <!-- تحكم الأدمن في نص الشريط المتحرك (الباندو) -->
+            <div class="add-category-box" style="background: #fffbeb; border-color: #f59e0b;">
+                <h3 style="color: #b45309; font-size: 12px; margin-bottom: 4px; font-weight: 800;">🚀 تعديل نص الشريط المتحرك (Ticker)</h3>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <textarea id="adminTickerInput" placeholder="اكتب نص الشريط المتحرك الجديد هنا..." style="height: 60px; font-size:12px;"></textarea>
+                    <button onclick="saveAdminTickerText()" style="background: #f59e0b; color: white; border: none; padding: 7px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; width: 100%;">تحديث وبث الشريط المتحرك للجميع</button>
+                </div>
+            </div>
+
+            <!-- تحكم الأدمن في النافذة المنبثقة العامة (Popup) -->
+            <div class="add-category-box" style="background: #eff6ff; border-color: #3b82f6;">
+                <h3 style="color: #1d4ed8; font-size: 12px; margin-bottom: 4px; font-weight: 800;">📢 إرسال نافذة منبثقة (Popup) لكل الزوار</h3>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <input type="text" id="adminPopupTitleInput" placeholder="عنوان النافذة (مثال: إعلان هام للأعضاء)" style="font-size:12px;">
+                    <textarea id="adminPopupMsgInput" placeholder="نص الرسالة التي ستظهر لكل الناس..." style="height: 60px; font-size:12px;"></textarea>
+                    <div style="display: flex; gap: 6px;">
+                        <button onclick="saveAndPublishPopup(true)" style="background: #2563eb; color: white; border: none; padding: 7px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; flex:1;">🚀 إرسال الآن للجميع</button>
+                        <button onclick="saveAndPublishPopup(false)" style="background: #64748b; color: white; border: none; padding: 7px 12px; border-radius: 8px; cursor: pointer; font-weight: 800; flex:1;">🛑 إيقاف وإخفاء النافذة</button>
+                    </div>
+                </div>
             </div>
 
             <div id="adminSectionContainer" style="background: #f1f5f9; padding: 12px; border-radius: 12px; border: 2px solid #cbd5e1; display: none; margin-bottom: 12px;">
@@ -1041,6 +1076,52 @@
             } catch(e) {
                 showCustomAlert('❌ حدث خطأ أثناء حفظ كلمة السر.');
             }
+        };
+
+        // دالة حفظ وبث نص الشريط المتحرك (الباندو)
+        window.saveAdminTickerText = async function() {
+            let tickerText = document.getElementById('adminTickerInput').value.trim();
+            if(!tickerText) { showCustomAlert('الرجاء كتابة النص أولاً!'); return; }
+            try {
+                await window.setDoc(window.doc(window.db, "settings", "admin_config"), {
+                    tickerText: tickerText
+                }, { merge: true });
+                showCustomAlert('✅ تم تحديث وبث الشريط المتحرك للجميع بنجاح!');
+            } catch(e) {
+                showCustomAlert('❌ فشل حفظ الشريط المتحرك.');
+            }
+        };
+
+        // دالة حفظ وبث أو إيقاف النافذة المنبثقة لكل الناس
+        window.saveAndPublishPopup = async function(isActive) {
+            let title = document.getElementById('adminPopupTitleInput').value.trim();
+            let msg = document.getElementById('adminPopupMsgInput').value.trim();
+
+            if(isActive && (!title || !msg)) {
+                showCustomAlert('الرجاء كتابة العنوان ونص الرسالة أولاً للإرسال!');
+                return;
+            }
+
+            try {
+                await window.setDoc(window.doc(window.db, "settings", "admin_config"), {
+                    popupActive: isActive,
+                    popupTitle: title || "تنبيه هام",
+                    popupMsg: msg || ""
+                }, { merge: true });
+                
+                if(isActive) {
+                    showCustomAlert('✅ تم إرسال ونشر النافذة المنبثقة لجميع الزوار بنجاح!');
+                } else {
+                    showCustomAlert('🛑 تم إيقاف وإخفاء النافذة المنبثقة بنجاح.');
+                    document.getElementById('adminGlobalPopupModal').style.display = 'none';
+                }
+            } catch(e) {
+                showCustomAlert('❌ حدث خطأ أثناء تحديث النافذة المنبثقة.');
+            }
+        };
+
+        window.closeAdminGlobalPopup = function() {
+            document.getElementById('adminGlobalPopupModal').style.display = 'none';
         };
 
         window.toggleMobileSidebar = function() {
@@ -1643,19 +1724,38 @@
                 renderStoresList();
             });
 
+            // جامع إعدادات الموقع والشريط المتحرك والنافذة المنبثقة من فايربيس بشكل حي
+            window.onSnapshot(window.collection(window.db, "settings"), (snap) => {
+                snap.forEach(d => {
+                    if(d.id === "admin_config") {
+                        let config = d.data();
+                        
+                        // تحديث نص الشريط المتحرك (Ticker) حيّاً
+                        if(config.tickerText) {
+                            let ticker = document.getElementById('flashTickerBox');
+                            if(ticker) ticker.innerHTML = config.tickerText;
+                            let inputEl = document.getElementById('adminTickerInput');
+                            if(inputEl && !inputEl.value) inputEl.value = config.tickerText;
+                        }
+
+                        // إدارة ظهور وإخفاء النافذة المنبثقة (Popup) للجميع
+                        let popupModal = document.getElementById('adminGlobalPopupModal');
+                        if(config.popupActive && config.popupMsg) {
+                            document.getElementById('adminPopupTitleDisplay').innerText = config.popupTitle || "تنبيه هام";
+                            document.getElementById('adminPopupTextDisplay').innerHTML = config.popupMsg.replace(/\n/g, '<br>');
+                            if(popupModal) popupModal.style.display = 'flex';
+                        } else {
+                            if(popupModal) popupModal.style.display = 'none';
+                        }
+                    }
+                });
+            });
+
             window.onSnapshot(window.collection(window.db, "products"), (snap) => {
                 cachedProductsList = [];
                 snap.forEach(d => cachedProductsList.push(d.data()));
                 localStorage.setItem('cache_products', JSON.stringify(cachedProductsList));
                 renderStoresList();
-
-                if(cachedProductsList.length > 0) {
-                    let latest = cachedProductsList[cachedProductsList.length - 1];
-                    let ticker = document.getElementById('flashTickerBox');
-                    if(ticker) {
-                        ticker.innerHTML = `⚡ عروض جديدة: <b>${latest.name}</b> لدى متجر <b>${latest.merchantName}</b> (${latest.merchantCity}) &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 🔥 تصفح بقية عروض الأسبوع في قسم التخفيضات الآن!`;
-                    }
-                }
             });
         }
 
